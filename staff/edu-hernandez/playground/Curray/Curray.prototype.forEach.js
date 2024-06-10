@@ -1,6 +1,11 @@
 var Curray = require('./Curray')
+require('./Curray.prototype.forEach')
 
-Curray.prototype.forEach = function (callback) {
+console.info('TEST forEach')
+
+var chars = 
+
+Array.forEach = function (callback) {
     for (var i = 0; i < this.length; i ++) {
         var elem = this[i]
 
