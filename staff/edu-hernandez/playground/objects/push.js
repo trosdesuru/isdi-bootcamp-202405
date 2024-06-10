@@ -23,7 +23,7 @@ cars.push = function(element) {
     
     return this.length;
     // return ++this.length
-};
+}
 
 var count = cars.push({ brand: 'Ford', model: 'fiesta', year: 2005}))
 
