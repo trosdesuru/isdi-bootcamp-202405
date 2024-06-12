@@ -1,0 +1,97 @@
+/* Global Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+.container {
+  width: 70%;
+  margin: auto;
+  background: #fff;
+  padding: 20px 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Header Styles */
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5em;
+  color: #333;
+}
+
+header p {
+  margin: 5px 0;
+  font-size: 1.2em;
+  color: #666;
+}
+
+header p strong {
+  color: #333;
+}
+
+/* Section Styles */
+section {
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #333;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+
+/* Experience Styles */
+.experience {
+  margin-bottom: 20px;
+}
+
+.experience h3 {
+  margin: 0;
+  font-size: 1.2em;
+  color: #666;
+}
+
+.job-title {
+  font-style: italic;
+  color: #999;
+}
+
+/* Education Styles */
+.education h3 {
+  margin: 0;
+  font-size: 1.2em;
+  color: #666;
+}
+
+.degree {
+  font-style: italic;
+  color: #999;
+}
+
+/* Skills and Languages Styles */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Left bar fot list items */
+/* ul li {
+  background: #eee;
+  margin: 5px 0;
+  padding: 10px;
+  border-left: 5px solid #333;
+  color: #333;
+  font-size: 1.1em;
+} */
