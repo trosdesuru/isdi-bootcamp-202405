@@ -1,5 +1,11 @@
+
+/* REGEX Validate email input*/
 var EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
+
+/* REGEX Validate Name imput*/
 var NAME_REGEX = /^(?!.*\s{2})[a-zA-Z ]{3,16}$/
+
+/* REGEX Validate username input*/
 var USER_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/
 
 function registerUser(name, surname, email, username, password, passwordRepeat) {
@@ -48,4 +54,4 @@ function registerUser(name, surname, email, username, password, passwordRepeat) 
     users.push(user)
 
     localStorage.users = JSON.stringify(users)
-}
+}/*
