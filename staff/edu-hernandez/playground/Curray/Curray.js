@@ -12,4 +12,4 @@ function Curray() {
     }
 }
 
-module.exports = Curray
+module.exports = Curray 

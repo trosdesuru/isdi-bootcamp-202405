@@ -1,35 +1,25 @@
-console.log('TEST at')
+console.log('TEST AT')
 
 console.log('CASE element at index')
 
-var nums = [5, 12, 8, 130, 44]
+var numeros = [5, 12, 8, 130, 44]
 
-console.log(nums)
+console.log(numeros)
 // [5, 12, 8, 130, 44]
-console.log(nums.length)
+console.log(numeros.length)
 // 5
 
-var num = nums.at(3)
+var num = numeros.at(3)
 
 console.log(num)
 // 130
 
-var num = nums.at(0)
-
-console.log(num)
-// 5
-
-var num = nums.at(-3)
+var num = numeros.at(-3)
 
 console.log(num)
 // 8
 
-var num = nums.at(100)
-
-console.log(num)
-// undefined
-
-var num = nums.at(-100)
+var num = numeros.at(100)
 
 console.log(num)
 // undefined

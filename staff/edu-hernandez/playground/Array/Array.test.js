@@ -41,3 +41,4 @@ console.assert(a[0] === 10, 'a at 0 is 10')
 console.assert(a[1] === 20, 'a at 1 is 20')
 console.assert(a.length === 2, 'a length is 2')
 
+//TODO nuevo ejemplo

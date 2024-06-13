@@ -35,7 +35,9 @@ Curray.prototype.splice = function (fromIndex, removeCount, element) {
         this[fromIndex] = element
 
         return removed
+
     } else if (removeCount === 3) {
+
         var removed = new Curray
 
         for (var i = fromIndex; i < fromIndex + removeCount; i++)
@@ -43,22 +45,14 @@ Curray.prototype.splice = function (fromIndex, removeCount, element) {
 
         removed.length = removeCount
 
-        // fromIndex -> 4
-        // removeCount -> 3
-        // element -> watermelon
+        for (var i = fromIndex + removeCount; i < this.length; i++)
+            this[i - (removeCount - 1)] = this[i]
 
-        // this -> Curray { 0: 'apple', 1: 'orange', 2: 'lemon', 3: 'banana', 4: 'coco', 5: 'strawberry', 6: 'pinapple', 7: 'peach', 8: 'acai', 9: 'papaya', length: 10 }
+        this[fromIndex] = element
 
-        // TODO correct following code to support new test case
-
-        this[fromIndex + 1] = this[this.length - 1] // ?
-        for (var i = fromIndex + removeCount - 1; i < this.length - 1; i++)
-            delete this[i]
-
-        this.length = this.length - (removeCount - 1) // ?
-
-        this[fromIndex] = element // ?
+        this.length = this.length - (removeCount - 1)
 
         return removed
+
     }
 }

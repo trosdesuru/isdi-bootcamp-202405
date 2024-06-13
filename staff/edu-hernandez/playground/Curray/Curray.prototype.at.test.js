@@ -1,9 +1,9 @@
 var Curray = require('./Curray')
 require('./Curray.prototype.at')
 
-console.info('TEST Curray.prototye.at')
+console.info('TEST Curray.prototype.at')
 
-console.info('CASE element a positive index')
+console.info('CASE element positive index')
 
 var nums = new Curray(5, 12, 8, 130, 44)
 
@@ -25,7 +25,7 @@ var nums = new Curray(5, 12, 8, 130, 44)
 
 var num = nums.at(-3)
 
-console.assert(num === 8, 'num i 8')
+console.assert(num === 8, 'num is 8')
 
 console.info('CASE element a positive index greater than length')
 

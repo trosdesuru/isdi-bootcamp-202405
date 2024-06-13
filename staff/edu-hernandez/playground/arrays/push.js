@@ -1,4 +1,4 @@
-console.log('TEST push')
+console.log('TEST PUSH')
 
 console.log('CASE push an element to array')
 
@@ -13,16 +13,14 @@ console.log(cars)
 console.log(cars.length)
 // 3
 
-var count = cars.push({ brand: 'ford', model: 'fiesta', year: 2005 })
+cars.push({ brand: 'ford', model: 'fiesta', year: 2005 })
 
 console.log(cars)
 // [{...}, {...}, {...}, {...}]
 console.log(cars.length)
 // 4
-console.log(count)
-// 4
 
-console.log('CASE push multiple elements to array')
+console.log('CASE push many elements to array')
 
 var animals = ['pigs', 'goats', 'sheep', 'cows']
 
@@ -31,10 +29,10 @@ console.log(animals)
 console.log(animals.length)
 // 4
 
-var count = animals.push('chickens', 'cats', 'dogs')
+var count = animals.push('chicken', 'cats', 'dogs')
 
 console.log(animals)
-// ['pigs', 'goats', 'sheep', 'cows', 'chickens', 'cats', 'dogs']
+// ['pigs', 'goats', 'sheep', 'cows', 'chicken', 'cats', 'dogs']
 console.log(animals.length)
 // 7
 console.log(count)

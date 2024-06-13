@@ -1,4 +1,4 @@
-console.info('TEST forEach')
+console.info('TEST Array.prototype.forEach')
 
 console.info('CASE copy chars into new array')
 
@@ -64,5 +64,3 @@ console.assert(results[2] === 0.14792899408284024, 'results at 2 is 0.1479289940
 console.assert(results[3] === 16.642011834319526, 'results at 3 is 16.642011834319526')
 console.assert(results[4] === 3.698224852071006, 'results at 4 is 3.698224852071006')
 console.assert(results[5] === 73.96449704142012, 'results at 5 is 73.96449704142012')
-
-

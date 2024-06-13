@@ -5,7 +5,7 @@ console.info('TEST push')
 
 console.info('CASE push an element to Curray')
 
-var cars = new Curray
+var cars = new Array
 
 cars[0] = { brand: 'ferrari', model: 'gto', year: 1990 }
 cars[1] = { brand: 'lamborghini', model: 'murcielago', year: 2010 }

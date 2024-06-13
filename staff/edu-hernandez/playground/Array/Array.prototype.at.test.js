@@ -1,4 +1,4 @@
-console.info('TEST Array.prototye.at')
+console.info('TEST Array.prototype.at')
 
 console.info('CASE element a positive index')
 
@@ -22,9 +22,9 @@ var nums = [5, 12, 8, 130, 44]
 
 var num = nums.at(-3)
 
-console.assert(num === 8, 'num i 8')
+console.assert(num === 8, 'num is 8')
 
-console.info('CASE element a positive index greater than length')
+console.info('CASE element a psoitive index grater than length')
 
 var nums = [5, 12, 8, 130, 44]
 

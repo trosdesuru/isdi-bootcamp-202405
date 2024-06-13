@@ -1,4 +1,4 @@
-console.log('TEST concat')
+console.log('TEST CONCAT')
 
 console.log('CASE concat elements from two objects')
 
@@ -6,9 +6,9 @@ var chars1 = { 0: 'a', 1: 'b', 2: 'c', length: 3 }
 var chars2 = { 0: 'd', 1: 'e', 2: 'f', length: 3 }
 
 console.log(chars1)
-// { 0: 'a', 1: 'b', 2: 'c', length: 3 }
+// { 0: 'a', 1: 'b', 2: 'c', length: 3}
 console.log(chars2)
-// { 0: 'd', 1: 'e', 2: 'f', length: 3 }
+// { 0: 'd', 1: 'e', 2: 'f', length: 3}
 
 chars1.concat = function (object) {
     var newObject = { length: 0 }
@@ -31,9 +31,9 @@ chars1.concat = function (object) {
 var chars3 = chars1.concat(chars2)
 
 console.log(chars1)
-// { 0: 'a', 1: 'b', 2: 'c', length: 3 }
+// { 0: 'a', 1: 'b', 2: 'c', length: 3}
 console.log(chars2)
-// { 0: 'd', 1: 'e', 2: 'f', length: 3 }
+// { 0: 'd', 1: 'e', 2: 'f', length: 3}
 console.log(chars3)
 // { 0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e', 5: 'f', length: 6 }
 
@@ -46,26 +46,31 @@ var nums4 = { 0: 800, 1: 900, length: 2 }
 var nums5 = { 0: -1000, length: 1 }
 
 nums1.concat = function () {
-    // TODO implement me (USE this, arguments)
-    var res = { length: 0 }
+
+    var newObject = { length: 0 }
 
     for (var i = 0; i < this.length; i++) {
         var elem = this[i]
 
-        res[res.length++] = elem
+        newObject[newObject.length++] = elem
     }
 
     for (var i = 0; i < arguments.length; i++) {
+
         var argument = arguments[i]
 
         for (var j = 0; j < argument.length; j++) {
+
             var elem = argument[j]
 
-            res[res.length++] = elem
+            newObject[newObject.length++] = elem
+
         }
+
     }
 
-    return res
+    return newObject
+
 }
 
 var nums6 = nums1.concat(nums2, nums3, nums4, nums5)
