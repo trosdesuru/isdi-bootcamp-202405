@@ -23,5 +23,5 @@ var a = document.querySelector('a')
 a.onclick = function (event) {
     event.preventDefault()
 
-    window.location.href = '../register'
+    location.href = '../register'
 }
