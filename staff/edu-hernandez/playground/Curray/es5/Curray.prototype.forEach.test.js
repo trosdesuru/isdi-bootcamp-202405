@@ -1,15 +1,15 @@
-<<<<<<< HEAD
-console.info('TEST ')
-=======
+var Curray = require('./Curray')
+require('./Curray.prototype.forEach')
+
 console.info('TEST forEach')
 
 console.info('CASE copy chars into new array')
 
-var chars = ['a', 'b', 'c']
-var copy = []
+var chars = new Curray('a', 'b', 'c')
+var copy = new Curray
 
 chars.forEach(function (element) {
-    copy[copy.length] = element
+    copy[copy.length++] = element
 })
 
 console.assert(copy.length === chars.length, 'copy length equals chars length')
@@ -19,15 +19,24 @@ console.assert(copy[2] === chars[2], 'copy at 2 equals chars at 2')
 
 console.info('CASE copy chars with index and self-reference into new array')
 
-var chars = ['a', 'b', 'c']
-var copy = []
-var indexes = []
-var arrays = []
+var chars = new Curray('a', 'b', 'c')
+var copy = new Curray
+var indexes = new Curray
+var arrays = new Curray
 
 chars.forEach(function (element, index, array) {
-    copy[copy.length] = element
-    indexes[indexes.length] = index
-    arrays[arrays.length] = array
+    // copy[copy.length++] = element
+    // indexes[indexes.length++] = index
+    // arrays[arrays.length++] = array
+
+    copy[index] = element
+    copy.length++
+
+    indexes[index] = index
+    indexes.length++
+
+    arrays[index] = array
+    arrays.length++
 })
 
 console.assert(copy.length === chars.length, 'copy length equals chars length')
@@ -46,8 +55,8 @@ console.assert(arrays[2] === chars, 'arrays at 2 equals chars')
 
 console.info('CASE calculate percentages')
 
-var amounts = [100, 50, 4, 450, 100, 2000]
-var results = []
+var amounts = new Curray(100, 50, 4, 450, 100, 2000)
+var results = new Curray
 
 amounts.forEach(function (amount, index, amounts) {
     var total = 0
@@ -57,6 +66,7 @@ amounts.forEach(function (amount, index, amounts) {
     })
 
     results[index] = amount / total * 100
+    results.length++
 })
 
 console.assert(results.length === amounts.length, 'results length equals amounts length')
@@ -69,4 +79,3 @@ console.assert(results[4] === 3.698224852071006, 'results at 4 is 3.698224852071
 console.assert(results[5] === 73.96449704142012, 'results at 5 is 73.96449704142012')
 
 
->>>>>>> 08b1ada5a17a839d33b942755b256e124649b9b6
