@@ -13,7 +13,6 @@ class Human extends Animal {
         return '🤓 ' + text
     }
 
-    // overrides Animal.prototype.toString
     toString() {
         return Human.name + ' { birthdate: ' + this.birthdate + ', name: ' + this.name + ', surname: ' + this.surname + ', gender: ' + this.gender + ' }'
     }
