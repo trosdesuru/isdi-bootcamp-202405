@@ -1,27 +1,29 @@
-var form = document.querySelector('form')
+(function () {
+    var loginForm = new Form('form')
 
-form.onsubmit = function (event) {
-    event.preventDefault()
+    loginForm.onSubmit(function (event) {
+        event.preventDefault()
 
-    var usernameInput = document.getElementById('username-input')
-    var passwordInput = document.getElementById('password-input')
+        var usernameInput = document.getElementById('username-input')
+        var passwordInput = document.getElementById('password-input')
 
-    var username = usernameInput.value
-    var password = passwordInput.value
+        var username = usernameInput.value
+        var password = passwordInput.value
 
-    try {
-        loginUser(username, password)
+        try {
+            loginUser(username, password)
 
-        location.href = '../home'
-    } catch (error) {
-        alert(error.message)
-    }
-}
+            location.href = '../home'
+        } catch (error) {
+            alert(error.message)
+        }
+    })
 
-var a = document.querySelector('a')
+    var registerLink = new Link('a')
 
-a.onclick = function (event) {
-    event.preventDefault()
+    registerLink.onClick(function (event) {
+        event.preventDefault()
 
-    location.href = '../register'
-}
+        location.href = '../register'
+    })
+})()
