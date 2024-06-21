@@ -13,11 +13,6 @@ function traverse(element) {
             parent = parent.parentElement
         }
 
-        //if (element.tagName && element.tagName.includes('-'))
-        //  alert('custom element detected: ' + element.tagName)
-
-        //console.log('\t'.repeat(parentCount) + element.tagName)
-
         elementTree += '\t'.repeat(parentCount) + element.tagName + '\n'
 
         var children = element.children
