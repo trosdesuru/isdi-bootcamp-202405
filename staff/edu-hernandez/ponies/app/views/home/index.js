@@ -179,7 +179,6 @@
         createPostForm.onsubmit = function (event) {
             event.preventDefault()
 
-            //var postImageInput = document.getElementById('post-image-input')
             var postImage = postImageInput.value
             var postCaption = postCaptionInput.value
 
