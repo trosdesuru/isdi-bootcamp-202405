@@ -13,7 +13,6 @@ class Component {
         this.container.appendChild(child.container)
     }
 
-
     setText(text) {
         if (typeof text !== 'string')
             throw new TypeError('text is not a string')
@@ -34,17 +33,6 @@ class Component {
 
         this.container.style.color = color
     }
-
-    alignItems() {
-        this.container.style.display = 'flex'
-        this.container.style.justifyContent = 'space-around'
-    }
-
-    displayColumn() {
-        this.container.style.display = 'flex'
-        this.container.style.flex
-    }
-
 }
 
 class List extends Component {
@@ -65,10 +53,9 @@ class ListItem extends Component {
 
 const view = new Component(document.body)
 view.setBackgroundColor('black')
-view.alignItems()
 
 const colorList = new List // new List()
-colorList.setStyleType('square')
+colorList.setStyleType('decimal')
 
 const redColorItem = new ListItem
 redColorItem.setText('Red')
