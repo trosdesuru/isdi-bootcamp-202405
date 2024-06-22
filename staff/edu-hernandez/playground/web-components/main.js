@@ -35,6 +35,8 @@ class Component {
         this.container.style.color = color
     }
 
+    // Added justify Content option for each List created
+
     justifyContent(align) {
         if (typeof align !== 'string')
             throw new TypeError('align is not a string')
@@ -60,9 +62,6 @@ class List extends Component {
     setStyleType(style) {
         this.container.style.listStyleType = style
     }
-
-    // Added justify Content option for each List created
-
 }
 
 class ListItem extends Component {

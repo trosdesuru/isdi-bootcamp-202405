@@ -31,7 +31,7 @@ class Component {
     /* -- Create COLOR METHOD -- */
     setColor(color) {
         if (typeof color !== 'string')
-    threw new TypeError('color is not a string')
+    throw new TypeError('color is not a string')
 
         this.container.style.color = color
 
