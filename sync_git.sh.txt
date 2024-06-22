@@ -1,0 +1,44 @@
+#!/bin/zsh
+
+# URL del repositorio remoto en GitHub
+remote_repo="https://github.com/trosdesuru/isdi-bootcamp-202405.git"
+
+# Función para verificar la existencia y el estado del repositorio remoto
+check_remote_repo() {
+    # Verificar la existencia del repositorio y si tiene commits
+    if git ls-remote "$remote_repo" HEAD &>/dev/null; then
+        echo "Repositorio remoto encontrado y accesible."
+        return 0
+    else
+        echo "Error: Repositorio remoto no encontrado o vacío."
+        return 1
+    fi
+}
+
+# Función para actualizar todas las ramas locales con la versión remota
+update_branches() {
+    git fetch origin  # Obtener todas las actualizaciones del repositorio remoto
+
+    # Lista de ramas locales a sincronizar
+    local_branches=(
+        "develop"
+        "feature/playground"
+        "feature/ponies"
+        "main"
+    )
+
+    # Iterar sobre todas las ramas locales y actualizarlas
+    for local_branch in "${local_branches[@]}"; do
+        git checkout $local_branch
+        git pull origin $local_branch
+    done
+
+    echo "Todas las ramas locales han sido actualizadas."
+}
+
+# Ejecutar el proceso de sincronización
+if check_remote_repo; then
+    update_branches
+else
+    echo "No se pudo sincronizar debido a problemas con el repositorio remoto."
+fi
