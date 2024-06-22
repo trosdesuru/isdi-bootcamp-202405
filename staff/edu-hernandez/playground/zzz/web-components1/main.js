@@ -1,75 +1,32 @@
-
+/* </> < >< > < > CREATE CLASS (CONSTRUCTOR) < > </> */
 class Component {
     constructor(container) {
         this.container = container
     }
-
-
-
-    add(child) {
-        if (!(child instanceof Component))
-            throw new TypeError('child is not a Component')
-
-        this.container.appendChild(child.container)
-    }
-
-    setText(text) {
-        if (typeof text !== 'string')
-            throw new TypeError('text is not a string')
-
-        this.container.innerText = text
-    }
-
-    setBackgroundColor(color) {
-        if (typeof color !== 'string')
-            throw new TypeError('color is not a string')
-
-        this.container.style.backgroundColor = color
-    }
-
-    setColor(color) {
-        if (typeof color !== 'string')
-            throw new TypeError('color is not a string')
-
-        this.container.style.color = color
-    }
 }
 
-class List extends Component {
-    constructor() {
-        super(document.createElement('ul'))
-    }
+/* </> < >< > < > CREATE BODY SECTION < > </> */
+const view = new Component(document.body) // document.body referenced from 'chrome'
+view.container.style.backgroundColor = 'black' // Background Color
 
-    setStyleType(style) {
-        this.container.style.listStyleType = style
-    }
-}
+/* </> < >< > < > CREATE UNORDERED LIST < > </> */
+const colorList = new Component(document.createElement('ul')) // Color List created
 
-class ListItem extends Component {
-    constructor() {
-        super(document.createElement('li'))
-    }
-}
+    /* -- List Items -- */
+const redColorItem = new Component(document.createElement('li'))
+redColorItem.innerText = 'red' // Item List Text
+redColorItem.container.style.color = 'tomato' // Color Item
+colorList.container.appendChild(redColorItem.container) // Need to understand..
 
-const view = new Component(document.body)
-view.setBackgroundColor('black')
+const blueColorItem = new Component(document.createElement('li'))
+blueColorItem.innerText = 'blue'
+blueColorItem.container.style.color = 'dodgerblue'
+colorList.container.appendChild(blueColorItem.container)
 
-const colorList = new List // new List()
-colorList.setStyleType('decimal')
+const yellowColorItem = new Component(document.createElement('li'))
+yellowColorItem.innerText = 'gold'
+colorList.container.appendChild(yellowColorItem)
 
-const redColorItem = new ListItem
-redColorItem.setText('Red')
-redColorItem.setColor('tomato')
-colorList.add(redColorItem)
+/* </> < >< > < >  < > </> */
 
-const blueColorItem = new ListItem
-blueColorItem.setText('Blue')
-blueColorItem.setColor('dodgerblue')
-colorList.add(blueColorItem)
-
-const yellowColorItem = new ListItem
-yellowColorItem.setText('yellow')
-yellowColorItem.setColor('gold')
-colorList.add(yellowColorItem)
-
-view.add(colorList)
+view.container.appendChild(colorList.container) // 
