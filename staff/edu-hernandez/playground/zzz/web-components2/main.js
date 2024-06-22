@@ -1,97 +1,66 @@
-
+/* </> < >< > < > CREATE CLASS (COMPONENT ->container) < > </> */
 class Component {
     constructor(container) {
-        this.container = container
+        this.container = container // this(-> body).container(-> component)
     }
 
+    /* -- Create ADD METHOD -- */
+    add(child) { // child it'll be the new add method, named to use in Component
+        if (!(child instanceof Component)) // Validation: child is an instance of Component
+            throw new TypeError('child is not a Component') // TypError: Type of file error 
 
-
-    add(child) {
-        if (!(child instanceof Component))
-            throw new TypeError('child is not a Component')
-
-        this.container.appendChild(child.container)
+        this.container.appendChild(child.container) // create child from Component
     }
 
-
-    setText(text) {
+    /* -- Create TEXT METHOD -- */
+    setText(text) { // Text it'll be the new setText method
         if (typeof text !== 'string')
-            throw new TypeError('text is not a string')
+            throw new TypeError('text is not a string') // Validation when it´ll be used text method
 
         this.container.innerText = text
     }
 
-    setBackgroundColor(color) {
-        if (typeof color !== 'string')
+    /* -- Create BACKGROUNDCOLOR METHOD -- */
+    setBackgroundColor(color) { // name color expected passed as argument
+        if (typeof backgroundColor !== 'string') // typeof determines type of variable
             throw new TypeError('color is not a string')
 
         this.container.style.backgroundColor = color
     }
 
+    /* -- Create COLOR METHOD -- */
     setColor(color) {
         if (typeof color !== 'string')
-            throw new TypeError('color is not a string')
+    threw new TypeError('color is not a string')
 
         this.container.style.color = color
-    }
 
-    justifyContent(align) {
-        if (typeof align !== 'string')
-            throw new TypeError('align is not a string')
-
-        this.container.style.justifyContent = align
-    }
-
-    // Added flex-direction option for each List created
-
-    flexDirection(direction) {
-        if (typeof direction !== 'string')
-            throw new TypeError('direction is not a string')
-
-        this.container.style.flexDirection; direction
     }
 }
 
-class List extends Component {
-    constructor() {
-        super(document.createElement('ul'))
-    }
-
-    setStyleType(style) {
-        this.container.style.listStyleType = style
-    }
-
-    // Added justify Content option for each List created
-
-}
-
-class ListItem extends Component {
-    constructor() {
-        super(document.createElement('li'))
-    }
-}
+/* </> < >< > < > ADD COMPONENTS AND ITEMS < > </> */
 
 const view = new Component(document.body)
-view.setBackgroundColor('black')
-view.alignItems('')
-view.flexDirection('column')
+view.setBackgroundColor('grey') // color passed as parameter
 
-const colorList = new List // new List()
-colorList.setStyleType('square')
+const colorList = new Component(document.createElement('ul'))
 
-const redColorItem = new ListItem
+/* -- Create List Item -- */
+const redColorItem = new Component(document.createElement('li'))
 redColorItem.setText('Red')
 redColorItem.setColor('tomato')
 colorList.add(redColorItem)
 
-const blueColorItem = new ListItem
+/* -- Create List Item -- */
+const blueColorItem = new Component(document.createElement('li'))
 blueColorItem.setText('Blue')
 blueColorItem.setColor('dodgerblue')
 colorList.add(blueColorItem)
 
-const yellowColorItem = new ListItem
-yellowColorItem.setText('yellow')
+/* -- Create List Item -- */
+const yellowColorItem = new Component('li')
+yellowColorItem.setText('Yellow')
 yellowColorItem.setColor('gold')
 colorList.add(yellowColorItem)
 
-view.add(colorList)
+view.add(colorList) // Added to view(->body)

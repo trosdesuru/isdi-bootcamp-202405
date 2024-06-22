@@ -27,6 +27,9 @@ const yellowColorItem = new Component(document.createElement('li'))
 yellowColorItem.innerText = 'gold'
 colorList.container.appendChild(yellowColorItem)
 
-/* </> < >< > < >  < > </> */
+/* </> < >< > < > CREATE NODE CHILD < > </> */
 
-view.container.appendChild(colorList.container) // 
+view.container.appendChild(colorList.container)
+
+/*  # Node: HTML element and Document Objects Model(DOM).
+Created noted child from "view(->body).container(->Component)" */
