@@ -78,13 +78,14 @@ section h2 {
   padding: 10px 0;
   width: 100%;
 } */
-
+/* </></></> ALL STYLES (*) </></></> */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* </></></> BODY SECTION </></></> */
 body {
   font-family: Arial, 'Helvetica', sans-serif;
   font-weight: lighter;
@@ -99,6 +100,7 @@ body {
   flex-direction: column;
 }
 
+/* </></></> HEADER SECTION </></></> */
 #header-1 {
   background-color: blue;
 }
@@ -110,6 +112,8 @@ body {
   background-color: blueviolet;
 }
 
+
+/* </></></> MAIN SECTION </></></> */
 main {
 }
 
@@ -132,7 +136,7 @@ main {
   display: flex;
   flex-direction: column;
 }
-
+/* </></></> FOOTER SECTION </></></> */
 .footer {
   background-color: #333;
   color: white;

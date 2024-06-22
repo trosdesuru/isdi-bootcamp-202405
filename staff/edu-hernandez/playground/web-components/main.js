@@ -35,16 +35,21 @@ class Component {
         this.container.style.color = color
     }
 
-    alignItems() {
-        this.container.style.display = 'flex'
-        this.container.style.justifyContent = 'space-around'
+    justifyContent(align) {
+        if (typeof align !== 'string')
+            throw new TypeError('align is not a string')
+
+        this.container.style.justifyContent = align
     }
 
-    displayColumn() {
-        this.container.style.display = 'flex'
-        this.container.style.flex
-    }
+    // Added flex-direction option for each List created
 
+    flexDirection(direction) {
+        if (typeof direction !== 'string')
+            throw new TypeError('direction is not a string')
+
+        this.container.style.flexDirection; direction
+    }
 }
 
 class List extends Component {
@@ -55,6 +60,9 @@ class List extends Component {
     setStyleType(style) {
         this.container.style.listStyleType = style
     }
+
+    // Added justify Content option for each List created
+
 }
 
 class ListItem extends Component {
@@ -65,7 +73,8 @@ class ListItem extends Component {
 
 const view = new Component(document.body)
 view.setBackgroundColor('black')
-view.alignItems()
+view.alignItems('')
+view.flexDirection('column')
 
 const colorList = new List // new List()
 colorList.setStyleType('square')
