@@ -51,7 +51,7 @@ redColorItem.setText('Red')
 redColorItem.setColor('tomato')
 colorList.add(redColorItem)
 
-/* -- Create List Item -- */
+/* -- Create List Item (blue) -- */
 const blueColorItem = new Component(document.createElement('li'))
 blueColorItem.setText('Blue')
 blueColorItem.setColor('dodgerblue')
