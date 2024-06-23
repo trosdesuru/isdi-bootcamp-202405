@@ -1,3 +1,5 @@
+
+// NEW TYPE STATIC HTML ELEMENT
 class HelloWorld extends HTMLElement {
     constructor() {
         super()
@@ -6,11 +8,13 @@ class HelloWorld extends HTMLElement {
     connectedCallback() {
         const h1 = document.createElement('h1')
 
-        h1.innerText = 'Hello, World!'
+        h1.innerText = 'Hello, World'
+        this.innerText = ''
 
         this.appendChild(h1)
 
-        h1.style.backgroundColor = 'red'
+        h1.style.backgroundColor = 'DarkSalmon'
+        h1.style.color = 'White'
     }
 }
 
@@ -24,12 +28,13 @@ class HelloTo extends HTMLElement {
     connectedCallback() {
         const h1 = document.createElement('h1')
 
-        h1.innerText = 'Hello to ' + this.innerText + '!'
+        h1.innerText = 'Hello ' + this.innerText + '!'
         this.innerText = ''
 
+        h1.style.backgroundColor = 'orange'
+        
         this.appendChild(h1)
 
-        h1.style.backgroundColor = 'orange'
     }
 }
 
@@ -40,7 +45,8 @@ class HelloTo2 extends HTMLElement {
         super()
     }
 
-    connectedCallback() {
+
+    connectedcallback() {
         const h1 = document.createElement('h1')
 
         const name = this.getAttribute('name')
@@ -49,7 +55,6 @@ class HelloTo2 extends HTMLElement {
 
         this.appendChild(h1)
     }
-
 }
 
 window.customElements.define('hello-to2', HelloTo2)
