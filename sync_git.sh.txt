@@ -5,19 +5,20 @@ remote_repo="https://github.com/trosdesuru/isdi-bootcamp-202405.git"
 
 # Function to check the existence and status of the remote repository
 check_remote_repo() {
-    # Check if the repository exists and has commits
+    echo "Checking if the remote repository exists and is accessible..."
     if git ls-remote "$remote_repo" HEAD &>/dev/null; then
-        echo -e "\033[32mRemote repository found and accessible.\033[0m"
+        echo -ne "\033[32mRemote repository found and accessible.\033[0m\n"
         return 0
     else
-        echo -e "\033[31mError: Remote repository not found or empty.\033[0m"
+        echo -ne "\033[31mError: Remote repository not found or empty.\033[0m\n"
         return 1
     fi
 }
 
 # Function to update all local branches with the remote version
 update_branches() {
-    git fetch origin  # Fetch all updates from the remote repository
+    echo "Fetching updates from the remote repository..."
+    git fetch origin &>/dev/null  # Fetch all updates from the remote repository
 
     # List of local branches to synchronize
     local_branches=(
@@ -27,44 +28,46 @@ update_branches() {
         "main"
     )
 
+    total_branches=${#local_branches[@]}
+    current_branch=0
+
     # Iterate over all local branches and update them
     for local_branch in "${local_branches[@]}"; do
-        git checkout $local_branch
-        git pull origin $local_branch
+        echo "Switching to branch '$local_branch'..."
+        git checkout $local_branch &>/dev/null
+
+        echo "Pulling latest changes for branch '$local_branch' from remote repository..."
+        git pull origin $local_branch &>/dev/null
+
+        current_branch=$((current_branch + 1))
+        progress_bar $current_branch $total_branches "Updating branch: $local_branch"
     done
 
-    echo -e "\033[32mAll local branches have been updated.\033[0m"
+    echo -ne "\033[32mAll local branches have been updated.\033[0m\n"
 }
 
 # Function to display a progress bar
 progress_bar() {
-    local duration=$1
-    local increment=2
-    local progress=0
-    local completed=0
-    local total=50
+    local current=$1
+    local total=$2
+    local message=$3
+    local progress=$((current * 100 / total))
+    local completed=$((progress / 2))
+    local remaining=$((50 - completed))
 
-    echo -n "["
-    while [ $progress -le $total ]; do
-        for i in $(seq 1 $progress); do echo -n "#"; done
-        for i in $(seq $((progress + 1)) $total); do echo -n " "; done
-        echo -n "] $((progress * 2))%"
-        sleep $increment
-        progress=$((progress + 1))
-        if [ $progress -gt $total ]; then
-            break
-        fi
-        echo -ne "\r["
-    done
-    echo
+    printf -v bar "%${completed}s" ""
+    bar=${bar// /#}
+    printf -v spaces "%${remaining}s" ""
+    echo -ne "\r[${bar}${spaces}] ${progress}%% - ${message}"
 }
 
 # Execute the synchronization process
+clear
+echo "Starting synchronization process..."
 if check_remote_repo; then
     echo "Updating local branches..."
-    progress_bar 50
     update_branches
 else
-    echo -e "\033[31mFailed to synchronize due to issues with the remote repository.\033[0m"
+    echo -ne "\033[31mFailed to synchronize due to issues with the remote repository.\033[0m\n"
 fi
 
