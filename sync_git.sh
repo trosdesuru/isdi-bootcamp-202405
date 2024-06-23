@@ -70,4 +70,3 @@ if check_remote_repo; then
 else
     echo -ne "\033[31mFailed to synchronize due to issues with the remote repository.\033[0m\n"
 fi
-
