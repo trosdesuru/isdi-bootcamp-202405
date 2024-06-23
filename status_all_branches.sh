@@ -1,40 +1,96 @@
-#!/bin/bash
+#!/bin/zsh
 
-# Obtener la lista de todas las ramas locales y remotas
+# program name: status_all_branches.sh
+# version control: version 2.0
+# author: trosdesuru - Eduard Hernández
+# github : https://github.com/trosdesuru
+
+# Color definitions
+GREEN="\033[32m"
+RED="\033[31m"
+WHITE="\033[37m"
+LIGHTGREY="\033[37;2m"
+RESET="\033[0m"
+
+# Function to display a progress bar
+progress_bar() {
+    local current=$1
+    local total=$2
+    local progress=$((current * 100 / total))
+    local completed=$((progress / 2))
+    local remaining=$((50 - completed))
+
+    printf -v bar "%${completed}s" ""
+    bar=${bar// /#}
+    printf -v spaces "%${remaining}s" ""
+    echo -ne "\r[${bar}${spaces}] ${progress}%%"
+}
+
+# Get the list of all local and remote branches
 branches=$(git branch -a --list '*')
+total_branches=$(echo "$branches" | wc -l)
+current_branch=0
 
-# Iterar sobre cada rama y obtener el status
+# Summary of tasks
+summary=""
+
+# Iterate over each branch and get its status
 while IFS= read -r branch; do
-    # Verificar si es una rama remota (comienza con "remotes/upstream/")
+    current_branch=$((current_branch + 1))
+    branch_status=""
+
     if [[ $branch == remotes/upstream/* ]]; then
-        # Obtener el nombre de la rama remota
         remote_branch=${branch#remotes/upstream/}
-
-        # Mostrar el status de la rama remota
-        echo "Status para la rama remota: $remote_branch"
-        git status -s -b -- "$remote_branch"
+        branch_status="Remote branch: $remote_branch"
+        echo -e "${WHITE}Fetching status for remote branch: ${GREEN}$remote_branch${WHITE}...${RESET}"
+        git checkout "$remote_branch" &>/dev/null
+        git ls-tree -r HEAD --name-only &> /tmp/status.txt
     elif [[ $branch == remotes/origin/* ]]; then
-        # Mostrar el status de la rama remota que comienza con "remotes/origin/"
         remote_branch=${branch#remotes/origin/}
-
-        echo "Status para la rama remota: $remote_branch"
-        git status -s -b -- "$remote_branch"
+        branch_status="Remote branch: $remote_branch"
+        echo -e "${WHITE}Fetching status for remote branch: ${GREEN}$remote_branch${WHITE}...${RESET}"
+        git checkout "$remote_branch" &>/dev/null
+        git ls-tree -r HEAD --name-only &> /tmp/status.txt
     elif [[ $branch == origin/* ]]; then
-        # Mostrar el status de la rama local que comienza con "origin/"
         local_branch=${branch#origin/}
-
-        echo "Status para la rama local: $local_branch"
-        git status -s -b -- "$local_branch"
+        branch_status="Local branch: $local_branch"
+        echo -e "${WHITE}Fetching status for local branch: ${GREEN}$local_branch${WHITE}...${RESET}"
+        git checkout "$local_branch" &>/dev/null
+        git ls-tree -r HEAD --name-only &> /tmp/status.txt
     else
-        # Mostrar el status de otras ramas locales (README.md, scripts, etc.)
-        echo "Status para la rama local: $branch"
-        git status -s -b -- "$branch"
+        branch_status="Local branch: $branch"
+        echo -e "${WHITE}Fetching status for local branch: ${GREEN}$branch${WHITE}...${RESET}"
+        git checkout "$branch" &>/dev/null
+        git ls-tree -r HEAD --name-only &> /tmp/status.txt
     fi
 
-    # Espacio para separar los resultados de las ramas
-    echo ""
+    # Check if the status command was successful
+    if [[ $? -eq 0 ]]; then
+        echo -e "${WHITE}Fetched status for ${branch_status}${RESET}"
+        cat /tmp/status.txt | while IFS= read -r file; do
+            echo -e "${LIGHTGREY}$file${RESET}"
+        done
+        summary+="${LIGHTGREY}Fetched status for ${branch_status}\n${RESET}"
+    else
+        echo -e "${RED}Failed to fetch status for ${branch_status}${RESET}"
+        summary+="${RED}Failed to fetch status for ${branch_status}\n${RESET}"
+    fi
+
+    # Display progress bar
+    progress_bar $current_branch $total_branches
+
+    # Sleep to simulate the task duration (can be removed in actual usage)
+    sleep 1
+
+    # Clear the 5 lines for next update
+    for i in {1..5}; do
+        echo -ne "\033[F\033[K"
+    done
 done <<< "$branches"
 
-# Informar al usuario que se ha completado
-echo "Obtención de status de todas las ramas completada."
+# Inform the user that the status retrieval is complete
+echo -e "${GREEN}Status retrieval for all branches completed.${RESET}"
 
+# Display the summary of tasks
+echo -e "\n${WHITE}Summary of tasks:${RESET}"
+echo -e "$summary"
