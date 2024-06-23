@@ -1,5 +1,10 @@
 #!/bin/zsh
 
+# program name: status_all_branches.sh
+# version control: version 2.0
+# author: trosdesuru - Eduard Hernández
+# github : https://github.com/trosdesuru
+
 # Color definitions
 GREEN="\033[32m"
 RED="\033[31m"
