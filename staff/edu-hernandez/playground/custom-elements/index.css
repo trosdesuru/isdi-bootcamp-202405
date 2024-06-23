@@ -1,0 +1,14 @@
+.h1 {
+    background-color: brown;
+}
+
+#samu {
+    color: white;
+    font-family:'Courier New', Courier, monospace;
+    font-size: smaller;
+    font-style: italic;
+}
+
+#edu {
+    color: darkolivegreen;
+}
