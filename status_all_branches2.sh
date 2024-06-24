@@ -1,14 +1,14 @@
 #!/bin/zsh
 
-# status_all_branches.sh
+# status_all_branches.sh
 # version 2.0
 
 # Color definitions
-GREEN="\033[32m"
-RED="\033[31m"
-WHITE="\033[37m"
-LIGHTGREY="\033[37;2m"
-RESET="\033[0m"
+GREEN=$(tput setaf 2)
+RED=$(tput setaf 1)
+WHITE=$(tput setaf 7)
+LIGHTGREY=$(tput setaf 7; tput dim)
+RESET=$(tput sgr0)
 
 # Function to display a progress bar
 progress_bar() {
@@ -29,8 +29,8 @@ branches=$(git branch -a --list '*')
 total_branches=$(echo "$branches" | wc -l)
 current_branch=0
 
-# Summary of tasks
-summary=""
+# Clear screen before starting
+tput clear
 
 # Iterate over each branch and get its status
 while IFS= read -r branch; do
@@ -40,38 +40,32 @@ while IFS= read -r branch; do
     if [[ $branch == remotes/upstream/* ]]; then
         remote_branch=${branch#remotes/upstream/}
         branch_status="Remote branch: $remote_branch"
-        echo -e "${WHITE}Fetching status for remote branch: ${GREEN}$remote_branch${WHITE}...${RESET}"
-        git checkout "$remote_branch" &>/dev/null
-        git ls-tree -r HEAD --name-only &> /tmp/status.txt
     elif [[ $branch == remotes/origin/* ]]; then
         remote_branch=${branch#remotes/origin/}
         branch_status="Remote branch: $remote_branch"
-        echo -e "${WHITE}Fetching status for remote branch: ${GREEN}$remote_branch${WHITE}...${RESET}"
-        git checkout "$remote_branch" &>/dev/null
-        git ls-tree -r HEAD --name-only &> /tmp/status.txt
     elif [[ $branch == origin/* ]]; then
         local_branch=${branch#origin/}
         branch_status="Local branch: $local_branch"
-        echo -e "${WHITE}Fetching status for local branch: ${GREEN}$local_branch${WHITE}...${RESET}"
-        git checkout "$local_branch" &>/dev/null
-        git ls-tree -r HEAD --name-only &> /tmp/status.txt
     else
         branch_status="Local branch: $branch"
-        echo -e "${WHITE}Fetching status for local branch: ${GREEN}$branch${WHITE}...${RESET}"
-        git checkout "$branch" &>/dev/null
-        git ls-tree -r HEAD --name-only &> /tmp/status.txt
     fi
+
+    echo -ne "${WHITE}Fetching status for ${GREEN}${branch_status}${WHITE}...${RESET}"
+
+    # Checkout the branch and fetch status
+    git checkout "$branch" &>/dev/null
+    git ls-tree -r HEAD --name-only &> /tmp/status.txt
 
     # Check if the status command was successful
     if [[ $? -eq 0 ]]; then
-        echo -e "${WHITE}Fetched status for ${branch_status}${RESET}"
-        cat /tmp/status.txt | while IFS= read -r file; do
-            echo -e "${LIGHTGREY}$file${RESET}"
-        done
-        summary+="${LIGHTGREY}Fetched status for ${branch_status}\n${RESET}"
+        echo -ne "\r${WHITE}Fetched status for ${GREEN}${branch_status}${RESET}"
+        while IFS= read -r file; do
+            echo -ne "\r${LIGHTGREY}$file${RESET} "
+        done < /tmp/status.txt
+        echo -ne "\r"   # Move cursor to beginning of the line
+        echo -e "\033[K"   # Clear the line
     else
-        echo -e "${RED}Failed to fetch status for ${branch_status}${RESET}"
-        summary+="${RED}Failed to fetch status for ${branch_status}\n${RESET}"
+        echo -e "\r${RED}Failed to fetch status for ${branch_status}${RESET}"
     fi
 
     # Display progress bar
@@ -80,15 +74,8 @@ while IFS= read -r branch; do
     # Sleep to simulate the task duration (can be removed in actual usage)
     sleep 1
 
-    # Clear the 5 lines for next update
-    for i in {1..5}; do
-        echo -ne "\033[F\033[K"
-    done
 done <<< "$branches"
 
 # Inform the user that the status retrieval is complete
-echo -e "${GREEN}Status retrieval for all branches completed.${RESET}"
+echo -e "\n${GREEN}Status retrieval for all branches completed.${RESET}"
 
-# Display the summary of tasks
-echo -e "\n${WHITE}Summary of tasks:${RESET}"
-echo -e "$summary"
