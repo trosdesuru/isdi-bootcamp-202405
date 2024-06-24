@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # status_all_branches.sh
-# version 2.2
+# version 2.3
 
 # Color definitions
 GREEN=$(tput setaf 2)
@@ -22,6 +22,11 @@ progress_bar() {
     bar=${bar// /#}
     printf -v spaces "%${remaining}s" ""
     echo -ne "\r[${bar}${spaces}] ${progress}%%"
+}
+
+# Function to clear the current line in the terminal
+clear_line() {
+    echo -ne "\r\033[K"
 }
 
 # Get the list of all local and remote branches
@@ -62,7 +67,15 @@ while IFS= read -r branch; do
     git ls-tree -r HEAD --name-only &> /tmp/status.txt
 
     # Check if the status command was successful
-    if [[ $? -eq 0 ]]; then echo -ne "\r${WHITE}Fetched status for ${GREEN}${branch_status}${RESET}"; while IFS= read -r file; do echo -ne "\r${LIGHTGREY}$file${RESET} "; done < /tmp/status.txt; echo -ne "\r"; echo -e "\033[K"; else echo -e "\r${RED}Failed to fetch status for ${branch_status}${RESET}"; fi
+    if [[ $? -eq 0 ]]; then
+        echo -ne "\r${WHITE}Fetched status for ${GREEN}${branch_status}${RESET}"
+        while IFS= read -r file; do
+            echo -ne "\r${LIGHTGREY}$file${RESET} "; clear_line
+        done < /tmp/status.txt
+        echo -ne "\r"; clear_line
+    else
+        echo -e "\r${RED}Failed to fetch status for ${branch_status}${RESET}"
+    fi
 
     # Display progress bar
     progress_bar $current_branch $total_branches
