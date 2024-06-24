@@ -1,7 +1,9 @@
 #!/bin/zsh
 
 # sync_git.sh
-# version 2.0
+# version 2.3
+# author: Eduard Hernández - trosdesuru
+# GitHub: https://github.com/trosdesuru
 
 # Configuration
 remote_repo="https://github.com/trosdesuru/isdi-bootcamp-202405.git"

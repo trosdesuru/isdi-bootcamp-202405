@@ -2,6 +2,8 @@
 
 # status_all_branches.sh
 # version 2.3
+# author: Eduard Hernández - trosdesuru
+# GitHub: https://github.com/trosdesuru
 
 # Color definitions
 GREEN=$(tput setaf 2)

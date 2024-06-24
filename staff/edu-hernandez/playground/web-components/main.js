@@ -50,7 +50,7 @@ class Component {
         if (typeof direction !== 'string')
             throw new TypeError('direction is not a string')
 
-        this.container.style.flexDirection; direction
+        this.container.style.flexDirection = direction
     }
 }
 
@@ -72,7 +72,7 @@ class ListItem extends Component {
 
 const view = new Component(document.body)
 view.setBackgroundColor('black')
-view.alignItems('')
+view.justifyContent('')
 view.flexDirection('column')
 
 const colorList = new List // new List()
