@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # status_all_branches.sh
-# version 2.0
+# version 2.1
 
 # Color definitions
 GREEN=$(tput setaf 2)
@@ -50,6 +50,12 @@ while IFS= read -r branch; do
         branch_status="Local branch: $branch"
     fi
 
+    # Check if there are any uncommitted changes
+    if ! git diff --quiet; then
+        echo -e "\r${RED}Uncommitted changes exist. Commit or stash changes before continuing.${RESET}"
+        exit 1
+    fi
+
     echo -ne "${WHITE}Fetching status for ${GREEN}${branch_status}${WHITE}...${RESET}"
 
     # Checkout the branch and fetch status
@@ -78,4 +84,3 @@ done <<< "$branches"
 
 # Inform the user that the status retrieval is complete
 echo -e "\n${GREEN}Status retrieval for all branches completed.${RESET}"
-
