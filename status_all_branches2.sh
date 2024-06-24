@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # status_all_branches.sh
-# version 2.1
+# version 2.2
 
 # Color definitions
 GREEN=$(tput setaf 2)
@@ -52,8 +52,7 @@ while IFS= read -r branch; do
 
     # Check if there are any uncommitted changes
     if ! git diff --quiet; then
-        echo -e "\r${RED}Uncommitted changes exist. Commit or stash changes before continuing.${RESET}"
-        exit 1
+        echo -e "\r${RED}Uncommitted changes exist. Commit or stash changes before continuing.${RESET}"; exit 1
     fi
 
     echo -ne "${WHITE}Fetching status for ${GREEN}${branch_status}${WHITE}...${RESET}"
@@ -63,16 +62,7 @@ while IFS= read -r branch; do
     git ls-tree -r HEAD --name-only &> /tmp/status.txt
 
     # Check if the status command was successful
-    if [[ $? -eq 0 ]]; then
-        echo -ne "\r${WHITE}Fetched status for ${GREEN}${branch_status}${RESET}"
-        while IFS= read -r file; do
-            echo -ne "\r${LIGHTGREY}$file${RESET} "
-        done < /tmp/status.txt
-        echo -ne "\r"   # Move cursor to beginning of the line
-        echo -e "\033[K"   # Clear the line
-    else
-        echo -e "\r${RED}Failed to fetch status for ${branch_status}${RESET}"
-    fi
+    if [[ $? -eq 0 ]]; then echo -ne "\r${WHITE}Fetched status for ${GREEN}${branch_status}${RESET}"; while IFS= read -r file; do echo -ne "\r${LIGHTGREY}$file${RESET} "; done < /tmp/status.txt; echo -ne "\r"; echo -e "\033[K"; else echo -e "\r${RED}Failed to fetch status for ${branch_status}${RESET}"; fi
 
     # Display progress bar
     progress_bar $current_branch $total_branches
