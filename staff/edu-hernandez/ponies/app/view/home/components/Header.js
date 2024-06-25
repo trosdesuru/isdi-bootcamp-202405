@@ -16,8 +16,19 @@ class Header extends Component {
             alert(error.message)
         }
 
-        // var logoutButton = new button
-        // logoutButton.setClassName('header_logout-button')
-        // this.add(logoutButton)
+        const logoutButton = new Button
+        logoutButton.setClassName('logout-button')
+        logoutButton.setText('Logout')
+        this.add(logoutButton)
+
+        logoutButton.onClick(function () {
+            try {
+                logoutUser()
+
+                location.href = '../login'
+            } catch (error) {
+                alert(error.message)
+            }
+        })
     }
 }
