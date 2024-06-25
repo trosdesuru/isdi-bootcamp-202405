@@ -20,7 +20,7 @@ class Post extends Component {
 
         const self = this
 
-        if (post.author === getUsername()) {
+        if (post.author === getUserUsername()) {
             const postActionButtonsDiv = document.createElement('div')
             postActionButtonsDiv.className = 'post__actions'
             this.container.appendChild(postActionButtonsDiv)
