@@ -3,37 +3,38 @@ class Post extends Component {
         super(document.createElement('article'))
         this.setClassName('post')
 
-        const postAuthorTitle = document.createElement('h3')
-        postAuthorTitle.className = 'post__author'
-        postAuthorTitle.innerText = post.author
-        this.container.appendChild(postAuthorTitle)
+        const postAuthorTitle = new Heading(3)
+        postAuthorTitle.setClassName('post__author')
+        postAuthorTitle.setText(post.author)
+        this.add(postAuthorTitle)
 
-        const postImage = document.createElement('img')
-        postImage.className = 'post__image'
-        postImage.src = post.image
-        this.container.appendChild(postImage)
+        const postImage = new Image
+        postImage.setClassName('post__image')
+        postImage.setUrl(post.image)
+        this.add(postImage)
 
-        const postCaptionText = document.createElement('p')
-        postCaptionText.className = 'post_caption'
-        postCaptionText.innerText = post.caption
-        this.container.appendChild(postCaptionText)
+        const postCaptionText = new Paragraph
+        postCaptionText.setClassName('post_caption')
+        postCaptionText.setText(post.caption)
+        this.add(postCaptionText)
 
         const self = this
 
         if (post.author === getUserUsername()) {
-            const postActionButtonsDiv = document.createElement('div')
-            postActionButtonsDiv.className = 'post__actions'
-            this.container.appendChild(postActionButtonsDiv)
+            const postActionButtonsDiv = new Component(document.createElement('div'))
+            postActionButtonsDiv.setClassName('post__actions')
+            this.add(postActionButtonsDiv)
 
-            const postDeleteButton = document.createElement('button')
-            postDeleteButton.innerText = 'Delete'
-            postActionButtonsDiv.appendChild(postDeleteButton)
+            const postDeleteButton = new Button
+            postDeleteButton.setText('Delete')
+            postActionButtonsDiv.add(postDeleteButton)
 
-            postDeleteButton.onclick = function () {
+            postDeleteButton.onClick(function () {
                 if (confirm('Delete post?'))
                     try {
                         deletePost(post.id)
                         self.onPostDeletedCallback()
+
                     } catch (error) {
                         alert(error.message)
 
@@ -41,40 +42,40 @@ class Post extends Component {
                             self.onPostDeletedCallback()
                         }
                     }
-            }
+            })
 
-            const editButton = document.createElement('button')
-            editButton.innerText = 'Edit'
-            postActionButtonsDiv.appendChild(editButton)
+            const editButton = new Button
+            editButton.setText('Edit')
+            postActionButtonsDiv.add(editButton)
 
-            editButton.onclick = function () {
-                const editCaptionForm = document.createElement('form')
-                self.container.appendChild(editCaptionForm)
+            editButton.onClick(function () {
+                const editCaptionForm = new Form
+                self.add(editCaptionForm)
 
                 const editCaptionLabel = document.createElement('label')
                 editCaptionLabel.htmlfor = 'edit-caption-input'
-                editCaptionForm.appendChild(editCaptionLabel)
+                editCaptionForm.container.appendChild(editCaptionLabel)
 
                 const editCaptionInput = document.createElement('input')
                 editCaptionInput.id = editCaptionLabel.htmlfor
                 editCaptionInput.value = post.caption
-                editCaptionForm.appendChild(editCaptionInput)
+                editCaptionForm.container.appendChild(editCaptionInput)
 
                 const editCaptionSubmitButton = document.createElement('button')
                 editCaptionSubmitButton.type = 'submit'
                 editCaptionSubmitButton.innerText = 'Save'
-                editCaptionForm.appendChild(editCaptionCancelButton)
+                editCaptionForm.container.appendChild(editCaptionCancelButton)
 
                 const editCaptionCancelButton = document.createElement('button')
                 editCaptionCancelButton.innerText = 'Cancel'
                 editCaptionCancelButton.type = 'button'
-                editCaptionForm.appendChild(editCaptionCancelButton)
+                editCaptionForm.container.appendChild(editCaptionCancelButton)
 
-                editCaptionCancelButton.onclick = function () {
-                    self.container.removeChild(editCaptionForm)
+                editCaptionCancelButton.onClick = function () {
+                    self.remove(editCaptionForm)
                 }
 
-                editCaptionForm.onsubmit = function (event) {
+                editCaptionForm.onSubmit(function (event) {
                     event.preventDefault()
 
                     try {
@@ -82,10 +83,9 @@ class Post extends Component {
 
                         updatePostCaption(post.id, newCaption)
 
-                        self.container.removeChild(editCaptionForm)
+                        self.remove(updateCaptionForm)
 
                         self.onPostCaptionEditedCallback()
-
                     } catch (error) {
                         alert(error.message)
 
@@ -93,8 +93,8 @@ class Post extends Component {
                             self.onPostCaptionEditedCallback()
                         }
                     }
-                }
-            }
+                })
+            })
         }
 
         const postDateTime = document.createElement('time')

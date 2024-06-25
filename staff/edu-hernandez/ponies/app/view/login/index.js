@@ -1,14 +1,14 @@
-(function () {
-    var loginForm = new Form('form')
+{
+    const loginForm = new Form('form')
 
     loginForm.onSubmit(function (event) {
         event.preventDefault()
 
-        var usernameInput = document.getElementById('username-input')
-        var passwordInput = document.getElementById('password-input')
+        const usernameInput = document.getElementById('username-input')
+        const passwordInput = document.getElementById('password-input')
 
-        var username = usernameInput.value
-        var password = passwordInput.value
+        const username = usernameInput.value
+        const password = passwordInput.value
 
         try {
             loginUser(username, password)
@@ -19,11 +19,11 @@
         }
     })
 
-    var registerLink = new Link('a')
+    const registerLink = new Link('a')
 
     registerLink.onClick(function (event) {
         event.preventDefault()
 
         location.href = '../register'
     })
-})()
+}

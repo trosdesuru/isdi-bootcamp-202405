@@ -21,7 +21,7 @@
     addPostButton.innerText = '+'
     footer.appendChild(addPostButton)
 
-    addPostButton.onClick = function () {
+    addPostButton.onclick = function () {
         const createPostSection = document.createElement('section')
         createPostSection.className = 'create-post-section'
         footer.appendChild(createPostSection)
@@ -35,10 +35,9 @@
         createPostForm.className = 'form'
         createPostSection.appendChild(createPostForm)
 
-        createPostForm.onSubmit = function (event) {
+        createPostForm.onsubmit = function (event) {
             event.preventDefault()
-
-            //const postImageInput = document.getElementById('post-image-input')
+            
             const postImage = postImageInput.value
             const postCaption = postCaptionInput.value
 
@@ -98,7 +97,7 @@
         postCancelButton.innerText = 'Cancel'
         postButtonsDiv.appendChild(postCancelButton)
 
-        postCancelButton.onClick = function () {
+        postCancelButton.onclick = function () {
             footer.removeChild(createPostSection)
         }
     }

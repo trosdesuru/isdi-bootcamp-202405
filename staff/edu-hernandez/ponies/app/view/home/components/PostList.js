@@ -4,7 +4,6 @@ class PostList extends Component {
 
         this.setClassName('post-list')
 
-
     }
 
     clearPosts() {
