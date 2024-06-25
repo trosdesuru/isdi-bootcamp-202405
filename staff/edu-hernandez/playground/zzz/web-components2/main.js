@@ -19,7 +19,7 @@ class Component {
 
         this.container.innerText = text
     }
-
+git 
     /* -- Create BACKGROUNDCOLOR METHOD -- */
     setBackgroundColor(color) { // name color expected passed as argument
         if (typeof backgroundColor !== 'string') // typeof determines type of variable
