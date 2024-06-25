@@ -23,4 +23,11 @@ class Component {
 
         this.container.style.setBackgroundColor = backgroundColor
     }
+
+    setColor(color) {
+        if (typeof color != 'string')
+            throw new TypeError('color is not a string')
+
+        this.container.style.color = color
+    }
 }
