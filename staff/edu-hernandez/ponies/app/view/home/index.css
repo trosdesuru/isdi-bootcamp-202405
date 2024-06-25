@@ -1,5 +1,5 @@
 html {
-    /* background-color: red; */
+    background-color: springgreen;
 }
 
 .view {
@@ -9,7 +9,7 @@ html {
     align-items: center;
     gap: 1rem;
     font-size: 1.1rem;
-    /* background-color: red; */
+    background-color: red;
 }
 
 .form {
@@ -40,6 +40,7 @@ html {
     width: 90%;
     /* padding: 10rem; */
     /* margin: 2rem; */
+    background-color: black;
 }
 
 .post {
@@ -47,6 +48,7 @@ html {
     /* padding: 1.5rem; */
     box-shadow: 1px 1px 10px 1px lightgray;
     padding: 1rem;
+    background-color: blueviolet;
 }
 
 .post__author {
@@ -88,11 +90,17 @@ html {
     padding: .5rem;
     box-sizing: border-box;
     box-shadow: 0px 1px 1px lightgray;
-    /* background-color: red; */
+    background-color: goldenrod;
 }
 
 .header__user-name {
     margin: 0;
+    color: aqua;
+}
+
+.logout-button {
+    color: chartreuse;
+    background-color: brown;
 }
 
 .main {
@@ -111,6 +119,7 @@ html {
     background-color: white;
     padding: .5rem 0;
     box-shadow: 0px -1px 1px lightgray;
+    background-color: cadetblue;
 }
 
 .create-post-section {
@@ -131,4 +140,9 @@ html {
     display: flex;
     justify-content: center;
     gap: 1rem;
+}
+
+.add-post-button {
+    color: aqua;
+    background-color: brown;
 }
