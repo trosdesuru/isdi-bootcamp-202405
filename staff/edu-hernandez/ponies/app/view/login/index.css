@@ -6,6 +6,11 @@
     font-size: 1.1rem;
 }
 
+.header {
+    top: 0;
+    position: fixed;
+}
+
 .form {
     display: flex;
     flex-direction: column;

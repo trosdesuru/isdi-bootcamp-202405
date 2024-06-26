@@ -1,4 +1,12 @@
 {
+    const home = new Component(document.body)
+    const header = new Header
+    home.add(header)
+
+    const body = new Component(document.createElement('main'))
+    body.setClassName('main')
+    home.add(body)
+
     const loginForm = new Form('form')
 
     loginForm.onSubmit(function (event) {

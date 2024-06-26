@@ -45,9 +45,8 @@ html {
 
 .post {
     /* border: 1px solid black; */
-    padding: 1.5rem;
     box-shadow: 1px 1px 10px 1px lightgray;
-    padding: 1rem;
+    /* padding: 1rem; */
     /* background-color: blueviolet; */
 }
 
@@ -59,22 +58,35 @@ html {
     width: 100%;
 }
 
-.icon-section {
+.icon_section {
+    left: 0;
+    /* margin: 1rem; */
     /* width: 100%; */
     /* background-color: red; */
 }
 
 .likeButton {
     background-color: transparent;
+    /* background-size: 1rem; */
+    margin: 0rem 0rem 0rem .5rem;
+    display: flex;
+    border: none;
+    left: 0;
+    padding: 0;
 }
 
 .likeIcon {
-
+    display: flex;
+    flex-direction: row;
+    flex-basis: 10%;
+    width: 1.5rem;
+    padding: 0;
 }
 
-.post__caption {
-    /* padding: 1.5rem; */
-    margin: .5rem;
+.post_caption {
+    font-size: 18px;
+    margin: 0rem 0rem 0rem .5rem;
+    left: 0;
 }
 
 .post__actions {
@@ -83,10 +95,17 @@ html {
 }
 
 .post__time {
+    background-color: red;
     display: block;
     margin: .5rem;
     /* color: silver; */
-    font-size: .9rem;
+    font-size: 9px;
+}
+
+time {
+    margin: 0rem 0rem 0rem .5rem;
+    font-size: 12px;
+    /* background-color: red; */
 }
 
 .header {

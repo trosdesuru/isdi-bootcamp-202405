@@ -33,6 +33,11 @@ class Post extends Component {
         postCaptionText.setText(post.caption)
         this.add(postCaptionText)
 
+        const postDateTime = document.createElement('time')
+        postDateTime.classname = 'post__time'
+        postDateTime.innerText = formatTime(new Date(post.date))
+        this.container.appendChild(postDateTime)
+
         const self = this
 
         if (post.author === logic.getUserUsername()) {
@@ -111,11 +116,6 @@ class Post extends Component {
                 })
             })
         }
-
-        const postDateTime = document.createElement('time')
-        postDateTime.classname = 'post__time'
-        postDateTime.innerText = formatTime(new Date(post.date))
-        this.container.appendChild(postDateTime)
     }
 
     onPostDeleted(callback) {
