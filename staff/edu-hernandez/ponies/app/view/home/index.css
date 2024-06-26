@@ -1,5 +1,5 @@
 html {
-    background-color: springgreen;
+    /* background-color: springgreen; */
 }
 
 .view {
@@ -9,7 +9,7 @@ html {
     align-items: center;
     gap: 1rem;
     font-size: 1.1rem;
-    background-color: red;
+    /* background-color: red; */
 }
 
 .form {
@@ -36,19 +36,19 @@ html {
 .post-list {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: 1rem;
     width: 90%;
     /* padding: 10rem; */
     /* margin: 2rem; */
-    background-color: black;
+    /* background-color: black; */
 }
 
 .post {
     /* border: 1px solid black; */
-    /* padding: 1.5rem; */
+    padding: 1.5rem;
     box-shadow: 1px 1px 10px 1px lightgray;
     padding: 1rem;
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
 }
 
 .post__author {
@@ -57,6 +57,19 @@ html {
 
 .post__image {
     width: 100%;
+}
+
+.icon-section {
+    /* width: 100%; */
+    /* background-color: red; */
+}
+
+.likeButton {
+    background-color: transparent;
+}
+
+.likeIcon {
+
 }
 
 .post__caption {
@@ -72,7 +85,7 @@ html {
 .post__time {
     display: block;
     margin: .5rem;
-    color: silver;
+    /* color: silver; */
     font-size: .9rem;
 }
 
@@ -90,17 +103,17 @@ html {
     padding: .5rem;
     box-sizing: border-box;
     box-shadow: 0px 1px 1px lightgray;
-    background-color: goldenrod;
+    /* background-color: goldenrod; */
 }
 
 .header__user-name {
     margin: 0;
-    color: aqua;
+    /* color: aqua; */
 }
 
 .logout-button {
-    color: chartreuse;
-    background-color: brown;
+    /* color: chartreuse; */
+    /* background-color: brown; */
 }
 
 .main {
@@ -119,7 +132,7 @@ html {
     background-color: white;
     padding: .5rem 0;
     box-shadow: 0px -1px 1px lightgray;
-    background-color: cadetblue;
+    /* background-color: cadetblue; */
 }
 
 .create-post-section {
@@ -143,6 +156,6 @@ html {
 }
 
 .add-post-button {
-    color: aqua;
-    background-color: brown;
+    /* color: aqua; */
+    /* background-color: brown; */
 }

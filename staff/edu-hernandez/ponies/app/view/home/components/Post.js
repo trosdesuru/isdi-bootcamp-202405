@@ -13,6 +13,21 @@ class Post extends Component {
         postImage.setUrl(post.image)
         this.add(postImage)
 
+        //  <><><>-- ICON SECTION --<><><>
+        const iconSection = new Component(document.createElement('section'))
+        iconSection.setClassName('icon_section')
+        this.add(iconSection)
+
+        // <><><>-- HEART ICON --<><><>
+        const likeButton = new Button
+        likeButton.setClassName('likeButton')
+        iconSection.add(likeButton)
+
+        const likeIcon = new Image
+        likeIcon.setClassName('likeIcon')
+        likeIcon.setUrl('https://cdn.icon-icons.com/icons2/931/PNG/512/heart_love_fav_favourite_icon-icons.com_72394.png')
+        likeButton.add(likeIcon)
+
         const postCaptionText = new Paragraph
         postCaptionText.setClassName('post_caption')
         postCaptionText.setText(post.caption)
@@ -20,7 +35,7 @@ class Post extends Component {
 
         const self = this
 
-        if (post.author === getUserUsername()) {
+        if (post.author === logic.getUserUsername()) {
             const postActionButtonsDiv = new Component(document.createElement('div'))
             postActionButtonsDiv.setClassName('post__actions')
             this.add(postActionButtonsDiv)
@@ -32,7 +47,7 @@ class Post extends Component {
             postDeleteButton.onClick(function () {
                 if (confirm('Delete post?'))
                     try {
-                        deletePost(post.id)
+                        logic.deletePost(post.id)
                         self.onPostDeletedCallback()
 
                     } catch (error) {
@@ -52,24 +67,24 @@ class Post extends Component {
                 const editCaptionForm = new Form
                 self.add(editCaptionForm)
 
-                const editCaptionLabel = document.createElement('label')
-                editCaptionLabel.htmlfor = 'edit-caption-input'
-                editCaptionForm.container.appendChild(editCaptionLabel)
+                const editCaptionLabel = new Label
+                editCaptionLabel.setFor('edit-caption-input')
+                editCaptionForm.add(editCaptionLabel)
 
-                const editCaptionInput = document.createElement('input')
-                editCaptionInput.id = editCaptionLabel.htmlfor
-                editCaptionInput.value = post.caption
-                editCaptionForm.container.appendChild(editCaptionInput)
+                const editCaptionInput = new Input
+                editCaptionInput.id = editCaptionLabel.setFor()
+                editCaptionInput.setValue(post.caption)
+                editCaptionForm.add(editCaptionInput)
 
-                const editCaptionSubmitButton = document.createElement('button')
-                editCaptionSubmitButton.type = 'submit'
-                editCaptionSubmitButton.innerText = 'Save'
-                editCaptionForm.container.appendChild(editCaptionCancelButton)
+                const editCaptionSubmitButton = new Button
+                editCaptionSubmitButton.setType('submit')
+                editCaptionSubmitButton.setText('Save')
+                editCaptionForm.add(editCaptionCancelButton)
 
-                const editCaptionCancelButton = document.createElement('button')
-                editCaptionCancelButton.innerText = 'Cancel'
-                editCaptionCancelButton.type = 'button'
-                editCaptionForm.container.appendChild(editCaptionCancelButton)
+                const editCaptionCancelButton = new Button
+                editCaptionCancelButton.setText('Cancel')
+                editCaptionCancelButton.setType('button')
+                editCaptionForm.add(editCaptionCancelButton)
 
                 editCaptionCancelButton.onClick = function () {
                     self.remove(editCaptionForm)
