@@ -16,7 +16,7 @@ class PostList extends Component {
 
     listPosts() {
         try {
-            const posts = getAllPosts()
+            const posts = logic.getAllPosts()
 
             const self = this
 

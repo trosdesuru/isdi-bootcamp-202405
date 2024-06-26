@@ -11,7 +11,7 @@
         const password = passwordInput.value
 
         try {
-            loginUser(username, password)
+            logic.loginUser(username, password)
 
             location.href = '../home'
         } catch (error) {
