@@ -1,59 +1,58 @@
 {
     const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
-    {
-        const registerUser = (name,
-            surname,
-            email,
-            username,
-            password,
-            passwordRepeat) => {
 
-            if (name.trim() === '')
-                throw new Error('invalid name')
+    const registerUser = (
+        name,
+        surname,
+        email,
+        username,
+        password,
+        passwordRepeat) => {
 
-            if (surname.trim().length < 2)
-                throw new Error('invalid surname')
+        if (name.trim() === '')
+            throw new Error('invalid name')
 
-            if (!EMAIL_REGEX.test(email))
-                throw new Error('invalid email')
+        if (surname.trim().length < 2)
+            throw new Error('invalid surname')
 
-            if (username.trim().length < 4)
-                throw new Error('invalid username')
+        if (!EMAIL_REGEX.test(email))
+            throw new Error('invalid email')
 
-            if (password.trim().length < 8)
-                throw new Error('invalid password')
+        if (username.trim().length < 4)
+            throw new Error('invalid username')
 
-            if (password !== passwordRepeat)
-                throw new Error('passwords do not match')
+        if (password.trim().length < 8)
+            throw new Error('invalid password')
 
-            const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+        if (password !== passwordRepeat)
+            throw new Error('passwords do not match')
 
-            const user = users.find(function (user) {
-                return user.email === email
-            })
+        let users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
 
-            if (user !== undefined)
-                throw new Error('email already exists')
+        let user = users.find(function (user) {
+            return user.email === email
+        })
 
-            const user = users.find(function (user) {
-                return user.username === username
-            })
+        if (user !== undefined)
+            throw new Error('email already exists')
 
-            if (user !== undefined)
-                throw new Error('username already exists')
+        const user = users.find(function (user) {
+            return user.username === username
+        })
 
-            user = {
-                name: name,
-                surname: surname,
-                email: email,
-                username: username,
-                password: password
-            }
+        if (user !== undefined)
+            throw new Error('username already exists')
 
-            users.push(user)
-
-            localStorage.users = JSON.stringify(users)
+        user = {
+            name: name,
+            surname: surname,
+            email: email,
+            username: username,
+            password: password
         }
 
-        logic.registerUser = registerUser
+        data.inserUser(user)
     }
+
+    logic.registerUser = registerUser
+}
