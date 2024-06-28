@@ -2,6 +2,10 @@ import Form from '../components/Form.mjs'
 import Link from '../components/Link.mjs'
 
 import logic from '../../logic/index.mjs'
+import updateTime from '../../util/updateTime.mjs'
+
+
+const time = updateTime()
 
 const loginForm = new Form('form')
 
