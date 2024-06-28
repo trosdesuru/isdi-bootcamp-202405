@@ -1,8 +1,18 @@
 html {
     /* background-color: springgreen; */
+    /* height: 100%; */
 }
 
+/* body {
+    background-color: red;
+    border: 5px solid yellow;
+    height: 100%;
+    box-sizing: border-box;
+    margin: 0;
+} */
+
 .view {
+    height: 100%;
     font-family: 'Courier New', Courier, monospace;
     display: flex;
     flex-direction: column;
@@ -10,6 +20,11 @@ html {
     gap: 1rem;
     font-size: 1.1rem;
     /* background-color: red; */
+}
+
+.heading_h1 {
+    margin: 0;
+    padding: 0;
 }
 
 .form {
@@ -95,7 +110,7 @@ html {
 }
 
 .post__time {
-    background-color: red;
+    /* background-color: red; */
     display: block;
     margin: .5rem;
     /* color: silver; */

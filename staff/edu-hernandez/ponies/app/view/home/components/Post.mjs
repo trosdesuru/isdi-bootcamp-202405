@@ -38,7 +38,7 @@ class Post extends Component {
         this.add(postActionButtons)
 
         const postToggleLikeButton = new Button
-        postToggleLikeButton.setText((post.likes.includes(logic.getUserUsername()) ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's'))
+        postToggleLikeButton.setText((post.like ? '❤' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's'))
         postActionButtons.add(postToggleLikeButton)
 
         postToggleLikeButton.onClick(() => {
@@ -46,6 +46,22 @@ class Post extends Component {
                 logic.toggleLikePost(post.id)
 
                 self.onPostLikeToggledCallback()
+            } catch (error) {
+                console.error(error)
+
+                alert(error.message)
+            }
+        })
+
+        const postToggleFavButton = new Button
+        postToggleFavButton.setText(post.fav ? '🏳️‍🌈' : '🏳️')
+        postActionButtons.add(postToggleFavButton)
+
+        postToggleFavButton.onClick(() => {
+            try {
+                logic.toggleFavPost(post.id)
+
+                self.onPostFavToggledCallback()
             } catch (error) {
                 console.error(error)
 
@@ -63,17 +79,15 @@ class Post extends Component {
                     try {
                         logic.deletePost(post.id)
 
-                        // self.clearPosts()
-                        // self.listPosts()
                         self.onPostDeletedCallback()
+
                     } catch (error) {
                         console.error(error)
 
                         alert(error.message)
 
                         if (error.message === 'post not found') {
-                            // self.clearPosts()
-                            // self.listPosts()
+
                             self.onPostDeletedCallback()
                         }
                     }
@@ -106,7 +120,12 @@ class Post extends Component {
                 editCaptionCancelButton.setType('button')
                 editCaptionForm.add(editCaptionCancelButton)
 
-                editCaptionCancelButton.onClick(() => self.remove(editCaptionForm))
+                // editCaptionCancelButton.onClick(() => self.remove(editCaptionForm))
+                editCaptionCancelButton.onClick(() => {
+                    self.remove(editCaptionForm)
+
+                    editCaptionForm = undefined
+                })
 
                 editCaptionForm.onSubmit(event => {
                     event.preventDefault()
@@ -128,7 +147,7 @@ class Post extends Component {
                         alert(error.message)
 
                         if (error.message === 'post not found') {
-                            
+
                             // self.clearPosts()
                             // self.listPosts()
                             self.onPostCaptionEditedCallback()
@@ -154,6 +173,10 @@ class Post extends Component {
 
     onPostLikeToggled(callback) {
         this.onPostLikeToggledCallback = callback
+    }
+
+    onPostFavToggled(callback) {
+        this.onPostFavToggledCallback = callback
     }
 }
 
