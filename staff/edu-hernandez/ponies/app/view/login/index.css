@@ -12,11 +12,18 @@ html {
     height: 100%;
     gap: 1rem;
     /* font-size: 1.1rem; */
+
+    background-color: white;
+
+    background-image: url("../../img/background_img.png");
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    background-position-x: right;
 }
 
 body {
     box-sizing: border-box;
-    border: 3px solid red;
+    /* border: 3px solid red; */
     font-family: Poppins;
     height: 100%;
     width: 100%;
@@ -186,6 +193,8 @@ body {
 
 #username-input {
     /* background-color: red; */
+    font-family: Poppins;
+    color: #585858;
 }
 
 .form__button {
@@ -200,7 +209,7 @@ body {
     background: #1F41BB;
     box-shadow: 0px 5px 12px 0px #A6A6A6;
 
-    color: #FFF;
+    color: rgb(237, 237, 215);
     text-align: center;
     font-family: Poppins;
     font-size: 16px;
@@ -209,10 +218,32 @@ body {
     line-height: normal;
 }
 
-.text_field {
+.form__button-register {
+    display: flex;
+    width: 85%;
+    padding: 15px 20px;
+    padding: 14px 10px 14px 10px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    background: #f1f1f1;
+    box-shadow: 0px 5px 12px 0px #A6A6A6;
+
     color: #1F41BB;
     text-align: center;
     font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.text_field {
+    font-family: Poppins;
+    color: #1F41BB;
+
+    text-align: center;
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
