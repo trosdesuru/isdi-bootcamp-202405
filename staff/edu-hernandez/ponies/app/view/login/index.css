@@ -1,9 +1,11 @@
 html {
+    width: 100%;
     height: 100%;
 }
 
 .view {
     display: flex;
+    box-sizing: border-box;
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -13,9 +15,9 @@ html {
 }
 
 body {
-    font-family: Poppins;
     box-sizing: border-box;
     border: 3px solid red;
+    font-family: Poppins;
     height: 100%;
     width: 100%;
     margin: 0;
@@ -23,20 +25,28 @@ body {
 
 .status-bar {
     box-sizing: border-box;
-    justify-content: space-between;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     width: 100%;
+    top: 0;
     
     align-items: center;
+    padding-left: 12px;
 }
 
 .time {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
+    display: block;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    scroll-margin-inline-start: 0;
+    scroll-margin-inline-end: 0;
+    margin: 0;
 
+    font-family: SF Pro Text;
     color: rgb(61, 61, 61);
+    font-size: 12px;
+    font-weight: 700;
 }
 
 #current-time {
@@ -53,6 +63,38 @@ body {
 .right-side {
     flex-direction: row;
     display: flex;
+}
+
+.status-field {
+    height: 32px;
+    right: 0;
+}
+
+.cobertura-icon {
+    display: block;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    scroll-margin-inline-start: 0;
+    scroll-margin-inline-end: 0;
+    margin: 0;
+}
+
+.wifi-icon {
+    display: block;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    scroll-margin-inline-start: 0;
+    scroll-margin-inline-end: 0;
+    margin: 0;
+}
+
+.battery-icon {
+    display: block;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    scroll-margin-inline-start: 0;
+    scroll-margin-inline-end: 0;
+    margin: 0;
 }
 
 .header {
@@ -73,7 +115,7 @@ h1 {
 }
 
 .login_paragraph {
-    color: #000;
+    color: #585858;
     text-align: center;
     font-family: Poppins;
     font-size: 20px;
