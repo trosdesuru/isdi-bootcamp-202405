@@ -30,9 +30,20 @@ body {
     justify-content: space-between;
     width: 100%;
     top: 0;
-    
+
     align-items: center;
     padding-left: 12px;
+}
+
+.left-side {
+    justify-content: start;
+    flex-direction: row;
+    display: flex;
+}
+
+.right-side {
+    flex-direction: row;
+    display: flex;
 }
 
 .time {
@@ -52,17 +63,6 @@ body {
 #current-time {
     justify-content: center;
     height: 100%;
-}
-
-.left-side {
-    justify-content: start;
-    flex-direction: row;
-    display: flex;
-}
-
-.right-side {
-    flex-direction: row;
-    display: flex;
 }
 
 .status-field {
@@ -97,18 +97,31 @@ body {
     margin: 0;
 }
 
-.header {
-    top: 0;
-    position: fixed;
+.ponies-field {
+    display: flex;
+    width: 80%;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
 }
 
-h1 {
+.ponies-text {
+    color: #bb1f6d;
+    font-family: Poller One;
+    font-size: 32px;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.heading_h2 {
     color: #1F41BB;
     text-align: center;
     font-family: Poppins;
-    font-size: 30px;
+    font-size: 24px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     line-height: normal;
     margin: 0;
     padding: 0;
@@ -122,6 +135,7 @@ h1 {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    max-width: 270px;
     width: 60%;
 }
 
