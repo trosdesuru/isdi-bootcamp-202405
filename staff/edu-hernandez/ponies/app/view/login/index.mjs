@@ -28,6 +28,7 @@ loginForm.onSubmit(event => {
 })
 
 const registerLink = new Link('a')
+registerLink.setClassName('form__button-register')
 
 registerLink.onClick(function (event) {
     event.preventDefault()

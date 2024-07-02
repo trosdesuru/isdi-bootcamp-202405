@@ -27,6 +27,12 @@ html {
     padding: 0;
 }
 
+.header__user-name {
+ /* background-color: red */
+ font-family: Poppins;
+ font-size: 20px;
+}
+
 .form {
     display: flex;
     flex-direction: column;
@@ -81,11 +87,9 @@ html {
 }
 
 .likeButton {
-    background-color: transparent;
-    /* background-size: 1rem; */
-    margin: 0rem 0rem 0rem .5rem;
     display: flex;
-    border: none;
+    background-color: transparent;
+    margin: 0rem 0rem 0rem .5rem;
     left: 0;
     padding: 0;
 }
@@ -114,7 +118,7 @@ html {
     display: block;
     margin: .5rem;
     /* color: silver; */
-    font-size: 9px;
+    font-size: 16px;
 }
 
 time {
@@ -142,6 +146,7 @@ time {
 
 .header__user-name {
     margin: 0;
+    font-family: Monofett;
     /* color: aqua; */
 }
 
