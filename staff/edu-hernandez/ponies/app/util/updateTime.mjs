@@ -1,11 +1,11 @@
 function updateTime(date) {
-  const now = new Date();
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  document.getElementById('current-time').textContent = `${hours}:${minutes}`;
+  const time = new Date();
+  const hours = time.getHours().toString().padStart(2, '0')
+  const minutes = time.getMinutes().toString().padStart(2, '0')
+  document.getElementById('current-time').textContent = `${hours}:${minutes}`
 }
 
-// Actualizar la hora cada minuto
+// Update Time every minute
 setInterval(updateTime, 60000);
 
 export default updateTime

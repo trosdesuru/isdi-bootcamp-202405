@@ -2,10 +2,6 @@ import Form from '../components/Form.mjs'
 import Link from '../components/Link.mjs'
 
 import logic from '../../logic/index.mjs'
-import updateTime from '../../util/updateTime.mjs'
-
-
-const time = updateTime()
 
 const loginForm = new Form('form')
 
@@ -23,14 +19,15 @@ loginForm.onSubmit(event => {
 
         location.href = '../home'
     } catch (error) {
+        console.error(error)
+
         alert(error.message)
     }
 })
 
 const registerLink = new Link('a')
-registerLink.setClassName('form__button-register')
 
-registerLink.onClick(function (event) {
+registerLink.onClick(event => {
     event.preventDefault()
 
     location.href = '../register'
