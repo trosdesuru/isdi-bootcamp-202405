@@ -28,8 +28,8 @@ class Post extends Component {
                 <button className="Button">{post.fav ? '🏳️‍🌈' : '🏳️'}</button>
 
                 {post.author.username === logic.getUserUsername() && <>
-                    <button className="Button">🗑️</button>
-                    <button className="Button">📝</button>
+                    <button className="Button">Delete</button>
+                    <button className="Button">Edit</button>
                 </>}
             </div>
 
