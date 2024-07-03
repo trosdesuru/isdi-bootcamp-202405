@@ -37,19 +37,8 @@ class Login extends Component {
 
     render() {
         return <main className="view">
-            <div className="status-bar">statusbar
-                <div className="left-side">leftside
-                    <div className="time" id="current-time">time</div>
-                </div>
-                <div className="right-side">right
-                    <div className="status-field">status
-                        <div className="cobertura-icon">icon</div>
-                        <div className="wifi-icon">icon</div>
-                        <div className="battery-icon">icon</div>
-                    </div>
-                </div>
-            </div>
             <h1>Login</h1>
+
             <form className="form" onSubmit={this.handleLoginSubmit}>
                 <div className="form__field">
                     <label htmlFor="username-input">Username</label>
