@@ -1,3 +1,26 @@
+body {
+    /* Space */
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    bottom: 0;
+    gap: 1rem;
+    /* Style */
+    background-color: white;
+    /* Background Image & Position & Style */
+    background-image: url("../../img/background_img.png");
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    background-position-x: right;
+    /* Test */
+    /* background-color: red; */
+    border: 3px solid orange;
+}
+
 html {
     /* Space */
     box-sizing: border-box;
@@ -10,23 +33,23 @@ html {
 
 .view {
     /* Space */
-    display: flex;
+    /* display: flex;
     box-sizing: border-box;
     flex-direction: column;
     align-items: center;
     width: 100%;
     height: 100%;
-    gap: 1rem;
+    gap: 1rem; */
     /* Style */
-    background-color: white;
+    /* background-color: white; */
     /* Background Image & Position & Style */
-    background-image: url("../../img/background_img.png");
+    /* background-image: url("../../img/background_img.png");
     background-repeat: no-repeat;
     background-position-y: bottom;
-    background-position-x: right;
+    background-position-x: right; */
     /* Test */
     /* background-color: red; */
-    border: 3px solid orange;
+    /* border: 3px solid orange; */ */
 }
 
 .status-bar {
