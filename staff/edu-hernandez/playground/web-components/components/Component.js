@@ -11,21 +11,21 @@ class Component {
     }
 
     setText(text) {
-        if (typeoftext != 'string')
-            throw new TypeError('Text is not a string')
+        if (typeof text !== 'string')
+            throw new TypeError('text is not a string')
 
         this.container.innerText = text
     }
 
     setBackgroundColor(color) {
-        if(typeof color != 'string')
+        if (typeof color !== 'string')
             throw new TypeError('color is not a string')
 
-        this.container.style.setBackgroundColor = backgroundColor
+        this.container.style.backgroundColor = color
     }
 
     setColor(color) {
-        if (typeof color != 'string')
+        if (typeof color !== 'string')
             throw new TypeError('color is not a string')
 
         this.container.style.color = color

@@ -1,10 +1,8 @@
 const view = new Component(document.body)
 view.setBackgroundColor('black')
-view.justifyContent('')
-view.flexDirection('column')
 
 const colorList = new List // new List()
-colorList.setStyleType('square')
+colorList.setStyleType('decimal')
 
 const redColorItem = new ListItem
 redColorItem.setText('Red')

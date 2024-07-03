@@ -1,25 +1,3 @@
-<<<<<<< HEAD
-console.info('TEST Array.prototype.test')
-
-console.info('CASE pop the last element from array')
-
-var cars = new Array
-
-cars[0] = { brand: 'ferrari', model: 'gto', year: 1990 }
-cars[1] = { brand: 'lamborghini', model: 'murcielago', year: 2010 }
-cars[2] = { brand: 'fiat', model: '500', year: 2017 }
-
-var car1 = cars[0]
-var car2 = cars[1]
-var car3 = cars[2]
-
-var last = cars.pop()
-
-console.assert(cars.length === 2, 'cars length is 2')
-console.assert(car1 === cars[0], 'car1 is { brand: ferrari, model: gto, year: 1990 }')
-console.assert(car2 === cars[1], 'car2 is { brand: lamborghini, model: murcielago, year: 2010 }')
-console.assert(car3 === last, 'car3 is { brand: fiat, model: 500, year: 2017 }')
-=======
 console.info('TEST pop')
 
 console.info('CASE pop the last element from array')
@@ -56,4 +34,3 @@ console.assert(last.year === 2017, 'last year is 2017')
 
 
 
->>>>>>> 804e4c522ff8404c95fc214063b0710cd047bd58

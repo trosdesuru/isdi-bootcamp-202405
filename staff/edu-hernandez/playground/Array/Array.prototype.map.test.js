@@ -1,44 +1,3 @@
-<<<<<<< HEAD
-console.info('TEST Array.prototype.map')
-
-console.info('CASE map in array')
-
-var numeros = [1, 4, 9, 16]
-
-var map1 = numeros.map(function (x) {
-
-    return x * 2
-})
-
-console.assert(map1 instanceof Array, 'map1 is an array')
-console.assert(map1[0] === 2, 'map1 at 0 is 2')
-console.assert(map1[1] === 8, 'map1 at 1 is 8')
-console.assert(map1[2] === 18, 'map1 at 2 is 18')
-console.assert(map1[3] === 32, 'map1 at 3 is 32')
-console.assert(map1.length === numeros.length, 'map1 length equals to numeros length')
-
-=======
-<<<<<<< HEAD
-console.info('TEST map')
-
-console.info('CASE map numbers to each one miltiplied by 2')
-
-var nums = [1, 4, 9, 16]
-
-var numsby2 = nums.map(funtion (num) { return num * 2 })
-
-console.assert(numsby2 instanceof Array, 'numsBy2 is an Array')
-console.assert(numsby2[0] === 2, 'numsBy2 at 0 is 2')
-console.assert(numsby2[1] === 8, 'numsBy2 at 1 is 8')
-console.assert(numsby2[2] === 18, 'numsBy2 at 2 is 18')
-console.assert(numsby2[3] === 32, 'numsBy2 at 3 is 32')
-
-console.info('CASE maps cart items to string with stats')
-
-var cart = [
-    
-]
-=======
 console.info('TEST map')
 
 console.info('CASE map numbers to each one multiplied by 2')
@@ -83,5 +42,3 @@ console.assert(stats[0] === 'cool socks (adidas) 20€ (3.571428571428571%)', 's
 console.assert(stats[1] === 'cool air (nike) 200€ (35.714285714285715%)', 'stats at 1 is a string with nike stats')
 console.assert(stats[2] === 'cool glasses (armani) 250€ (44.642857142857146%)', 'stats at 2 is a string with armani stats')
 console.assert(stats[3] === 'cool boxers (calvin klein) 90€ (16.071428571428573%)', 'stats at 3 is a string with calvin klein stats')
->>>>>>> 08b1ada5a17a839d33b942755b256e124649b9b6
->>>>>>> 804e4c522ff8404c95fc214063b0710cd047bd58

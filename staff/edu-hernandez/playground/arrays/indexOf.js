@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-console.log('TEST INDEXOF')
-
-console.log('CASE indexOf in array')
-
-var animals = ['ant', 'bison', 'camel', 'duck', 'bison']
-
-console.log(animals)
-// ['ant', 'bison', 'camel', 'duck', 'bison']
-console.log(animals.length)
-// 5
-
-console.log(animals.indexOf('ant'))
-// 0
-console.log(animals.indexOf('bison'))
-// 1
-console.log(animals.indexOf('camel', 1))
-// 2
-console.log(animals.indexOf('giraffa'))
-// -1
-console.log(animals.indexOf('ant', -5))
-// 0
-console.log(animals.indexOf('bison', 2))
-//4
-=======
 console.log('TEST indexOf')
 
 console.log('CASE index of animal in array')
@@ -86,4 +61,3 @@ var index = beasts.indexOf('bison')
 console.log(index)
 // 1
 console.assert(index === 1, 'index is 1')
->>>>>>> 804e4c522ff8404c95fc214063b0710cd047bd58
