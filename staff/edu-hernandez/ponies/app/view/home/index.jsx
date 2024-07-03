@@ -43,12 +43,8 @@ class Home extends Component {
 
             <main className="view main">
                 <PostList />
+                <Footer />
             </main>
-            <footer className="footer">
-            <button className="form-button">
-                Add Ponie
-            </button>
-        </footer>
         </>
     }
 

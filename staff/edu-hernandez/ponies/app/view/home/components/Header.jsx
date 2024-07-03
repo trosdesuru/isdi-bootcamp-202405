@@ -32,10 +32,10 @@ class Header extends Component {
     render() {
         return <header className="header">
             <p className="header__user-name">Hello, {this.state.name}!</p>
-            <button className="Button Button--active">🏚️</button>
-            <button className="Button">🦄</button>
-            <button className="Button">🏳️‍🌈</button>
-            <button className="Button" onClick={this.handleLogout}>🚪</button>
+            <button className="Button Button--active">Home</button>
+            <button className="Button">unfav</button>
+            <button className="Button">add fav</button>
+            <button className="Button" onClick={this.handleLogout}>Logout</button>
         </header>
     }
 }

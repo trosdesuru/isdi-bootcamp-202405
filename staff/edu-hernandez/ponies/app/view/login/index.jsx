@@ -41,21 +41,25 @@ class Login extends Component {
 
             <form className="form" onSubmit={this.handleLoginSubmit}>
                 <div className="form__field">
-                    <label htmlFor="username-input">Username</label>
+                    <label htmlFor="username-input"></label>
                     <input className="form__input" type="text" id="username-input" name="username" placeholder="username" />
                 </div>
 
                 <div className="form__field">
-                    <label htmlFor="password-input">Password</label>
+                    <label htmlFor="password-input"></label>
                     <input className="form__input" type="password" id="password-input" name="password" placeholder="password" />
                 </div>
 
                 <button className="form__button" type="submit">Login</button>
+
+                <button>
+                    <a href="" onClick={this.handleRegisterClick}>Register</a>
+                </button>
+
             </form>
 
-            <a href="" onClick={this.handleRegisterClick}>Register</a>
         </main>
-        
+
     }
 }
 
