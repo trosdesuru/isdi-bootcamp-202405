@@ -9,11 +9,11 @@ html {
 }
 
 .view {
+    /* Space */
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
     align-items: center;
-    /* Space */
     width: 100%;
     height: 100%;
     gap: 1rem;
@@ -27,19 +27,6 @@ html {
     /* Test */
     /* background-color: red; */
     border: 3px solid orange;
-}
-
-.body {
-    display: flex;
-    box-sizing: border-box;
-    border: 3px solid red;
-    /* Style */
-    font-family: Poppins;
-    /* Size */
-    height: 100%;
-    width: 100%;
-    /* Space */
-    margin: 0;
 }
 
 .status-bar {
@@ -159,6 +146,7 @@ html {
 }
 
 .form {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
