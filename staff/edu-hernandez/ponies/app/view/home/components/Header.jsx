@@ -1,6 +1,6 @@
 import logic from '../../../logic/index.mjs'
 
-const { Component } = React // taty: "descomponent"
+const { Component } = React
 
 class Header extends Component {
     constructor() {

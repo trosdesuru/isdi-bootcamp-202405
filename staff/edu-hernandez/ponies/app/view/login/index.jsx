@@ -55,6 +55,7 @@ class Login extends Component {
 
             <a href="" onClick={this.handleRegisterClick}>Register</a>
         </main>
+        
     }
 }
 

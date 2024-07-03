@@ -35,8 +35,7 @@ class Footer extends Component {
 
             createPostForm.onSubmit(event => {
                 event.preventDefault()
-
-                //const postImageInput = document.getElementById('post-image-input')
+                
                 const postImage = postImageInput.getValue()
                 const postCaption = postCaptionInput.getValue()
 
