@@ -1,31 +1,26 @@
-import logic from '../../../logic'
+import logic from '../../../logic/index.mjs'
 
-const { Component } = React
+const Component = React.Component
 
 class Footer extends Component {
     constructor() {
         super()
 
         try {
-            const createPost = logic.createPost()
-
-            this.state = { createPost }
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
+            
         }
+
     }
+        handleCreatePostClick() {
+            try {
+                const createPost = logic.createPost()
 
-    handleAddPost() {
-        try {
-            logic.createPost()
+                this.state = { createPost }
+            } catch (error) {
+                console.error(error)
 
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
+                alert(error.message)
+            }
     }
 
     render() {
