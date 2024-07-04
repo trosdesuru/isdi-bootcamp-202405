@@ -75,31 +75,46 @@ class PostList extends Component {
         }
     }
 
-        handlePostFavourited() {
-            console.debug('PostList -> handlePostFavourited')
-            try {
-                const posts = logic.getAllPosts()
-    
-                this.setState({ posts })
-            } catch (error) {
-                console.error(error)
-    
-                alert(error.message)
-            }
+    handlePostFavourited() {
+        console.debug('PostList -> handlePostFavourited')
+        try {
+            const posts = logic.getAllPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
         }
-
-    render() {
-        console.debug('PostList -> render')
-
-        return <section className="post-list">
-            {this.state.posts.map(post => <Post post={post} 
-            onPostDeleted={this.handlePostDeleted.bind(this)} 
-            onPostEdited={this.handlePostEdited.bind(this)} 
-            onPostLiked={this.handlePostLiked.bind(this)}
-            onPostFavourited={this.handlePostFavourited.bind(this)}/>)}
-            
-        </section>
     }
+
+    onUserFollowed() {
+        console.debug('PostList -> onUserFollowed')
+        try {
+            const posts = logic.getAllPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+
+render() {
+    console.debug('PostList -> render')
+
+    return <section className="post-list">
+        {this.state.posts.map(post => <Post post={post}
+            onPostDeleted={this.handlePostDeleted.bind(this)}
+            onPostEdited={this.handlePostEdited.bind(this)}
+            onPostLiked={this.handlePostLiked.bind(this)}
+            onPostFavourited={this.handlePostFavourited.bind(this)}
+            onUserFollowed={this.onUserFollowed.bind(this)} />)}
+
+    </section>
+}
 }
 
 export default PostList

@@ -94,6 +94,19 @@ class Post extends Component {
         }
     }
 
+    handleFollowUserClick() {
+        console.debug('Header -> handleFollowUserClick')
+        try {
+            logic.toggleFollowUser(this.props.post.author.username)
+
+            this.props.onUserFollowed()
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
     render() {
         console.debug('Post -> render')
 
@@ -103,7 +116,12 @@ class Post extends Component {
             <div className="post__top">
                 <h3 className="post__author">{post.author.username}</h3>
 
-                <button className="Button">{post.author.following ? 'unfollow' : 'follow'}</button>
+                {post.author.username !== logic.getUserUsername() &&
+                    <><button className="Button"
+                        onClick={this.handleFollowUserClick.bind(this)}>
+                        {post.author.following ? 'unfollow' : 'follow'}
+                    </button>
+                    </>}
             </div>
 
             <img className="post__image" src={post.image} />
