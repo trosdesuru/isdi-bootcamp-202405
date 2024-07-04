@@ -1,5 +1,3 @@
-import logic from '../../logic/index.mjs'
-
 import Header from './components/Header'
 import PostList from './components/PostList'
 import Footer from './components/Footer.jsx'
@@ -8,43 +6,21 @@ const Component = React.Component
 
 class Home extends Component {
     constructor() {
+        console.debug('Home -> constructor')
+
         super()
-
-        try {
-            const posts = logic.getAllPosts()
-
-            this.state = { posts }
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
-
-    handleLogoutClick() {
-        try {
-            logic.logoutUser()
-
-            location.href = '../login'
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
-
-    handleHomeButton() {
-
     }
 
     render() {
+        console.debug('Home -> render')
         return <>
             <Header />
 
             <main className="view main">
                 <PostList />
             </main>
-                <Footer />
+
+            <Footer />
         </>
     }
 }
