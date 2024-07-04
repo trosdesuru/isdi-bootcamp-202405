@@ -4,6 +4,8 @@ const { Component } = React
 
 class Header extends Component {
     constructor() {
+        console.debug('Header -> constructor')
+
         super()
 
         try {
@@ -18,6 +20,8 @@ class Header extends Component {
     }
 
     handleLogout() {
+        console.debug('Header -> handleLogout')
+
         try {
             logic.logoutUser()
 
@@ -30,11 +34,13 @@ class Header extends Component {
     }
 
     render() {
+        console.debug('Header -> render')
+
         return <header className="header">
             <p className="header__user-name">Hello, {this.state.name}!</p>
             <button className="Button Button--active">Home</button>
-            <button className="Button">unfav</button>
-            <button className="Button">add fav</button>
+            <button className="Button">Following</button>
+            <button className="Button">Favs</button>
             <button className="Button" onClick={this.handleLogout}>Logout</button>
         </header>
     }

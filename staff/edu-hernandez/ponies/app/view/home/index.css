@@ -114,6 +114,17 @@ button {
     margin-bottom: 3rem;
 }
 
+.post__actions {
+    font-family: Poppins;
+    margin: .5rem;
+    display: flex;
+    gap: .5rem;
+}
+
+.edit-caption__button {
+    
+}
+
 .footer {
     position: fixed;
     bottom: 0;

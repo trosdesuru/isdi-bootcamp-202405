@@ -1,11 +1,13 @@
 import logic from "../../../logic/index.mjs"
 
-import formatTime from '../../../util/formatTime.mjs'
-
 const { Component } = React
+
+import Post from './Post.jsx'
 
 class PostList extends Component {
     constructor() {
+        console.debug('PostList -> constructor')
+
         super()
 
         try {
@@ -19,31 +21,83 @@ class PostList extends Component {
         }
     }
 
+    componentWillReceiveProps(newProps) {
+        console.debug('PostList -> componentWillReceiveProps', newProps, this.props)
+
+        if (newProps.refreshStamp !== this.props.refreshStamp)
+            try {
+                const posts = logic.getAllPosts()
+
+                this.setState({ posts })
+            } catch (error) {
+                console.error(error)
+
+                alert(error.message)
+            }
+    }
+
+    handlePostDeleted() {
+        console.debug('PostList ->  handlePostDeleted')
+        try {
+            const posts = logic.getAllPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    handlePostEdited() {
+        console.debug('PostList ->   handlePostEdited')
+        try {
+            const posts = logic.getAllPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    handlePostLiked() {
+        console.debug('PostList ->   handlePostLiked')
+        try {
+            const posts = logic.getAllPosts()
+
+            this.setState({ posts })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+        handlePostFavourited() {
+            console.debug('PostList -> handlePostFavourited')
+            try {
+                const posts = logic.getAllPosts()
+    
+                this.setState({ posts })
+            } catch (error) {
+                console.error(error)
+    
+                alert(error.message)
+            }
+        }
+
     render() {
+        console.debug('PostList -> render')
+
         return <section className="post-list">
-            {this.state.posts.map(post => <article className="post">
-                <div className="post__top">
-                    <h3 className="post__author">{post.author.username}</h3>
-
-                    <button className="Button">{post.author.following ? 'Unfollow' : 'Follow'}</button>
-                </div>
-
-                <img className="post__image" src={post.image} />
-
-                <p className="post__caption">{post.caption}</p>
-
-                <div className="post__actions">
-                    <button className="Button">{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</button>
-                    <button className="Button">{post.fav ? '🏳️‍🌈' : '🏳️'}</button>
-
-                    {post.author.username === logic.getUserUsername() && <>
-                        <button className="Button">Delete Post</button>
-                        <button className="Button">Edit Caption</button>
-                    </>}
-                </div>
-
-                <time className="post__time">{formatTime(new Date(post.date))}</time>
-            </article>)}
+            {this.state.posts.map(post => <Post post={post} 
+            onPostDeleted={this.handlePostDeleted.bind(this)} 
+            onPostEdited={this.handlePostEdited.bind(this)} 
+            onPostLiked={this.handlePostLiked.bind(this)}
+            onPostFavourited={this.handlePostFavourited.bind(this)}/>)}
+            
         </section>
     }
 }
