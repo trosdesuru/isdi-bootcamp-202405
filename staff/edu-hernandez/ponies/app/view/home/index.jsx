@@ -43,8 +43,8 @@ class Home extends Component {
 
             <main className="view main">
                 <PostList />
-                <Footer />
             </main>
+                <Footer />
         </>
     }
 }
