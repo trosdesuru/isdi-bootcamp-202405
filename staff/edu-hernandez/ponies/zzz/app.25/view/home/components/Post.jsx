@@ -3,8 +3,6 @@ import data from '../../../logic/index.mjs'
 
 import formatTime from '../../../util/formatTime.mjs'
 
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-
 const { Component } = React
 
 class Post extends Component {
@@ -121,7 +119,7 @@ class Post extends Component {
                 {post.author.username !== logic.getUserUsername() &&
                     <><button className="Button"
                         onClick={this.handleFollowUserClick.bind(this)}>
-                        {post.author.following ? 'Unfollow' : 'Follow'}
+                        {post.author.following ? 'unfollow' : 'follow'}
                     </button>
                     </>}
             </div>
@@ -131,24 +129,12 @@ class Post extends Component {
             <p className="post__caption">{post.caption}</p>
 
             <div className="post__actions">
-                <button className="Button"
-                    onClick={this.handleLikeClick.bind(this)}>
-                    {(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}
-                </button>
-                <button className="Button"
-                    onClick={this.handleFavClick.bind(this)}>
-                    {post.fav ? 'Unfav' : 'Add fav'}
-                </button>
+                <button className="Button" onClick={this.handleLikeClick.bind(this)}>{(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</button>
+                <button className="Button" oncClick={this.handleFavClick.bind(this)}>{post.fav ? 'unfav' : 'Add fav'}</button>
 
                 {post.author.username === logic.getUserUsername() && <>
-                    <button className="Button"
-                        onClick={this.handleDeletePostClick.bind(this)}>
-                        Delete
-                    </button>
-                    <button className="Button"
-                        onClick={this.handleEditPostClick.bind(this)}>
-                        Edit
-                    </button>
+                    <button className="Button" onClick={this.handleDeletePostClick.bind(this)}>Delete</button>
+                    <button className="Button" onClick={this.handleEditPostClick.bind(this)}>Edit</button>
                 </>}
             </div>
 

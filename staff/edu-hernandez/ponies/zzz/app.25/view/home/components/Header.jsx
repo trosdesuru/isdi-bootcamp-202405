@@ -1,7 +1,5 @@
 import logic from '../../../logic/index.mjs'
 
-export { getAllFavPosts } from '../../../logic/getAllFavPosts.mjs';
-
 const { Component } = React
 
 class Header extends Component {
@@ -35,19 +33,6 @@ class Header extends Component {
         }
     }
 
-    handleFavouritePosts() {
-        console.debug('Header -> handleFavouritePosts')
-        try {
-            logic.getAllFavPosts(this.props.username.favs)
-
-          git
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
-
     render() {
         console.debug('Header -> render')
 
@@ -55,7 +40,7 @@ class Header extends Component {
             <p className="header__user-name">Hello, {this.state.name}!</p>
             <button className="Button Button--active">Home</button>
             <button className="Button">Following</button>
-            <button className="Button" onClick={this.handleFavouritePosts}>Favs</button>
+            <button className="Button">Favs</button>
             <button className="Button" onClick={this.handleLogout}>Logout</button>
         </header>
     }

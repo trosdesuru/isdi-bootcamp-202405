@@ -101,61 +101,20 @@ class PostList extends Component {
         }
     }
 
-    onListFavouritedPosts() {
-        console.debug('PostList -> onListFavouritedPosts')
-        try {
-            const favListPosts = logic.getAllFavPosts()
 
-            favListPosts.forEach(_post => {
-                const favPost = new Post(_post)
+render() {
+    console.debug('PostList -> render')
 
-                favPost.onPostDeleted(() => {
-                    this.clearPosts().bind(this)
-                    this.listPosts().bind(this)
-                })
+    return <section className="post-list">
+        {this.state.posts.map(post => <Post post={post}
+            onPostDeleted={this.handlePostDeleted.bind(this)}
+            onPostEdited={this.handlePostEdited.bind(this)}
+            onPostLiked={this.handlePostLiked.bind(this)}
+            onPostFavourited={this.handlePostFavourited.bind(this)}
+            onUserFollowed={this.onUserFollowed.bind(this)} />)}
 
-                favPost.updatePostCaption(() => {
-                    this.clearPosts().bind(this)
-                    this.listPosts().bind(this)
-                })
-
-                favPost.onPostLiked(() => {
-                    this.clearPosts().bind(this)
-                    this.listPosts().bind(this)
-                })
-
-                favPost.onPostFavourited(() => {
-                    this.clearPosts().bind(this)
-                    this.listPosts().bind(this)
-                })
-
-                favPost.onUserFollowed(() => {
-                    this.clearPosts().bind(this)
-                    this.listPosts().bind(this)
-                })
-
-                this.appendChild(favPost).bind(this)
-            })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
-
-    render() {
-        console.debug('PostList -> render')
-
-        return <section className="post-list">
-            {this.state.posts.map(post =>
-                <Post post={post}
-                    onPostDeleted={this.handlePostDeleted.bind(this)}
-                    onPostEdited={this.handlePostEdited.bind(this)}
-                    onPostLiked={this.handlePostLiked.bind(this)}
-                    onPostFavourited={this.handlePostFavourited.bind(this)}
-                    onUserFollowed={this.onUserFollowed.bind(this)} />)}
-        </section>
-    }
+    </section>
+}
 }
 
 export default PostList
