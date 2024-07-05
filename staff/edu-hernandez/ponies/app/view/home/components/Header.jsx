@@ -1,7 +1,5 @@
 import logic from '../../../logic/index.mjs'
 
-export { getAllFavPosts } from '../../../logic/getAllFavPosts.mjs';
-
 const { Component } = React
 
 class Header extends Component {
@@ -21,6 +19,24 @@ class Header extends Component {
         }
     }
 
+    handleHomeClick() {
+        console.debug('Header -> handleHomeClick')
+
+        this.props.onHomeClick()
+    }
+
+    handlePoniesClick() {
+        console.debug('Header -> handlePoniesClick')
+
+        this.props.onPoniesClick()
+    }
+
+    handleFavsClick() {
+        console.debug('Home -> handleFavsClick')
+
+        this.props.onFavsClick()
+    }
+
     handleLogout() {
         console.debug('Header -> handleLogout')
 
@@ -35,27 +51,14 @@ class Header extends Component {
         }
     }
 
-    handleFavouritePosts() {
-        console.debug('Header -> handleFavouritePosts')
-        try {
-            logic.getAllFavPosts(this.props.username.favs)
-
-          git
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
-
     render() {
         console.debug('Header -> render')
 
         return <header className="header">
             <p className="header__user-name">Hello, {this.state.name}!</p>
-            <button className="Button Button--active">Home</button>
-            <button className="Button">Following</button>
-            <button className="Button" onClick={this.handleFavouritePosts}>Favs</button>
+            <button className="Button Button--active" onClick={this.handleHomeClick.bind(this)}>Home</button>
+            <button className="Button" onClick={this.handlePoniesClick.bind(this)}>Follows</button>
+            <button className="Button" onClick={this.handleFavsClick.bind(this)}>Post Favs</button>
             <button className="Button" onClick={this.handleLogout}>Logout</button>
         </header>
     }

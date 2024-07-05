@@ -4,14 +4,14 @@ const { Component } = React
 
 import Post from './Post.jsx'
 
-class PostList extends Component {
+class FavsPostList extends Component {
     constructor() {
-        console.debug('PostList -> constructor')
+        console.debug('FavsPostList -> constructor')
 
         super()
 
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllFavPosts()
 
             this.state = { posts }
         } catch (error) {
@@ -22,11 +22,11 @@ class PostList extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        console.debug('PostList -> componentWillReceiveProps', newProps, this.props)
+        console.debug('FavsPostList -> componentWillReceiveProps', newProps, this.props)
 
         if (newProps.refreshStamp !== this.props.refreshStamp)
             try {
-                const posts = logic.getAllPosts()
+                const posts = logic.getAllFavPosts()
 
                 this.setState({ posts })
             } catch (error) {
@@ -37,9 +37,9 @@ class PostList extends Component {
     }
 
     handlePostDeleted() {
-        console.debug('PostList ->  handlePostDeleted')
+        console.debug('FavsPostList ->  handlePostDeleted')
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllPoniesPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -50,9 +50,9 @@ class PostList extends Component {
     }
 
     handlePostEdited() {
-        console.debug('PostList ->   handlePostEdited')
+        console.debug('FavsPostList ->   handlePostEdited')
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllFavPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -62,10 +62,10 @@ class PostList extends Component {
         }
     }
 
-    handlePostLiked() {
-        console.debug('PostList ->   handlePostLiked')
+    handlePostLikeToggled() {
+        console.debug('FavsPostList ->   handlePostLikeToggled')
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllFavPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -75,10 +75,10 @@ class PostList extends Component {
         }
     }
 
-    handlePostFavourited() {
-        console.debug('PostList -> handlePostFavourited')
+    handlePostFavToggled() {
+        console.debug('FavsPostList -> handlePostFavToggled')
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllFavPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -88,10 +88,10 @@ class PostList extends Component {
         }
     }
 
-    onUserFollowed() {
-        console.debug('PostList -> onUserFollowed')
+    handleUserFollowToggled() {
+        console.debug('FavsPostList -> handleUserFollowToggled')
         try {
-            const posts = logic.getAllPosts()
+            const posts = logic.getAllFavPosts()
 
             this.setState({ posts })
         } catch (error) {
@@ -102,7 +102,7 @@ class PostList extends Component {
     }
 
     render() {
-        console.debug('PostList -> render')
+        console.debug('FavsPostList -> render')
 
         return <section className="post-list">
             {this.state.posts.map(post =>
@@ -110,11 +110,12 @@ class PostList extends Component {
                 key={post.id}
                     onPostDeleted={this.handlePostDeleted.bind(this)}
                     onPostEdited={this.handlePostEdited.bind(this)}
-                    onPostLiked={this.handlePostLiked.bind(this)}
-                    onPostFavourited={this.handlePostFavourited.bind(this)}
-                    onUserFollowed={this.onUserFollowed.bind(this)} />)}
+                    onPostLiked={this.handlePostLikeToggled.bind(this)}
+                    onPostFavourited={this.handlePostFavToggled.bind(this)}
+                    onUserFollowed={this.handleUserFollowToggled.bind(this)}
+                />)}
         </section>
     }
 }
 
-export default PostList
+export default FavsPostList
