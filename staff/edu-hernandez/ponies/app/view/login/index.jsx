@@ -50,15 +50,16 @@ class Login extends Component {
                     <input className="form__input" type="password" id="password-input" name="password" placeholder="password" />
                 </div>
 
-                <button className="form__button" type="submit">Login</button>
+                {/* <button className="form__button" type="submit">Login</button> */}
+                <Button className={"form__button"} type={"submit"} text={'Login'} onClick={/>
 
-                <button>
+                    < button >
                     <a href="" onClick={this.handleRegisterClick}>Register</a>
                 </button>
 
-            </form>
+        </form>
 
-        </main>
+        </main >
 
     }
 }
