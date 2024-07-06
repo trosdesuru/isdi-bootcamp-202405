@@ -4,17 +4,15 @@
 
 .view {
     display: flex;
-    flex-direction: column;
     box-sizing: border-box;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    /* gap: 1rem; */
-    font-size: 1.1rem;
-    /* Background Image */
-    background-image: url(./image/flag.png);
-    background-repeat: no-repeat;
+
+    background-image: url(../../img/background_img.png);
     background-position: right bottom;
+    background-repeat: no-repeat;
 }
 
 .status_bar {
@@ -23,10 +21,10 @@
 
 h1 {
     font-family: Poppins;
-    font-size: 32px;
+    font-size: 24px;
     color: #1F41BB;
-    position: fixed;
-    margin-top: 5rem;
+
+    margin-bottom: 1rem;
     top: 0;
 }
 
@@ -36,7 +34,7 @@ h1 {
     justify-content: center;
     min-width: 80vw;
     min-height: 100%;
-    gap: 1.2rem;
+    gap: 1rem;
     overflow-y: auto;
 }
 
@@ -50,9 +48,9 @@ h1 {
     flex-direction: column;
 
     font-family: Poppins;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 300;
-    color: lightgray;
+    color: rgb(92, 92, 92);
 
     padding: 10px 4px 10px 12px;
     border: none;
@@ -67,45 +65,38 @@ a {
 }
 
 button {
-    background-color: #1F41BB;
-    font-size: Poppins;
+    font-family: Poppins;
     color: #F1F4FF;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 400;
     text-decoration: none;
     font-style: normal;
-    font-family: Poppins;
     border: none;
-    border-radius: 6px;
-    /* Display */
-    width: 100%;
     padding: 10px 15px;
-    /* Organize Items */
-    justify-content: center;
+
     align-items: center;
-    border-radius: 10px;
+    justify-content: center;
+    width: 100%;
+    border-radius: 6px;
+    background-color: #1F41BB;
 }
 
 .form__button {
-    /* Style */
-    background-color: white;
-    font-size: Poppins;
-    color: #1F41BB;
-    font-size: 16px;
-    font-weight: 500;
-    text-decoration: none;
-    font-style: normal;
     font-family: Poppins;
-    border: 2px solid #1F41BB;
-    border-radius: 6px;
-    /* Display */
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+    text-decoration: none;
+    padding: 8px 15px;
+    color: #1F41BB;
+
     display: flex;
     flex-direction: column;
-    width: 100%;
-    padding: 10px 15px;
-    /* Organize Items */
-    justify-content: center;
     align-items: center;
-    border-radius: 10px;
-    background: #FFF;
+    justify-content: center;
+    width: 100%;
+
+    border-radius: 6px;
+    border: 2px solid #1F41BB;
+    background-color: white;
 }

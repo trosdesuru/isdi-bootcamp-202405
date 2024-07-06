@@ -3,8 +3,6 @@ import data from '../../../logic/index.mjs'
 
 import formatTime from '../../../util/formatTime.mjs'
 
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-
 const { Component } = React
 
 class Post extends Component {
@@ -127,31 +125,32 @@ class Post extends Component {
             </div>
 
             <img className="post__image" src={post.image} />
+            <div className="div__sub-post">
+                <div className="post__actions">
+                    <button className="like__button"
+                        onClick={this.handleLikeClick.bind(this)}>
+                        {(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}
+                    </button>
+                    <button className="Button"
+                        onClick={this.handleFavClick.bind(this)}>
+                        {post.fav ? 'Unfav' : 'Add fav'}
+                    </button>
+                </div>
+                <div><p className="post__caption">{post.caption}</p></div>
 
-            <div className="post__actions">
-                <button className="Button"
-                    onClick={this.handleLikeClick.bind(this)}>
-                    {(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}
-                </button>
-                <button className="Button"
-                    onClick={this.handleFavClick.bind(this)}>
-                    {post.fav ? 'Unfav' : 'Add fav'}
-                </button>
+                {post.author.username === logic.getUserUsername() && <>
+                    <button className="Button"
+                        onClick={this.handleDeletePostClick.bind(this)}>
+                        Delete
+                    </button>
+                    <button className="Button"
+                        onClick={this.handleEditPostClick.bind(this)}>
+                        Edit
+                    </button>
+                </>}
+
+                <time className="post__time">{formatTime(new Date(post.date))}</time>
             </div>
-            <div><p className="post__caption">{post.caption}</p></div>
-
-            {post.author.username === logic.getUserUsername() && <>
-                <button className="Button"
-                    onClick={this.handleDeletePostClick.bind(this)}>
-                    Delete
-                </button>
-                <button className="Button"
-                    onClick={this.handleEditPostClick.bind(this)}>
-                    Edit
-                </button>
-            </>}
-
-            <time className="post__time">{formatTime(new Date(post.date))}</time>
 
             {this.state.editPostVisible && <form onSubmit={this.handleEditpostSubmit.bind(this)}>
                 <label for="edit-caption-input"></label>

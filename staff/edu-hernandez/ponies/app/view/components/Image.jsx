@@ -3,11 +3,15 @@ const { Component } = React
 
 class Image extends Component {
     constructor() {
-        super(document.createElement('img'))
+        super()
+        this.state = {url: ''}
     }
 
     setUrl(url) {
-        this.container.src = url
+        this.state({ url })
+    }
+    render() {
+        return (<img src={this.state.url} alt="" />)
     }
 }
 

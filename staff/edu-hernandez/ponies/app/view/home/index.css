@@ -3,7 +3,6 @@
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    /* Style */
     font-family: Poppins;
 }
 
@@ -26,6 +25,13 @@
     background-position: 32vw;
     background-repeat: no-repeat;
 }
+
+.header__user-name {
+    font-family: Poppins;
+    font-size: 16px;
+}
+
+
 
 .form {
     display: flex;
@@ -55,6 +61,17 @@ button {
     padding: 4px 6px 4px 6px;
 }
 
+.like__button {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 400;
+    color: dimgray;
+
+
+    justify-content: end;
+    background-color: transparent;
+}
+
 .form__button {
     font-family: Poppins;
     font-size: 1rem;
@@ -76,13 +93,19 @@ button {
     width: 100vw;
 }
 
+.post {
+    display: block;
+    justify-content: center;
+    background-color: white;
+}
+
 .post__top {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     margin: 0 .7rem;
-    gap: .5rem;
+    gap: .6rem;
 }
 
 .post__author {
@@ -96,23 +119,29 @@ button {
 }
 
 p {
-    font-family: monospace;
-    font-size: 15px;
-    font-weight: 100;
     margin: .5rem;
+}
+
+.div__sub-post {
+
 }
 
 .post__actions {
-    margin: .5rem;
-    display: flex;
-    gap: .5rem;
+    
+}
+
+.post__caption {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15px;
+    font-weight: 100;
 }
 
 .post__time {
+    font-family: inherit;
+    font-size: 13px;
     display: block;
     margin: .5rem;
     color: silver;
-    font-size: .9rem;
 }
 
 .header__user-name {
@@ -125,10 +154,12 @@ p {
 }
 
 .post__actions {
-    font-family: Poppins;
-    margin: .5rem;
     display: flex;
-    gap: .5rem;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: Poppins;
+    margin: .0rem .7rem 0rem .7rem;
+    gap: .7rem;
 }
 
 .footer {

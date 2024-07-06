@@ -17,7 +17,7 @@ function formatTime(date) {
     const days = Math.round(hours / 24)
 
     if (days < 7)
-        return days + ' day' + (days === 1 ? '' : 's')
+        return (days + ' day' + (days === 1 ? '' : 's') + ' ' + 'ago')
 
     const weeks = Math.round(days / 7)
 

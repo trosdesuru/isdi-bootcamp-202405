@@ -10,7 +10,7 @@ class Label extends Component {
     }
 
     getFor() {
-        return this.container.htmlFor
+        return this.props.htmlFor
     }
 }
 
