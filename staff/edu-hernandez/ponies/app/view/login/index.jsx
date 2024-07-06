@@ -1,10 +1,27 @@
 import logic from '../../logic/index.mjs'
 
+import updateTime from '../../util/updateTime.mjs'
+
 const Component = React.Component
 
 class Login extends Component {
     constructor() {
+        console.debug('Login -> constructor')
+
         super()
+        this.state = { whatTime: '' }
+    }
+
+    componentTime() {
+        try {
+            const whatTime = updateTime()
+
+            this.setState = { whatTime }
+        } catch (error) {
+            console.debug('Login -> whatTime')
+
+            alert(error.message)
+        }
     }
 
     handleRegisterClick(event) {
@@ -37,27 +54,46 @@ class Login extends Component {
 
     render() {
         return <main className="view">
+            <div className="status_bar">
+                <div className="time_left_side">
+                    <p className="time">{this.state.whatTime}</p>
+                </div>
+
+            </div>
             <h1>Login</h1>
+            <div className="div_form">
+                <form className="form" onSubmit={this.handleLoginSubmit}>
+                    <div className="form__field">
+                        <label htmlFor="username-input"></label>
+                        <input
+                            className="form__input"
+                            type="text"
+                            id="username-input"
+                            name="username"
+                            placeholder="username"
+                        />
+                    </div>
 
-            <form className="form" onSubmit={this.handleLoginSubmit}>
-                <div className="form__field">
-                    <label htmlFor="username-input"></label>
-                    <input className="form__input" type="text" id="username-input" name="username" placeholder="username" />
-                </div>
+                    <div className="form__field">
+                        <label htmlFor="password-input"></label>
+                        <input
+                            className="form__input"
+                            type="password" id="password-input"
+                            name="password"
+                            placeholder="password"
+                        />
+                    </div>
 
-                <div className="form__field">
-                    <label htmlFor="password-input"></label>
-                    <input className="form__input" type="password" id="password-input" name="password" placeholder="password" />
-                </div>
-
-                {/* <button className="form__button" type="submit">Login</button> */}
-                <Button className={"form__button"} type={"submit"} text={'Login'} onClick={/>
-
-                    < button >
-                    <a href="" onClick={this.handleRegisterClick}>Register</a>
-                </button>
-
-        </form>
+                    <button className="form__button" id="login_button" type="submit">Login</button>
+                    {/* <Button className={"form__button"} type={"submit"} text={'Login'} /> */}
+                    <a href=""
+                        target='_blank'
+                        className='form__button'
+                        onClick={this.handleRegisterClick}
+                    >Register
+                    </a>
+                </form>
+            </div>
 
         </main >
 

@@ -51,39 +51,42 @@ class Register extends Component {
 
             <form className="form" onSubmit={this.handleRegisterSubmit}>
                 <div className="form__field">
-                    <label htmlFor="name-input">Name</label>
-                    <input className="form__input" type="text" id="name-input" name="name" placeholder="name" />
+                    <label htmlFor="name-input"></label>
+                    <input className="form__input" type="text" id="name-input" name="name" placeholder="Name" />
                 </div>
 
                 <div className="form__field">
-                    <label htmlFor="surname-input">Surname</label>
-                    <input className="form__input" type="text" id="surname-input" name="surname" placeholder="surname" />
+                    <label htmlFor="surname-input"></label>
+                    <input className="form__input" type="text" id="surname-input" name="surname" placeholder="Surname" />
                 </div>
 
                 <div className="form__field">
-                    <label htmlFor="email-input">E-mail</label>
+                    <label htmlFor="email-input"></label>
                     <input className="form__input" type="email" id="email-input" name="email" placeholder="email" />
                 </div>
 
                 <div className="form__field">
-                    <label htmlFor="username-input">Username</label>
+                    <label htmlFor="username-input"></label>
                     <input className="form__input" type="text" id="username-input" name="username" placeholder="username" />
                 </div>
 
                 <div className="form__field">
-                    <label htmlFor="password-input">Password</label>
+                    <label htmlFor="password-input"></label>
                     <input className="form__input" type="password" id="password-input" name="password" placeholder="password" />
                 </div>
 
                 <div className="form__field">
-                    <label htmlFor="password-repeat-input">Repeat Password</label>
+                    <label htmlFor="password-repeat-input"></label>
                     <input className="form__input" type="password" id="password-repeat-input" name="password-repeat" placeholder="repeat password" />
                 </div>
 
-                <button className="form__button" type="submit">Register</button>
-            </form>
+                <button type="submit">Register</button>
 
-            <a href="" onClick={this.handleLoginClick}>Login</a>
+                <a href=""
+                    target='_blank'
+                    className='form__button'
+                    onClick={this.handleLoginClick}>Login</a>
+            </form>
         </main>
     }
 }

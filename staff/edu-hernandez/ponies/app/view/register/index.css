@@ -1,28 +1,111 @@
+* {
+    margin: 0;
+}
+
 .view {
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     align-items: center;
-    gap: 1rem;
+    justify-content: center;
+    min-height: 100vh;
+    /* gap: 1rem; */
     font-size: 1.1rem;
+    /* Background Image */
+    background-image: url(./image/flag.png);
+    background-repeat: no-repeat;
+    background-position: right bottom;
+}
+
+.status_bar {
+    top: 0;
+}
+
+h1 {
+    font-family: Poppins;
+    font-size: 32px;
+    color: #1F41BB;
+    position: fixed;
+    margin-top: 5rem;
+    top: 0;
 }
 
 .form {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
-    min-width: 80%;
+    justify-content: center;
+    min-width: 80vw;
+    min-height: 100%;
+    gap: 1.2rem;
+    overflow-y: auto;
 }
 
 .form__field {
     display: flex;
     flex-direction: column;
-    gap: .2rem
 }
 
 .form__input {
-    font-size: inherit;
+    display: flex;
+    flex-direction: column;
+
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 300;
+    color: lightgray;
+
+    padding: 10px 4px 10px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #F1F4FF;
+
+}
+
+a {
+    display: flex;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #1F41BB;
+    font-size: Poppins;
+    color: #F1F4FF;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    font-style: normal;
+    font-family: Poppins;
+    border: none;
+    border-radius: 6px;
+    /* Display */
+    width: 100%;
+    padding: 10px 15px;
+    /* Organize Items */
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
 }
 
 .form__button {
-    font-size: inherit;
+    /* Style */
+    background-color: white;
+    font-size: Poppins;
+    color: #1F41BB;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    font-style: normal;
+    font-family: Poppins;
+    border: 2px solid #1F41BB;
+    border-radius: 6px;
+    /* Display */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 15px;
+    /* Organize Items */
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background: #FFF;
 }

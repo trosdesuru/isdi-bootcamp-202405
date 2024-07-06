@@ -119,7 +119,7 @@ class Post extends Component {
                 <h3 className="post__author">{post.author.username}</h3>
 
                 {post.author.username !== logic.getUserUsername() &&
-                    <><button className="Button"
+                    <><button className="follow__button"
                         onClick={this.handleFollowUserClick.bind(this)}>
                         {post.author.following ? 'Unfollow' : 'Follow'}
                     </button>
@@ -127,8 +127,6 @@ class Post extends Component {
             </div>
 
             <img className="post__image" src={post.image} />
-
-            <p className="post__caption">{post.caption}</p>
 
             <div className="post__actions">
                 <button className="Button"
@@ -139,18 +137,19 @@ class Post extends Component {
                     onClick={this.handleFavClick.bind(this)}>
                     {post.fav ? 'Unfav' : 'Add fav'}
                 </button>
-
-                {post.author.username === logic.getUserUsername() && <>
-                    <button className="Button"
-                        onClick={this.handleDeletePostClick.bind(this)}>
-                        Delete
-                    </button>
-                    <button className="Button"
-                        onClick={this.handleEditPostClick.bind(this)}>
-                        Edit
-                    </button>
-                </>}
             </div>
+            <div><p className="post__caption">{post.caption}</p></div>
+
+            {post.author.username === logic.getUserUsername() && <>
+                <button className="Button"
+                    onClick={this.handleDeletePostClick.bind(this)}>
+                    Delete
+                </button>
+                <button className="Button"
+                    onClick={this.handleEditPostClick.bind(this)}>
+                    Edit
+                </button>
+            </>}
 
             <time className="post__time">{formatTime(new Date(post.date))}</time>
 
