@@ -119,7 +119,7 @@ class Post extends Component {
                 {post.author.username !== logic.getUserUsername() &&
                     <><button className="follow__button"
                         onClick={this.handleFollowUserClick.bind(this)}>
-                        {post.author.following ? 'Unfollow' : 'Follow'}
+                        {post.author.following ? '🔸 Unfollow' : '🔹 Follow'}
                     </button>
                     </>}
             </div>
@@ -129,7 +129,7 @@ class Post extends Component {
                 <div className="post__actions">
                     <button className="like__button"
                         onClick={this.handleLikeClick.bind(this)}>
-                        {(post.like ? '❤️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}
+                        {(post.like ? '♥️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}
                     </button>
                     <button className="Button"
                         onClick={this.handleFavClick.bind(this)}>

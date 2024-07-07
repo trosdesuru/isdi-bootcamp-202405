@@ -69,9 +69,9 @@ class Footer extends Component {
                         <input className="form__input" id="post-caption-input" />
                     </div>
 
-                    <div className="create-post-setcion__buttons">
-                        <button className="Button" type="submit">Add</button>
-                        <button className="Button" type="reset" onClick={this.handleCancelCreatePostClick.bind(this)}>Cancel</button>
+                    <div className="create-post-section__buttons">
+                        <button className="add__button" type="submit">Add</button>
+                        <button className="cancel__button" type="reset" onClick={this.handleCancelCreatePostClick.bind(this)}>Cancel</button>
                     </div>
                 </form>
             </section>}

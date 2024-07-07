@@ -56,12 +56,30 @@ class Header extends Component {
 
         return <header className="header">
             <p className="header__user-name">Hello, {this.state.name}!</p>
-            <button className="Button Button--active" onClick={this.handleHomeClick.bind(this)}>Home</button>
-            <button className="Button" onClick={this.handlePoniesClick.bind(this)}>Follows</button>
-            <button className="Button" onClick={this.handleFavsClick.bind(this)}>Post Favs</button>
-            <button className="Button" onClick={this.handleLogout}>Logout</button>
+            <button
+                className="Button Button--active"
+                onClick={this.handleHomeClick.bind(this)}>
+                Home
+            </button>
+            <button
+                className="Button"
+                onClick={this.handlePoniesClick.bind(this)}>
+                Follows
+            </button>
+            <button
+                className="Button"
+                onClick={this.handleFavsClick.bind(this)}>
+                Post Favs
+            </button>
+            <button
+                className="Button"
+                onClick={this.handleLogout}>
+                Logout
+            </button>
         </header>
     }
 }
 
 export default Header
+
+//../../img/icon set/heart-solid.svg
