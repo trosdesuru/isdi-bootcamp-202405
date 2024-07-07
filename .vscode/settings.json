@@ -1,3 +1,11 @@
 {
-    "liveServer.settings.port": 5501
+// LiveServer config
+"liveServer.settings.port": 5501
+}
+
+{
+// Update config
+"application.shellEnvironmentResolutionTimeout": 60,
+"extensions.autoCheckUpdates": false,
+"update.mode": "manual"
 }
