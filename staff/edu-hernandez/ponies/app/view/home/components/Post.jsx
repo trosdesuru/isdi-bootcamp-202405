@@ -12,7 +12,7 @@ import Time from '../../components/Time'
 import Image from '../../components/Image'
 import Paragraph from '../../components/Paragraph'
 import Heading from '../../components/Heading'
-import Container from '../../components/container'
+import Container from '../../components/Container'
 
 
 class Post extends Component {
@@ -122,13 +122,11 @@ class Post extends Component {
 
         const { post } = this.props
 
-        return <article className="post">
-            <Container>
+        return <article className="Post">
+            <Container >
                 <Heading level="3">{post.author.username}</Heading>
 
-                <Button onClick={this.handleFollowUserClick.bind(this)}>
-                    {post.author.following ? '🔸 Unfollow' : '🔹 Follow'}
-                </Button>
+                <Button className="Button__follow" onClick={this.handleFollowUserClick.bind(this)}>{post.author.following ? '🔸 Unfollow' : '🔹 Follow'}</Button>
             </Container>
 
             <Image src={post.image} alt={post.caption} title={post.caption} />
@@ -138,17 +136,16 @@ class Post extends Component {
                 <Button className="Button" onClick={this.handleFavClick.bind(this)}>{post.fav ? 'Unfav' : 'Add fav'}</Button>
             </Container>
 
-            <Container>
-                <Paragraph className="post__caption">{post.caption}</Paragraph>
-            </Container>
+            <Paragraph className="post__caption">{post.caption}</Paragraph>
+
+            {post.author.username === logic.getUserUsername() && <>
+                <Button onClick={this.handleEditPostClick.bind(this)}>Edit</Button>
+                <Button onClick={this.handleDeletePostClick.bind(this)}>Delete</Button>
+            </>}
 
             <Container>
-                {post.author.username === logic.getUserUsername() && <>
-                    <Button className="Button" onClick={this.handleDeletePostClick.bind(this)}>Delete</Button>
-                    <Button className="Button" onClick={this.handleEditPostClick.bind(this)}>Edit</Button></>}
+                <Time>{formatTime(new Date(post.date))}</Time>
             </Container>
-
-            <Time>{formatTime(new Date(post.date))}</Time>
 
             {this.state.editPostVisible && <Form onSubmit={this.handleEditpostSubmit.bind(this)}>
                 <Label for="edit-caption-input"></Label>

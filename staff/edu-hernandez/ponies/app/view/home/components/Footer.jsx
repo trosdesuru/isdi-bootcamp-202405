@@ -59,7 +59,7 @@ class Footer extends Component {
                 onClick={this.handleCreatePostClick.bind(this)}>＋</Button>
 
             {this.state.createPostVisible && <CreatePost
-                onPostCreated={this.handlePostCreated.bind(this)}
+                onPostCreated={this.handleCreatePostClick.bind(this)}
                 onCancelCreatePost={this.handleCancelCreatePostClick.bind(this)}
             />}
 

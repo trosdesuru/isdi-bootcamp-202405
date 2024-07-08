@@ -1,4 +1,4 @@
-function Input({id, defaulValue}) {
+function Input({ id, defaulValue }) {
     console.debug('Input -> call')
 
     return <input className="Input" id={id} defaultValue={defaulValue} />

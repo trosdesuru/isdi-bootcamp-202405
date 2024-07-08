@@ -1,7 +1,7 @@
-function Label({id, defaulValue}) {
+function Label({ htmlFor, children }) {
     console.debug('Label -> call')
 
-    return <Label className="Label" htmlFor={htmlFor}>{children}</Label>
+    return <label className="Label" htmlFor={htmlFor}>{children}</label>
 }
 
 export default Label

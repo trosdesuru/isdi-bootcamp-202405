@@ -48,7 +48,7 @@ class Home extends Component {
                 onPoniesClick={this.handlePoniesClick.bind(this)}
                 onFavsClick={this.handleFavsClick.bind(this)}
             />
-
+            
             <main className="view main">
                 {this.state.view === 'home' && <PostList refreshStamp={this.state.refreshStamp} />}
 
