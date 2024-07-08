@@ -2,6 +2,9 @@ import logic from '../../../logic/index.mjs'
 
 const { Component } = React
 
+import Button from '../../components/Button'
+import Paragraph from '../../components/Paragraph'
+
 class Header extends Component {
     constructor() {
         console.debug('Header -> constructor')
@@ -54,32 +57,14 @@ class Header extends Component {
     render() {
         console.debug('Header -> render')
 
-        return <header className="header">
-            <p className="header__user-name">Hello, {this.state.name}!</p>
-            <button
-                className="Button Button--active"
-                onClick={this.handleHomeClick.bind(this)}>
-                Home
-            </button>
-            <button
-                className="Button"
-                onClick={this.handlePoniesClick.bind(this)}>
-                Follows
-            </button>
-            <button
-                className="Button"
-                onClick={this.handleFavsClick.bind(this)}>
-                Post Favs
-            </button>
-            <button
-                className="Button"
-                onClick={this.handleLogout}>
-                Logout
-            </button>
+        return <header className="Header">
+                <Paragraph>Hello, {this.state.name}!</Paragraph>
+                <Button onClick={this.handleHomeClick.bind(this)}>Home</Button>
+                <Button onClick={this.handlePoniesClick.bind(this)}>Ponies</Button>
+                <Button onClick={this.handleFavsClick.bind(this)}>Fav List</Button>
+                <Button onClick={this.handlelogout}>Logout</Button>
         </header>
     }
 }
 
 export default Header
-
-//../../img/icon set/heart-solid.svg

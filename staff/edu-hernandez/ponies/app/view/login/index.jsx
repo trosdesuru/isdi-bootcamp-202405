@@ -1,7 +1,5 @@
 import logic from '../../logic/index.mjs'
 
-import updateTime from '../../util/updateTime.mjs'
-
 const Component = React.Component
 
 class Login extends Component {
@@ -10,18 +8,6 @@ class Login extends Component {
 
         super()
         this.state = { whatTime: '' }
-    }
-
-    componentTime() {
-        try {
-            const whatTime = updateTime()
-
-            this.setState = { whatTime }
-        } catch (error) {
-            console.debug('Login -> whatTime')
-
-            alert(error.message)
-        }
     }
 
     handleRegisterClick(event) {
@@ -78,7 +64,8 @@ class Login extends Component {
                         <label htmlFor="password-input"></label>
                         <input
                             className="form__input"
-                            type="password" id="password-input"
+                            type="password" 
+                            id="password-input"
                             name="password"
                             placeholder="password"
                         />

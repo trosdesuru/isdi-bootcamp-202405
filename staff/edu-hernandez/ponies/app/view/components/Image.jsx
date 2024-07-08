@@ -1,18 +1,7 @@
-const { Component } = React
-// const Component = React.Component
+function Image({ src, alt, title }) {
+    console.debug('Image -> call')
 
-class Image extends Component {
-    constructor() {
-        super()
-        this.state = {url: ''}
-    }
-
-    setUrl(url) {
-        this.state({ url })
-    }
-    render() {
-        return (<img src={this.state.url} alt="" />)
-    }
+    return <img className="Image" src={src} alt={alt} title={title}></img>
 }
 
 export default Image

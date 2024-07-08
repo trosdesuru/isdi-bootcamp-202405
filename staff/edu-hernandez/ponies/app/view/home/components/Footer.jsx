@@ -1,6 +1,8 @@
-import logic from '../../../logic/index.mjs'
-
 const { Component } = React
+
+import CreatePost from './CreatePost'
+import Button from '../../components/Button'
+
 
 class Footer extends Component {
     constructor() {
@@ -53,28 +55,14 @@ class Footer extends Component {
         console.debug('Footer -> render')
 
         return <footer className="footer">
-            <button className="Button" onClick={this.handleCreatePostClick.bind(this)}>＋</button>
+            <Button className="button--create-post"
+                onClick={this.handleCreatePostClick.bind(this)}>＋</Button>
 
-            {this.state.createPostVisible && <section className="create-post-section">
-                <h2 className="create-post-section__title">Create Post</h2>
+            {this.state.createPostVisible && <CreatePost
+                onPostCreated={this.handlePostCreated.bind(this)}
+                onCancelCreatePost={this.handleCancelCreatePostClick.bind(this)}
+            />}
 
-                <form className="form" onSubmit={this.handleCreatePostSubmit.bind(this)}>
-                    <div className="form__field">
-                        <label htmlFor="post-image-input">Image</label>
-                        <input className="form__input" id="post-image-input" />
-                    </div>
-
-                    <div className="form__field">
-                        <label htmlFor="post-caption-input">Caption</label>
-                        <input className="form__input" id="post-caption-input" />
-                    </div>
-
-                    <div className="create-post-section__buttons">
-                        <button className="add__button" type="submit">Add</button>
-                        <button className="cancel__button" type="reset" onClick={this.handleCancelCreatePostClick.bind(this)}>Cancel</button>
-                    </div>
-                </form>
-            </section>}
         </footer >
     }
 }

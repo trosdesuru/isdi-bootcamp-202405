@@ -1,26 +1,7 @@
-const { Component } = React
+function Input({id, defaulValue}) {
+    console.debug('Input -> call')
 
-class Image extends Component {
-    constructor() {
-        super()
-
-    }
-}
-    constructor() {
-        super(document.createElement('input'))
-    }
-
-    setId(id) {
-        this.container.id = id
-    }
-
-    setValue(value) {
-        this.container.value = value
-    }
-
-    getValue() {
-        return this.container.value
-    }
+    return <input className="Input" id={id} defaultValue={defaulValue} />
 }
 
 export default Input

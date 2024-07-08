@@ -1,9 +1,8 @@
 import Header from './components/Header'
+import PostList from './components/PostList'
 import Footer from './components/Footer.jsx'
 import FavsPostList from './components/FavsPostList.jsx'
 import PoniesPostList from './components/PoniesPostList.jsx'
-
-import PostList from './components/PostList'
 
 const Component = React.Component
 
@@ -44,14 +43,17 @@ class Home extends Component {
         console.debug('Home -> render')
 
         return <>
-            <Header
+            <Header className="header__user-name"
                 onHomeClick={this.handleHomeClick.bind(this)}
                 onPoniesClick={this.handlePoniesClick.bind(this)}
-                onFavsClick={this.handleFavsClick.bind(this)} />
+                onFavsClick={this.handleFavsClick.bind(this)}
+            />
 
             <main className="view main">
                 {this.state.view === 'home' && <PostList refreshStamp={this.state.refreshStamp} />}
+
                 {this.state.view === 'ponies' && <PoniesPostList />}
+                
                 {this.state.view === 'favs' && <FavsPostList />}
             </main>
 
