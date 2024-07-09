@@ -13,7 +13,8 @@ const getAllPosts = () => {
         post.like = post.likes.includes(sessionStorage.username)
         post.author = {
             username: post.author,
-            following: user.following.includes(post.author)
+            avatar: author.author,
+            following: user.following.includes(author.username)
         }
     })
 

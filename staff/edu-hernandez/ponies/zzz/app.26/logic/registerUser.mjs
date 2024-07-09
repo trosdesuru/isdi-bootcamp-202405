@@ -38,8 +38,7 @@ const registerUser = (name, surname, email, username, password, passwordRepeat) 
         username: username,
         password: password,
         favs: [],
-        following: [],
-        avatar: '../../img/flag.png'
+        following: []
     }
 
     data.insertUser(user)
