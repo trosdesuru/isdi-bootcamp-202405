@@ -2,7 +2,7 @@ import Header from './components/Header'
 import PostList from './components/PostList'
 import Footer from './components/Footer.jsx'
 
-const Component = React.Component
+import { Component } from 'react'
 
 class Home extends Component {
     constructor() {

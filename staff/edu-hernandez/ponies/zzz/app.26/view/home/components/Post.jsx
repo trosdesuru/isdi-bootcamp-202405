@@ -2,7 +2,7 @@ import logic from '../../../logic/index.mjs'
 
 import formatTime from '../../../util/formatTime.mjs'
 
-const { Component } = React
+import { Component } from 'react'
 
 import Button from '../../components/Button'
 import Input from '../../components/Input'

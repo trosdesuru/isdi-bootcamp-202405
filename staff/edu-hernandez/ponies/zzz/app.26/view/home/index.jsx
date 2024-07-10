@@ -4,7 +4,7 @@ import Footer from './components/Footer.jsx'
 import FavsPostList from './components/FavsPostList.jsx'
 import PoniesPostList from './components/PoniesPostList.jsx'
 
-const Component = React.Component
+import { Component } from 'react'
 
 class Home extends Component {
     constructor() {

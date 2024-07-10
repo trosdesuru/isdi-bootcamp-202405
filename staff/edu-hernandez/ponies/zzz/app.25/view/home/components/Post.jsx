@@ -3,7 +3,7 @@ import data from '../../../logic/index.mjs'
 
 import formatTime from '../../../util/formatTime.mjs'
 
-const { Component } = React
+import { Component } from 'react'
 
 class Post extends Component {
     constructor() {
