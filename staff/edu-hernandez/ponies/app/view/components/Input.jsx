@@ -1,3 +1,5 @@
+import './Input.css'
+
 // Added className options -> className={`Input ${className}`}
 function Input({ id, defaulValue, type, name, placeholder, className= '' }) {
     console.debug('Input -> call')

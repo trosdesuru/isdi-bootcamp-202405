@@ -1,4 +1,4 @@
-const { Component } = React
+import { Component } from 'react'
 
 import Login from './Login'
 import Register from './Register'
@@ -37,7 +37,7 @@ class App extends Component {
         this.setState({ view: 'login' })
     }
 
-    // handleProfile() {
+    // handleProfileSettings() {
     //     console.debug('App -> handleProfile')
 
     //     this.setState({ view: 'profile' })

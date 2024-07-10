@@ -1,10 +1,10 @@
-import Header from './components/Header'
-import PostList from './components/PostList'
-import Footer from './components/Footer'
-import PoniesPostList from './components/PoniesPostList'
-import FavsPostList from './components/FavsPostList'
+import Header from './home/Header'
+import Footer from './home/Footer'
+import PoniesPostList from './home/PoniesPostList'
+import FavsPostList from './home/FavsPostList'
+import PostList from './home/PostList'
 
-const Component = React.Component
+import { Component } from 'react'
 
 class Home extends Component {
     constructor() {

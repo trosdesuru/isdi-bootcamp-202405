@@ -1,6 +1,8 @@
+import './Header.css'
+
 import logic from '../../logic/index.mjs'
 
-const { Component } = React
+import { Component } from 'react'
 
 import Button from '../components/Button'
 import Paragraph from '../components/Paragraph'
@@ -46,6 +48,7 @@ class Header extends Component {
         try {
             logic.logoutUser()
 
+            this.props.onLogout()
         } catch (error) {
             console.error(error)
 
@@ -61,7 +64,7 @@ class Header extends Component {
                 <Button onClick={this.handleHomeClick.bind(this)}>Home</Button>
                 <Button onClick={this.handlePoniesClick.bind(this)}>Ponies</Button>
                 <Button onClick={this.handleFavsClick.bind(this)}>Fav List</Button>
-                <Button onClick={this.handleLogout}>Logout</Button>
+                <Button onClick={this.handleLogout.bind(this)}>Logout</Button>
         </header>
     }
 }

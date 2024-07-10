@@ -2,7 +2,7 @@ import logic from '../../logic/index.mjs'
 
 import formatTime from '../../util/formatTime.mjs'
 
-const { Component } = React
+import { Component } from 'react'
 
 import Button from '../components/Button'
 import Input from '../components/Input'
@@ -13,6 +13,8 @@ import Image from '../components/Image'
 import Paragraph from '../components/Paragraph'
 import Heading from '../components/Heading'
 import Container from '../components/Container'
+
+import './Post.css'
 
 
 class Post extends Component {
@@ -125,7 +127,7 @@ class Post extends Component {
         return <article className="Post">
             <Container >
                 <Heading level="3">{post.author.username}</Heading>
-                <Avatar></Avatar>
+                {/* <Avatar></Avatar> */}
 
                 <Button className="Button__follow" onClick={this.handleFollowUserClick.bind(this)}>{post.author.following ? '🔸 Unfollow' : '🔹 Follow'}</Button>
             </Container>

@@ -1,6 +1,8 @@
+import './PostList.css'
+
 import logic from "../../logic/index.mjs"
 
-const { Component } = React
+import { Component } from 'react'
 
 import Post from './Post.jsx'
 
@@ -50,7 +52,7 @@ class PostList extends Component {
     }
 
     handlePostEdited() {
-        console.debug('PostList ->   handlePostEdited')
+        console.debug('PostList -> handlePostEdited')
         try {
             const posts = logic.getAllPosts()
 
@@ -63,7 +65,7 @@ class PostList extends Component {
     }
 
     handlePostLiked() {
-        console.debug('PostList ->   handlePostLiked')
+        console.debug('PostList -> handlePostLiked')
         try {
             const posts = logic.getAllPosts()
 
@@ -112,7 +114,8 @@ class PostList extends Component {
                 onPostEdited={this.handlePostEdited.bind(this)}
                 onPostLiked={this.handlePostLiked.bind(this)}
                 onPostFavourited={this.handlePostFavourited.bind(this)}
-                onUserFollowed={this.onUserFollowed.bind(this)} />)}
+                onUserFollowed={this.onUserFollowed.bind(this)}
+            />)}
         </section>
     }
 }

@@ -1,3 +1,5 @@
+import './Link.css'
+
 //  Fixed
 function Link({ href, onClick, children }) {
     console.debug('Link -> call')

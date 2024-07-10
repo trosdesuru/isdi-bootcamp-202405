@@ -1,4 +1,6 @@
-const { Component } = React
+import './Footer.css'
+
+import { Component } from 'react'
 
 import CreatePost from './CreatePost'
 

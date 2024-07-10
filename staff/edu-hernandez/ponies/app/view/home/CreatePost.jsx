@@ -7,6 +7,8 @@ import Label from '../components/Label'
 import Button from '../components/Button'
 import Container from '../components/Container'
 
+import './CreatePost.css'
+
 function CreatePost({ onPostCreated, onCancelCreatePost }) {
     console.debug('CreatePost -> call')
 
@@ -51,7 +53,7 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
 
             <Container className="form__field">
                 <Label htmlFor="post-caption-input">Caption</Label>
-                <Input id="post-caption-Input" />
+                <Input id="post-caption-input" />
             </Container>
 
             <Container className="create-post-section__buttons">
