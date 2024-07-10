@@ -1,4 +1,7 @@
 .Input {
     border: 1px solid lightgray;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
+    font-size: inherit;
+    width: 100%;
+    padding: 0.5rem;
 }

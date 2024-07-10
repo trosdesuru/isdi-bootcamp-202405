@@ -43,25 +43,28 @@ function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
-    return <main className="view">
-        <Heading level="1">Login</Heading>
+    // return <main className="view">
+    //     <Container className='Container--column'>
+    //         <Heading className="Heading--center" level="1">Login</Heading>
+    //     </Container>
 
-        <Form onSubmit={handleLoginSubmit} className="Form--column">
-            <Container className="Container--column Container--column-left">
-                <Label htmlFor="username-input">Username</Label>
-                <Input type="text" id="username-input" name="username" placeholder="username" />
-            </Container>
+    //     <Form className="Form Form--column" onSubmit={handleLoginSubmit}>
+    //         <Container className="Container--column">
+    //             <Label htmlFor="username-input">Username</Label>
+    //             <Input type="text" id="username-input" name="username" placeholder="username" />
+    //         </Container>
 
-            <Container className="Container--column Container--column-left">
-                <Label htmlFor="password-input">Password</Label>
-                <Input type="password" id="password-input" name="password" placeholder="password" />
-            </Container>
+    //         <Container className="Container--column">
+    //             <Label htmlFor="password-input">Password</Label>
+    //             <Input type="password" id="password-input" name="password" placeholder="password" />
+    //         </Container>
 
-            <Button type="submit">Login</Button>
-        </Form>
+    //         <Button type="submit">Login</Button>
+    //     </Form>
 
-        <Link onClick={handleRegisterClick}>Register</Link>
-    </main>
+    //     <Link onClick={handleRegisterClick}>Register</Link>
+    // </main>
+
 }
 
 export default Login

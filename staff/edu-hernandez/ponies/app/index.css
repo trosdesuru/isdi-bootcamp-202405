@@ -1,21 +1,19 @@
-html, body {
+html {
+    background-color: #1d1d1d;
     margin: 0;
-    min-height: 100%;
+    max-width: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.main {
-    margin: 0;
-    width: 100%;
+body {
+    width: 100vw;
+    height: 100vh;
 }
 
-.view main{
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    min-width: 100vh;
-    min-height: 10vh;
-
-    background-image: url(./img/background/flag.png);
+.view {
+    width: 100vw;
+    height: 100vh;
     background-repeat: no-repeat;
-    background-position: right bottom;
+    background-position: right top;
+    background-image: url(./img/background/flag.png);
 }

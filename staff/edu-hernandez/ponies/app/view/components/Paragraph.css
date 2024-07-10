@@ -1,8 +1,7 @@
-.Paragraph {
+.Heading {
     font-family: Poppins;
-    font-size: 16px;
+    font-size: 24px;
     margin: 0;
 
-    padding-left: .5rem;
-    color: rgb(32, 32, 32);
+    color: #075277;
 }
