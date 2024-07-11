@@ -1,7 +1,7 @@
 // Import Components
 // Change tags to Components
 // Function Register, because doesn't handle States
-import logic from '../logic/index.mjs'
+import logic from '../logic/index'
 
 import Heading from './components/Heading'
 import Form from './components/Form'

@@ -1,6 +1,6 @@
 import './Header.css'
 
-import logic from '../../logic/index.mjs'
+import logic from '../../logic/index'
 
 import { Component } from 'react'
 

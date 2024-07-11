@@ -1,4 +1,4 @@
-import getAllFavPosts from './getAllFavPosts.mjs'
+import getAllFavPosts from './getAllFavPosts'
 
 console.info('TEST getAllFavPosts')
 
