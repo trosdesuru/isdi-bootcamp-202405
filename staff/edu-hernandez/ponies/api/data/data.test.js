@@ -7,6 +7,7 @@ const users = []
 const user1 = {
     name: 'Ruben',
     surname: 'Diaz',
+    userID: 'diaz54ruben32978',
     mail: 'ruben@diaza.com',
     username: 'rubendiaz',
     password: '123123123'
@@ -15,6 +16,7 @@ const user1 = {
 const user2 = {
     name: 'Ricardo',
     surname: 'Tapia',
+    userID: 'tapia67ricardo340956',
     mail: 'ricardo@tapia.com',
     username: 'rtapia',
     password: '123123123'
@@ -23,18 +25,22 @@ const user2 = {
 const user3 = {
     name: 'Edu',
     surname: 'hdz',
+    userID: 'hdz56edu12052309',
     mail: 'edu@hdz.com',
     username: 'eduhdz',
     password: '123123123'
 }
 
-users.push(user1)
-users.push(user2)
-users.push(user3)
+let usersJson = fs.readFileSync('./data/users.json')
+users = JSON.parse(usersJson)
+
+users.insertUser(user1)
+users.insertUser(user2)
+users.insertUser(user3)
 
 console.log(users) // Before stringify
 
-const usersJSON = JSON.stringify(users)
+let usersJSON = JSON.stringify(users)
 
 console.log('usersJSON', usersJSON)
 
