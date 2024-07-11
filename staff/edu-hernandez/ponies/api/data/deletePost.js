@@ -2,17 +2,19 @@ import fs from 'fs'
 
 function deletePost(condition) {
     // const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
-    let posts = fs.readFileSync('./data/posts.json', 'utf8')
+    let json = fs.readFileSync('./data/posts.json', 'utf8')
 
-    const postDeleted = posts.findIndex(condition)
+    const posts =  json ? JSON.parse(json) : []
 
-    if (postDeleted > -1) {
+    const postIndex = posts.findIndex(condition)
+
+    if (postIndex > -1) {
         posts.splice(postDeleted, 1)
 
         // localStorage.posts = JSON.stringify(posts)
         posts = JSON.stringify(postDeleted)
 
-        fs.writeFileSync('.data/posts.json', posts)
+        fs.writeFileSync('.data/posts.json', json)
     }
 }
 

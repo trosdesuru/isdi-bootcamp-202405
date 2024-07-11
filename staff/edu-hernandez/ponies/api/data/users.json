@@ -1,1 +1,23 @@
-[{"name":"Ruben","surname":"Diaz","mail":"ruben@diaza.com","username":"rubendiaz","password":"123123123"},{"name":"Ricardo","surname":"Tapia","mail":"ricardo@tapia.com","username":"rtapia","password":"123123123"},{"name":"Edu","surname":"hdz","mail":"edu@hdz.com","username":"eduhdz","password":"123123123"}]
+[
+    {
+        "name": "Bruno",
+        "surname": "Diaz",
+        "email": "bruno@diaz.com",
+        "username": "brunodiaz",
+        "password": "123123123"
+    },
+    {
+        "name": "Ricardo",
+        "surname": "Tapia",
+        "email": "ricardo@tapia.com",
+        "username": "rtapia",
+        "password": "123123123"
+    },
+    {
+        "name": "edu",
+        "surname": "hdx",
+        "email": "edu@hdz.com",
+        "username": "eduhdz",
+        "password": "123123123"
+    }
+]

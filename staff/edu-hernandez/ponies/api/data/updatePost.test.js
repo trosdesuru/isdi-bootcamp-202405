@@ -1,9 +1,9 @@
-import updatePost from "./updatePost.json"
+import fs from 'fs'
 
 const post = {
-    image: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZno2a25uZzJpZDZ4aWJsMzBsdWJkbTg0NjZwczNoMnBnOTJrZjUxaSZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/rObny7cK9tCHSpvGCU/giphy.gif",
+    image: "image@url",
     caption: "caption",
-    alttext: "round",
+    altText: "round",
     postId: "45okglypefnihwkksv",
     likes: []
 }
