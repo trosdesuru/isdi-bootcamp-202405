@@ -44,30 +44,30 @@ $.surge login
 load files->
 surge dist ponies.surge.sh
 
-Handle DATA on a server
+----------------------------------------------------
+How to handle a Session ✅
 
-How to handle a Session
-
-Javascript does not handle
+Javascripes not handle
 sesssion storage.
 
 /App.jsx
 
-Create a logic if it is user connected
+Create a logic if it is user connected ✅
 
-ifUserLoggedIn.mjs
+ifUserLoggedIn.mjs ✅
 
 function isUserLoggedIn {
     return !!sessionStorage.username
 }
 
-export default ifUserLoggedIn
+export default ifUserLoggedIn ✅
 
-import logic to App.jsx
-this.state { logic.ifUserLoggedIn ? home : view}
-add ifUserLoggedIn in logic/index
+import logic to App.jsx ✅
+this.state { logic.ifUserLoggedIn ? home : view} ✅
+add ifUserLoggedIn in logic/index ✅
+------------------------------------------------------
 
-change all files .mjs to .js
+change all files .mjs to .js ✅
 
 if there's index.mjs you change
 replace space instead.
@@ -75,10 +75,12 @@ replace space instead.
 you can delete all formats .jsx, js ad msj. 
 But you cannot delete .css extension
 
+
+HANDLE DATA ON A SERVER
 ---------------------
 MOUNT A SERVER && API
 ---------------------
-back-end!
+BACK-END INIT --YES
 
 in Terminal
 npm init --yes
