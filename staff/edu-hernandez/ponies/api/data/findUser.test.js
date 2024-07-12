@@ -1,9 +1,11 @@
-function findUser(condition) {
-    const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+import findUser from "./findUser.js"
 
-    const user = users.find(condition)
-
-    return user || null
+const bruce = {
+    name: "Bruce",
+    surname: "Wayne",
+    email: "bruce@wayne.com",
+    username: "brucewayne",
+    password: "123123123"
 }
 
-export default findUser
+const userFound = findUser(user => user.username === 'brucewayne')

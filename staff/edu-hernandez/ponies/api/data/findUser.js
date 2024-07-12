@@ -1,5 +1,9 @@
+import fs from 'fs'
+
 function findUser(condition) {
-    const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
+    const json = fs.readFileSync('./data/users.json')
+
+    const users = json ? JSON.parse(json) : []
 
     const user = users.find(condition)
 

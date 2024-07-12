@@ -1,15 +1,12 @@
+import updateUser from "./updateUser.js"
 
-
-function updateUser(condition, user) {
-    const users = localStorage.users !== undefined ? JSON.parse(localStorage.users) : []
-
-    const index = users.findIndex(condition)
-
-    if (index > -1) {
-        users.splice(index, 1, user)
-
-        localStorage.users = JSON.stringify(users)
-    }
+const user = {
+    username: "Lucas",
+    image: "https//:urlrandom.com",
+    caption: "Hello, World",
+    postDate: "11/07/2024",
+    id: "numid20",
+    favs: [],
+    likes: []
 }
-
-export default updateUser
+updateUser(post => post.id === 'numid20', user)

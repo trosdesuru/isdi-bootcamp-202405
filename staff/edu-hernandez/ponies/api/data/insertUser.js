@@ -1,4 +1,4 @@
-import insertUser from './data/insertUser'
+import fs from 'fs'
 
 function insertUser(user) {
     let json = fs.readFileSync('./data/users.json', 'utf8')

@@ -1,10 +1,10 @@
 [
     {
         "username": "rubendiaz",
-        "imgUrl": "imgUrlrubendiaz",
+        "imgUrl": "updatePost_imgUrlrubendiaz",
         "caption": "Hello",
         "postDate": "thursday/11/07/2024/15.45",
-        "PostId": "postIdrubendiaz",
+        "id": "xdfgh46",
         "favs": [],
         "likes": []
     },
@@ -13,7 +13,7 @@
         "imgUrl": "imgUrleduhdz",
         "caption": "Hello, World",
         "postDate": "thursday/11/07/2024/18.30",
-        "PostId": "postIdeduhdz",
+        "id": "xdfgh45",
         "favs": [],
         "likes": []
     }

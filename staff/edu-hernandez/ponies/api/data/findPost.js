@@ -1,13 +1,15 @@
 import fs from 'fs'
 
+// import validate from '../validate.js'
+
 function findPost(condition) {
-    let json = fs.readFileSync('/data/posts.json', 'utf8')
+    // validate.callback(condition, 'condition')
 
-    const post = json ? JSON.parse(json) : []
+    const json = fs.readFileSync('./data/posts.json', 'utf8')
 
-    post = posts.find(condition)
+    const posts = json ? JSON.parse(json) : []
 
-    fs.writeFileSync('./data/posts.json', json)
+    const post = posts.find(condition)
 
     return post || null
 }

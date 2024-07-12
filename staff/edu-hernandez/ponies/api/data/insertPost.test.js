@@ -1,6 +1,6 @@
 import insertPost from './insertPost.js'
 
-const post = {
+const troy = {
     name: 'Troy',
     surname: 'Mclure',
     email: 'troy@mclure.com',
@@ -8,4 +8,4 @@ const post = {
     password: '123123123'
 }
 
-insertPost(post)
+insertPost(troy)

@@ -5,9 +5,9 @@ function findPosts(condition) {
 
         const posts = json ? JSON.parse(json) : []
 
-        const post = posts.find(condition)
+        const foundPosts = posts.filter(condition)
 
-        return post || null
+        return foundPosts
 }
 
 export default findPosts

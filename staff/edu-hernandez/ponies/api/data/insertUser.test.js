@@ -1,14 +1,12 @@
 import insertUser from './insertUser.js'
 
-console.info('TEST insertUser')
-
-const user = {
+const manu = {
     name: 'Manu',
     surname: 'Guix',
-    userID: 'guix56manu12052309',
+    id: "12345",
     mail: 'manu@guix.com',
     username: 'manuguix',
     password: '123123123'
 }
 
-insertUser(user)
+insertUser(manu)

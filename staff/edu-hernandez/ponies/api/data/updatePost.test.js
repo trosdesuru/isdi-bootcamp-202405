@@ -1,13 +1,13 @@
-import fs from 'fs'
+import updatePost from "./updatePost.js"
 
-const post = {
-    image: "image@url",
-    caption: "caption",
-    altText: "round",
-    postId: "45okglypefnihwkksv",
+const postUpdate = {
+    username: "rubendiaz",
+    imgUrl: "updatePost_imgUrlrubendiaz",
+    caption: "Hello",
+    postDate: "thursday/11/07/2024/15.45",
+    id: "xdfgh46",
+    favs: [],
     likes: []
 }
 
-const updatedPost = post.updatePost(posts => post.id === "45okglypefnihwkksv", post )
-
-console.log()
+updatePost(post => post.id === "xdfgh46", postUpdate)

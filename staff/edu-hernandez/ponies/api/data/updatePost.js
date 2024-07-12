@@ -1,13 +1,16 @@
 import fs from 'fs'
-let json = fs.writeFileSync('./data/posts.json')
+
 
 function updatePost(condition, post) {
-    const posts = json ? JSON.parse(localStorage.posts) : []
 
-    const index = posts.findIndex(condition)
+    let json = fs.readFileSync('./data/posts.json', 'utf8')
 
-    if (index > -1) {
-        posts.splice(index, 1, post)
+    const posts = json ? JSON.parse(json) : []
+
+    const postIndex = posts.findIndex(condition)
+
+    if (postIndex > -1) {
+        posts.splice(postIndex, 1, post)
 
         json = JSON.stringify(posts)
 
