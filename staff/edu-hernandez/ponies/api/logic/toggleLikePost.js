@@ -1,6 +1,10 @@
 import data from '../../app/data/index'
 
-function toggleLikePost(postId) {
+function toggleLikePost(username, postId) {
+    const user = data.findUser(user => user.username === username)
+
+    if (!user) throw new Error('User not found')
+
     if (postId.trim().length === 0) throw new Error('invalid postId')
 
     const post = data.findPost(post => post.id === postId)

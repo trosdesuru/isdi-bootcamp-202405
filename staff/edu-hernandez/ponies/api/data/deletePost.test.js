@@ -1,3 +1,5 @@
-import deletePost from 'deletePost'
+import deletePost from './deletePost.js'
 
-deletePost(post => post.PostId === 'postIdrubendiaz')
+const post = deletePost(post => post.PostId === 'postIdrtapia')
+
+console.log(post)

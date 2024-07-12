@@ -1,9 +1,11 @@
-function insertPost(post) {
-    const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
+import insertPost from './insertPost.js'
 
-    posts.push(post)
-
-    localStorage.posts = JSON.stringify(posts)
+const post = {
+    name: 'Troy',
+    surname: 'Mclure',
+    email: 'troy@mclure.com',
+    username: 'troemclure',
+    password: '123123123'
 }
 
-export default insertPost
+insertPost(post)

@@ -6,7 +6,9 @@ const getUser = username => {
     if (user === null)
         throw new Error('user not found')
 
+    delete user.password
+
     return user.name
 }
 
-export default getUserName
+export default getUser

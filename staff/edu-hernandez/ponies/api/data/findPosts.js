@@ -1,25 +1,13 @@
-import fs from 'fs';
+import fs from 'fs'
 
 function findPosts(condition) {
-    let posts;
+        const json = fs.readFileSync('./data/posts.json', 'utf8')
 
-    try {
-        // Lee el contenido del archivo 'data/posts.json' de manera sincrónica
-        const data = fs.readFileSync('data/posts.json', 'utf8');
+        const posts = json ? JSON.parse(json) : []
 
-        // Intenta parsear el contenido del archivo como JSON
-        posts = JSON.parse(data);
-    } catch (err) {
-        // Maneja los errores de lectura del archivo o de parsing
-        console.error('Error reading or parsing file:', err);
-        posts = [];
-    }
+        const post = posts.find(condition)
 
-    // Filtra los posts según la condición proporcionada
-    const foundPosts = posts.filter(condition);
-
-    // Devuelve los posts encontrados
-    return foundPosts;
+        return post || null
 }
 
-export default findPosts;
+export default findPosts

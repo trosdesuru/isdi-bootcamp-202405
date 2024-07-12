@@ -1,4 +1,4 @@
-import data from '../../app/data/index'
+import data from '../data/index.js'
 
 import generateId from '../../app/util/generateId'
 

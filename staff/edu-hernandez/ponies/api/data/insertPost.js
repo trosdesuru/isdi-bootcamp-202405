@@ -1,9 +1,15 @@
+import fs from 'fs'
+
 function insertPost(post) {
-    const posts = localStorage.posts !== undefined ? JSON.parse(localStorage.posts) : []
+    let json = fs.writeFileSync('./data/posts.json', 'utf8')
+
+    const posts = json ? JSON.parse(json) : []
 
     posts.push(post)
 
-    localStorage.posts = JSON.stringify(posts)
+    json = JSON.stringify(posts)
+
+    fs.writeFileSync('./data/posts.json', json)
 }
 
 export default insertPost

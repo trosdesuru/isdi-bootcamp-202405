@@ -1,4 +1,4 @@
-import insertUser from './insertUser'
+import insertUser from './insertUser.js'
 
 console.info('TEST insertUser')
 

@@ -1,5 +1,5 @@
 import getAllPosts from './getAllPosts'
-import getUserName from './getUserName'
+import getUserName from './getUser'
 import getUserUsername from './getUserUsername'
 import loginUser from './loginUser'
 import logoutUser from './logoutUser'

@@ -1,17 +1,15 @@
 import data from '../../app/data/index'
 
-function toggleFavPost(postId) {
+function toggleFavPost(username, postId) {
     if (postId.trim().length === 0) throw new Error('invalid postId')
 
-    const user = data.findUser(user => user.username === sessionStorage.username)
+    const user = data.findUser(user => user.username === username)
 
-    if (user === null)
-        throw new Error('user not found')
+    if (user === null) throw new Error('user not found')
 
     const post = data.findPost(post => post.id === postId)
 
-    if (post === null)
-        throw new Error('post not found')
+    if (post === null) throw new Error('post not found')
 
     const index = user.favs.indexOf(postId)
 

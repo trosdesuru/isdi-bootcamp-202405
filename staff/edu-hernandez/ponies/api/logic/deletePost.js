@@ -1,6 +1,7 @@
-import data from '../../app/data/index'
+import data from '.../data/index.js'
 
-const deletePost = postId => {
+const deletePost = (username, postId) => {
+    const user = data.findIUser(user === username)
     if (postId.trim().length === 0) throw new Error('invalid postId')
 
     const post = data.findPost(post => post.id === postId)

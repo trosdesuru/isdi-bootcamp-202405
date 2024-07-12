@@ -1,6 +1,4 @@
-import data from '../../app/data/index'
-
-const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
+import data from '../data/index.js'
 
 const registerUser = (name, surname, email, username, password, passwordRepeat) => {
     if (name.trim() === '')
