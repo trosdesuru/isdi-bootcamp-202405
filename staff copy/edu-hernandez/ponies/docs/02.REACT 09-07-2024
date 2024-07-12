@@ -1,0 +1,63 @@
+REACT 10/07/2024
+
+-----------------------
+PART 1 // app.29 09:24h
+-----------------------
+
+* error: user is not defined in login
+* error
+
+------------------------
+PART 2 // app.29
+------------------------
+
+Babel compiles all html
+import and export modules
+
+Tools with node runs jsx and compiles
+all code at disk.
+
+Write in terminal:
+
+<-Node Packet Management->
+npm create vite@latest
+
+Project-name: vite-project
+framework: react
+variant: Javascript
+
+Terminal: npm i
+(install all libraries)
+
+npmgs in browser (all libraries from internet)
+
+HOOKS - function can create a State aand manage it.
+
+public folder to load on the Web.
+
+---------------------------------------------------
+PONIES
+
+Delete all html, leave index type module. ✅
+vite.config - copy in app ✅
+.eslintrc.cjs 
+package.json - copy in app ✅
+delete css from index.html and import in index.jsx ✅
+
+index.css delete all imports ✅
+
+Change import for each component in .jsx:
+import './Container.css' ✅
+
+copy eslintrc to view/app
+
+import { Component } from 'react'
+import ReactDOM from 'react-DOM' in index.jsx
+
+Write in terminal:
+
+npm i //install all packages
+
+then:
+
+npm run dev

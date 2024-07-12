@@ -1,0 +1,95 @@
+surge.sh
+local-server
+Handle data to a server
+Testing - REACT 11/07/2024
+
+-----------------------
+PART 1 // app.30 09:09h
+-----------------------
+
+* error: fix css margins and 
+
+------------------------
+PART 2 // app.29
+------------------------
+
+*npm run test: testing button test
+
+--------------
+Aliases to start npm run dev
+PACKAGE.json
+
+"scripts": {
+    "start": "echo HOLA START",
+    "test": "echo HOLA START",
+    "dev": "vite",
+    ...
+}
+
+npm run build ->
+Generate a distribution
+
+Create a server in browser
+npmi i -g http-server
+runs the folder in a local server
+
+
+How to load on internet
+write in terminal:
+
+$.surge.sh
+$.npm i -surge
+$.surge login
+
+load files->
+surge dist ponies.surge.sh
+
+----------------------------------------------------
+How to handle a Session ✅
+
+Javascripes not handle
+sesssion storage.
+
+/App.jsx
+
+Create a logic if it is user connected ✅
+
+ifUserLoggedIn.mjs ✅
+
+function isUserLoggedIn {
+    return !!sessionStorage.username
+}
+
+export default ifUserLoggedIn ✅
+
+import logic to App.jsx ✅
+this.state { logic.ifUserLoggedIn ? home : view} ✅
+add ifUserLoggedIn in logic/index ✅
+------------------------------------------------------
+
+change all files .mjs to .js ✅
+
+if there's index.mjs you change
+replace space instead.
+
+you can delete all formats .jsx, js ad msj. 
+But you cannot delete .css extension
+
+
+HANDLE DATA ON A SERVER
+---------------------
+MOUNT A SERVER && API
+---------------------
+BACK-END INIT --YES
+
+in Terminal
+npm init --yes
+Create a json
+
+touch index.js
+
+import fs from 'fs'
+
+type 'module' in package json
+
+create a 

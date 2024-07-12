@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Bruno",
+        "surname": "Diaz",
+        "email": "bruno@diaz.com",
+        "username": "brunodiaz",
+        "password": "123123123"
+    },
+    {
+        "name": "Ricardo",
+        "surname": "Tapia",
+        "email": "ricardo@tapia.com",
+        "username": "rtapia",
+        "password": "123123123"
+    },
+    {
+        "name": "edu",
+        "surname": "hdx",
+        "email": "edu@hdz.com",
+        "username": "eduhdz",
+        "password": "123123123"
+    }
+]

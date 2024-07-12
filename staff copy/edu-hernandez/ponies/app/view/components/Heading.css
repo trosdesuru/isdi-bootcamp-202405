@@ -1,0 +1,10 @@
+.Heading {
+    font-family: Poppins;
+    font-size: 24px;
+    margin: 0;
+}
+
+.Heading--center {
+    justify-content: center;
+    background-color: red;
+}

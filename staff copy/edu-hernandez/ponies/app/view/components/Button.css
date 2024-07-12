@@ -1,0 +1,19 @@
+.Button {
+    font-family: Poppins;;
+    font-size: 14px;
+    box-sizing: border-box;
+    width: 100%;
+    font-weight: 400;
+    border-radius: 4px;
+    box-shadow: none;
+    border: none;
+    padding: 4px 6px;
+    background-color: #075277;
+    color: #eee;
+    cursor: pointer;
+    text-align: center;
+}
+
+.Button__follow {
+    color: #fff;
+}
