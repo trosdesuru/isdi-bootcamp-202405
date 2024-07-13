@@ -1,6 +1,7 @@
 import logic from '../logic/index'
 
 import Heading from './components/Heading'
+import Paragraph from './components/Paragraph'
 import Form from './components/Form'
 import Label from './components/Label'
 import Input from './components/Input'
@@ -45,10 +46,10 @@ function Login({ onLogin, onRegisterClick }) {
 
     return <main className="view">
         <Container className='Container--center'>
-            <Heading className="Heading--center" level="1">Login</Heading>
+            <Heading level="1">Login</Heading>
         </Container>
 
-        <Form className="Form Form--column" onSubmit={handleLoginSubmit}>
+        <Form onSubmit={handleLoginSubmit}>
             <Container className="Container--column">
                 <Label htmlFor="username-input">Username</Label>
                 <Input type="text" id="username-input" name="username" placeholder="username" />
@@ -59,12 +60,23 @@ function Login({ onLogin, onRegisterClick }) {
                 <Input type="password" id="password-input" name="password" placeholder="password" />
             </Container>
 
-            <Button type="submit">Login</Button>
+            <Container className='Container--right'>
+                <Paragraph>Forgot your password?</Paragraph>
+            </Container>
 
-            <Button>
+            <Button className="Button" type="submit">Login</Button>
+
+            <Button className="Button">
                 <Link onClick={handleRegisterClick}>Register</Link>
             </Button>
 
+            <Container className='Container--center'>
+                <Paragraph>or Login with</Paragraph>
+            </Container>
+
+            <Container className='Container--center'>
+                <img className="Social-network" src="img/icon set/social media.png" alt="social-network" />
+            </Container>
         </Form>
     </main>
 

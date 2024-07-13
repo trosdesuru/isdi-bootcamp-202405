@@ -1,8 +1,9 @@
 .Input {
     font-family: Poppins;;
-    border: 1px solid lightgray;
+    border: 1px solid #d3d3d3;
+    color: #e5f8fa;
     border-radius: 0.25rem;
-    font-size: 10px;
+    font-size: 12px;
     width: 100%;
     box-sizing: border-box;
     padding: 0.5rem 0.5rem;

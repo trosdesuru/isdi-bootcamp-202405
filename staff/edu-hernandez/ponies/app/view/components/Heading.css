@@ -1,10 +1,12 @@
 .Heading {
-    font-family: Poppins;
-    font-size: 24px;
     margin: 0;
+    font-family: Poppins;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+    color: #075277;
 }
 
 .Heading--center {
     justify-content: center;
-    background-color: red;
 }

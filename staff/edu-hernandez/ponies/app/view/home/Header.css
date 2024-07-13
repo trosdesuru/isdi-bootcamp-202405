@@ -1,5 +1,6 @@
 .Header {
-    display: block;
+    display: flex;
+    flex-direction: row;
 
     min-width: 100%;
     gap: .5rem;

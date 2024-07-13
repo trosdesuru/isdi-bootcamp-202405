@@ -61,10 +61,10 @@ class Header extends Component {
 
         return <header className="Header">
                 <Paragraph>Hello, {this.state.name}!</Paragraph>
-                <Button onClick={this.handleHomeClick.bind(this)}>Home</Button>
-                <Button onClick={this.handlePoniesClick.bind(this)}>Ponies</Button>
-                <Button onClick={this.handleFavsClick.bind(this)}>Fav List</Button>
-                <Button onClick={this.handleLogout.bind(this)}>Logout</Button>
+                <Button className="Button--header" onClick={this.handleHomeClick.bind(this)}>Home</Button>
+                <Button className="Button--header" onClick={this.handlePoniesClick.bind(this)}>Ponies</Button>
+                <Button className="Button--header" onClick={this.handleFavsClick.bind(this)}>Fav List</Button>
+                <Button className="Button--header" onClick={this.handleLogout.bind(this)}>Logout</Button>
         </header>
     }
 }

@@ -57,9 +57,11 @@ function Register({ onRegister, onLoginClick }) {
     }
 
     return <main className="view">
-        <Heading>Register</Heading>
+        <Container className="Container--center">
+            <Heading>Register</Heading>
+        </Container>
 
-        <Form onSubmit={handleRegisterSubmit} className="Form--column">
+        <Form onSubmit={handleRegisterSubmit} className="Form">
             <Container className="Container--column Container--column-left">
                 <Label htmlFor="name-input">Name</Label>
                 <Input type="text" id="name-input" name="name" placeholder="name" />
@@ -91,9 +93,12 @@ function Register({ onRegister, onLoginClick }) {
             </Container>
 
             <Button type="submit">Register</Button>
+
+            <Button>
+                <Link onClick={handleLoginClick}>Login</Link>
+            </Button>
         </Form>
 
-        <Link onClick={handleLoginClick}>Login</Link>
     </main>
 }
 

@@ -1,5 +1,5 @@
 .Button {
-    font-family: Poppins;;
+    font-family: Poppins;
     font-size: 14px;
     box-sizing: border-box;
     width: 100%;
@@ -12,8 +12,17 @@
     color: #eee;
     cursor: pointer;
     text-align: center;
+    box-shadow: #69696959 0px 5px 15px;
 }
 
 .Button__follow {
     color: #fff;
+}
+
+.Button--header {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 1px;
+    color: #075277;
+    background-color: rgb(255, 255, 255);
 }
