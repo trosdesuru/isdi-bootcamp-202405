@@ -22,14 +22,16 @@
 
 .Button--follow {
     box-sizing: border-box;
-    width: 52px;
+    width: 100px;
+    height: 24px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     font-size: 12px;
     padding: 0;
-    color: #fff;
+    color: white;
+    background-color: #075277;
 }
 
 .Button--header {
@@ -37,5 +39,38 @@
     font-weight: 500;
     padding: 1px;
     color: #075277;
-    background-color: rgb(255, 255, 255);
+    background-color: #ffffff;
+}
+
+.Button--like {
+    color: #232323;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.Button--adfav {
+    font-weight: 600;
+    color: #075277;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.Button--actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 20%;
+    padding: .2rem .5rem .2rem .5rem;
+    color: #232323;
+    background-color: transparent;
+}
+
+.Button--delete {
+    width: 20%;
+    background-color: #c7513c;
+}
+
+.Button--edit {
+    width: 20%;
+    background: linear-gradient(to right, #1d976c, #93f9b9);
 }
