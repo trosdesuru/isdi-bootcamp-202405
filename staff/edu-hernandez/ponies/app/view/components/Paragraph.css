@@ -5,3 +5,10 @@
     margin: 0;
     color: #075277;
 }
+
+.Ponie--font {
+    font-family: Poller One;
+    font-size: 16px;
+    font-weight: 600;
+    color: #FFA2D1;
+}

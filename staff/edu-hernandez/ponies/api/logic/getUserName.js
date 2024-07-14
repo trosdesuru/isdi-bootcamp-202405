@@ -1,6 +1,10 @@
 import data from '../data/index.js'
 
-const getUser = username => {
+import validate from '../validate.js'
+
+const getUserName = username => {
+    validate.username(username)
+
     const user = data.findUser(user => user.username === username)
 
     if (user === null)

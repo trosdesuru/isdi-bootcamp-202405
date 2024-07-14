@@ -1,15 +1,18 @@
-import data from './data/index.js'
+import data from '../data/index.js'
 
-const updatePostCaption = (postId, newCaption) => {
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+import validate from '../validate.js'
 
-    const post = data.findPost(post => post.id === postId)
+const updateAvatar = (username, newAvatar) => {
+    validate.username(username)
+    validate.image(newAvatar, 'avatar')
 
-    if (post === null) throw new Error('post not found')
+    const user = data.findUser(user => user.username === username)
 
-    post.caption = newCaption
+    if (user === null) throw new Error('User not found')
 
-    data.updatePost(post => post.id === postId, post)
+    user.avatar = newAvatar
+
+    data.updateUser(user => user.username === username, user)
 }
 
-export default updatePostCaption
+export default updateAvatar

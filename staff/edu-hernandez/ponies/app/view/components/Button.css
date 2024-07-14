@@ -15,7 +15,20 @@
     box-shadow: #69696959 0px 5px 15px;
 }
 
-.Button__follow {
+.Button--reverse {
+    background-color: #ffffff;
+    color: #075277;
+}
+
+.Button--follow {
+    box-sizing: border-box;
+    width: 52px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    padding: 0;
     color: #fff;
 }
 

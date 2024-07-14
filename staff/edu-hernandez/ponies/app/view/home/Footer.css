@@ -1,11 +1,19 @@
 .Footer {
     position: fixed;
     bottom: 0;
-    left: 0;margin: 0;
+    left: 0;
+    margin: 0;
     width: 100%;
     display: flex;
     justify-content: center;
     background-color: white;
     padding: .5rem 0;
     box-shadow: 0px -1px 1px lightgray;
+}
+
+.Footer--login {
+    box-shadow: none;
+    background-color: transparent;
+    display: block;
+    background-color: red;
 }

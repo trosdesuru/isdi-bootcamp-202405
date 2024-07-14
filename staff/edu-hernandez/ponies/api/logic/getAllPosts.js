@@ -1,6 +1,10 @@
 import data from '../data/index.js'
 
+import validate from '../validate.js'
+
 const getAllPosts = username => {
+    validate.username(username)
+
     const user = data.findUser(user => user.username === username)
 
     if (user === null)
@@ -13,7 +17,7 @@ const getAllPosts = username => {
         post.like = post.likes.includes(username)
 
         const author = data.findUser(user => user.username === post.author)
-        
+
         post.author = {
             username: author.username,
             avatar: author.avatar,

@@ -129,13 +129,13 @@ class Post extends Component {
                 <Heading level="3">{post.author.username}</Heading>
                 {/* <Avatar></Avatar> */}
 
-                <Button className="Button__follow" onClick={this.handleFollowUserClick.bind(this)}>{post.author.following ? '🔸 Unfollow' : '🔹 Follow'}</Button>
+                <Button className="Button--follow" onClick={this.handleFollowUserClick.bind(this)}>{post.author.following ? '🔸 Unfollow' : '🔹 Follow'}</Button>
             </Container>
 
-            <Image src={post.image} alt={post.caption} title={post.caption} />
+            <Image className='post--image' src={post.image} alt={post.caption} title={post.caption} />
 
             <Container>
-                <Button className="like__button" onClick={this.handleLikeClick.bind(this)}>{(post.like ? '♥️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
+                <Button className="like--button" onClick={this.handleLikeClick.bind(this)}>{(post.like ? '♥️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
                 <Button className="Button" onClick={this.handleFavClick.bind(this)}>{post.fav ? 'Unfav' : 'Add fav'}</Button>
             </Container>
 

@@ -1,6 +1,10 @@
 import data from '../../app/data/index'
 
+import validate from '../validate.js'
+
 const getAllFavPosts = username => {
+    validate.Username(username)
+
     const user = data.findUser(user => user.username === username)
 
     if (user === null)

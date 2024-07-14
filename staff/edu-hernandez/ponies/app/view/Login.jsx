@@ -1,5 +1,6 @@
 import logic from '../logic/index'
 
+import Footer from './home/Footer'
 import Heading from './components/Heading'
 import Paragraph from './components/Paragraph'
 import Form from './components/Form'
@@ -49,6 +50,10 @@ function Login({ onLogin, onRegisterClick }) {
             <Heading level="1">Login</Heading>
         </Container>
 
+        <Container className='Container--center'>
+            <Paragraph className='Paragraph--center' >How <span className='Ponie--font'>ponie</span> do you feel today?</Paragraph>
+        </Container>
+
         <Form onSubmit={handleLoginSubmit}>
             <Container className="Container--column">
                 <Label htmlFor="username-input">Username</Label>
@@ -64,12 +69,16 @@ function Login({ onLogin, onRegisterClick }) {
                 <Paragraph>Forgot your password?</Paragraph>
             </Container>
 
-            <Button className="Button" type="submit">Login</Button>
+            <Container className='Container--buttons--center'>
+                <Button className="Button" type="submit">Login</Button>
 
-            <Button className="Button">
-                <Link onClick={handleRegisterClick}>Register</Link>
-            </Button>
+                <Button className="Button--reverse">
+                    <Link className='a--reverse' onClick={handleRegisterClick}>Register</Link>
+                </Button>
+            </Container>
+        </Form>
 
+        <Container className='Container--center Container--column'>
             <Container className='Container--center'>
                 <Paragraph>or Login with</Paragraph>
             </Container>
@@ -77,8 +86,8 @@ function Login({ onLogin, onRegisterClick }) {
             <Container className='Container--center'>
                 <img className="Social-network" src="img/icon set/social media.png" alt="social-network" />
             </Container>
-        </Form>
-    </main>
+        </Container>
+    </main >
 
 }
 

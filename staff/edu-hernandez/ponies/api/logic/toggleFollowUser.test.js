@@ -1,3 +1,3 @@
 import toggleFollowUser from "./toggleFollowUser"
 
-toggleFollowUser('eeduhdz', 'rtapia')
+toggleFollowUser('eduhdz', 'rtapia')

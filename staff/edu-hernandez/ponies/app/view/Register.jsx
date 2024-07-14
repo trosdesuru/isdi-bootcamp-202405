@@ -64,12 +64,12 @@ function Register({ onRegister, onLoginClick }) {
         <Form onSubmit={handleRegisterSubmit} className="Form">
             <Container className="Container--column Container--column-left">
                 <Label htmlFor="name-input">Name</Label>
-                <Input type="text" id="name-input" name="name" placeholder="name" />
+                <Input type="text" id="name-input" name="name" placeholder='name' />
             </Container>
 
             <Container className="Container--column Container--column-left">
                 <Label htmlFor="surname-input">Surname</Label>
-                <Input type="text" id="surname-input" name="surname" placeholder="surname" />
+                <Input type="text" id="surname-input" name="surname" placeholder='surname' />
             </Container>
 
             <Container className="Container--column Container--column-left">
@@ -79,12 +79,12 @@ function Register({ onRegister, onLoginClick }) {
 
             <Container className="Container--column Container--column-left">
                 <Label htmlFor="username-input">Username</Label>
-                <Input type="text" id="username-input" name="username" placeholder="username" />
+                <Input type="text" id="username-input" name="username" placeholder='username' />
             </Container>
 
             <Container className="Container--column Container--column-left">
                 <Label htmlFor="password-input">Password</Label>
-                <Input type="password" id="password-input" name="password" placeholder="password" />
+                <Input type="password" id="password-input" name="password" placeholder='password' />
             </Container>
 
             <Container className="Container--column Container--column-left">
@@ -92,11 +92,13 @@ function Register({ onRegister, onLoginClick }) {
                 <Input type="password" id="password-repeat-input" name="password-repeat" placeholder="repeat password" />
             </Container>
 
-            <Button type="submit">Register</Button>
+            <Container className='Container--buttons--center'>
+                <Button type="submit">Register</Button>
 
-            <Button>
-                <Link onClick={handleLoginClick}>Login</Link>
-            </Button>
+                <Button className='Button--reverse'>
+                    <Link onClick={handleLoginClick}>Login</Link>
+                </Button>
+            </Container>
         </Form>
 
     </main>
