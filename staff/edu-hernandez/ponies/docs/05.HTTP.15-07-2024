@@ -28,3 +28,8 @@ PART 2 // data & logic validation
 ---------------------------------
 
 Mirar endpoints
+
+Back-end has three lays
+index - presentation in back-end
+... - logic
+... - data
