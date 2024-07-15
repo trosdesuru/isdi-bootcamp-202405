@@ -9,5 +9,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "directories": {
+    "test": "test"
+  },
+  "description": "",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
