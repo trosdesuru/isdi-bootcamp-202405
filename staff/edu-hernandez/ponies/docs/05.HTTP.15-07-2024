@@ -1,0 +1,28 @@
+HTTP 15/07/2024
+
+-----------------------
+PART 1 // app.30 09:04h
+-----------------------
+
+What is HTTP - https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP
+Methods in HTTP - https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+Status errors - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+
+Comunications in browser Google:
+console.network
+:text: send and response
+text: send data to server
+
+Cookies INFO - https://www.cloudflare.com/en-gb/learning/privacy/what-are-cookies/
+
+code in mobile are all in one file, scripts, styles, html..
+
+TCP Protocol - I'ts a tunnel transfer direct to the server. It's a secure transfer filter.
+
+<node DCP>
+
+commando bash - ping { num IP }
+
+---------------------------------
+PART 2 // data & logic validation
+---------------------------------
