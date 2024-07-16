@@ -1,6 +1,6 @@
 import deletePost from './deletePost.js'
 import findPost from './findPost.js'
-import findPosts from './findPosts'
+import findPosts from './findPosts.js'
 import findUser from './findUser.js'
 import insertPost from './insertPost.js'
 import insertUser from './insertUser.js'

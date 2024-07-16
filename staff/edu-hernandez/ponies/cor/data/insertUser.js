@@ -8,7 +8,9 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 function insertUser(user) {
-    let json = fs.readFileSync('./data/users.json', 'utf8')
+    validate.object(user, 'user')
+
+    let json = fs.readFileSync(`${__dirname}/users.json`, 'utf8')
 
     const users = json ? JSON.parse(json) : []
 
@@ -16,7 +18,7 @@ function insertUser(user) {
 
     json = JSON.stringify(users)
 
-    fs.writeFileSync('./data/users.json', json)
+    fs.writeFileSync(`${__dirname}/users.json`, json)
 }
 
 export default insertUser
