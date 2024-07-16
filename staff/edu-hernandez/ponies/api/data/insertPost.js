@@ -1,7 +1,7 @@
 import fs from 'fs'
 
 function insertPost(post) {
-    let json = fs.writeFileSync('./data/posts.json', 'utf8')
+    let json = fs.writeFileSync(`${__dirname}/posts.json`, 'utf8')
 
     const posts = json ? JSON.parse(json) : []
 

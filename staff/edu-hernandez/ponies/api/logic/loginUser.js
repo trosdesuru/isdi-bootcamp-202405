@@ -1,4 +1,4 @@
-import data from '../../app/data/index'
+import data from '../data/index.js'
 
 const loginUser = (username, password) => {
     if (username.trim().length < 4)

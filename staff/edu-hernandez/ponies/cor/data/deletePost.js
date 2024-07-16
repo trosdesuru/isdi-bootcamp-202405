@@ -1,4 +1,11 @@
 import fs from 'fs'
+import path from 'path';
+import { fileURLToPath } from 'url'
+
+import validate from '../validate.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 function deletePost(condition) {
     if (typeof condition !== 'function') throw new Error 
@@ -15,7 +22,7 @@ function deletePost(condition) {
         // localStorage.posts = JSON.stringify(posts)
         let updatedPosts = JSON.stringify(posts)
 
-        fs.writeFileSync('./data/posts.json', updatedPosts)
+        fs.writeFileSync(`${__dirname}/posts.json`, updatedPosts)
 
         console.log(updatedPosts)
     }

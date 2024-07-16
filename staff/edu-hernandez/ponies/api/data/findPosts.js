@@ -1,7 +1,7 @@
 import fs from 'fs'
 
 function findPosts(condition) {
-        const json = fs.readFileSync('./data/posts.json', 'utf8')
+        const json = fs.readFileSync(`${__dirname}/posts.json`, 'utf8')
 
         const posts = json ? JSON.parse(json) : []
 
