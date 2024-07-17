@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users -X POST -d '{"name":"Bruno","surname":"Diaz","email":"bruno@diaz.com","username":"brunodiaz","password":"123123123","passwordRepeat":"123123123"}'

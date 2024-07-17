@@ -4,7 +4,7 @@ const troy = {
     name: 'Troy',
     surname: 'Mclure',
     email: 'troy@mclure.com',
-    username: 'troemclure',
+    username: 'troymclure',
     password: '123123123'
 }
 

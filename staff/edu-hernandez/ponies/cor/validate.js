@@ -9,7 +9,7 @@ function validateString(value, explain = 'value') {
 
 function validateCallback(callback, explain = 'Callback') {
     if (typeof callback !== 'function') 
-        throw new TypeError(`$explain${explain} is not a function`)
+        throw new TypeError(`${explain} is not a function`)
 }
 
 function validateObject(object, explain = 'Object') {
@@ -55,9 +55,6 @@ function validatePostId(postId) {
     if (postId.trim().length === 0) 
         throw new Error('invalid postId')
 }
-
-
-validateUsername()
 
 const validate = {
     string: validateString,

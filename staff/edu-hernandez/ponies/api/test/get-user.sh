@@ -1,0 +1,1 @@
+curl -v http://localhost:8080/users/brunodiaz/name -X GET -H "Authorization: Basic Manoolo"

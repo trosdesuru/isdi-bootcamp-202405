@@ -1,4 +1,5 @@
 import getAllPosts from './getAllPosts.js'
+import authenticateUser from './authenticateUser.js'
 import getUserName from './getUser.js'
 import getUserUsername from './getUserUsername.js'
 import logoutUser from './logoutUser.js'
@@ -14,6 +15,7 @@ import getAllPoniesPosts from './getAllPoniesPosts.js'
 import isUserLoggedIn from './isUserLoggedIn.js'
 
 const logic = {
+    authenticateUser,
     getAllPosts,
     getUserName,
     getUserUsername,
