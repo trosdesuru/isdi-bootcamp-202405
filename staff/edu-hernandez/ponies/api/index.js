@@ -26,6 +26,7 @@ api.post('/users', (req, res) => {
     })
 })
 
+// POST Authentication path /users/auth
 api.post('/users/auth', (req, res) => {
     req.setEncoding('utf-8')
 
@@ -44,20 +45,22 @@ api.post('/users/auth', (req, res) => {
     })
 })
 
+// GET /GetAllPosts/ using username & user.username
 api.get('/users/:username/name', (req, res) => {
     req.setEncoding('utf-8')
 
-    const { authorization } = req.headers
+    const { authorization } = req.headers // 
 
+    if (!authorization || user.username !== author)
+        throw new Error('not authorized')
+    
     const author = authorization.split(' ')[1]
 
     try {
         const user = logic.getUser(author)
 
-        if (!authorization || user.username !== author)
-            throw new Error('not authorized')
 
-        const posts =  logic.getAllPosts(user.username)
+        const posts = logic.getAllPosts(user.username)
 
         res.status(200).send()
     } catch (error) {
@@ -65,6 +68,7 @@ api.get('/users/:username/name', (req, res) => {
     }
 })
 
+// GET /posts/ (getAllPosts) [Authorization: Basic username]
 api.get('/posts', (req, res) => {
     req.setEncoding('utf8')
 
@@ -92,7 +96,7 @@ api.get('/posts/ponies', (req, res) => {
     const { authorization } = req.headers
 
     const user = logic.getUserName(username)
-    
+
     try {
         const posts = logic.getAllPoniesPosts(req.username)
 
@@ -103,7 +107,7 @@ api.get('/posts/ponies', (req, res) => {
 });
 
 // // GET /posts/favs (getAllFavPosts) [Authorization: Basic username]
-// api.get('/posts/favs', basicAuth, (req, res) => {
+// api.get('/posts/favs', (req, res) => {
 //     try {
 //         const posts = logic.getAllFavPosts(req.username);
 //         res.status(200).json({ posts });
@@ -113,7 +117,7 @@ api.get('/posts/ponies', (req, res) => {
 // });
 
 // // POST /posts (createPost) [Authorization: Basic username]
-// api.post('/posts', basicAuth, (req, res) => {
+// api.post('/posts', (req, res) => {
 //     const { content } = req.body;
 
 //     try {
@@ -125,7 +129,7 @@ api.get('/posts/ponies', (req, res) => {
 // });
 
 // // DELETE /posts/:postId (deletePost) [Authorization: Basic username]
-// api.delete('/posts/:postId', basicAuth, (req, res) => {
+// api.delete('/posts/:postId', (req, res) => {
 //     const { postId } = req.params;
 
 //     try {
@@ -147,8 +151,6 @@ api.get('/posts/ponies', (req, res) => {
 //         res.status(500).json({ error: error.constructor.name, message: error.message });
 //     }
 // });
-
-api.listen(8081, () => console.log('API is up'));
 // TODO POST /users/auth (authenticateUser)
 // TODO GET /users/:userId/name (getUserName) [Authorization: Basic username]
 // TODO GET /posts (getAllPosts) [Authorization: Basic username]
@@ -159,4 +161,4 @@ api.listen(8081, () => console.log('API is up'));
 // TODO PATCH /posts/:postId/likes (toggleLikePost) [Authorization: Basic username]
 
 
-// api.listen(8080, () => console.log('API is up'))
+api.listen(8080, () => console.log('API is up'))
