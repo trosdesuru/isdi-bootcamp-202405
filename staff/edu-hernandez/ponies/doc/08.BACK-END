@@ -72,7 +72,7 @@ console.log('turnos lights on')
 
 Implement node
 
-- getALlPosts ponies/app/logic
+- getALlPosts ponies/app/logic ✅
 - PostList ponies/app/app/view
 
 <><><><><><><><><><><><><><><>
