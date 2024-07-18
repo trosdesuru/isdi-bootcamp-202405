@@ -1,1 +1,0 @@
-curl -v http://localhost:8080/posts -X GET -H "Authorization: Basic eduhv"
