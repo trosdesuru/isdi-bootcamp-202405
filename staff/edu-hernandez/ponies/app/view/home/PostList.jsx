@@ -12,6 +12,7 @@ class PostList extends Component {
 
         super()
 
+        // starts with a void array, in case there's isn't postsPosted
         this.state = { posts: [] }
     }
 
