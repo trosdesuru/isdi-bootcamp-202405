@@ -4,8 +4,12 @@ import logic from 'cor/logic/index.js'
 
 const api = express()
 
-api.get('/', (req, res) => {
-    res.send('Hello, World!')
+api.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Headers', '*')
+    res.setHeader('Access-Control-Allow-Methods', '*')
+
+    next()
 })
 
 api.post('/users', (req, res) => {
@@ -16,8 +20,6 @@ api.post('/users', (req, res) => {
 
         try {
             logic.registerUser(name, surname, email, username, password, passwordRepeat)
-
-            res.setHeader('Content-Type', 'text/html')
 
             res.status(201).send()
         } catch (error) {
@@ -90,6 +92,7 @@ api.get('/posts/ponies', (req, res) => {
     }
 })
 
+
 // GET /posts/favs (getAllFavPosts) [Authorization: Basic username]
 api.get('/posts/favs', (req, res) => {
     const { authorization } = req.headers
@@ -104,6 +107,7 @@ api.get('/posts/favs', (req, res) => {
         res.status(500).json({ error: error.constructor.name, message: error.message })
     }
 })
+
 // POST /posts (createPost) [Authorization: Basic username]
 api.post('/posts', (req, res) => {
     const { authorization } = req.headers
@@ -158,7 +162,6 @@ api.patch('/posts/:postId/likes', (req, res) => {
         res.status(500).json({ error: error.constructor.name, message: error.message })
     }
 })
-
 
 api.patch('/posts/:postId/favs', (req, res) => {
     const { authorization } = req.headers

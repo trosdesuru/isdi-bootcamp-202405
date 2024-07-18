@@ -51,7 +51,7 @@ function Login({ onLogin, onRegisterClick }) {
         </Container>
 
         <Container className='Container--center'>
-            <Paragraph className='Paragraph--center' >How <span className='Ponie--font'>ponie</span> do you feel today?</Paragraph>
+            <Paragraph className='Paragraph--center' >How <span className='Ponie--font'>ponie</span> feel today?</Paragraph>
         </Container>
 
         <Form onSubmit={handleLoginSubmit}>
@@ -66,7 +66,7 @@ function Login({ onLogin, onRegisterClick }) {
             </Container>
 
             <Container className='Container--right'>
-                <Paragraph>Forgot your password?</Paragraph>
+                <Paragraph className='Paragraph--weight600'>Forgot your password?</Paragraph>
             </Container>
 
             <Container className='Container--buttons--center'>
@@ -80,7 +80,7 @@ function Login({ onLogin, onRegisterClick }) {
 
         <Container className='Container--center Container--column'>
             <Container className='Container--center'>
-                <Paragraph>or Login with</Paragraph>
+                <Paragraph className='Paragraph--weight600'>or Login with</Paragraph>
             </Container>
 
             <Container className='Container--center'>

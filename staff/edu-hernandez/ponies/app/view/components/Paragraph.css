@@ -13,6 +13,10 @@
     color: #FFA2D1;
 }
 
+.Paragraph--weight600 {
+    font-weight: 600;
+}
+
 .Paragraph--post__caption {
     margin-top: .5rem;
     margin-bottom: .5rem;

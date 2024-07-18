@@ -1,10 +1,10 @@
-import './PostList.css'
-
-import logic from "../../logic/index"
+import logic from '../../logic'
 
 import { Component } from 'react'
 
 import Post from './Post'
+
+import './PostList.css'
 
 class PostList extends Component {
     constructor() {
@@ -12,10 +12,24 @@ class PostList extends Component {
 
         super()
 
-        try {
-            const posts = logic.getAllPosts()
+        this.state = { posts: [] }
+    }
 
-            this.state = { posts }
+    componentDidMount() {
+        console.debug('PostList -> componentDidMount')
+
+        try {
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -39,7 +53,8 @@ class PostList extends Component {
     }
 
     handlePostDeleted() {
-        console.debug('PostList ->  handlePostDeleted')
+        console.debug('PostList -> handlePostDeleted')
+
         try {
             const posts = logic.getAllPosts()
 
@@ -53,6 +68,7 @@ class PostList extends Component {
 
     handlePostEdited() {
         console.debug('PostList -> handlePostEdited')
+
         try {
             const posts = logic.getAllPosts()
 
@@ -64,8 +80,9 @@ class PostList extends Component {
         }
     }
 
-    handlePostLiked() {
-        console.debug('PostList -> handlePostLiked')
+    handlePostLikeToggled() {
+        console.debug('PostList -> handlePostLikeToggled')
+
         try {
             const posts = logic.getAllPosts()
 
@@ -77,8 +94,9 @@ class PostList extends Component {
         }
     }
 
-    handlePostFavourited() {
-        console.debug('PostList -> handlePostFavourited')
+    handlePostFavToggled() {
+        console.debug('PostList -> handlePostFavToggled')
+
         try {
             const posts = logic.getAllPosts()
 
@@ -90,8 +108,9 @@ class PostList extends Component {
         }
     }
 
-    onUserFollowed() {
-        console.debug('PostList -> onUserFollowed')
+    handleUserFollowToggled() {
+        console.debug('PostList -> handleUserFollowToggled')
+
         try {
             const posts = logic.getAllPosts()
 
@@ -112,9 +131,9 @@ class PostList extends Component {
                 post={post}
                 onPostDeleted={this.handlePostDeleted.bind(this)}
                 onPostEdited={this.handlePostEdited.bind(this)}
-                onPostLiked={this.handlePostLiked.bind(this)}
-                onPostFavourited={this.handlePostFavourited.bind(this)}
-                onUserFollowed={this.onUserFollowed.bind(this)}
+                onPostLikeToggled={this.handlePostLikeToggled.bind(this)}
+                onPostFavToggled={this.handlePostFavToggled.bind(this)}
+                onUserFollowToggled={this.handleUserFollowToggled.bind(this)}
             />)}
         </section>
     }

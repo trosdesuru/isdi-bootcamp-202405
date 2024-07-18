@@ -70,10 +70,10 @@ console.log('turnos lights on')
 *********               *********
 <><><><><><><><><><><><><><><>
 
-Implement node
+Implement node 
 
 - getALlPosts ponies/app/logic ✅
-- PostList ponies/app/app/view
+- PostList ponies/app/app/view ✅
 
 <><><><><><><><><><><><><><><>
 
@@ -83,3 +83,4 @@ Implement node
 
 TODO Prepare API and running
 TODO Then test CORS into API
+TODO PostList.jsx ponies/app/view/home/postList.jsx
