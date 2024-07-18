@@ -15,8 +15,11 @@ class PostList extends Component {
         this.state = { posts: [] }
     }
 
+    // ComponenetDidMount => Component class (React)
+    // After mount automatically calls it
     componentDidMount() {
-        console.debug('PostList -> componentDidMount')
+        // Developer message sesg. to console printing from debug.messages
+        console.debug('PostList -> componentDidMount') 
 
         try {
             logic.getAllPosts((error, posts) => {

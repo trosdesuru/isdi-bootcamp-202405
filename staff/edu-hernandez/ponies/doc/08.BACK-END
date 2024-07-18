@@ -58,7 +58,7 @@ setTimeout(() => console.log('warm up windows'), 2000)
 setTimeout(() => console.log('speed to 100'), 2000)
     console.log('speed to 100', performance.now())
 
-console.log('turnos lights on')
+console.log('turns lights on')
     console.log('turnos lights on', performance.now())
 
 *********               *********
