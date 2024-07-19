@@ -4,6 +4,10 @@ import logic from 'cor/logic/index.js'
 
 const api = express()
 
+api.get('/', (req, res) => {
+    res.send('Hello, World!')
+})
+
 api.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Headers', '*')
@@ -12,9 +16,6 @@ api.use((req, res, next) => {
     next()
 })
 
-api.get('/', (req, res) => {
-    res.send('Hello, World!')
-})
 
 api.post('/users', (req, res) => {
     req.setEncoding('utf-8')

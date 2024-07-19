@@ -13,8 +13,8 @@ TODO copy getAllPosts to
 Edit api's index.js, add CORS to ponies/favs & PoniesPostLists
 - Edit PoniesPostLists ✅
 
-📁app/logic/registerUSer.js
-TODO input validation
+📁app/logic/registerUSer.js ✅
+TODO input validation ✅
 
 ----------------------------------------------------------------
 
@@ -22,10 +22,10 @@ Express offers the possibility to set Headers for all setHeaders
 index.js
 
 TODO loginUser ponies/app/logic and {..} ✅
-TODO login.jsx ponies/app/view 
+TODO login.jsx ponies/app/view
 TODO register.jsx ponies/app/logic - Line 35
 
-TODO validation
+TODO validation ✅
 
 TODO getUserName ponies/app/logic
 TODO Header.jsx ponies/app/view/home
