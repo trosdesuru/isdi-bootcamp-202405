@@ -27,6 +27,7 @@ function Login({ onLogin, onRegisterClick }) {
 
         try {
             logic.loginUser(username, password, error => {
+                console.debug('Callback -> error:', error)
                 if (error) {
                     console.error(error)
 
@@ -35,6 +36,7 @@ function Login({ onLogin, onRegisterClick }) {
                     return
                 }
 
+                console.debug('Login successful, calling onLogin')
                 onLogin()
             })
         } catch (error) {
