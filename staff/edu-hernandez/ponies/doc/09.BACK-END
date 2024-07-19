@@ -33,7 +33,7 @@ TODO Header.jsx ponies/app/view/home
 PART 2 - REFACTORIZE CODE
 -------------------------------------
 
-WIP refactorizing code adding server side, and 
+WIP refactorizing code adding server side
 
 📁ponies/app/logic
 createPost.js

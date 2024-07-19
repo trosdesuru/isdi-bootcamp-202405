@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/posts/ponies -H "Authorization: Basic samu"
+curl -v http://localhost:8080/posts/ponies -H "Authorization: Basic rubendiaz"

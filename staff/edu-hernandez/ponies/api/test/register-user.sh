@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/users -X POST -d '{"name":"Peter","surname":"Pan","email":"peter@pan.com","username":"eduhdz","password":"123123123","passwordRepeat":"123123123"}'
+curl -v http://localhost:8080/users -X POST -d '{"name":"Edu","surname":"Hdz","email":"edu@hdz.com","username":"eduhdz","password":"123123123","passwordRepeat":"123123123"}'
