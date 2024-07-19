@@ -1,10 +1,10 @@
-import './PostList.css'
-
-import logic from "../../logic/index"
+import logic from '../../logic'
 
 import { Component } from 'react'
 
 import Post from './Post'
+
+import './PostList.css'
 
 class PoniesPostList extends Component {
     constructor() {
@@ -12,10 +12,24 @@ class PoniesPostList extends Component {
 
         super()
 
-        try {
-            const posts = logic.getAllPoniesPosts()
+        this.state = { posts: [] }
+    }
 
-            this.state = { posts }
+    componentDidMount() {
+        console.debug('PoniesPostList -> componentDidMount')
+
+        try {
+            logic.getAllPoniesPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -114,8 +128,8 @@ class PoniesPostList extends Component {
                     onPostEdited={this.handlePostEdited.bind(this)}
                     onPostLiked={this.handlePostLikeToggled.bind(this)}
                     onPostFavourited={this.handlePostFavToggled.bind(this)}
-                    onUserFollowed={this.handleUserFollowToggled.bind(this)} 
-                    />)}
+                    onUserFollowed={this.handleUserFollowToggled.bind(this)}
+                />)}
         </section>
     }
 }

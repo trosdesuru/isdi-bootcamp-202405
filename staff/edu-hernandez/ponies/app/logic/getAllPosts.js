@@ -1,4 +1,8 @@
+import validate from '../../cor/validate'
+
 const getAllPosts = callback => {
+    validate.callback(callback)
+
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {

@@ -1,48 +1,30 @@
-import data from '../data/index'
+import validate from "../../cor/validate.js"
 
-const EMAIL_REGEX = /^[a-z0-9._]+@[a-z0-9.-]{3,63}\.[a-z]{2,10}$/
+const registerUser = (name, surname, email, username, password, passwordRepeat, callback) => {
+validate.string(name)
 
-const registerUser = (name, surname, email, username, password, passwordRepeat) => {
-    if (name.trim() === '')
-        throw new Error('invalid name')
+    const xhr = new XMLHttpRequest
 
-    if (surname.trim().length < 2)
-        throw new Error('invalid surname')
+    xhr.onload = () => {
+        if (xhr.status === 201) {
+            callback(null)
 
-    if (!EMAIL_REGEX.test(email))
-        throw new Error('invalid email')
+            return
+        }
 
-    if (username.trim().length < 4)
-        throw new Error('invalid username')
+        const { error, message } = JSON.parse(xhr.response)
 
-    if (password.trim().length < 8)
-        throw new Error('invalid password')
+        const constructor = window[error]
 
-    if (password !== passwordRepeat)
-        throw new Error('passwords do not match')
-
-    let user = data.findUser(user => user.email === email)
-
-    if (user !== null)
-        throw new Error('email already exists')
-
-    user = data.findUser(user => user.username === username)
-
-    if (user !== null)
-        throw new Error('username already exists')
-
-    user = {
-        name: name,
-        surname: surname,
-        email: email,
-        username: username,
-        password: password,
-        favs: [],
-        following: [],
-        avatar: '../../img/flag.png'
+        callback(new constructor(message))
     }
 
-    data.insertUser(user)
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('POST', 'http://localhost:8080/users')
+    xhr.setRequestHeader('Content-Type', 'application/json')
+
+    xhr.send(JSON.stringify({ name, surname, email, username, password, passwordRepeat }))
 }
 
 export default registerUser

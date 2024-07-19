@@ -12,6 +12,10 @@ api.use((req, res, next) => {
     next()
 })
 
+api.get('/', (req, res) => {
+    res.send('Hello, World!')
+})
+
 api.post('/users', (req, res) => {
     req.setEncoding('utf-8')
 
@@ -28,7 +32,6 @@ api.post('/users', (req, res) => {
     })
 })
 
-// POST Authentication path /users/auth
 api.post('/users/auth', (req, res) => {
     req.setEncoding('utf-8')
 
@@ -45,7 +48,6 @@ api.post('/users/auth', (req, res) => {
     })
 })
 
-// GET /GetAllPosts/ using username & user.username
 api.get('/users/:targetUsername/name', (req, res) => {
     const { authorization } = req.headers
 
@@ -62,7 +64,6 @@ api.get('/users/:targetUsername/name', (req, res) => {
     }
 })
 
-// GET /posts/ (getAllPosts) [Authorization: Basic username]
 api.get('/posts', (req, res) => {
     const { authorization } = req.headers
 
@@ -77,7 +78,6 @@ api.get('/posts', (req, res) => {
     }
 })
 
-// GET /posts/ponies (getAllPoniesPosts) [Authorization: Basic username]
 api.get('/posts/ponies', (req, res) => {
     const { authorization } = req.headers
 
@@ -92,8 +92,6 @@ api.get('/posts/ponies', (req, res) => {
     }
 })
 
-
-// GET /posts/favs (getAllFavPosts) [Authorization: Basic username]
 api.get('/posts/favs', (req, res) => {
     const { authorization } = req.headers
 
@@ -108,7 +106,6 @@ api.get('/posts/favs', (req, res) => {
     }
 })
 
-// POST /posts (createPost) [Authorization: Basic username]
 api.post('/posts', (req, res) => {
     const { authorization } = req.headers
 
@@ -129,7 +126,6 @@ api.post('/posts', (req, res) => {
     })
 })
 
-// DELETE /posts/:postId (deletePost)
 api.delete('/posts/:postId', (req, res) => {
     const { authorization } = req.headers
 
@@ -146,7 +142,6 @@ api.delete('/posts/:postId', (req, res) => {
     }
 })
 
-// PATCH /posts/:postId/likes
 api.patch('/posts/:postId/likes', (req, res) => {
     const { authorization } = req.headers
 
@@ -193,6 +188,28 @@ api.patch('/users/:targetUsername/follows', (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.constructor.name, message: error.message })
     }
+})
+
+api.patch('/posts/:postId/caption', (req, res) => {
+    const { authorization } = req.headers
+
+    const username = authorization.slice(6)
+
+    const { postId } = req.params
+
+    req.setEncoding('utf-8')
+
+    req.on('data', json => {
+        const { caption } = JSON.parse(json)
+
+        try {
+            logic.updatePostCaption(username, postId, caption)
+
+            res.status(204).send()
+        } catch (error) {
+            res.status(500).json({ error: error.constructor.name, message: error.message })
+        }
+    })
 })
 
 api.listen(8080, () => console.log('API is up'))

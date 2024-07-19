@@ -1,11 +1,27 @@
-import getAllFavPosts from './getAllFavPosts'
+const getAllFavPosts = callback => {
+    const xhr = new XMLHttpRequest
 
-console.info('TEST getAllFavPosts')
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            const posts = JSON.parse(xhr.response)
 
-console.info('CASE get all fav posts from eduhv')
+            callback(null, posts)
 
-sessionStorage.username = 'eduhv'
+            return
+        }
 
-const favs = getAllFavPosts()
+        const { error, message } = JSON.parse(xhr.response)
 
-console.log(favs)
+        const constructor = window[error]
+
+        callback(new constructor(message))
+    }
+
+    xhr.onerror = () => callback(new Error('network error'))
+
+    xhr.open('GET', 'http://localhost:8080/posts/favs')
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.send()
+}
+
+export default getAllFavPosts

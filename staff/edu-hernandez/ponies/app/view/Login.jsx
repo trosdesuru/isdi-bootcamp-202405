@@ -1,6 +1,5 @@
 import logic from '../logic/index'
 
-import Footer from './home/Footer'
 import Heading from './components/Heading'
 import Paragraph from './components/Paragraph'
 import Form from './components/Form'
@@ -27,9 +26,17 @@ function Login({ onLogin, onRegisterClick }) {
         const password = passwordInput.value
 
         try {
-            logic.loginUser(username, password)
+            logic.loginUser(username, password, error => {
+                if (error) {
+                    console.error(error)
 
-            onLogin()
+                    alert(error.message)
+
+                    return
+                }
+
+                onLogin()
+            })
         } catch (error) {
             console.error(error)
 
