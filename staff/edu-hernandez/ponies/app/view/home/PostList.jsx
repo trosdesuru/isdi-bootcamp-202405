@@ -12,7 +12,7 @@ class PostList extends Component {
 
         super()
 
-        // starts with a void array, in case there's isn't postsPosted
+        // Starts with void array, in case there isn't postsPosted
         this.state = { posts: [] }
     }
 
@@ -108,20 +108,6 @@ class PostList extends Component {
         }
     }
 
-    handlePostDeleted() {
-        console.debug('PostList -> handlePostDeleted')
-
-        try {
-            const posts = logic.getAllPosts()
-
-            this.setState({ posts })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
-
     handlePostLikeToggled() {
         console.debug('PostList -> handlePostLikeToggled')
 
@@ -166,20 +152,6 @@ class PostList extends Component {
         }
     }
 
-    handlePostFavToggled() {
-        console.debug('PostList -> handlePostFavToggled')
-
-        try {
-            const posts = logic.getAllPosts()
-
-            this.setState({ posts })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
-
     handleUserFollowToggled() {
         console.debug('PostList -> handleUserFollowToggled')
 
@@ -201,7 +173,6 @@ class PostList extends Component {
             alert(error.message)
         }
     }
-
 
     render() {
         console.debug('PostList -> render')

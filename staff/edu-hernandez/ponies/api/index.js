@@ -12,9 +12,9 @@ api.use((req, res, next) => {
     next()
 })
 
-api.get('/', (req, res) => {
-    res.send('Hello, World!')
-})
+// api.get('/', (req, res) => {
+//     res.send('Hello, World!')
+// })
 
 api.post('/users', (req, res) => {
     req.setEncoding('utf-8')

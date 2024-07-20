@@ -1,4 +1,4 @@
-import logic from '../logic/index'
+import logic from '../logic/index.js'
 
 import Heading from './components/Heading'
 import Paragraph from './components/Paragraph'
