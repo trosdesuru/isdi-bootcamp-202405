@@ -20,7 +20,7 @@ class PostList extends Component {
     // After mount automatically calls it
     componentDidMount() {
         // Developer message sesg. to console printing from debug.messages
-        console.debug('PostList -> componentDidMount') 
+        console.debug('PostList -> componentDidMount')
 
         try {
             logic.getAllPosts((error, posts) => {
@@ -46,14 +46,66 @@ class PostList extends Component {
 
         if (newProps.refreshStamp !== this.props.refreshStamp)
             try {
-                const posts = logic.getAllPosts()
+                logic.getAllPosts((error, posts) => {
+                    if (error) {
+                        console.error(error)
 
-                this.setState({ posts })
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.setState({ posts })
+                })
             } catch (error) {
                 console.error(error)
 
                 alert(error.message)
             }
+    }
+
+    handlePostDeleted() {
+        console.debug('PostList -> handlePostDeleted')
+
+        try {
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    handlePostEdited() {
+        console.debug('PostList -> handlePostEdited')
+
+        try {
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
     }
 
     handlePostDeleted() {
@@ -70,13 +122,21 @@ class PostList extends Component {
         }
     }
 
-    handlePostEdited() {
-        console.debug('PostList -> handlePostEdited')
+    handlePostLikeToggled() {
+        console.debug('PostList -> handlePostLikeToggled')
 
         try {
-            const posts = logic.getAllPosts()
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -84,13 +144,21 @@ class PostList extends Component {
         }
     }
 
-    handlePostLikeToggled() {
-        console.debug('PostList -> handlePostLikeToggled')
+    handlePostFavToggled() {
+        console.debug('PostList -> handlePostFavToggled')
 
         try {
-            const posts = logic.getAllPosts()
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
@@ -116,15 +184,24 @@ class PostList extends Component {
         console.debug('PostList -> handleUserFollowToggled')
 
         try {
-            const posts = logic.getAllPosts()
+            logic.getAllPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+            })
         } catch (error) {
             console.error(error)
 
             alert(error.message)
         }
     }
+
 
     render() {
         console.debug('PostList -> render')

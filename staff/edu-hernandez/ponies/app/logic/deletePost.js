@@ -1,7 +1,7 @@
 import validate from "../../cor/validate.js"
 
 const deletePost = (postId, callback) => {
-validate.callback(callback)
+    validate.callback(callback)
 
     const xhr = new XMLHttpRequest
 

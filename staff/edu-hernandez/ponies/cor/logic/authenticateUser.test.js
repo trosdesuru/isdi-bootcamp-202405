@@ -1,3 +1,3 @@
-import authenticateUser from "./authenticateUser.js"
+import authenticateUser from './authenticateUser.js'
 
-authenticateUser("eduhdz", "123123123")
+authenticateUser("eduhv", "123123123")

@@ -1,4 +1,4 @@
-import validate from "../../cor/validate.js"
+import validate from '../../cor/validate.js'
 
 const toggleFavPost = (postId, callback) => {
     validate.postId(postId)

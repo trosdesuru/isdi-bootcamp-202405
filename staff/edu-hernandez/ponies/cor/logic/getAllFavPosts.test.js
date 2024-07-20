@@ -1,5 +1,5 @@
-import getAllFavPosts from './getAllFavPosts'
+import getAllFavPosts from './getAllFavPosts.js'
 
-const favs = getAllFavPosts("eduhdz")
+const posts = getAllFavPosts("eduhv")
 
-console.log(favs)
+console.log(posts)

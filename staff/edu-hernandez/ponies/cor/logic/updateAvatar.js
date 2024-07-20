@@ -1,14 +1,13 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
-
 const updateAvatar = (username, newAvatar) => {
-    validate.username(username)
-    validate.image(newAvatar, 'avatar')
+    // TODO input validation
+
+    if (!newAvatar.startsWith('http')) throw new Error('invalid image')
 
     const user = data.findUser(user => user.username === username)
 
-    if (user === null) throw new Error('User not found')
+    if (user === null) throw new Error('user not found')
 
     user.avatar = newAvatar
 

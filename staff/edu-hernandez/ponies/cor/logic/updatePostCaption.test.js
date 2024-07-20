@@ -1,3 +1,3 @@
 import updatePostCaption from './updatePostCaption.js'
 
-updatePostCaption("eduhz", "123123123", "Hello, World!")
+updatePostCaption("eduhv", "gen3r4t39Id", "Remember my name")

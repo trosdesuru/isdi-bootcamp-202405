@@ -2,7 +2,7 @@ import validate from "../../cor/validate.js"
 
 const getAllPoniesPosts = callback => {
     validate.callback(callback)
-    
+
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {

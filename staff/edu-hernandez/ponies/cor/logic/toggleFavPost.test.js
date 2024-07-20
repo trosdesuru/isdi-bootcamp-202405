@@ -1,3 +1,3 @@
-import toggleFavPost from "./toggleFavPost"
+import toggleFavPost from './toggleFavPost.js'
 
-toggleFavPost("eduhdz", "xdfgh46")
+toggleFavPost("eduhv", "randomPostId")

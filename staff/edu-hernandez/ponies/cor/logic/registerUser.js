@@ -1,16 +1,17 @@
 import data from '../data/index.js'
 
-const registerUser = (name, surname, email, username, password, /*passwordRepeat*/) => {
+import validate from '../validate.js'
+
+const registerUser = (name, surname, email, username, password, passwordRepeat) => {
     validate.name(name)
     validate.name(surname, 'surname')
     validate.email(email)
     validate.username(username)
     validate.password(password)
-    // TODO passwordRepeat
 
-    if (password !== passwordrepeat)
+    if (password !== passwordRepeat)
         throw new Error('passwords do not match')
-    
+
     let user = data.findUser(user => user.email === email)
 
     if (user !== null)
@@ -22,14 +23,14 @@ const registerUser = (name, surname, email, username, password, /*passwordRepeat
         throw new Error('username already exists')
 
     user = {
-        name: name,
-        surname: surname,
-        email: email,
-        username: username,
-        password: password,
+        name,
+        surname,
+        email,
+        username,
+        password,
         favs: [],
         following: [],
-        avatar: '../../img/flag.png'
+        avatar: 'https://c8.alamy.com/comp/2EDB67T/cute-horse-avatar-cute-farm-animal-hand-drawn-illustration-isolated-vector-illustration-2EDB67T.jpg'
     }
 
     data.insertUser(user)

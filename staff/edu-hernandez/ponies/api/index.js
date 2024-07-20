@@ -4,10 +4,6 @@ import logic from 'cor/logic/index.js'
 
 const api = express()
 
-api.get('/', (req, res) => {
-    res.send('Hello, World!')
-})
-
 api.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Headers', '*')
@@ -16,6 +12,9 @@ api.use((req, res, next) => {
     next()
 })
 
+api.get('/', (req, res) => {
+    res.send('Hello, World!')
+})
 
 api.post('/users', (req, res) => {
     req.setEncoding('utf-8')
@@ -24,15 +23,9 @@ api.post('/users', (req, res) => {
         const { name, surname, email, username, password, passwordRepeat } = JSON.parse(json)
 
         try {
-            logic.registerUser(name, surname, email, username, password, passwordRepeat, error => {
-                if (error) {
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+            logic.registerUser(name, surname, email, username, password, passwordRepeat)
 
-                    return
-                }
-
-                res.status(201).send()
-            })
+            res.status(201).send()
         } catch (error) {
             res.status(500).json({ error: error.constructor.name, message: error.message })
         }
@@ -46,15 +39,9 @@ api.post('/users/auth', (req, res) => {
         const { username, password } = JSON.parse(json)
 
         try {
-            logic.authenticateUser(username, password, error => {
-                if (error) {
-                    res.status(500).json({ error: error.constructor.name, message: error.message })
+            logic.authenticateUser(username, password)
 
-                    return
-                }
-
-                res.send()
-            })
+            res.send()
         } catch (error) {
             res.status(500).json({ error: error.constructor.name, message: error.message })
         }

@@ -1,3 +1,3 @@
 import toggleLikePost from './toggleLikePost.js'
 
-toggleLikePost("eduhdz", "")
+toggleLikePost("eduhv", "randomId")

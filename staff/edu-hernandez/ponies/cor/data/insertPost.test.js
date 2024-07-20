@@ -1,11 +1,11 @@
 import insertPost from './insertPost.js'
 
-const troy = {
-    name: 'Troy',
-    surname: 'Mclure',
-    email: 'troy@mclure.com',
-    username: 'troymclure',
-    password: '123123123'
+const post = {
+    id: "abcdefghm",
+    author: "ale",
+    date: "10-07-2024",
+    caption: "Hello",
+    image: "https://njebvbeviobvb"
 }
 
-insertPost(troy)
+insertPost(post)

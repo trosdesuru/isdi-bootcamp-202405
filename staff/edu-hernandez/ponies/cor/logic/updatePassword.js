@@ -1,18 +1,23 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+const USER_REGEX = /^(?!.*\s{2})[a-zA-Z0-9._-]{4,16}$/
 
 const updatePassword = (username, oldPassword, newPassword, newPasswordRepeat) => {
-    validate.username(username)
-    validate.password(oldPassword)
-    validate.password(newPassword)
-    validate.password(newPasswordRepeat)
+    if (!USER_REGEX.test(username)) throw new Error('invalid username')
+
+    if (oldPassword.trim().length < 8) throw new Error('invalid password')
+
+    if (newPassword.trim().length < 8) throw new Error('invalid password')
+
+    if (oldPassword === newPassword) throw new Error('new password is equal to old password')
+
+    if (newPassword !== newPasswordRepeat) throw new Error('passwords do not match')
 
     const user = data.findUser(user => user.username === username)
 
-    if (user === null) throw new Error('User not found')
+    if (user === null) throw new Error('user not found')
 
-    if (oldPassword !== user.password) throw new Error('Invalid password')
+    if (oldPassword !== user.password) throw new Error('invalid password')
 
     user.password = newPassword
 

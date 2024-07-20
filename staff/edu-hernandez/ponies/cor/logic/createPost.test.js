@@ -1,3 +1,3 @@
-import createPost from './createPost.js'
+import createPost from "./createPost"
 
-createPost("eduhdz", "https://url.com", "Hello, world!")
+createPost("eduhv", "https//randomNewUrl", "it's a new Post")

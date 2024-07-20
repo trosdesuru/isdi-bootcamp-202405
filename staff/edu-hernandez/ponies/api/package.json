@@ -1,6 +1,7 @@
 {
   "name": "api",
   "version": "1.0.0",
+  "description": "",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -14,12 +15,6 @@
   "license": "ISC",
   "dependencies": {
     "cor": "file:../cor",
-    "express": "^4.19.2",
-    "node": "^18.20.4"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "devDependencies": {},
-  "description": ""
+    "express": "^4.19.2"
+  }
 }

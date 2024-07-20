@@ -1,3 +1,3 @@
-import toggleFollowUser from "./toggleFollowUser"
+import toggleFollowUser from './toggleFollowUser.js'
 
-toggleFollowUser('eduhdz', 'rtapia')
+toggleFollowUser("eduhv", "lucas")

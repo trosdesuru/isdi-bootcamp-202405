@@ -1,8 +1,5 @@
 import getAllPosts from './getAllPosts.js'
-import authenticateUser from './authenticateUser.js'
-import getUserName from './getUser.js'
-import getUserUsername from './getUserUsername.js'
-import logoutUser from './logoutUser.js'
+import getUserName from './getUserName.js'
 import registerUser from './registerUser.js'
 import toggleLikePost from './toggleLikePost.js'
 import updatePostCaption from './updatePostCaption.js'
@@ -12,24 +9,27 @@ import toggleFavPost from './toggleFavPost.js'
 import getAllFavPosts from './getAllFavPosts.js'
 import toggleFollowUser from './toggleFollowUser.js'
 import getAllPoniesPosts from './getAllPoniesPosts.js'
-import isUserLoggedIn from './isUserLoggedIn.js'
+import updateAvatar from './updateAvatar.js'
+import getUser from './getUser.js'
+import updatePassword from './updatePassword.js'
+import authenticateUser from './authenticateUser.js'
 
 const logic = {
     authenticateUser,
-    getAllPosts,
-    getUserName,
-    getUserUsername,
-    logoutUser,
-    registerUser,
-    toggleLikePost,
-    updatePostCaption,
     createPost,
     deletePost,
-    toggleFavPost,
     getAllFavPosts,
-    toggleFollowUser,
     getAllPoniesPosts,
-    isUserLoggedIn
+    getAllPosts,
+    getUser,
+    getUserName,
+    registerUser,
+    toggleFavPost,
+    toggleFollowUser,
+    toggleLikePost,
+    updateAvatar,
+    updatePassword,
+    updatePostCaption
 }
 
 export default logic

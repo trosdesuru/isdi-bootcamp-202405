@@ -1,5 +1,5 @@
 import getUser from './getUser.js'
 
-const user = getUser('eduhdz')
+const user = getUser("eduhv")
 
 console.log(user)

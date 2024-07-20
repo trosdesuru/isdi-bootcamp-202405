@@ -1,6 +1,6 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
+import validate from "../validate.js"
 
 const authenticateUser = (username, password) => {
     validate.username(username)
@@ -10,7 +10,7 @@ const authenticateUser = (username, password) => {
 
     if (user === null)
         throw new Error('user not found')
-    
+
     if (user.password !== password)
         throw new Error('wrong password')
 }

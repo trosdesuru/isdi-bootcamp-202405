@@ -1,4 +1,5 @@
-import getAllPosts from "./getAllPosts"
+import getAllPosts from './getAllPosts.js'
 
-const posts = getAllPosts('eduhdz')
-getAllPosts()
+const posts = getAllPosts("eduhv")
+
+console.log(posts)

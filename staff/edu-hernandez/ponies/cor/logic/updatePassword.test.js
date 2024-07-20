@@ -1,3 +1,3 @@
 import updatePassword from './updatePassword.js'
 
-updatePassword("eduhdz", "123123123", "123456789")
+updatePassword("123123123", "321321321", "eduhv")

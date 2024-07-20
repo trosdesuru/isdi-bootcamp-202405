@@ -1,4 +1,4 @@
-import validate from "../../cor/validate.js"
+import validate from "../../cor/validate"
 
 const createPost = (image, caption, callback) => {
     validate.image(image)

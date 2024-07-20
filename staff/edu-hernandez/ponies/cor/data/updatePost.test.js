@@ -1,13 +1,12 @@
-import updatePost from "./updatePost.js"
+import updatePost from './updatePost.js'
 
-const postUpdate = {
-    username: "rubendiaz",
-    imgUrl: "updatePost_imgUrlrubendiaz",
+const post = {
+    id: "abcdefghl",
+    author: "ale",
+    date: "11-07-2024",
     caption: "Hello",
-    postDate: "thursday/11/07/2024/15.45",
-    id: "xdfgh46",
-    favs: [],
-    likes: []
+    image: "https://njebvbeviobvb"
 }
 
-updatePost(post => post.id === "xdfgh46", postUpdate)
+updatePost(post => post.id === "abcdefghl", post)
+

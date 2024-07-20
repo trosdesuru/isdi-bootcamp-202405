@@ -1,20 +1,10 @@
 [
     {
-        "username": "rubendiaz",
-        "imgUrl": "updatePost_imgUrlrubendiaz",
-        "caption": "Hello",
-        "postDate": "thursday/11/07/2024/15.45",
-        "id": "xdfgh46",
-        "favs": [],
-        "likes": []
-    },
-    {
-        "username": "eduhdz",
-        "imgUrl": "imgUrleduhdz",
-        "caption": "Hello, World",
-        "postDate": "thursday/11/07/2024/18.30",
-        "id": "xdfgh45",
-        "favs": [],
+        "id": "gen3r4t39Id",
+        "image": "https://media.giphy.com/media/Ty9Sg8oHghPWg/giphy.gif?cid=790b7611k1isspkgnlxqcvk07kqq26fe137qherkek4mavvf&ep=v1_gifs_trending&rid=giphy.gif&ct=g",
+        "caption": "My name is eduhv",
+        "author": "edu",
+        "date": "2024-07-20T17:21:17.768Z",
         "likes": []
     }
 ]

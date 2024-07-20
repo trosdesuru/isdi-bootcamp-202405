@@ -2,15 +2,23 @@ import fs from 'fs'
 
 const users = []
 
-const bruno = {
-    name: 'Bruno',
-    surname: 'Diaz',
-    email: 'bruno@diaz.com',
-    username: 'brunodiaz',
+const samu = {
+    name: 'Eduard',
+    surname: 'Hernández',
+    email: 'edu@hdz.com',
+    username: 'eduhv',
     password: '123123123'
 }
 
-const ricardo = {
+const nico = {
+    name: 'Lucas',
+    surname: 'Orts',
+    email: 'lucas@sorts.com',
+    username: 'lucas',
+    password: '123123123'
+}
+
+const cami = {
     name: 'Ricardo',
     surname: 'Tapia',
     email: 'ricardo@tapia.com',
@@ -18,69 +26,46 @@ const ricardo = {
     password: '123123123'
 }
 
-const edu = {
-    name: 'edu',
-    surname: 'hdx',
-    email: 'edu@hdz.com',
-    username: 'eduhdz',
-    password: '123123123'
-}
-
-users.push(bruno)
-users.push(ricardo)
-users.push(edu)
+users.push(eduhv)
+users.push(lucas)
+users.push(rtapia)
 
 const usersJSON = JSON.stringify(users)
 
 console.log('usersJSON', usersJSON)
 
-fs.writeFileSync('./data/users.json', usersJSON)
+fs.writeFileSync(`${__dirname}/users.json`, usersJSON)
 
-const usersJSON2 = fs.readFileSync('./data/users.json', 'utf-8')
+const usersJSON2 = fs.readFileSync(`${__dirname}/users.json`, 'utf8')
 
 console.log('usersJSON2', usersJSON2)
 
 const posts = []
 
-const postRuben = {
-    username: 'rubendiaz',
-    imgUrl: 'imgUrlrubendiaz',
-    caption: 'Hello',
-    postDate: 'thursday/11/07/2024/15.45',
-    PostId: 'postIdrubendiaz',
-    favs: [],
-    likes: []
+const post1 = {
+    id: 'randomId_1',
+    author: 'eduhv',
+    date: '12-07-2024',
+    caption: 'Friyay',
+    image: 'https://randomUrl'
 }
 
-const postRicardo = {
-    username: 'rtapia',
-    imgUrl: 'imgUrlrtapia',
-    caption: 'World',
-    postDate: 'thursday/11/07/2024/21.03',
-    PostId: 'postIdrtapia',
-    favs: [],
-    likes: []
+const post2 = {
+    id: 'randomId_2',
+    author: 'rtapia',
+    date: '12-07-2024',
+    caption: 'St.Patrick',
+    image: 'https://randomUrl'
 }
 
-const postEdu = {
-    username: 'eduhdz',
-    imgUrl: 'imgUrleduhdz',
-    caption: 'Hello, World',
-    postDate: 'thursday/11/07/2024/18.30',
-    PostId: 'postIdeduhdz',
-    favs: [],
-    likes: []
-}
-
-posts.push(postRuben)
-posts.push(postRicardo)
-posts.push(postEdu)
+posts.push(post1)
+posts.push(post2)
 
 const postsJSON = JSON.stringify(posts)
 
 console.log('postsJSON', postsJSON)
 
-fs.writeFileSync('./data/posts.json', postsJSON)
+fs.writeFileSync(`${__dirname}/posts.json`, postsJSON)
 
 const postsJSON2 = fs.readFileSync(`${__dirname}/posts.json`, 'utf8')
 

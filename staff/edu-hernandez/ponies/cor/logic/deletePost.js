@@ -6,8 +6,10 @@ const deletePost = (username, postId) => {
     validate.username(username)
     validate.postId(postId)
 
+    const user = data.findUser(user => user.username === username)
 
-    const user = data.findIUser(user === username)
+    if (user === null)
+        throw new Error('user not found')
 
     if (postId.trim().length === 0) throw new Error('invalid postId')
 

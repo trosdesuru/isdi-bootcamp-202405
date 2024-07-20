@@ -22,7 +22,7 @@ Express offers the possibility to set Headers for all setHeaders
 index.js
 
 TODO loginUser ponies/app/logic and {..} ✅
-TODO login.jsx ponies/app/view
+TODO login.jsx ponies/app/view 
 TODO register.jsx ponies/app/logic - Line 35
 
 TODO validation ✅

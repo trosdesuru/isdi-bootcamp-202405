@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/users/nico/follows -X PATCH -H "Authorization: Basic eduhdz"
+curl -v http://localhost:8080/users/nico/follows -X PATCH -H "Authorization: Basic samu"

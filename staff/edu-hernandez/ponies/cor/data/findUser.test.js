@@ -1,11 +1,11 @@
-import findUser from "./findUser.js"
+import findUser from './findUser.js'
 
-const bruce = {
-    name: "Bruno",
-    surname: "Diaz",
-    email: "bruno@diaz.com",
-    username: "brunodiaz",
-    password: "123123123"
+const mari = {
+    name: 'Marika',
+    surname: 'Crocetti',
+    email: 'marika@crocetti.com',
+    username: 'mari',
+    password: '123123123'
 }
 
-const userFound = findUser(user => user.username === 'brunodiaz')
+findUser(user => user.username === 'mari')

@@ -1,4 +1,4 @@
-import validate from "../../cor/validate.js"
+import validate from '../../cor/validate.js'
 
 const registerUser = (name, surname, email, username, password, passwordRepeat, callback) => {
 validate.string(name)

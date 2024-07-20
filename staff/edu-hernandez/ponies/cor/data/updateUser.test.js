@@ -1,12 +1,11 @@
-import updateUser from "./updateUser.js"
+import updateUser from './updateUser.js'
 
-const user = {
-    username: "Lucas",
-    image: "https//:urlrandom.com",
-    caption: "Hello, World",
-    postDate: "11/07/2024",
-    id: "numid20",
-    favs: [],
-    likes: []
+const ale = {
+    name: 'Alessandro',
+    surname: 'Spinetti',
+    email: 'alessandro@spinetti.com',
+    username: 'ale',
+    password: '123123123'
 }
-updateUser(post => post.id === 'numid20', user)
+
+updateUser(user => user.username === 'marti', ale)
