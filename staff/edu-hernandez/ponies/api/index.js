@@ -1,6 +1,6 @@
 import express from 'express'
 
-import logic from 'cor/logic/index.js'
+import logic from '../cor/logic/index.js'
 
 const api = express()
 
@@ -12,9 +12,9 @@ api.use((req, res, next) => {
     next()
 })
 
-// api.get('/', (req, res) => {
-//     res.send('Hello, World!')
-// })
+api.get('/', (req, res) => {
+    res.send('Hello, World!')
+})
 
 api.post('/users', (req, res) => {
     req.setEncoding('utf-8')
