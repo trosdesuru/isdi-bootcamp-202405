@@ -1,11 +1,11 @@
 import insertPost from './insertPost.js'
 
 const post = {
-    id: "abcdefghm",
-    author: "ale",
-    date: "10-07-2024",
-    caption: "Hello",
-    image: "https://njebvbeviobvb"
+    id: "randomId_3",
+    author: "eduhv",
+    date: "21-07-2024",
+    caption: "sunyay",
+    image: "https://randomUrl"
 }
 
 insertPost(post)

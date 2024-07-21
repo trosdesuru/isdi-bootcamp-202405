@@ -1,6 +1,7 @@
 {
   "name": "api",
   "version": "1.0.0",
+  "description": "",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -15,10 +16,5 @@
   "dependencies": {
     "cor": "file:../cor",
     "express": "^4.19.2"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "devDependencies": {},
-  "description": ""
+  }
 }

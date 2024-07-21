@@ -1,11 +1,11 @@
 import insertUser from './insertUser.js'
 
-const mari = {
-    name: 'Marika',
-    surname: 'Crocetti',
-    email: 'marika@crocetti.com',
-    username: 'mari',
+const lucas = {
+    name: 'Lucas',
+    surname: 'Orts',
+    email: 'lucas@orts.com',
+    username: 'lucas',
     password: '123123123'
 }
 
-insertUser(mari)
+insertUser(lucas)

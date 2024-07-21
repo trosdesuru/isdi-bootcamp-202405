@@ -2,22 +2,49 @@ import data from '../data/index.js'
 
 import validate from '../validate.js'
 
-const deletePost = (username, postId) => {
+const deletePost = (username, postId, callback) => {
     validate.username(username)
-    validate.postId(postId)
+    validate.string(postId, 'postId')
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username === username)
+    data.findUser(user => user.username === username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    if (user === null)
-        throw new Error('user not found')
+            return
+        }
 
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+        if (user === null) {
+            callback(new Error('user not found'))
 
-    const post = data.findPost(post => post.id === postId)
+            return
+        }
 
-    if (post === null) throw new Error('post not found')
+        data.findPost(post => post.id === postId, (error, post) => {
+            if (error) {
+                callback(new Error(error.message))
 
-    data.deletePost(post => post.id === postId)
+                return
+            }
+
+            if (post === null) {
+                callback(new Error('post not found'))
+
+                return
+            }
+
+            data.deletePost(post => post.id === postId, error => {
+                if (error) {
+                    callback(new Error(error.message))
+
+                    return
+                }
+
+                callback(null)
+            })
+        })
+
+    })
 }
 
 export default deletePost

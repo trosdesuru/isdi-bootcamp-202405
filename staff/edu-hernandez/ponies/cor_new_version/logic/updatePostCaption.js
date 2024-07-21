@@ -1,10 +1,7 @@
 import data from '../data/index.js'
 
-import validate  from '../validate.js'
-
 const updatePostCaption = (username, postId, newCaption) => {
-    validate.username(username)
-    validate.postId(postId)
+    // TODO input validation
 
     const user = data.findUser(user => user.username === username)
 

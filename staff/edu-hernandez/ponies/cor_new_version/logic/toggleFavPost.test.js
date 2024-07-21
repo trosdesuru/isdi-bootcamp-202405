@@ -1,3 +1,3 @@
 import toggleFavPost from './toggleFavPost.js'
 
-toggleFavPost("eduhv", "randomPostId")
+toggleFavPost('eduhv', 'randomPostId')

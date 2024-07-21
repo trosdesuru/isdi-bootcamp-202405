@@ -1,7 +1,7 @@
 21/07/2024 - 18:21h
 Sunyay
 
-{ Errors detected }
+{ errors }
 
 📁 api/test/get-all-posts.sh
     {"error":"TypeError","message":"Cannot read properties of null (reading 'username')"}*

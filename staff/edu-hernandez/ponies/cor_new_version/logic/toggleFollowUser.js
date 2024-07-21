@@ -1,10 +1,6 @@
 import data from '../data/index.js'
 
-import validate from '../validate.js'
-
 function toggleFollowUser(username, targetUsername) {
-    validate.username(username)
-
     if (!username.trim().length) throw new Error('invalid username')
 
     const user = data.findUser(user => user.username === username)

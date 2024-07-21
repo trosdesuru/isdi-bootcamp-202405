@@ -4,29 +4,44 @@ import generateId from '../util/generateId.js'
 
 import validate from '../validate.js'
 
-const createPost = (username, image, caption) => {
+const createPost = (username, image, caption, callback) => {
     validate.username(username)
-    validate.image(image)
-    validate.caption(caption)
+    validate.url(image, 'image')
+    validate.string(caption, 'caption')
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username == username)
+    data.findUser(user => user.username == username, (error, user) => {
+        if (error) {
+            callback(new Error(error.message))
 
-    if (user === null)
-        throw new Error('user not found')
+            return
+        }
 
-    if (!image.startsWith('http'))
-        throw new Error('invalid image')
+        if (user === null) {
+            callback(new Error('user not found'))
 
-    const post = {
-        id: generateId(),
-        image,
-        caption,
-        author: username,
-        date: new Date().toISOString(),
-        likes: []
-    }
+            return
+        }
 
-    data.insertPost(post)
+        const post = {
+            id: generateId(),
+            image,
+            caption,
+            author: username,
+            date: new Date().toISOString(),
+            likes: []
+        }
+
+        data.insertPost(post, error => {
+            if (error) {
+                callback(new Error(error.message))
+
+                return
+            }
+
+            callback(null)
+        })
+    })
 }
 
 export default createPost
