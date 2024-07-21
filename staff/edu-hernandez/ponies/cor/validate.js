@@ -36,7 +36,7 @@ function validateEmail(email) {
 }
 
 function validateImage(image) {
-    validateString(image, 'https')
+    validateString(url, 'url')
     if (typeof image !== 'string') throw new TypeError(`${explain} is not an image`)
 }
 
