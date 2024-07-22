@@ -14,8 +14,8 @@ function validateObject(object, explain = 'object') {
     if (object === null || typeof object !== 'object' || object.constructor !== Object) throw new TypeError(`${explain} is not an object`)
 }
 
-function validateUsername(username) {
-    validateString(username, 'username')
+function validateUsername(username, explain = 'username') {
+    validateString(username, explain)
     if (!USERNAME_REGEX.test(username)) throw new SyntaxError('invalid username')
 }
 
@@ -35,9 +35,9 @@ function validateEmail(email) {
     if (!EMAIL_REGEX.test(email)) throw new SyntaxError(`invalid email`)
 }
 
-function validateImage(image) {
-    validateString(url, 'url')
-    if (typeof image !== 'string') throw new TypeError(`${explain} is not an image`)
+function validateUrl(url, explain = 'url') {
+    validateString(url, explain)
+    if (!url.startsWith('http')) throw new SyntaxError(`invalid ${explain}`)
 }
 
 const validate = {
@@ -48,7 +48,7 @@ const validate = {
     password: validatePassword,
     name: validateName,
     email: validateEmail,
-    image: validateImage
+    url: validateUrl
 }
 
 export default validate

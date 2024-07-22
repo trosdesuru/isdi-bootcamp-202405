@@ -1,3 +1,3 @@
 import updateAvatar from './updateAvatar.js'
 
-updateAvatar("samu", "https//:randomUrlAvatar")
+updateAvatar('eduhv', 'https//:randomUrlAvatar')

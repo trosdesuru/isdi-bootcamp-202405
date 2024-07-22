@@ -12,10 +12,25 @@ class FavsPostList extends Component {
 
         super()
 
-        try {
-            const posts = logic.getAllFavPosts()
+        this.state = { posts: [] }
+    }
 
-            this.state = { posts }
+    componentDidMount() {
+        console.debug('FavPostList -> componentDidMount')
+
+        try {
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
+
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+
+            })
         } catch (error) {
             console.error(error)
 
@@ -28,9 +43,18 @@ class FavsPostList extends Component {
 
         if (newProps.refreshStamp !== this.props.refreshStamp)
             try {
-                const posts = logic.getAllFavPosts()
+                logic.getAllFavPosts((error, posts) => {
+                    if (error) {
+                        console.error(error)
 
-                this.setState({ posts })
+                        alert(error.message)
+
+                        return
+                    }
+
+                    this.setState({ posts })
+
+                })
             } catch (error) {
                 console.error(error)
 
@@ -41,9 +65,18 @@ class FavsPostList extends Component {
     handlePostDeleted() {
         console.debug('FavsPostList ->  handlePostDeleted')
         try {
-            const posts = logic.getAllPoniesPosts()
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+
+            })
         } catch (error) {
             console.error(error)
 
@@ -54,9 +87,18 @@ class FavsPostList extends Component {
     handlePostEdited() {
         console.debug('FavsPostList ->   handlePostEdited')
         try {
-            const posts = logic.getAllFavPosts()
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+
+            })
         } catch (error) {
             console.error(error)
 
@@ -67,9 +109,18 @@ class FavsPostList extends Component {
     handlePostLikeToggled() {
         console.debug('FavsPostList ->   handlePostLikeToggled')
         try {
-            const posts = logic.getAllFavPosts()
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+
+            })
         } catch (error) {
             console.error(error)
 
@@ -80,9 +131,18 @@ class FavsPostList extends Component {
     handlePostFavToggled() {
         console.debug('FavsPostList -> handlePostFavToggled')
         try {
-            const posts = logic.getAllFavPosts()
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+
+            })
         } catch (error) {
             console.error(error)
 
@@ -93,9 +153,18 @@ class FavsPostList extends Component {
     handleUserFollowToggled() {
         console.debug('FavsPostList -> handleUserFollowToggled')
         try {
-            const posts = logic.getAllFavPosts()
+            logic.getAllFavPosts((error, posts) => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ posts })
+                    alert(error.message)
+
+                    return
+                }
+
+                this.setState({ posts })
+
+            })
         } catch (error) {
             console.error(error)
 
@@ -109,7 +178,7 @@ class FavsPostList extends Component {
         return <section className="post-list">
             {this.state.posts.map(post =>
                 <Post post={post}
-                key={post.id}
+                    key={post.id}
                     onPostDeleted={this.handlePostDeleted.bind(this)}
                     onPostEdited={this.handlePostEdited.bind(this)}
                     onPostLiked={this.handlePostLikeToggled.bind(this)}

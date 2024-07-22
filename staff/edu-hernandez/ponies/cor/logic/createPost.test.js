@@ -1,3 +1,3 @@
 import createPost from "./createPost"
 
-createPost("eduhv", "https//randomNewUrl", "it's a new Post")
+createPost('eduhv", "https//randomNewUrl", "it's a new Post')

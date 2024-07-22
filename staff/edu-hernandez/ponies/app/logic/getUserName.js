@@ -2,19 +2,21 @@ const getUserName = callback => {
     const xhr = new XMLHttpRequest
 
     xhr.onload = () => {
-        if (xhr.status === 200) {
-            const name = JSON.parse(xhr.response)
+        if (typeof callback === 'function') {
+            if (xhr.status === 200) {
+                const name = JSON.parse(xhr.response)
 
-            callback(null, name)
+                callback(null, name)
 
-            return
+                return
+            }
+
+            const { error, message } = JSON.parse(xhr.response)
+
+            const constructor = window[error]
+
+            callback(new constructor(message))
         }
-
-        const { error, message } = JSON.parse(xhr.response)
-
-        const constructor = window[error]
-
-        callback(new constructor(message))
     }
 
     xhr.onerror = () => callback(new Error('network error'))

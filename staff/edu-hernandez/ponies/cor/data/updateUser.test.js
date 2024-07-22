@@ -1,11 +1,11 @@
 import updateUser from './updateUser.js'
 
-const ale = {
-    name: 'Alessandro',
-    surname: 'Spinetti',
-    email: 'alessandro@spinetti.com',
-    username: 'ale',
+const eduhv = {
+    name: 'Edu',
+    surname: 'Hernández',
+    email: 'edu@hdz.com',
+    username: 'eduhv',
     password: '123123123'
 }
 
-updateUser(user => user.username === 'marti', ale)
+updateUser(user => user.username === 'dudu', eduhv)

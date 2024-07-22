@@ -1,3 +1,5 @@
+import validate from '../../cor/validate.js'
+
 const toggleFollowUser = (username, callback) => {
     validate.username(username)
     validate.callback(callback)
