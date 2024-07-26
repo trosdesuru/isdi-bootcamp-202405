@@ -4,6 +4,7 @@ import { expect } from 'chai'
 
 import registerUser from './registerUser.js'
 import { User } from '../data/models.js'
+import { faPlaneDeparture } from '@fortawesome/free-solid-svg-icons'
 
 describe('registerUser', () => {
     before(done => {
@@ -19,19 +20,18 @@ describe('registerUser', () => {
     })
 
     it('succeeds on new user', done => {
-        debugger
-        registerUser('Mono', 'Loco', 'mono@loco.com', 'monoloco', '123123123', '123123123', error => {
+        registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => {
             if (error) {
                 done(error)
 
                 return
             }
 
-            User.findOne({ username: 'monoloco' }).lean()
+            User.findOne({ username: 'rfederer' }).lean()
                 .then(user => {
-                    expect(user.name).to.equal('Mono')
-                    expect(user.surname).to.equal('Loco')
-                    expect(user.email).to.equal('mono@loco.com')
+                    expect(user.name).to.equal('Roger')
+                    expect(user.surname).to.equal('Federer')
+                    expect(user.email).to.equal('roger@federer.com')
                     expect(user.password).to.equal('123123123')
 
                     done()
@@ -41,9 +41,9 @@ describe('registerUser', () => {
     })
 
     it('fails on existing user with same email', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+        User.create({ name: 'Roger', surname: 'Federer', email: 'roger@federer.com', username: 'rfederer', password: '123123123' })
             .then(() => {
-                registerUser('Mono', 'Loco', 'mono@loco.com', 'monoloco2', '123123123', '123123123', error => {
+                registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => {
                     expect(error).to.be.instanceOf(Error)
                     expect(error.message).to.equal('user already exists')
 
@@ -54,9 +54,9 @@ describe('registerUser', () => {
     })
 
     it('fails on existing user with same username', done => {
-        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
+        User.create({ name: 'Roger', surname: 'Federer', email: 'roger@federer.com', username: 'rfederer', password: '123123123' })
             .then(() => {
-                registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => {
+                registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => {
                     expect(error).to.be.instanceOf(Error)
                     expect(error.message).to.equal('user already exists')
 
@@ -70,7 +70,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser(123, 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => { })
+            registerUser(45, 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -83,7 +83,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => { })
+            registerUser('Ro', 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -96,7 +96,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 123, 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => { })
+            registerUser('Roger', 45, 'roger@federer.com', 'rfederer', '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -109,7 +109,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', '', 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => { })
+            registerUser('Roger', 'RF', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -122,7 +122,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 123, 'monoloco', '123123123', '123123123', error => { })
+            registerUser('Roger', 'Federer', 43, 'rfederer', '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -135,7 +135,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', '', 'monoloco', '123123123', '123123123', error => { })
+            registerUser('Roger', 'Federer', 'rf@rf.com', 'roger', '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -148,7 +148,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 'mono@loco2.com', 123, '123123123', '123123123', error => { })
+            registerUser('Roger', 'Federer', 'roger@federer.com', 43, '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -161,7 +161,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 'mono@loco2.com', '', '123123123', '123123123', error => { })
+            registerUser('Roger', 'Federer', 'federer@roger.com', 'R', '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -174,7 +174,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', 123123123, '123123123', error => { })
+            registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', 123123123, '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -187,7 +187,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123', '123123123', error => { })
+            registerUser('Roger', 'Federer', 'federer@roger.com', 'rfederer', '123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -196,11 +196,11 @@ describe('registerUser', () => {
         }
     })
 
-    it('fails on password with spaces', () => {
+    it('fails on password with empty spaces', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123 123', '123123123', error => { })
+            registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', '123123 123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -213,7 +213,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '_123123123', error => { })
+            registerUser('Roger', 'Federer', 'federer@roger.com', 'rfederer', '123123123', '123123132', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -226,7 +226,7 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123', 123)
+            registerUser('Roger', 'Federer', 'federer@roger.com', 'rfederer', '123123123', '123123132', '')
         } catch (_error) {
             error = _error
         } finally {
