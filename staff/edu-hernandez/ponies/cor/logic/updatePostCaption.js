@@ -1,21 +1,39 @@
-import data from '../data/index.js'
+import 'dotenv/config.js'
 
-const updatePostCaption = (username, postId, newCaption) => {
-    // TODO input validation
+import { validate } from 'com'
 
-    const user = data.findUser(user => user.username === username)
+import { User, Post } from '../data/models.js'
 
-    if (user === null) throw new Error('user not found')
+const updatePostCaption = (username, postId, caption, callback) => {
+    validate.username(username)
+    validate.string(postId, 'postId')
+    validate.string(caption, 'caption')
+    validate.callback(callback)
 
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+    User.findOne({ username }).lean()
+        .then(user => {
+            if (!user) {
+                callback(new Error('user not found'))
 
-    const post = data.findPost(post => post.id === postId)
+                return
+            }
 
-    if (post === undefined) throw new Error('post not found')
+            Post.findOne({ _id: new ObjectId(postId) }).lean()
+                .then(post => {
+                    if (!post) {
+                        callback(new Error('post not found'))
 
-    post.caption = newCaption
+                        return
+                    }
 
-    data.updatePost(post => post.id === postId, post)
+                    Post.updateOne({ _id: new ObjectId(postId) }, { $set: { caption } }).lean()
+                        .then(() => callback(null))
+                        .catch(error => callback(new Error(error.message)))
+
+                })
+                .catch(error => callback(new Error(error.message)))
+        })
+        .catch(error => callback(new Error(error.message)))
 }
 
 export default updatePostCaption

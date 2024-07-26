@@ -1,8 +1,8 @@
 import './Footer.css'
 
-import { Component } from 'react'
-
 import CreatePost from './CreatePost'
+
+import { Component } from 'react'
 
 class Footer extends Component {
     constructor() {

@@ -1,6 +1,6 @@
-import validate from "../../cor/validate.js"
+import { validate } from 'com'
 
-const getAllPoniesPosts = callback => {
+export default callback => {
     validate.callback(callback)
 
     const xhr = new XMLHttpRequest
@@ -23,9 +23,7 @@ const getAllPoniesPosts = callback => {
 
     xhr.onerror = () => callback(new Error('network error'))
 
-    xhr.open('GET', 'http://localhost:8080/posts/ponies')
+    xhr.open('GET', `${import.meta.env.VITE_API_URL}/posts/ponies`)
     xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
     xhr.send()
 }
-
-export default getAllPoniesPosts

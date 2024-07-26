@@ -1,8 +1,8 @@
-import logic from '../../logic/index'
+import logic from '../../logic'
 
 import formatTime from '../../util/formatTime'
 
-import { Component } from 'react'
+import { useState } from 'react'
 
 import Button from '../components/Button'
 import Input from '../components/Input'
@@ -14,24 +14,29 @@ import Paragraph from '../components/Paragraph'
 import Heading from '../components/Heading'
 import Container from '../components/Container'
 
+// import Avatar from './Avatar'
+
 import './Post.css'
 
+const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeToggled, onUserFollowToggled }) => {
+    console.debug('Post -> call')
 
-class Post extends Component {
-    constructor() {
-        console.debug('Post -> constructor')
+    const [editPostVisible, setEditPostVisible] = useState(false)
 
-        super()
-
-        this.state = { editPostVisible: false }
-    }
-
-    handleDeletePostClick() {
+    const handleDeletePostClick = () => {
         if (confirm('Delete post?'))
             try {
-                logic.deletePost(this.props.post.id)
+                logic.deletePost(post.id, error => {
+                    if (error) {
+                        console.error(error)
 
-                this.props.onPostDeleted()
+                        alert(error.message)
+
+                        return
+                    }
+
+                    onPostDeleted()
+                })
             } catch (error) {
                 console.error(error)
 
@@ -39,24 +44,20 @@ class Post extends Component {
             }
     }
 
-    componentWillUnmount() {
-        console.debug('Post -> componentWillUnmount')
-    }
-
-    handleEditPostClick() {
+    const handleEditPostClick = () => {
         console.debug('Post -> handleEditPost')
 
-        this.setState({ editPostVisible: true })
+        setEditPostVisible(true)
     }
 
-    handleCancelEditPostClick() {
+    const handleCancelEditPostClick = () => {
         console.debug('Post -> handleCancelEditPostClick')
 
-        this.setState({ editPostVisible: false })
+        setEditPostVisible(false)
     }
 
-    handleEditpostSubmit(event) {
-        console.debug('Post -> handleCancelEditPostClick')
+    const handleEditPostSubmit = event => {
+        console.debug('Post -> handleEditPostSubmit')
 
         event.preventDefault()
 
@@ -67,25 +68,41 @@ class Post extends Component {
         const newCaption = editCaptionInput.value
 
         try {
-            logic.updatePostCaption(this.props.post.id, newCaption)
+            logic.updatePostCaption(post.id, newCaption, error => {
+                if (error) {
+                    console.error(error)
 
-            this.setState({ editPostVisible: false })
+                    alert(error.message)
 
-            this.props.onPostEdited()
+                    return
+                }
+
+                setEditPostVisible(false)
+
+                onPostEdited()
+            })
         } catch (error) {
             console.error(error)
 
             alert(error.message)
         }
-
     }
-    handleLikeClick() {
+
+    const handleLikeClick = () => {
         console.debug('Post -> handleLikeClick')
 
         try {
-            logic.toggleLikePost(this.props.post.id)
+            logic.toggleLikePost(post.id, error => {
+                if (error) {
+                    console.error(error)
 
-            this.props.onPostLiked()
+                    alert(error.message)
+
+                    return
+                }
+
+                onPostLikeToggled()
+            })
         } catch (error) {
             console.error(error)
 
@@ -93,12 +110,21 @@ class Post extends Component {
         }
     }
 
-    handleFavClick() {
-        console.debug('Post -> handleFavClick')
+    const handleFavClick = () => {
+        console.debug('Post -> handleFavPostClick')
+
         try {
-            logic.toggleFavPost(this.props.post.id)
+            logic.toggleFavPost(post.id, error => {
+                if (error) {
+                    console.error(error)
 
-            this.props.onPostFavourited()
+                    alert(error.message)
+
+                    return
+                }
+
+                onPostFavToggled()
+            })
         } catch (error) {
             console.error(error)
 
@@ -106,12 +132,21 @@ class Post extends Component {
         }
     }
 
-    handleFollowUserClick() {
-        console.debug('Header -> handleFollowUserClick')
+    const handleFollowUserClick = () => {
+        console.debug('Post -> handleFollowUserClick')
+
         try {
-            logic.toggleFollowUser(this.props.post.author.username)
+            logic.toggleFollowUser(post.author.username, error => {
+                if (error) {
+                    console.error(error)
 
-            this.props.onUserFollowed()
+                    alert(error.message)
+
+                    return
+                }
+
+                onUserFollowToggled()
+            })
         } catch (error) {
             console.error(error)
 
@@ -119,51 +154,45 @@ class Post extends Component {
         }
     }
 
-    render() {
-        console.debug('Post -> render')
+    return <article className="Post">
+        <Container className='Container--row--spacebetween'>
+            <Heading level="3">{post.author.username}</Heading>
+            {/* <Avatar></Avatar> */}
 
-        const { post } = this.props
+            <Button className="Button--follow" onClick={handleFollowUserClick}>{post.author.following ? 'Unfollow' : 'Follow'}</Button>
+        </Container>
 
-        return <article className="Post">
-            <Container className='Container--row--spacebetween'>
-                <Heading level="3">{post.author.username}</Heading>
-                {/* <Avatar></Avatar> */}
+        <Image className='post--image' src={post.image} alt={post.caption} title={post.caption} />
 
-                <Button className="Button--follow" onClick={this.handleFollowUserClick.bind(this)}>{post.author.following ? 'Unfollow' : 'Follow'}</Button>
-            </Container>
+        <Container className='Container--row--between'>
+            <Button className="Button--like" onClick={handleLikeClick}>{(post.like ? '♥️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
+            <Button className="Button--adfav" onClick={handleFavClick}>{post.fav ? 'Unfav' : 'Add fav'}</Button>
+        </Container>
 
-            <Image className='post--image' src={post.image} alt={post.caption} title={post.caption} />
+        <Paragraph className="Paragraph--post__caption">{post.caption}</Paragraph>
 
-            <Container className='Container--row--between'>
-                <Button className="Button--like" onClick={this.handleLikeClick.bind(this)}>{(post.like ? '♥️' : '🤍') + ' ' + post.likes.length + ' like' + (post.likes.length === 1 ? '' : 's')}</Button>
-                <Button className="Button--adfav" onClick={this.handleFavClick.bind(this)}>{post.fav ? 'Unfav' : 'Add fav'}</Button>
-            </Container>
+        <Container>
+            <Time className='Time'>{formatTime(new Date(post.date))}</Time>
+        </Container>
 
-            <Paragraph className="Paragraph--post__caption">{post.caption}</Paragraph>
-
-            <Container>
-                <Time className='Time'>{formatTime(new Date(post.date))}</Time>
-            </Container>
-
-            <Container className='Container--row'>
-                {post.author.username === logic.getUserUsername() && <>
-                    <Button className='Button--edit'
-                        onClick={this.handleEditPostClick.bind(this)}>Edit</Button>
-                    <Button className='Button--delete'
-                    onClick={this.handleDeletePostClick.bind(this)}>Delete</Button>
-                </>}
-            </Container>
+        <Container className='Container--row'>
+            {post.author.username === logic.getUserUsername() && <>
+                <Button className='Button--edit'
+                    onClick={handleEditPostClick}>Edit</Button>
+                <Button className='Button--delete'
+                    onClick={handleDeletePostClick}>Delete</Button>
+            </>}
+        </Container>
 
 
-            {this.state.editPostVisible && <Form onSubmit={this.handleEditpostSubmit.bind(this)}>
-                <Label for="edit-caption-input"></Label>
-                <Input id="edit-caption-input" defaultValue={post.caption} />
+        {editPostVisible && <Form onSubmit={handleEditPostSubmit}>
+            <Label for="edit-caption-input"></Label>
+            <Input id="edit-caption-input" defaultValue={post.caption} />
 
-                <Button type="submit">Save</Button>
-                <Button type="button" onClick={this.handleCancelEditPostClick.bind(this)}>Cancel</Button>
-            </Form>}
-        </article >
-    }
+            <Button type="submit">Save</Button>
+            <Button type="button" onClick={handleCancelEditPostClick}>Cancel</Button>
+        </Form>}
+    </article >
 }
 
 export default Post

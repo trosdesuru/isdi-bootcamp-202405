@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/users/rtapia/follows -X PATCH -H "Authorization: Basic eduhv"
+curl -v http://localhost:8080/users/lucas/follows -X PATCH -H "Authorization: Basic eduhv"

@@ -1,24 +1,42 @@
-import data from '../data/index.js'
+import 'dotenv/config.js'
+import { validate } from 'com'
+import { User } from '../data/models.js'
 
-function toggleFollowUser(username, targetUsername) {
-    if (!username.trim().length) throw new Error('invalid username')
+export default (username, targetUsername, callback) => {
+    validate.username(username)
+    validate.username(targetUsername, 'targetUsername')
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username === username)
+    User.findOne({ username })
+        .then(user => {
+            if (!user) {
+                callback(new Error('user not found'))
 
-    if (!user) throw new Error('user not found')
+                return
+            }
 
-    const following = data.findUser(user => user.username === targetUsername)
+            User.findOne({ username: targetUsername })
+                .then(targetUser => {
+                    if (!targetUser) {
+                        callback(new Error('targetUser not found'))
 
-    if (!following) throw new Error('following user not found')
+                        return
+                    }
 
-    const index = user.following.indexOf(targetUsername)
+                    const { following } = user
 
-    if (index < 0)
-        user.following.push(targetUsername)
-    else
-        user.following.splice(index, 1)
+                    const index = following.indexOf(targetUsername)
 
-    data.updateUser(user => user.username === username, user)
+                    if (index < 0)
+                        following.push(targetUsername)
+                    else
+                        following.splice(index, 1)
+
+                    User.updateOne({ username }, { $set: { following } })
+                        .then(() => callback(null))
+                        .catch(error => callback(new Error(error.message)))
+                })
+                .catch(error => callback(new Error(error.message)))
+        })
+        .catch(error => callback(new Error(error.message)))
 }
-
-export default toggleFollowUser

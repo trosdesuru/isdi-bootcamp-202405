@@ -1,26 +1,42 @@
-import data from "../data/index.js"
+import 'dotenv/config.js'
+import { validate } from 'com'
+import { User, Post } from '../data/models.js'
 
-function toggleFavPost(username, postId) {
-    if (postId.trim().length === 0) throw new Error('Invalid postId')
+export default (username, postId, callback) => {
+    validate.username(username)
+    validate.string(postId, 'postId')
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username == username)
+    User.findOne({ username })
+        .then(user => {
+            if (!user) {
+                callback(new Error('user not found'))
 
-    if (user === null)
-        throw new Error('user not found')
+                return
+            }
 
-    const post = data.findPost(post => post.id === postId)
+            Post.findOne({ _id: new ObjectId(postId) })
+                .then(post => {
+                    if (!post) {
+                        callback(new Error('post not found'))
 
-    if (post === null)
-        throw new Error('Post not found')
+                        return
+                    }
 
-    const index = user.favs.indexOf(postId)
+                    const { favs } = user
 
-    if (index < 0)
-        user.favs.push(postId)
-    else
-        user.favs.splice(index, 1)
+                    const index = favs.findIndex(postObjectId => postObjectId.toString() === postId)
 
-    data.updateUser(user => user.username === username, user)
+                    if (index < 0)
+                        favs.push(new ObjectId(postId))
+                    else
+                        favs.splice(index, 1)
+
+                    User.updateOne({ username }, { $set: { favs } })
+                        .then(() => callback(null))
+                        .catch(error => callback(new Error(error.message)))
+                })
+                .catch(error => callback(new Error(error.message)))
+        })
+        .catch(error => callback(new Error(error.message)))
 }
-
-export default toggleFavPost

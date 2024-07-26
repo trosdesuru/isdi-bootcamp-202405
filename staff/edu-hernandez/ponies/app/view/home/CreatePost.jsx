@@ -1,4 +1,4 @@
-import logic from '../../logic/index'
+import logic from '../../logic'
 
 import Heading from '../components/Heading'
 import Form from '../components/Form'
@@ -13,7 +13,7 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
     console.debug('CreatePost -> call')
 
     const handleCreatePostSubmit = event => {
-        console.debug('Footer -> handleCreatePostSubmit')
+        console.debug('CreatePost -> handleCreatePostSubmit')
 
         event.preventDefault()
 
@@ -26,9 +26,17 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
         const postCaption = postCaptionInput.value
 
         try {
-            logic.createPost(postImage, postCaption)
+            logic.createPost(postImage, postCaption, error => {
+                if (error) {
+                    console.error(error)
 
-            onPostCreated()
+                    alert(error.message)
+
+                    return
+                }
+
+                onPostCreated()
+            })
         } catch (error) {
             console.error(error)
 
@@ -42,7 +50,7 @@ function CreatePost({ onPostCreated, onCancelCreatePost }) {
         onCancelCreatePost()
     }
 
-    return <section className='CreatePost'>
+    return <section className="CreatePost">
         <Heading level="2">Create Post</Heading>
 
         <Form className="Form--column" onSubmit={handleCreatePostSubmit}>

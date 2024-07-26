@@ -1,3 +1,22 @@
-import createPost from "./createPost"
+import 'dotenv/config'
+import createPost from './createPost.js'
 
-createPost('eduhv", "https//randomNewUrl", "it's a new Post')
+import mongoose from 'mongoose'
+
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
+
+        createPost('eduhv', 'randomUrl', 'Hola Mundo', error => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log('post created')
+
+            mongoose.disconnect()
+        })
+    })
+    .catch(error => console.error(error))

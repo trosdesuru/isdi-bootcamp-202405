@@ -1,5 +1,22 @@
+import 'dotenv/config'
 import getAllFavPosts from './getAllFavPosts.js'
 
-const posts = getAllFavPosts('eduhv')
+import mongoose from 'mongoose'
 
-console.log(posts)
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('connected')
+
+        getAllFavPosts('eduhv', (error, posts) => {
+            if (error) {
+                console.error(error)
+
+                return
+            }
+
+            console.log('All Favourite Posts:', posts)
+
+            mongoose.disconnect()
+        })
+    })
+    .catch(error => console.error(error))

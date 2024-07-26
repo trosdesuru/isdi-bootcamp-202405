@@ -1,1 +1,1 @@
-curl -v http://localhost:8080/posts/newrandomCaption/caption -X PATCH -d '{"caption":"sunyay"}' -H "Authorization: Basic eduhv" -H "Content-Type: application/json"
+curl -v http://localhost:8080/posts/1i36otb883eo/caption -X PATCH -d '{"caption":"sunyay"}' -H "Authorization: Basic eduhv" -H "Content-Type: application/json"

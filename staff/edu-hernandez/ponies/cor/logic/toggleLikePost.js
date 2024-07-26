@@ -1,27 +1,41 @@
-import data from "../data/index.js"
+import { User, Post } from '../data/models.js'
+import { validate } from 'com'
 
-function toggleLikePost(username, postId) {
-    // TODO input validation
+export default (username, postId, callback) => {
+    validate.username(username)
+    validate.string(postId, 'postId')
+    validate.callback(callback)
 
-    const user = data.findUser(user => user.username === username)
+    User.findOne({ username }).lean()
+        .then(user => {
+            if (!user) {
+                callback(new Error('user not found'))
 
-    if (!user) throw new Error('user not found')
+                return
+            }
 
-    if (postId.trim().length === 0) throw new Error('invalid postId')
+            Post.findOne({ _id: new ObjectId(postId) }).lean()
+                .then(post => {
+                    if (!post) {
+                        callback(new Error('post not found'))
 
-    const post = data.findPost(post => post.id === postId)
+                        return
+                    }
 
-    if (post === null)
-        throw new Error('post not found')
+                    const { likes } = post
 
-    const index = post.likes.indexOf(username)
+                    const index = likes.indexOf(username)
 
-    if (index < 0)
-        post.likes.push(username)
-    else
-        post.likes.splice(index, 1)
+                    if (index < 0)
+                        likes.push(username)
+                    else
+                        likes.splice(index, 1)
 
-    data.updatePost(post => post.id === postId, post)
+                    Post.updateOne({ _id: new ObjectId(postId) }, { $set: { likes } })
+                        .then(() => callback(null))
+                        .catch(error => callback(new Error(error.message)))
+                })
+                .catch(error => callback(new Error(error.message)))
+        })
+        .catch(error => callback(new Error(error.message)))
 }
-
-export default toggleLikePost
