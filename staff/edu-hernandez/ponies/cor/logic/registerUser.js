@@ -12,7 +12,7 @@ export default (name, surname, email, username, password, passwordRepeat, callba
     if (password !== passwordRepeat)
         throw new Error('passwords do not match')
 
-    User.findOne({ email })
+    User.findOne({ email }).lean()
         .then(user => {
             if (user) {
                 callback(new Error('user already exists'))
@@ -20,7 +20,7 @@ export default (name, surname, email, username, password, passwordRepeat, callba
                 return
             }
 
-            User.findOne({ username })
+            User.findOne({ username }).lean()
                 .then(user => {
                     if (user) {
                         callback(new Error('user already exists'))
