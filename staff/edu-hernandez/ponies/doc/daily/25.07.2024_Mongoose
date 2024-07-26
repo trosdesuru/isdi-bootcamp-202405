@@ -44,9 +44,9 @@ cambiar index de api console.info ✅
 
 📁app/logic
 
-change line xhr.open('GET', 'http://localhost:8080/posts/ponies')
+change line xhr.open('GET', 'http://localhost:8080/posts/ponies') ✅
 xhr.open{'POST', `$import.meta.env.VITE_API_URL`}
-cambiar en todas las logicas de app
+cambiar en todas las logicas de app ✅
 
 cambiar export default en todas las lógicas de app como return
 

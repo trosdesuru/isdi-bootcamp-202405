@@ -1,11 +1,11 @@
-import 'dotenv/config.js'
+import 'dotenv/config'
 import mongoose from 'mongoose'
 import { expect } from 'chai'
 
 import registerUser from './registerUser.js'
 import { User } from '../data/models.js'
 
-describe('registerUSer', () => {
+describe('registerUser', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
             .then(() => done())
@@ -19,17 +19,19 @@ describe('registerUSer', () => {
     })
 
     it('succeeds on new user', done => {
-        registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => {
+        debugger
+        registerUser('Mono', 'Loco', 'mono@loco.com', 'monoloco', '123123123', '123123123', error => {
             if (error) {
                 done(error)
 
                 return
             }
-            User.findOne({ username: 'rfederer' }).lean()
+
+            User.findOne({ username: 'monoloco' }).lean()
                 .then(user => {
-                    expect(user.name).to.equal('Roger')
-                    expect(user.surname).to.equal('Federer')
-                    expect(user.email).to.equal('roger@federer.com')
+                    expect(user.name).to.equal('Mono')
+                    expect(user.surname).to.equal('Loco')
+                    expect(user.email).to.equal('mono@loco.com')
                     expect(user.password).to.equal('123123123')
 
                     done()
@@ -39,9 +41,9 @@ describe('registerUSer', () => {
     })
 
     it('fails on existing user with same email', done => {
-        User.create({ name: 'Roger', surname: 'Federer', email: 'roger@federer.com', username: 'rfederer', password: '123123123' })
+        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(() => {
-                registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => {
+                registerUser('Mono', 'Loco', 'mono@loco.com', 'monoloco2', '123123123', '123123123', error => {
                     expect(error).to.be.instanceOf(Error)
                     expect(error.message).to.equal('user already exists')
 
@@ -52,9 +54,9 @@ describe('registerUSer', () => {
     })
 
     it('fails on existing user with same username', done => {
-        User.create({ name: 'Roger', surname: 'Federer', email: 'roger@federer.com', username: 'rfederer', password: '123123123' })
+        User.create({ name: 'Mono', surname: 'Loco', email: 'mono@loco.com', username: 'monoloco', password: '123123123' })
             .then(() => {
-                registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => {
+                registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => {
                     expect(error).to.be.instanceOf(Error)
                     expect(error.message).to.equal('user already exists')
 
@@ -68,7 +70,7 @@ describe('registerUSer', () => {
         let error
 
         try {
-            registerUser(Roger, 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => { })
+            registerUser(123, 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -81,7 +83,7 @@ describe('registerUSer', () => {
         let error
 
         try {
-            registerUser('otherRoger', 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => { })
+            registerUser('', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -94,7 +96,7 @@ describe('registerUSer', () => {
         let error
 
         try {
-            registerUser('Roger', Federer, 'roger@federer.com', 'rfederer', '123123123', '123123123', error => { })
+            registerUser('Mono', 123, 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -107,7 +109,7 @@ describe('registerUSer', () => {
         let error
 
         try {
-            registerUser('Roger', 'otherFederer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => { })
+            registerUser('Mono', '', 'mono@loco2.com', 'monoloco', '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -120,12 +122,12 @@ describe('registerUSer', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', noString, 'rfederer', '123123123', '123123123', error => { })
+            registerUser('Mono', 'Loco', 123, 'monoloco', '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(TypeError)
-            expect(error).to.equal('email is not a string')
+            expect(error.message).to.equal('email is not a string')
         }
     })
 
@@ -133,7 +135,7 @@ describe('registerUSer', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'federer@roger.com', 'rfederer', '123123123', '123123123', error => { })
+            registerUser('Mono', 'Loco', '', 'monoloco', '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -146,12 +148,12 @@ describe('registerUSer', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'roger@federer.com', rfederer, '123123123', '123123123', error => { })
+            registerUser('Mono', 'Loco', 'mono@loco2.com', 123, '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(TypeError)
-            expect(error).to.equal('username is not a string')
+            expect(error.message).to.equal('username is not a string')
         }
     })
 
@@ -159,7 +161,7 @@ describe('registerUSer', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'federer@roger.com', 'RFederer', '123123123', '123123123', error => { })
+            registerUser('Mono', 'Loco', 'mono@loco2.com', '', '123123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -172,12 +174,12 @@ describe('registerUSer', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', 123123123, '123123123', error => { })
+            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', 123123123, '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
             expect(error).to.be.instanceOf(TypeError)
-            expect(error).to.equal('password is not a string')
+            expect(error.message).to.equal('password is not a string')
         }
     })
 
@@ -185,7 +187,7 @@ describe('registerUSer', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'federer@roger.com', 'rfederer', '123123', '123123123', error => { })
+            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -194,16 +196,16 @@ describe('registerUSer', () => {
         }
     })
 
-    it('fails on password with empty space', () => {
+    it('fails on password with spaces', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', '123123 123', '123123123', error => { })
+            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123 123', '123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(SyntaxErrorError)
-            expect(error).to.equal('password has empty space')
+            expect(error).to.be.instanceOf(SyntaxError)
+            expect(error.message).to.equal('password has empty spaces')
         }
     })
 
@@ -211,7 +213,7 @@ describe('registerUSer', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'federer@roger.com', 'rfederer', '123123123', '123123132', error => { })
+            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '_123123123', error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -224,7 +226,7 @@ describe('registerUSer', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'federer@roger.com', 'rfederer', '123123123', '123123132', eror => { })
+            registerUser('Mono', 'Loco', 'mono@loco2.com', 'monoloco', '123123123', '123123123', 123)
         } catch (_error) {
             error = _error
         } finally {
@@ -234,7 +236,7 @@ describe('registerUSer', () => {
     })
 
     afterEach(done => {
-        User.deleteMany({}).catch
+        User.deleteMany({})
             .then(() => done())
             .catch(error => done(error))
     })
