@@ -84,7 +84,7 @@ Probar errores async, con try catch.
 Probar varios métodos
 
 TODO toggleLikePost.js
-add toggleLikePost.spec.js
+TODO add toggleLikePost.spec.js
 
 TODO toggleLikePost callback
 
