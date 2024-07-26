@@ -1,8 +1,5 @@
-import 'dotenv/config.js'
 import { validate } from 'com'
 import { User } from '../data/models.js'
-// import mongoose from 'mongoose' #not declared 'cause is not using
-// to create an User
 
 export default (name, surname, email, username, password, passwordRepeat, callback) => {
     validate.name(name)
@@ -10,7 +7,6 @@ export default (name, surname, email, username, password, passwordRepeat, callba
     validate.email(email)
     validate.username(username)
     validate.password(password)
-    validate.password(passwordRepeat, 'passwordRepeat')
     validate.callback(callback)
 
     if (password !== passwordRepeat)
@@ -32,18 +28,13 @@ export default (name, surname, email, username, password, passwordRepeat, callba
                         return
                     }
 
-                    const newUser = {
+                    User.create({
                         name,
                         surname,
                         email,
                         username,
-                        password,
-                        favs: [],
-                        following: [],
-                        avatar: ''
-                    }
-
-                    User.insertOne(newUser)
+                        password
+                    })
                         .then(() => callback(null))
                         .catch(error => callback(new Error(error.message)))
                 })

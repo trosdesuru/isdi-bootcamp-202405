@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGODB_URI)
                 return
             }
 
-            console.log('All Favourite Posts:', posts)
+            console.log(posts)
 
             mongoose.disconnect()
         })

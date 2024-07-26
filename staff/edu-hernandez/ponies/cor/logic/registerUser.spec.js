@@ -5,26 +5,19 @@ import { expect } from 'chai'
 import registerUser from './registerUser.js'
 import { User } from '../data/models.js'
 
-// describe es una función del framework de Mocha & Jest
-// before, se ejecuta una sola vez antes de empezar cualquier prueba dentro del bloque
 describe('registerUSer', () => {
     before(done => {
         mongoose.connect(process.env.MONGODB_URI)
             .then(() => done())
             .catch(error => done(error))
     })
-    debugger
 
-    // beforeEach, se borra uno a uno todos los User de la bbdd.
     beforeEach(done => {
         User.deleteMany({})
             .then(() => done())
             .catch(error => done(error))
     })
 
-    // Uso de it como prueba específica, it(registrar un User)
-    // findOne() por su username.
-    // Comparación por medio de las propiedades de User que sean iguales
     it('succeeds on new user', done => {
         registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => {
             if (error) {
@@ -58,8 +51,6 @@ describe('registerUSer', () => {
             .catch(error => done(error))
     })
 
-    // InstanceOf Error(ln.65) usa un aserción expect para verificar que se muestre una
-    // instancia de la clase error.
     it('fails on existing user with same username', done => {
         User.create({ name: 'Roger', surname: 'Federer', email: 'roger@federer.com', username: 'rfederer', password: '123123123' })
             .then(() => {

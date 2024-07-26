@@ -1,13 +1,12 @@
-import 'dotenv/config.js'
-import { validate } from 'com'
 import { User } from '../data/models.js'
+import { validate } from 'com'
 
 export default (username, targetUsername, callback) => {
     validate.username(username)
     validate.username(targetUsername, 'targetUsername')
     validate.callback(callback)
 
-    User.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
                 callback(new Error('user not found'))
@@ -15,7 +14,7 @@ export default (username, targetUsername, callback) => {
                 return
             }
 
-            User.findOne({ username: targetUsername })
+            User.findOne({ username: targetUsername }).lean()
                 .then(targetUser => {
                     if (!targetUser) {
                         callback(new Error('targetUser not found'))

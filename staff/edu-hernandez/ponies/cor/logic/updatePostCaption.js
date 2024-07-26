@@ -1,10 +1,8 @@
-import 'dotenv/config.js'
+import { User, Post } from '../data/models.js'
 
 import { validate } from 'com'
 
-import { User, Post } from '../data/models.js'
-
-const updatePostCaption = (username, postId, caption, callback) => {
+export default (username, postId, caption, callback) => {
     validate.username(username)
     validate.string(postId, 'postId')
     validate.string(caption, 'caption')
@@ -18,7 +16,7 @@ const updatePostCaption = (username, postId, caption, callback) => {
                 return
             }
 
-            Post.findOne({ _id: new ObjectId(postId) }).lean()
+            Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
                         callback(new Error('post not found'))
@@ -26,7 +24,7 @@ const updatePostCaption = (username, postId, caption, callback) => {
                         return
                     }
 
-                    Post.updateOne({ _id: new ObjectId(postId) }, { $set: { caption } }).lean()
+                    Post.updateOne({ _id: postId }, { $set: { caption } })
                         .then(() => callback(null))
                         .catch(error => callback(new Error(error.message)))
 
@@ -35,5 +33,3 @@ const updatePostCaption = (username, postId, caption, callback) => {
         })
         .catch(error => callback(new Error(error.message)))
 }
-
-export default updatePostCaption

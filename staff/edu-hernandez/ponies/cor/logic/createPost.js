@@ -1,4 +1,5 @@
 import { User, Post } from '../data/models.js'
+
 import { validate } from 'com'
 
 export default (username, image, caption, callback) => {
@@ -18,9 +19,7 @@ export default (username, image, caption, callback) => {
             Post.create({
                 image,
                 caption,
-                author: username,
-                date: new Date().toISOString(),
-                likes: []
+                author: username
             })
                 .then(() => callback(null))
                 .catch(error => callback(new Error(error.message)))

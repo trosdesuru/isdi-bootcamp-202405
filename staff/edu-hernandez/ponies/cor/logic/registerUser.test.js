@@ -1,6 +1,5 @@
-import registerUser from './registerUser.js'
 import 'dotenv/config.js'
-
+import registerUser from './registerUser.js'
 import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)

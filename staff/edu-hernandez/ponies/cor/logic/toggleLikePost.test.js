@@ -1,13 +1,12 @@
-import toggleLikePost from './toggleLikePost.js'
 import 'dotenv/config.js'
-
+import toggleLikePost from './toggleLikePost.js'
 import mongoose from 'mongoose'
 
 mongoose.connect()
     .then(() => {
         console.log('connected')
 
-        toggleLikePost('eduhv', 'peterparker', error => {
+        toggleLikePost('eduhv', '', error => {
             if (error) {
                 console.error(error)
 

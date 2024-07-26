@@ -1,4 +1,3 @@
-import 'dotenv/config.js'
 import { validate } from 'com'
 import { User, Post } from '../data/models.js'
 
@@ -7,7 +6,7 @@ export default (username, postId, callback) => {
     validate.string(postId, 'postId')
     validate.callback(callback)
 
-    User.findOne({ username })
+    User.findOne({ username }).lean()
         .then(user => {
             if (!user) {
                 callback(new Error('user not found'))
@@ -15,7 +14,7 @@ export default (username, postId, callback) => {
                 return
             }
 
-            Post.findOne({ _id: new ObjectId(postId) })
+            Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
                         callback(new Error('post not found'))

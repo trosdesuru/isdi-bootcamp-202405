@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
             console.log(name)
 
-            client.close()
+            mongoose.disconnect()
         })
     })
     .catch(error => console.error(error))

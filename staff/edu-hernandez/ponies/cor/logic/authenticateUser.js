@@ -1,4 +1,5 @@
 import { User } from '../data/models.js'
+
 import { validate } from 'com'
 
 export default (username, password, callback) => {

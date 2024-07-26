@@ -14,7 +14,7 @@ export default (username, postId, callback) => {
                 return
             }
 
-            Post.findOne({ _id: new ObjectId(postId) }).lean()
+            Post.findById(postId).lean()
                 .then(post => {
                     if (!post) {
                         callback(new Error('post not found'))
@@ -31,7 +31,7 @@ export default (username, postId, callback) => {
                     else
                         likes.splice(index, 1)
 
-                    Post.updateOne({ _id: new ObjectId(postId) }, { $set: { likes } })
+                    Post.updateOne({ _id: postId }, { $set: { likes } })
                         .then(() => callback(null))
                         .catch(error => callback(new Error(error.message)))
                 })

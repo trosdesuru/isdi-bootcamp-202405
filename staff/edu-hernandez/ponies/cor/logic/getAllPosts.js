@@ -13,7 +13,7 @@ export default (username, callback) => {
                 return
             }
 
-            Post.find().sort({ date: -1 }).toArray()
+            Post.find().sort({ date: -1 }).lean()
                 .then(posts => {
                     if (posts.length) {
                         let count = 0
