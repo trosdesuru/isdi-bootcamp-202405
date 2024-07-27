@@ -1,10 +1,9 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
-import { expect } from 'chai'
+import { expect, assert } from 'chai'
 
 import registerUser from './registerUser.js'
 import { User } from '../data/models.js'
-import { faPlaneDeparture } from '@fortawesome/free-solid-svg-icons'
 
 describe('registerUser', () => {
     before(done => {
@@ -30,9 +29,13 @@ describe('registerUser', () => {
             User.findOne({ username: 'rfederer' }).lean()
                 .then(user => {
                     expect(user.name).to.equal('Roger')
+                    assert.typeOf(user.name, 'string', 'name is a string')
                     expect(user.surname).to.equal('Federer')
+                    assert.typeOf(user.surname, 'string', 'surname is a string')
                     expect(user.email).to.equal('roger@federer.com')
+                    assert.typeOf(user.email, 'string', 'email is a string')
                     expect(user.password).to.equal('123123123')
+                    assert.typeOf(user.password, 'string', 'password is a string')
 
                     done()
                 })
