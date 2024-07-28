@@ -19,52 +19,85 @@ describe('registerUser', () => {
     })
 
     it('succeeds on new user', done => {
-        registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => {
-            if (error) {
-                done(error)
+        registerUser(
+            'Roger',
+            'Federer',
+            'roger@federer.com',
+            'rfederer',
+            '123123123',
+            '123123123',
+            error => {
+                if (error) {
+                    done(error)
 
-                return
-            }
+                    return
+                }
 
-            User.findOne({ username: 'rfederer' }).lean()
-                .then(user => {
-                    expect(user.name).to.equal('Roger')
-                    assert.typeOf(user.name, 'string', 'name is a string')
-                    expect(user.surname).to.equal('Federer')
-                    assert.typeOf(user.surname, 'string', 'surname is a string')
-                    expect(user.email).to.equal('roger@federer.com')
-                    assert.typeOf(user.email, 'string', 'email is a string')
-                    expect(user.password).to.equal('123123123')
-                    assert.typeOf(user.password, 'string', 'password is a string')
+                User.findOne({ username: 'rfederer' }).lean()
+                    .then(user => {
+                        expect(user.name).to.equal('Roger')
+                        assert.typeOf(user.name, 'string', 'name is a string')
+                        expect(user.surname).to.equal('Federer')
+                        assert.typeOf(user.surname, 'string', 'surname is a string')
+                        expect(user.email).to.equal('roger@federer.com')
+                        assert.typeOf(user.email, 'string', 'email is a string')
+                        expect(user.password).to.equal('123123123')
+                        assert.typeOf(user.password, 'string', 'password is a string')
 
-                    done()
-                })
-                .catch(error => done(error))
-        })
+                        done()
+                    })
+                    .catch(error => done(error))
+            })
     })
 
     it('fails on existing user with same email', done => {
-        User.create({ name: 'Roger', surname: 'Federer', email: 'roger@federer.com', username: 'rfederer', password: '123123123' })
+        User.create({
+            name: 'Roger',
+            surname: 'Federer',
+            email: 'roger@federer.com',
+            username: 'rfederer',
+            password: '123123123'
+        })
             .then(() => {
-                registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => {
-                    expect(error).to.be.instanceOf(Error)
-                    expect(error.message).to.equal('user already exists')
+                registerUser(
+                    'Roger',
+                    'Federer',
+                    'roger@federer.com',
+                    'rfederer',
+                    '123123123',
+                    '123123123',
+                    error => {
+                        expect(error).to.be.instanceOf(Error)
+                        expect(error.message).to.equal('user already exists')
 
-                    done()
-                })
+                        done()
+                    })
             })
             .catch(error => done(error))
     })
 
     it('fails on existing user with same username', done => {
-        User.create({ name: 'Roger', surname: 'Federer', email: 'roger@federer.com', username: 'rfederer', password: '123123123' })
+        User.create({
+            name: 'Roger',
+            surname: 'Federer',
+            email: 'roger@federer.com',
+            username: 'rfederer',
+            password: '123123123'
+        })
             .then(() => {
-                registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => {
-                    expect(error).to.be.instanceOf(Error)
-                    expect(error.message).to.equal('user already exists')
+                registerUser(
+                    'Roger',
+                    'Federer',
+                    'roger@federer.com',
+                    'rfederer',
+                    '123123123',
+                    '123123123',
+                    error => {
+                        expect(error).to.be.instanceOf(Error)
+                        expect(error.message).to.equal('user already exists')
 
-                    done()
-                })
+                        done()
+                    })
             })
             .catch(error => done(error))
     })
@@ -73,7 +106,14 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser(45, 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => { })
+            registerUser(
+                45,
+                'Federer',
+                'roger@federer.com',
+                'rfederer',
+                '123123123',
+                '123123123',
+                error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -86,7 +126,14 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Ro', 'Federer', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => { })
+            registerUser(
+                'Ro',
+                'Federer',
+                'roger@federer.com',
+                'rfederer',
+                '123123123',
+                '123123123',
+                error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -99,7 +146,14 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Roger', 45, 'roger@federer.com', 'rfederer', '123123123', '123123123', error => { })
+            registerUser(
+                'Roger',
+                45,
+                'roger@federer.com',
+                'rfederer',
+                '123123123',
+                '123123123',
+                error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -112,7 +166,14 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Roger', 'RF', 'roger@federer.com', 'rfederer', '123123123', '123123123', error => { })
+            registerUser(
+                'Roger',
+                'RF',
+                'roger@federer.com',
+                'rfederer',
+                '123123123',
+                '123123123',
+                error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -125,7 +186,14 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 43, 'rfederer', '123123123', '123123123', error => { })
+            registerUser(
+                'Roger',
+                'Federer',
+                43,
+                'rfederer',
+                '123123123',
+                '123123123',
+                error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -138,7 +206,14 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'rf@rf.com', 'roger', '123123123', '123123123', error => { })
+            registerUser(
+                'Roger',
+                'Federer',
+                'rf@rf.com',
+                'roger',
+                '123123123',
+                '123123123',
+                error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -151,7 +226,14 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'roger@federer.com', 43, '123123123', '123123123', error => { })
+            registerUser(
+                'Roger',
+                'Federer',
+                'roger@federer.com',
+                43,
+                '123123123',
+                '123123123',
+                error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -164,7 +246,14 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'federer@roger.com', 'R', '123123123', '123123123', error => { })
+            registerUser(
+                'Roger',
+                'Federer',
+                'federer@roger.com',
+                'R',
+                '123123123',
+                '123123123',
+                error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -177,7 +266,14 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', 123123123, '123123123', error => { })
+            registerUser(
+                'Roger',
+                'Federer',
+                'roger@federer.com',
+                'rfederer',
+                123123123,
+                '123123123',
+                error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -190,7 +286,14 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'federer@roger.com', 'rfederer', '123', '123123123', error => { })
+            registerUser(
+                'Roger',
+                'Federer',
+                'federer@roger.com',
+                'rfederer',
+                '123',
+                '123123123',
+                error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -203,7 +306,14 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'roger@federer.com', 'rfederer', '123123 123', '123123123', error => { })
+            registerUser(
+                'Roger',
+                'Federer',
+                'roger@federer.com',
+                'rfederer',
+                '123123 123',
+                '123123123',
+                error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -216,7 +326,14 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'federer@roger.com', 'rfederer', '123123123', '123123132', error => { })
+            registerUser(
+                'Roger',
+                'Federer',
+                'federer@roger.com',
+                'rfederer',
+                '123123123',
+                '123123132',
+                error => { })
         } catch (_error) {
             error = _error
         } finally {
@@ -229,7 +346,14 @@ describe('registerUser', () => {
         let error
 
         try {
-            registerUser('Roger', 'Federer', 'federer@roger.com', 'rfederer', '123123123', '123123132', '')
+            registerUser(
+                'Roger',
+                'Federer',
+                'federer@roger.com',
+                'rfederer',
+                '123123123',
+                '123123132',
+                '')
         } catch (_error) {
             error = _error
         } finally {

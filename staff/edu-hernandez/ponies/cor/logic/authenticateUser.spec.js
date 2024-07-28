@@ -17,43 +17,38 @@ describe('authenticateUser', () => {
             .catch(error => done(error))
     })
 
-    // it('succeeds on authenticate user parameters', done => {
-    //     User.create({
-    //         name: 'Roger',
-    //         surname: 'Federer',
-    //         email: 'roger@federer.com',
-    //         username: 'rfederer',
-    //         password: '123123123'
-    //     })
-    //         .then(user => {
-    //             console.log('User created:', user)
+    it('succeeds on authenticate user parameters', done => {
+        User.create({
+            name: 'Roger',
+            surname: 'Federer',
+            email: 'roger@federer.com',
+            username: 'rfederer',
+            password: '123123123'
+        })
+            .then(user => {
+                // console.log('User created:', user)
 
-    //             authenticateUser(
-    //                 'rfederer',  // Authenticate username passed as parameter
-    //                 '123123123', // Authenticate password passed as parameter
-    //                 error => {
-    //                     if (error) {
-    //                         console.log('Error in authenticateUser', error)
-    //                         done(error)
+                authenticateUser(
+                    'rfederer',  // Authenticate username passed as parameter
+                    '123123123', // Authenticate password passed as parameter
+                    error => {
+                        if (error) {
+                            done(error)
 
-    //                         return
-    //                     }
+                            return
+                        }
 
-    //                     try {
-    //                         assert.TypeOf(user.name, 'string', 'name is a string')
-    //                         assert.TypeOf(user.surname, 'string', 'surname is a string')
-    //                         assert.TypeOf(user.email, 'string', 'email is a string')
-    //                         assert.TypeOf(user.username, 'string', 'username is a string')
-    //                         assert.TypeOf(user.password, 'string', 'password is a string')
-    //                     }catch (assertionError) {
-    //                         done(assertionError)
-    //                     }
-    //                 })
-    //         })
-    //         .catch(error => {
-    //             console.log('Error in User.create', error)
-    //             done(error))}
-    // })
+                        expect(user.name).to.equal('Roger')
+                        expect(user.surname).to.equal('Federer')
+                        expect(user.email).to.equal('roger@federer.com')
+                        expect(user.username).to.equal('rfederer')
+                        expect(user.password).to.equal('123123123')
+
+                        done()
+                    })
+                    .catch(error => done(error))
+            })
+    })
 
     it('succeeds on authenticate user parameters', done => {
         User.create({
@@ -64,7 +59,7 @@ describe('authenticateUser', () => {
             password: '123123123'
         })
             .then(user => {
-                console.log('\nUser created:\n', user)
+                // console.log('\nUser created:\n', user)
 
                 authenticateUser(
                     'rfederer',
@@ -77,11 +72,11 @@ describe('authenticateUser', () => {
                         }
 
                         try {
-                            assert.typeOf(user.name, 'string', 'name is a string')
-                            assert.typeOf(user.surname, 'string', 'surname is a string')
-                            assert.typeOf(user.email, 'string', 'email is a string')
-                            assert.typeOf(user.username, 'string', 'username is a string')
-                            assert.typeOf(user.password, 'string', 'password is a string')
+                            expect(user.name, 'string', 'name is a string')
+                            expect(user.surname, 'string', 'surname is a string')
+                            expect(user.email, 'string', 'email is a string')
+                            expect(user.username, 'string', 'username is a string')
+                            expect(user.password, 'string', 'password is a string')
                             done()
                         } catch (assertionError) {
                             done(assertionError)
