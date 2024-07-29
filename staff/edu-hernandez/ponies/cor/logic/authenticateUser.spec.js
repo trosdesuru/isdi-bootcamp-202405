@@ -85,7 +85,7 @@ describe('authenticateUser', () => {
                 )
             })
             .catch(error => {
-                console.error('Error in User.create:', error)
+                // console.error('Error in User.create:', error)
                 done(error)
             })
     })
