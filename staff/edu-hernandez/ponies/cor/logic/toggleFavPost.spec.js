@@ -101,6 +101,37 @@ describe('toggleFavPost', () => {
             .catch(error => done(error))
     })
 
+    it('fails on non-function callback', done => {
+        User.create({
+            name: 'Roger',
+            surname: 'Federer',
+            email: 'roger@federer.com',
+            username: 'rfederer',
+            password: '123123123'
+        })
+            .then(() => {
+                return Post.create({
+                    author: 'rfederer',
+                    image: 'https://example.com/image.gif',
+                    caption: 'backanders'
+                })
+            })
+            .then(createdPost => {
+                post = createdPost
+                let error
+                try {
+                    toggleFavPost('rfederer', post.id.toString(), 23)
+                } catch (_error) {
+                    error = _error
+                } finally {
+                    expect(error).to.be.instanceOf(TypeError)
+                    expect(error.message).to.equal('callback is not a function')
+                    done()
+                }
+            })
+            .catch(error => done(error))
+    })
+
     afterEach(done => {
         Post.deleteMany()
             .then(() => User.deleteMany())
@@ -113,5 +144,4 @@ describe('toggleFavPost', () => {
             .then(() => done())
             .catch(error => done(error))
     })
-
 })

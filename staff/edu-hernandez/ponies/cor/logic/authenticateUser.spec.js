@@ -3,6 +3,9 @@ import authenticateUser from './authenticateUser.js'
 import mongoose from 'mongoose'
 import { expect, assert } from 'chai'
 import { User } from '../data/models.js'
+import { errors } from 'com'
+
+const { ValidationError } = errors
 
 describe('authenticateUser', () => {
     before(done => {
@@ -17,7 +20,7 @@ describe('authenticateUser', () => {
             .catch(error => done(error))
     })
 
-    it('succeeds on authenticate user parameters', done => {
+    it('succeeds on authenticate user', done => {
         User.create({
             name: 'Roger',
             surname: 'Federer',
@@ -32,11 +35,6 @@ describe('authenticateUser', () => {
                     'rfederer',  // Authenticate username passed as parameter
                     '123123123', // Authenticate password passed as parameter
                     error => {
-                        if (error) {
-                            done(error)
-
-                            return
-                        }
 
                         expect(user.name).to.equal('Roger')
                         expect(user.surname).to.equal('Federer')
@@ -50,7 +48,43 @@ describe('authenticateUser', () => {
             })
     })
 
-    it('succeeds on authenticate user parameters', done => {
+    it('fails on non-string username', () => {
+        let error
+
+        try {
+            authenticateUser(12, '123123123', error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('username is not a string')
+        }
+    })
+    debugger
+    it('fails on non-existing user', done => {
+        authenticateUser('rfederer', '123123123', error => {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('user not found')
+
+        })
+
+        done()
+    })
+
+    it('fails on invalid username', () => {
+        let error
+
+        try {
+            authenticateUser('rf', '123123123', error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('invalid username')
+        }
+    })
+
+    it('fails on wrong password', done => {
         User.create({
             name: 'Roger',
             surname: 'Federer',
@@ -58,36 +92,67 @@ describe('authenticateUser', () => {
             username: 'rfederer',
             password: '123123123'
         })
-            .then(user => {
-                // console.log('\nUser created:\n', user)
+            .then(() => {
+                authenticateUser('rfederer', '123123132', error => {
+                    expect(error).to.be.instanceOf(Error)
+                    expect(error.message).to.equal('wrong password')
 
-                authenticateUser(
-                    'rfederer',
-                    '123123123',
-                    error => {
-                        if (error) {
-                            console.error('Error in authenticateUser:', error)
-                            done(error)
-                            return
-                        }
+                    done()
+                })
+            })
+            .catch(error => done(error))
+    })
 
-                        try {
-                            expect(user.name, 'string', 'name is a string')
-                            expect(user.surname, 'string', 'surname is a string')
-                            expect(user.email, 'string', 'email is a string')
-                            expect(user.username, 'string', 'username is a string')
-                            expect(user.password, 'string', 'password is a string')
-                            done()
-                        } catch (assertionError) {
-                            done(assertionError)
-                        }
-                    }
-                )
-            })
-            .catch(error => {
-                // console.error('Error in User.create:', error)
-                done(error)
-            })
+    it('fails on non-string password', () => {
+        let error
+
+        try {
+            authenticateUser('rfederer', 123123123, error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('password is not a string')
+        }
+    })
+
+    it('fails on password short', () => {
+        let error
+
+        try {
+            authenticateUser('rfederer', '123123', error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('password length is lower than 8 characters')
+        }
+    })
+
+    it('fails on password with spaces', () => {
+        let error
+
+        try {
+            authenticateUser('rfederer', '123123 123', error => { })
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('password has empty spaces')
+        }
+    })
+
+    it('fails on non-function callback', () => {
+        let error
+
+        try {
+            authenticateUser('rfederer', '123123123', 123)
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('callback is not a function')
+        }
     })
 
     afterEach(done => {
