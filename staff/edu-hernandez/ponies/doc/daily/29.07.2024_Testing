@@ -1,0 +1,32 @@
+26/07/2024 - 09:00h
+Wednesyay
+
+--------------------
+PART 1 - mongoose
+--------------------
+
+class MyError extends Error {
+    constructor(message)
+    super(message)
+}
+
+Desarrollar archivo de errores
+📁 ponies/com
+
+validate.js ✅
+error.js ✅
+index.js ✅
+
+📁 cor/logic
+
+fix testing files
+
+registerUSer.js ✅
+registerUser.spec.js ✅
+toggleLikePost.spec.js ✅
+toggleLikePost.js ✅
+toggleLikePost.test.js ✅
+
+⚙️ 
+📁
+✅

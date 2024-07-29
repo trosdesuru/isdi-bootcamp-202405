@@ -3,6 +3,9 @@ import toggleLikePost from './toggleLikePost.js'
 import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
+import { errors } from 'com'
+
+const { NotFoundError } = errors
 const { ObjectId } = Types
 
 describe('toggleLikePost', () => {
@@ -84,7 +87,7 @@ describe('toggleLikePost', () => {
         })
             .then(post => {
                 toggleLikePost('nonexistent', post.id, error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('user not found')
                     done()
                 })
@@ -102,7 +105,7 @@ describe('toggleLikePost', () => {
         })
             .then(() => {
                 toggleLikePost('rfederer', new ObjectId().toString(), error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.equal('post not found')
                     done()
                 })
@@ -125,7 +128,7 @@ describe('toggleLikePost', () => {
             }))
             .then(post => {
                 toggleLikePost('rfederer', post.id, error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.not.equal('Cannot like your own post')
                     done()
                 })
@@ -149,7 +152,7 @@ describe('toggleLikePost', () => {
             }))
             .then(post => {
                 toggleLikePost('rfederer', post.id, error => {
-                    expect(error).to.be.instanceOf(Error)
+                    expect(error).to.be.instanceOf(NotFoundError)
                     expect(error.message).to.not.equal('You have already liked this post')
                     done()
                 })
