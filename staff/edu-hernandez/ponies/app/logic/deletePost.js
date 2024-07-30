@@ -1,4 +1,4 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 export default (postId, callback) => {
     validate.string(postId, 'PostId')
@@ -23,7 +23,7 @@ export default (postId, callback) => {
     xhr.onerror = () => callback(new Error('network error'))
 
     xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.token}`)
 
     xhr.send()
 }

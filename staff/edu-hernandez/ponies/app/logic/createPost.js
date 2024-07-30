@@ -1,10 +1,9 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 export default (image, caption, callback) => {
-    validate.string(image)
-    validate.string(caption)
+    validate.url(image, 'image')
+    validate.string(caption, 'caption')
     validate.callback(callback)
-
 
     const xhr = new XMLHttpRequest
 
@@ -17,7 +16,7 @@ export default (image, caption, callback) => {
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }
@@ -25,7 +24,7 @@ export default (image, caption, callback) => {
     xhr.onerror = () => callback(new Error('network error'))
 
     xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.username}`)
+    xhr.setRequestHeader('Authorization', `Bearer ${sessionStorage.token}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
 
     xhr.send(JSON.stringify({ image, caption }))

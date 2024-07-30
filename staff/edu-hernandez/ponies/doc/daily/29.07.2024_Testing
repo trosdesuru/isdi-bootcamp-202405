@@ -3,7 +3,7 @@ Wednesyay
 
 ⚙️
 ------------------------------------
-PART 1 - errors
+PART 1 - errors ✅
 ------------------------------------
 
 class MyError extends Error {
@@ -34,13 +34,13 @@ toggleLikePost.js ✅
 toggleLikePost.test.js ✅
 
 -----------------------------------
-PART 2 - error
+PART 2 - import error
 -----------------------------------
 
 fix error part
 
 📁 cor/logic
-all functions .js
+all functions .js 
 
 📁 ponies/api
 index.js
@@ -49,7 +49,7 @@ index.js
 register-user.sh
 
 📁 ponies/app/logic
-sll logics
+all logics
 
 📁 ponies/app/view/
 

@@ -81,18 +81,18 @@ hacer pruebas para todo tipo de errores
     - ...
 
 Probar errores async, con try catch.
-Probar varios métodos
+Probar varios métodos ✅
 
-TODO toggleLikePost.js
-TODO add toggleLikePost.spec.js
+TODO toggleLikePost.js ✅
+TODO add toggleLikePost.spec.js ✅
 
-TODO toggleLikePost callback
+TODO toggleLikePost callback ✅
 
 📁 cor/.env
 
-añadir en .env test para realizar las pruebas en la BBDD.
-probar base de datos /test
-
+añadir en .env test para realizar las pruebas en la BBDD. ✅
+probar base de datos /test ✅
+ 
 📁 api/.env
 
-añadir /ponies para dejar lista la base de datos sea la oficial
+añadir /ponies para dejar lista la base de datos sea la oficial ✅

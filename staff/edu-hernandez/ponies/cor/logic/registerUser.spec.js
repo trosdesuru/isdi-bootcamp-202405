@@ -4,6 +4,7 @@ import { expect, assert } from 'chai'
 import registerUser from './registerUser.js'
 import { User } from '../data/models.js'
 import { errors } from 'com'
+import bcrypt from 'bcryptjs'
 
 const { ValidationError, DuplicityError } = errors
 
@@ -46,7 +47,13 @@ describe('registerUser', () => {
                         expect(user.password).to.equal('123123123')
                         assert.typeOf(user.password, 'string', 'password is a string')
 
-                        done()
+                        bcrypt.compare('123123123', user.password)
+                            .then(match => {
+                                expect(match).to.be.true
+
+                                done()
+                            })
+                            .catch(error => done(error))
                     })
                     .catch(error => done(error))
             })

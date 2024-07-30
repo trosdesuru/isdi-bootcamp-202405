@@ -1,12 +1,12 @@
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
 export default (name, surname, email, username, password, passwordRepeat, callback) => {
-    validate.string(name)
-    validate.string(surname, 'surname')
+    validate.name(name)
+    validate.name(surname, 'surname')
     validate.email(email)
     validate.username(username)
     validate.password(password)
-    validate.password(password, 'passwordRepeat')
+    validate.password(passwordRepeat, 'passwordRepeat')
     validate.callback(callback)
 
     const xhr = new XMLHttpRequest
@@ -20,7 +20,7 @@ export default (name, surname, email, username, password, passwordRepeat, callba
 
         const { error, message } = JSON.parse(xhr.response)
 
-        const constructor = window[error]
+        const constructor = errors[error]
 
         callback(new constructor(message))
     }

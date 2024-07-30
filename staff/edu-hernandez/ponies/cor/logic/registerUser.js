@@ -1,5 +1,6 @@
 import { validate, errors } from 'com'
 import { User } from '../data/models.js'
+import bcrypt from 'bcryptjs'
 
 const { ValidationError, DuplicityError, SystemError } = Error
 
@@ -30,15 +31,19 @@ export default (name, surname, email, username, password, passwordRepeat, callba
                         return
                     }
 
-                    User.create({
-                        name,
-                        surname,
-                        email,
-                        username,
-                        password
-                    })
-                        .then(() => callback(null))
-                        .catch(error => callback(new Error(error.message)))
+                    bcrypt.hash(password, 8)
+                        .then(hash => {
+                            User.create({
+                                name,
+                                surname,
+                                email,
+                                username,
+                                password
+                            })
+                                .then(() => callback(null))
+                                .catch(error => callback(new Error(error.message)))
+                        })
+                        .catch(error => callback(new SystemError(error.message)))
                 })
                 .catch(error => callback(new SystemError(error.message)))
         })
