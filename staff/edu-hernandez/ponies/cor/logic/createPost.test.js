@@ -4,19 +4,10 @@ import createPost from './createPost.js'
 import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('connected')
-
-        createPost('eduhv', 'randomUrl', 'Hola Mundo', error => {
-            if (error) {
-                console.error(error)
-
-                return
-            }
-
-            console.log('post created')
-
-            mongoose.disconnect()
-        })
-    })
+    .then(() => createPost(
+        'eduhv',
+        'https://example.com/image.gif',
+        'Hola Mundo'
+    ))
     .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())

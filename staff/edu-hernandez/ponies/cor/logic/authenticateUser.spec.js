@@ -1,7 +1,7 @@
 import 'dotenv/config.js'
 import authenticateUser from './authenticateUser.js'
 import mongoose from 'mongoose'
-import { expect, assert } from 'chai'
+import { expect, assert, Assertion } from 'chai'
 import { User } from '../data/models.js'
 import { errors } from 'com'
 
@@ -14,156 +14,136 @@ describe('authenticateUser', () => {
             .catch(error => done(error))
     })
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => done())
-            .catch(error => done(error))
+    beforeEach(() => User.deleteMany())
+
+    it('succeeds on username and password is correct', () =>
+        bcrypt.hash('123123123', 8)
+            .the(hash => User.create({
+                name: 'Roger',
+                surname: 'Federer',
+                email: 'roger@federer.com',
+                username: 'rfederer',
+                passowrd: '123123123'
+            })))
+    
+})
+
+it('fails on non-string username', () => {
+    let error
+
+    try {
+        authenticateUser(12, '123123123', error => { })
+    } catch (_error) {
+        error = _error
+    } finally {
+        expect(error).to.be.instanceOf(ValidationError)
+        expect(error.message).to.equal('username is not a string')
+    }
+})
+debugger
+it('fails on non-existing user', done => {
+    authenticateUser('rfederer', '123123123', error => {
+        expect(error).to.be.instanceOf(ValidationError)
+        expect(error.message).to.equal('user not found')
+
     })
 
-    it('succeeds on authenticate user', done => {
-        User.create({
-            name: 'Roger',
-            surname: 'Federer',
-            email: 'roger@federer.com',
-            username: 'rfederer',
-            password: '123123123'
-        })
-            .then(user => {
-                // console.log('User created:', user)
+    done()
+})
 
-                authenticateUser(
-                    'rfederer',  // Authenticate username passed as parameter
-                    '123123123', // Authenticate password passed as parameter
-                    error => {
+it('fails on invalid username', () => {
+    let error
 
-                        expect(user.name).to.equal('Roger')
-                        expect(user.surname).to.equal('Federer')
-                        expect(user.email).to.equal('roger@federer.com')
-                        expect(user.username).to.equal('rfederer')
-                        expect(user.password).to.equal('123123123')
+    try {
+        authenticateUser('rf', '123123123', error => { })
+    } catch (_error) {
+        error = _error
+    } finally {
+        expect(error).to.be.instanceOf(ValidationError)
+        expect(error.message).to.equal('invalid username')
+    }
+})
 
-                        done()
-                    })
-                    .catch(error => done(error))
+it('fails on wrong password', done => {
+    User.create({
+        name: 'Roger',
+        surname: 'Federer',
+        email: 'roger@federer.com',
+        username: 'rfederer',
+        password: '123123123'
+    })
+        .then(() => {
+            authenticateUser('rfederer', '123123132', error => {
+                expect(error).to.be.instanceOf(Error)
+                expect(error.message).to.equal('wrong password')
+
+                done()
             })
-    })
-
-    it('fails on non-string username', () => {
-        let error
-
-        try {
-            authenticateUser(12, '123123123', error => { })
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('username is not a string')
-        }
-    })
-    debugger
-    it('fails on non-existing user', done => {
-        authenticateUser('rfederer', '123123123', error => {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('user not found')
-
         })
+        .catch(error => done(error))
+})
 
-        done()
-    })
+it('fails on non-string password', () => {
+    let error
 
-    it('fails on invalid username', () => {
-        let error
+    try {
+        authenticateUser('rfederer', 123123123, error => { })
+    } catch (_error) {
+        error = _error
+    } finally {
+        expect(error).to.be.instanceOf(ValidationError)
+        expect(error.message).to.equal('password is not a string')
+    }
+})
 
-        try {
-            authenticateUser('rf', '123123123', error => { })
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('invalid username')
-        }
-    })
+it('fails on password short', () => {
+    let error
 
-    it('fails on wrong password', done => {
-        User.create({
-            name: 'Roger',
-            surname: 'Federer',
-            email: 'roger@federer.com',
-            username: 'rfederer',
-            password: '123123123'
-        })
-            .then(() => {
-                authenticateUser('rfederer', '123123132', error => {
-                    expect(error).to.be.instanceOf(Error)
-                    expect(error.message).to.equal('wrong password')
+    try {
+        authenticateUser('rfederer', '123123', error => { })
+    } catch (_error) {
+        error = _error
+    } finally {
+        expect(error).to.be.instanceOf(ValidationError)
+        expect(error.message).to.equal('password length is lower than 8 characters')
+    }
+})
 
-                    done()
-                })
-            })
-            .catch(error => done(error))
-    })
+it('fails on password with spaces', () => {
+    let error
 
-    it('fails on non-string password', () => {
-        let error
+    try {
+        authenticateUser('rfederer', '123123 123', error => { })
+    } catch (_error) {
+        error = _error
+    } finally {
+        expect(error).to.be.instanceOf(ValidationError)
+        expect(error.message).to.equal('password has empty spaces')
+    }
+})
 
-        try {
-            authenticateUser('rfederer', 123123123, error => { })
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password is not a string')
-        }
-    })
+it('fails on non-function callback', () => {
+    let error
 
-    it('fails on password short', () => {
-        let error
+    try {
+        authenticateUser('rfederer', '123123123', 123)
+    } catch (_error) {
+        error = _error
+    } finally {
+        expect(error).to.be.instanceOf(ValidationError)
+        expect(error.message).to.equal('callback is not a function')
+    }
+})
 
-        try {
-            authenticateUser('rfederer', '123123', error => { })
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password length is lower than 8 characters')
-        }
-    })
+afterEach(done => {
+    User.deleteMany({})
+        .then(() => done())
+        .catch(error => done(error))
+})
 
-    it('fails on password with spaces', () => {
-        let error
-
-        try {
-            authenticateUser('rfederer', '123123 123', error => { })
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('password has empty spaces')
-        }
-    })
-
-    it('fails on non-function callback', () => {
-        let error
-
-        try {
-            authenticateUser('rfederer', '123123123', 123)
-        } catch (_error) {
-            error = _error
-        } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('callback is not a function')
-        }
-    })
-
-    afterEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
-
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+after(done => {
+    mongoose.disconnect()
+        .then(() => done())
+        .catch(error => done(error))
+})
 })

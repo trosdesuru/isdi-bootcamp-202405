@@ -1,114 +1,86 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
-import { expect, assert } from 'chai'
+import { expect } from 'chai'
+import bcrypt from 'bcryptjs'
 import registerUser from './registerUser.js'
 import { User } from '../data/models.js'
 import { errors } from 'com'
-import bcrypt from 'bcryptjs'
 
 const { ValidationError, DuplicityError } = errors
 
 describe('registerUser', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    beforeEach(() => User.deleteMany())
 
-    it('succeeds on new user', done => {
+    it('succeeds on new user', () =>
         registerUser(
             'Roger',
             'Federer',
             'roger@federer.com',
             'rfederer',
             '123123123',
-            '123123123',
-            error => {
-                if (error) {
-                    done(error)
+            '123123123')
+            .then(() => User.findOne({ username: 'rfederer' }).lean())
+            .then(user => {
+                expect(user.name).to.equal('Roger')
+                expect(user.surname).to.equal('Federer')
+                expect(user.email).to.equal('roger@federer.com')
 
-                    return
-                }
-
-                User.findOne({ username: 'rfederer' }).lean()
-                    .then(user => {
-                        expect(user.name).to.equal('Roger')
-                        assert.typeOf(user.name, 'string', 'name is a string')
-                        expect(user.surname).to.equal('Federer')
-                        assert.typeOf(user.surname, 'string', 'surname is a string')
-                        expect(user.email).to.equal('roger@federer.com')
-                        assert.typeOf(user.email, 'string', 'email is a string')
-                        expect(user.password).to.equal('123123123')
-                        assert.typeOf(user.password, 'string', 'password is a string')
-
-                        bcrypt.compare('123123123', user.password)
-                            .then(match => {
-                                expect(match).to.be.true
-
-                                done()
-                            })
-                            .catch(error => done(error))
-                    })
-                    .catch(error => done(error))
+                return bcrypt.compare('123123123', user.password)
             })
-    })
+            .then(match => expect(match).to.be.true)
+    )
 
-    it('fails on existing user with same email', done => {
-        User.create({
+    it('fails on existing user with same email', () => {
+        let _error
+
+        return User.create({
             name: 'Roger',
             surname: 'Federer',
             email: 'roger@federer.com',
             username: 'rfederer',
             password: '123123123'
         })
-            .then(() => {
+            .then(() =>
                 registerUser(
-                    'Roger',
-                    'Federer',
+                    'Novak',
+                    'Djokovic',
                     'roger@federer.com',
-                    'rfederer',
+                    'novak',
                     '123123123',
-                    '123123123',
-                    error => {
-                        expect(error).to.be.instanceOf(DuplicityError)
-                        expect(error.message).to.equal('user already exists')
-
-                        done()
-                    })
+                    '123123123'))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(error).to.be.instanceOf(DuplicityError)
+                expect(error.message).to.equal('user already exists')
             })
-            .catch(error => done(error))
     })
 
-    it('fails on existing user with same username', done => {
-        User.create({
+    it('fails on existing user with same username', () => {
+        let _error
+
+        return User.create({
             name: 'Roger',
             surname: 'Federer',
             email: 'roger@federer.com',
             username: 'rfederer',
             password: '123123123'
         })
-            .then(() => {
+            .then(() =>
                 registerUser(
                     'Roger',
                     'Federer',
                     'roger@federer.com',
                     'rfederer',
                     '123123123',
-                    '123123123',
-                    error => {
-                        expect(error).to.be.instanceOf(DuplicityError)
-                        expect(error.message).to.equal('user already exists')
-
-                        done()
-                    })
+                    '123123123'
+                ))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(DuplicityError)
+                expect(_error.message).to.equal('user already exists')
             })
-            .catch(error => done(error))
     })
 
     it('fails on non-string name', () => {
@@ -371,15 +343,7 @@ describe('registerUser', () => {
         }
     })
 
-    afterEach(done => {
-        User.deleteMany({})
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    afterEach(() => User.deleteMany())
 
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 })

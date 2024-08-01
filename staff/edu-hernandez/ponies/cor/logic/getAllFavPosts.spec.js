@@ -3,6 +3,7 @@ import getAllFavPosts from './getAllFavPosts.js'
 import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
 import { User, Post } from '../data/models.js'
+
 const { ObjectId } = Types
 
 describe('getAllFavPost', () => {

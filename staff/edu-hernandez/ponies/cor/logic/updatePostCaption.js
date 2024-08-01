@@ -1,35 +1,29 @@
 import { User, Post } from '../data/models.js'
 
-import { validate } from 'com'
+import { validate, errors } from 'com'
 
-export default (username, postId, caption, callback) => {
+const { NotFoundError, OwnershipError, SystemError } = errors
+
+export default (username, postId, caption) => {
     validate.username(username)
     validate.string(postId, 'postId')
     validate.string(caption, 'caption')
-    validate.callback(callback)
 
-    User.findOne({ username }).lean()
+    return User.findOne({ username }).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new Error('user not found'))
+            if (!user) throw new NotFoundError('user not found')
 
-                return
-            }
-
-            Post.findById(postId).lean()
+            return Post.findById(postId).lean()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(post => {
-                    if (!post) {
-                        callback(new Error('post not found'))
+                    if (!post) throw new NotFoundError('post not found')
 
-                        return
-                    }
+                    if (post.author !== username) throw new OwnershipError('post does not belong to user')
 
-                    Post.updateOne({ _id: postId }, { $set: { caption } })
-                        .then(() => callback(null))
-                        .catch(error => callback(new Error(error.message)))
-
+                    return Post.updateOne({ _id: postId }, { $set: { caption } })
+                        .catch(error => { throw new SystemError(error.message) })
                 })
-                .catch(error => callback(new Error(error.message)))
         })
-        .catch(error => callback(new Error(error.message)))
+        .then(() => { })
 }

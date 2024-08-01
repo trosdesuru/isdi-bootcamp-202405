@@ -157,7 +157,7 @@ const Post = ({ post, onPostDeleted, onPostEdited, onPostFavToggled, onPostLikeT
     return <article className="Post">
         <Container className='Container--row--spacebetween'>
             <Heading level="3">{post.author.username}</Heading>
-            {/* <Avatar></Avatar> */}
+            {/* <Avatar url={post.author.avatar} /> */}
 
             <Button className="Button--follow" onClick={handleFollowUserClick}>{post.author.following ? 'Unfollow' : 'Follow'}</Button>
         </Container>

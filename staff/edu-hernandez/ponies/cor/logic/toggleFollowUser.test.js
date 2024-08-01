@@ -1,21 +1,9 @@
+import 'dotenv/config'
 import toggleFollowUser from './toggleFollowUser.js'
-import 'dotenv/config.js'
 import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('connected')
-
-        toggleFollowUser('eduhv', 'peterparker', error => {
-            if (error) {
-                console.error(error)
-
-                return
-            }
-
-            console.log('follow user toggled')
-
-            mongoose.disconnect()
-        })
-    })
+    .then(() => toggleFollowUser('eduhv', 'peterparker'))
+    .then(() => console.log('user follow toggled'))
     .catch(error => console.error(error))
+    .finally(() => mongoose.disconnect())

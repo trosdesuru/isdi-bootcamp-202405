@@ -1,26 +1,22 @@
 import { User } from '../data/models.js'
-import { validate } from 'com'
 
-export default (username, targetUsername, callback) => {
+import { validate, errors } from 'com'
+
+const { NotFoundError, SystemError } = errors
+
+export default (username, targetUsername) => {
     validate.username(username)
     validate.username(targetUsername, 'targetUsername')
-    validate.callback(callback)
 
-    User.findOne({ username }).lean()
+    return User.findOne({ username }).lean()
+        .catch(error => { throw new SystemError(error.message) })
         .then(user => {
-            if (!user) {
-                callback(new Error('user not found'))
+            if (!user) throw new NotFoundError('user not found')
 
-                return
-            }
-
-            User.findOne({ username: targetUsername }).lean()
+            return User.findOne({ username: targetUsername }).lean()
+                .catch(error => { throw new SystemError(error.message) })
                 .then(targetUser => {
-                    if (!targetUser) {
-                        callback(new Error('targetUser not found'))
-
-                        return
-                    }
+                    if (!targetUser) throw new NotFoundError('targetUser not found')
 
                     const { following } = user
 
@@ -31,11 +27,9 @@ export default (username, targetUsername, callback) => {
                     else
                         following.splice(index, 1)
 
-                    User.updateOne({ username }, { $set: { following } })
-                        .then(() => callback(null))
-                        .catch(error => callback(new Error(error.message)))
+                    return User.updateOne({ username }, { $set: { following } })
+                        .catch(error => { throw new SystemError(error.message) })
                 })
-                .catch(error => callback(new Error(error.message)))
         })
-        .catch(error => callback(new Error(error.message)))
+        .then(() => { })
 }

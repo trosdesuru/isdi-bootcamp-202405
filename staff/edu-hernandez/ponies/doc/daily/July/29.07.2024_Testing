@@ -1,9 +1,8 @@
 29/07/2024 - 09:37h
-Wednesyay
+Monyay
 
-⚙️
 ------------------------------------
-PART 1 - errors ✅
+⚙️ PART 1 - errors ✅
 ------------------------------------
 
 class MyError extends Error {
@@ -34,7 +33,7 @@ toggleLikePost.js ✅
 toggleLikePost.test.js ✅
 
 -----------------------------------
-PART 2 - import error
+⚙️ PART 2 - import error
 -----------------------------------
 
 fix error part
