@@ -1,29 +1,58 @@
 import { validate, errors } from 'com'
 
-export default (postId, callback) => {
-    validate.string(postId, 'PostId')
-    validate.callback(callback)
+const { SystemError } = errors
 
-    const xhr = new XMLHttpRequest
+// export default (postId, callback) => {
+//     validate.string(postId, 'PostId')
+//     validate.callback(callback)
 
-    xhr.onload = () => {
-        if (xhr.status === 204) {
-            callback(null)
+// const xhr = new XMLHttpRequest
 
-            return
+// xhr.onload = () => {
+//     if (xhr.status === 204) {
+//         callback(null)
+
+//         return
+//     }
+
+//     const { error, message } = JSON.parse(xhr.response)
+
+//     const constructor = window[error]
+
+//     callback(new constructor(message))
+// }
+
+// xhr.onerror = () => callback(new Error('network error'))
+
+// xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
+// xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.token}`)
+
+// xhr.send()
+
+// }
+
+export default postId => {
+    validate.string(postId, 'postId')
+
+    return fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${sessionStorage.token}`
         }
+    })
+        .catch(error => { throw new SystemError(error.message) })
+        .then(response => {
+            const { status } = response
 
-        const { error, message } = JSON.parse(xhr.response)
+            if (status === 204) return
 
-        const constructor = window[error]
+            return response.json()
+                .then(body => {
+                    const { error, message } = body
 
-        callback(new constructor(message))
-    }
+                    const constructor = errors[error]
 
-    xhr.onerror = () => callback(new Error('network error'))
-
-    xhr.open('DELETE', `${import.meta.env.VITE_API_URL}/posts/${postId}`)
-    xhr.setRequestHeader('Authorization', `Basic ${sessionStorage.token}`)
-
-    xhr.send()
+                    throw new constructor(message)
+                })
+        })
 }

@@ -9,6 +9,10 @@ import Container from './components/Container'
 import Link from './components/Link'
 import Button from './components/Button'
 
+import { errors } from 'com'
+
+const { NotFoundError, CredentialsError } = errors
+
 function Login({ onLogin, onRegisterClick }) {
     console.debug('Login -> call')
 
@@ -26,19 +30,18 @@ function Login({ onLogin, onRegisterClick }) {
         const password = passwordInput.value
 
         try {
-            logic.loginUser(username, password, error => {
-                console.debug('Callback -> error:', error)
-                if (error) {
+            logic.loginUser(username, password)
+                .then(() => onLogin())
+                .catch(error => {
                     console.error(error)
 
-                    alert(error.message)
+                    let message = error.message
 
-                    return
-                }
+                    if (error instanceof NotFoundError || error instanceof CredentialsError)
+                        message = 'incorrect username and/or password'
 
-                console.debug('Login successful, calling onLogin')
-                onLogin()
-            })
+                    alert(message)
+                })
         } catch (error) {
             console.error(error)
 

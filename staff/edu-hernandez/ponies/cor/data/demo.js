@@ -5,17 +5,17 @@ import { User, Post } from './models.js'
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
-        const user = new User({
-            name: 'Javi',
-            surname: 'Yube',
-            email: 'javi@yube.com',
-            username: 'yube',
-            password: '123123123'
-        })
+        // const user = new User({
+        //     name: 'Javi',
+        //     surname: 'Yube',
+        //     email: 'javi@yube.com',
+        //     username: 'yube',
+        //     password: '123123123'
+        // })
 
-        User.save()
-            .then(() => console.log('user saved'))
-            .catch(error => console.error(error))
+        // User.save()
+        //     .then(() => console.log('user saved'))
+        //     .catch(error => console.error(error))
 
         // User.create({
         //     name: 'Marie',

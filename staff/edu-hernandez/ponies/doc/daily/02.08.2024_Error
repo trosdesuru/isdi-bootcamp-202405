@@ -1,0 +1,126 @@
+29/07/2024 - 09:37h
+Friyay
+
+------------------------------------
+⚙️ PART 1 - Async Front End
+------------------------------------
+
+📝change xhr instead fetch ✅
+
+📁 app/logic 
+
+createPost.js ✅
+deletePost.js ✅
+
+loginUser.js ✅
+registerUser.js ✅
+
+getUserName.js ✅
+
+getAllPosts.js ✅
+getAllFavPosts.js ✅
+
+toggleFavPost.js ✅
+toggleFollowUsers.js ✅
+toggleLikePost.js ✅
+
+updatePostCaption.js ✅
+
+📁 app/view
+
+Login.jsx ✅
+
+Register.jsx ✅
+
+Post.jsx ✅
+PostList.jsx ✅
+
+------------------------------------
+⚙️ PART 2 - 
+------------------------------------
+
+📁 cor/logic ✅
+
+authenticateUser.js
+authenticateUser.test.js
+
+createPost.js
+createPost.test.js
+
+deletePost.js
+
+getUserName.js
+getUserName.test.js
+
+getAllPosts.js
+getAllPosts.test.js
+
+getAllFavPosts.js
+getAllFavPosts.test.js
+
+getAllPoniesPosts.js
+getAllPoniesPosts.test.js
+
+toggleFavPost.js
+toggleFavPost.test.js
+
+toggleLikePost.js
+toggleLikePost.test.js
+toggleLikePost.spec.js  
+
+registerUser.test.js
+
+updatePostCaption.js
+updatePostCaption.test.js
+
+📁 cor/data ✅
+
+models.js
+demo.js
+
+📁 api/handlers ✅
+
+authenticateUserHandler.js
+
+createPostHandler.js
+deletePostHandler.js
+
+getUserNameHandler.js
+
+getAllPostsHandler.js
+getAllFavPostsHandler.js
+
+toggleFavPostHandler.js
+
+toggleLikePostHandler.js
+
+jwtVerifier.js
+
+updatePostCaptionHandler.js
+
+📁 api
+
+index.js 
+.env ✅
+
+📁 api/test
+
+authenticate-user.sh
+get-user-name.sh
+toggle-fav-post.sh
+toggle-like-post.sh
+
+app/view
+
+-------------------------------
+NEW VERSION APP
+-------------------------------
+
+📁 app/logic ✅
+
+getUserId.js
+toggleFollowUser.js
+
+📁 app/view ✅
+
+Post.jsx

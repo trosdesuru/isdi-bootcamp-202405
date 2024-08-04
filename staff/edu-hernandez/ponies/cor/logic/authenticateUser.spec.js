@@ -25,7 +25,7 @@ describe('authenticateUser', () => {
                 username: 'rfederer',
                 passowrd: '123123123'
             })))
-    
+
 })
 
 it('fails on non-string username', () => {
@@ -40,7 +40,7 @@ it('fails on non-string username', () => {
         expect(error.message).to.equal('username is not a string')
     }
 })
-debugger
+
 it('fails on non-existing user', done => {
     authenticateUser('rfederer', '123123123', error => {
         expect(error).to.be.instanceOf(ValidationError)
@@ -135,15 +135,6 @@ it('fails on non-function callback', () => {
     }
 })
 
-afterEach(done => {
-    User.deleteMany({})
-        .then(() => done())
-        .catch(error => done(error))
-})
+afterEach(() => Promise.all([User.deleteMany()]))
 
-after(done => {
-    mongoose.disconnect()
-        .then(() => done())
-        .catch(error => done(error))
-})
-})
+after(() => mongoose.disconnect())

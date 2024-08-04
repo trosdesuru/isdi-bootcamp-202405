@@ -1,5 +1,7 @@
 import { Schema, model, ObjectId } from 'mongoose'
 
+const { ObjectId } = Types
+
 const user = new Schema({
     name: {
         type: String,
@@ -29,17 +31,20 @@ const user = new Schema({
         default: 'to be defined'
     },
     following: {
-        type: [String]
+        type: [ObjectId],
+        ref: 'User'
     },
     favs: {
-        type: [ObjectId]
+        type: [ObjectId],
+        ref: 'Post'
     }
 })
 
 const post = new Schema({
     author: {
-        type: String,
-        required: true
+        type: ObjectId,
+        required: true,
+        ref: 'User'
     },
     image: {
         type: String,
@@ -54,7 +59,8 @@ const post = new Schema({
         default: Date.now
     },
     likes: {
-        type: [String]
+        type: [ObjectId],
+        ref: 'User'
     }
 })
 

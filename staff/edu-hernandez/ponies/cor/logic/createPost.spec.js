@@ -134,17 +134,8 @@ describe('createPost', () => {
     })
 
 
-    afterEach(done => {
-        Post.deleteMany()
-            .then(() => User.deleteMany())
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    afterEach(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
 
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => mongoose.disconnect())
 
 })
