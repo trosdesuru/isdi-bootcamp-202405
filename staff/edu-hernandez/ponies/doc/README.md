@@ -1,6 +1,6 @@
 CITIES
 
-![image](https://github.com/user-attachments/assets/b8267fd0-7d39-49a6-90c5-b7607c45a2fd)
+https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExanpxeGl2MG9iYXR6Yjl1Z2I2NGR6NmtndjA0Z2gyNG00YnMycndiZyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hTZqITHNkgmX0fwt1C/giphy.gif
 
 Functional
 
