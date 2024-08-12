@@ -1,6 +1,6 @@
 CITIES
 
-https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExanpxeGl2MG9iYXR6Yjl1Z2I2NGR6NmtndjA0Z2gyNG00YnMycndiZyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hTZqITHNkgmX0fwt1C/giphy.gif
+<iframe src="https://giphy.com/embed/hTZqITHNkgmX0fwt1C" width="480" height="269" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/doola-doolacreativeshop-creativeasfahhh-hTZqITHNkgmX0fwt1C">via GIPHY</a></p>
 
 Functional
 
