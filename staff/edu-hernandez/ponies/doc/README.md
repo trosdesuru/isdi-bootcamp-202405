@@ -2,11 +2,14 @@ CITIES
 
 
 
-Functional
+
+
+
+FUNCTIONAL
 
 The project will try to help better manage the leisure time of our users, offering relevant information in real time to make the best decisions when choosing where to go, both day and night. Among the functions we should highlight the capacity in real time, ticket prices, in case you have to pay, the theme of the event, duration and more generic information about the event. The real-time mode will not be entirely accurate at the moment because to implement the 'in-real-time-mode' model requires many users with the app installed on their device, so it will be a future feature. Cities has all kinds of information about events in the city so that you can enjoy the events in the city, both well-known events as well as those that are very local or even organised by neighbours of a street. The information is taken from official sources, specialised event accounts on the most popular social networks, neighbourhood party groups and commercial hubs in all the city's neighbourhoods.
 
-Use Cases
+USE CASES
 
 Create Event: Users can create events to share information about or share their experiences.
 
