@@ -61,6 +61,10 @@ The project is divided into several key components:
 - Mongo
 - Data Model
 
+![image]({[https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+	)})
+
+
 <h2 align="left"> DATA MODEL </h2>
 
 - id (string): Unique identifier for the user.
