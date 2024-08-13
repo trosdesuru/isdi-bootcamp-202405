@@ -77,8 +77,6 @@ The project is divided into several key components:
 - username (string): Profile username.
 - password (string): User's password (stored securely by method 'hash').
 - profile (string): URL or path to the user's profile image.
-- favs ([Post.id]): List of IDs of posts marked as favorites.
-- following ([User.id]): List of IDs of followed users.
 
 <h2 align="left"> EVENTS </h2>
 
