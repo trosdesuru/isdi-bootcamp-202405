@@ -34,7 +34,7 @@ Toggle Follow User: Users can follow specific profiles to receive updates and ch
 
 <h2 align="left"> TECHNICAL </h2>
 
-<h2 align="left"> BLOCKS </h2>
+<h3 align="left"> BLOCKS </h3>
 The project is divided into several key components:
 
 - App (User Interface): The client application where users interact.
