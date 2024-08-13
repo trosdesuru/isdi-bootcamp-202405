@@ -80,3 +80,5 @@ The project is divided into several key components:
 - date (Date): Date and time of the event.
 - going to (user.id): List of IDs of users pretneding go to the event.
 - likes ([User.id]): List of IDs of users who have liked the event.
+
+![Badge en Desarollo](https://img.shields.io/badge/STATUS-EN%20DESAROLLO-green)
