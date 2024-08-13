@@ -1,5 +1,6 @@
 <h1 align="center"> CITIES </h1>
 
+![logo_cities 1](https://github.com/user-attachments/assets/67f8e7ba-74d7-4453-8fa6-f0ad7a69f7af)
 
 
 FUNCTIONAL
