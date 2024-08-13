@@ -22,8 +22,8 @@ Toggle Follow User: Users can follow specific profiles to receive updates and ch
 <h2 align="left"> USER </h2>
 
 - create event.
-- events list.
-- list events saved.
+- Lists events.
+- List events saved.
 - toggle going to event.
 - toggle like event.
 - toggle follow profile username.
@@ -85,7 +85,7 @@ The project is divided into several key components:
 - image (string): URL or path to the event image.
 - caption (string): Description or comment of the event.
 - date (Date): Date and time of the event.
-- going (user.id): List of IDs of users pretneding go to the event.
+- going ([User.id]): List of IDs of users pretneding go to the event.
 - likes ([User.id]): List of IDs of users who have liked the event.
 
 ![Badge en Desarollo](https://img.shields.io/badge/STATUS-EN%20DESAROLLO-green)
