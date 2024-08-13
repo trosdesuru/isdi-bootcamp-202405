@@ -1,11 +1,11 @@
 
 ![logo_cities 1](https://github.com/user-attachments/assets/67f8e7ba-74d7-4453-8fa6-f0ad7a69f7af)
 
-<h2 align="center"> FUNCTIONAL </h2>
+<h2 align="left"> FUNCTIONAL </h2>
 
 The project will try to help better manage the leisure time of our users, offering relevant information in real time to make the best decisions when choosing where to go, both day and night. Among the functions we should highlight the capacity in real time, ticket prices, in case you have to pay, the theme of the event, duration and more generic information about the event. The real-time mode will not be entirely accurate at the moment because to implement the 'in-real-time-mode' model requires many users with the app installed on their device, so it will be a future feature. Cities has all kinds of information about events in the city so that you can enjoy the events in the city, both well-known events as well as those that are very local or even organised by neighbours of a street. The information is taken from official sources, specialised event accounts on the most popular social networks, neighbourhood party groups and commercial hubs in all the city's neighbourhoods.
 
-<h2 align="center"> USE CASES </h2>
+<h2 align="left"> USE CASES </h2>
 
 Create Event: Users can create events to share information about or share their experiences.
 
@@ -19,7 +19,7 @@ Toggle Like Event: Users can like events, helping highlight the most popular eve
 
 Toggle Follow User: Users can follow specific profiles to receive updates and changes about them.
 
-<h2 align="center"> USER </h2>
+<h2 align="left"> USER </h2>
 
 - create event.
 - events list.
@@ -28,22 +28,22 @@ Toggle Follow User: Users can follow specific profiles to receive updates and ch
 - toggle like event.
 - toggle follow profile username.
 
-<h2 align="center"> UI | UX DESIGN </h2>
+<h2 align="left"> UI | UX DESIGN </h2>
 
 [Figma](https://www.figma.com/design/2Jqh5rduEoNJAEK8olefch/cities-%7C-project?node-id=0-1&t=SdWvjTUZBZDr1jqC-1)
 
-<h2 align="center"> TECHNICAL </h2>
+<h2 align="left"> TECHNICAL </h2>
 
-<h2 align="center"> BLOCKS </h2>
+<h2 align="left"> BLOCKS </h2>
 The project is divided into several key components:
 
 - App (User Interface): The client application where users interact.
 - API (Core Logic): The API that handles the main logic and serves data to the app.
 - DB (Data Storage): Database for persistent data storage.
 
-<h2 align="center"> PACKAGES </h2>
+<h2 align="left"> PACKAGES </h2>
 
-<h4 align="center"> The project is organized into the following packages: </h4>
+<h4 align="left"> The project is organized into the following packages: </h4>
 
 - api (server)
 - cor (core logic dependency to api)
@@ -51,7 +51,7 @@ The project is divided into several key components:
 - app (client)
 - doc (project documentation)
 
-<h2 align="center"> TECHNOLOGIES </h2>
+<h2 align="left"> TECHNOLOGIES </h2>
 
 - HTML / CSS / JS
 - Node
@@ -61,7 +61,7 @@ The project is divided into several key components:
 - Mongo
 - Data Model
 
-<h2 align="center"> DATA MODEL </h2>
+<h2 align="left"> DATA MODEL </h2>
 
 - id (string): Unique identifier for the user.
 - email (string): User's email address.
@@ -71,7 +71,7 @@ The project is divided into several key components:
 - favs ([Post.id]): List of IDs of posts marked as favorites.
 - following ([User.id]): List of IDs of followed users.
 
-<h2 align="center"> EVENTS </h2>
+<h2 align="left"> EVENTS </h2>
 
 - id (string): Unique identifier for the event.
 - author (User.id): ID of the user who created the event.
