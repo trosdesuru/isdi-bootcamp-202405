@@ -11,14 +11,18 @@ export default {
       colors: {
         background_grey: '#262626',
         background_light_grey: '#343434',
-        light_grey: '#5B5B5B',
-        laranja: '#D15933',
-        grey: '#343434',
-        dark_white: '#D0D0D0',
-        ore: '#EBC351',
-        grass: '#5EB53F',
-        sea: '#4285F4',
         title: '#4A4A4A',
+        dark_white: '#D0D0D0',
+        grey: '#343434',
+        light_grey: '#5B5B5B',
+        sea: '#4285F4',
+        grass: '#5EB53F',
+        ore: '#EBC351',
+        laranja: '#D15933',
+        shadowColor: '#D15933',
+      },
+      boxShadow: {
+        'custom': '0 4px 30px rgba(211, 89, 51, 0.5)'
       },
       fontFamily: {
         moderustic: ['Moderustic', ...defaultTheme.fontFamily.sans],

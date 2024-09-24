@@ -8,7 +8,10 @@ import Button from '../library/Button'
 import Container from '../library/Container'
 import formatDate from '../../util/formatDate.js'
 
-export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
+export default function CreateEvent({
+    onEventCreated,
+    onCancelCreateEvent
+}) {
     const [formattedDate, setformattedDate] = useState('')
     console.debug('CreateEvent -> call')
 
@@ -47,14 +50,14 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
         const eventCaptionInput = form['event-caption-input']
         const eventDateInput = form['event-date-input']
         const eventLocationInput = form['event-location-input']
+        const eventTimeInput = form['event-time-input']
 
         const eventTitle = eventTitleInput.value
         const eventImage = eventImageInput.value
         const eventCaption = eventCaptionInput.value
         const eventDate = new Date(eventDateInput.value)
         const eventLocation = eventLocationInput.value
-
-        console.log('eventLocation', eventLocation)
+        const eventTime = eventTimeInput.value
 
         try {
             const location = {
@@ -62,7 +65,7 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
                 type: 'Point'
             }
 
-            logic.createEvent(eventTitle, eventImage, eventCaption, location, eventDate)
+            logic.createEvent(eventTitle, eventImage, eventCaption, eventDate, location, eventTime)
                 .then(() => onEventCreated())
                 .catch(error => {
                     console.error(error)

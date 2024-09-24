@@ -84,8 +84,10 @@ export default function Header({ onEventCreated, onLogout }) {
     const handleSwitchTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
     return (
-        <header className="flex items-center p-4
-        shadow-md w-full
+        <header className="
+        flex items-center p-3
+        shadow-custom w-full
+        fixed top-0 left-0 z-10
         bg-white 
         dark:bg-background_grey">
 
@@ -115,7 +117,7 @@ export default function Header({ onEventCreated, onLogout }) {
 
                 <input
                     type="text"
-                    placeholder="Search Events near you..."
+                    placeholder="Search events ..."
                     value={searchQuery}
                     onChange={handleSearchChange}
                     className="w-full pl-10 pr-20 py-2
@@ -134,8 +136,7 @@ export default function Header({ onEventCreated, onLogout }) {
             </form>
 
             {menuVisible && (
-                <Container
-                    ref={menuRef}
+                <Container ref={menuRef}
                     className="flex flex-col absolute  rounded-lg 
                     shadow-lg
                     space-y-2 z-50 
@@ -143,8 +144,8 @@ export default function Header({ onEventCreated, onLogout }) {
                     bg-white 
                     border-gray-300 
                     dark:bg-background_grey border 
-                    dark:border-light_grey"
-                >
+                    dark:border-light_grey">
+
                     <Button
                         className="flex flex-row gap-4 
                         text-grey 

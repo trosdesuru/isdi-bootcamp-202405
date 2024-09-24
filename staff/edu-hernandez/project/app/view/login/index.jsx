@@ -1,5 +1,5 @@
+import React, { useState } from 'react' // Importar useState
 import logic from '../../logic'
-
 import Heading from '../library/Heading'
 import Paragraph from '../library/Paragraph'
 import Form from '../library/Form'
@@ -8,9 +8,7 @@ import Input from '../library/Input'
 import Container from '../library/Container'
 import Link from '../library/Link'
 import Button from '../library/Button'
-
 import useContext from '../context'
-
 import { errors } from 'com'
 
 const { NotFoundError, CredentialsError } = errors
@@ -20,18 +18,13 @@ export default function Login({ onLogin, onRegisterClick }) {
 
     const { alert } = useContext()
 
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+
     const handleLoginSubmit = event => {
         console.debug('Login -> handleLoginSubmit')
 
         event.preventDefault()
-
-        const form = event.target
-
-        const usernameInput = form['username-input']
-        const passwordInput = form['password-input']
-
-        const username = usernameInput.value
-        const password = passwordInput.value
 
         try {
             logic.loginUser(username, password)
@@ -61,27 +54,29 @@ export default function Login({ onLogin, onRegisterClick }) {
         onRegisterClick()
     }
 
+    const isButtonDisabled = !username || !password
+
     return (
-        <main className="flex flex-col items-center justify-start mt-12 h-vh p-4 font-poppins text-lg text-title bg-white dark:bg-inherit">
+        <main className="flex flex-col 
+        items-center justify-start 
+        mt-12 h-vh p-4 font-poppins text-lg 
+        text-title 
+        bg-white 
+        dark:bg-inherit">
 
             <div className="flex flex-col items-start w-full max-w-md gap-6">
 
                 <div className="flex flex-row items-baseline gap-2">
-                    <Heading
-                        level={2}
-                        className="text-xl dark:text-dark_white">
+                    <Heading level={2} className="text-xl dark:text-dark_white">
                         Welcome back to
                     </Heading>
-                    <Heading
-                        level={1}
-                        className="text-4xl font-bevan font-bold text-cities ml-2">
+                    <Heading level={1} className="text-4xl font-bevan font-bold text-cities ml-2">
                         cities
                     </Heading>
                 </div>
 
                 <div className="flex flex-col justify-start gap-2">
-                    <Paragraph
-                        className="text-4xl dark:text-dark_white font-medium mb-10">
+                    <Paragraph className="text-4xl dark:text-dark_white font-medium mb-10">
                         Sign in
                     </Paragraph>
                 </div>
@@ -94,15 +89,9 @@ export default function Login({ onLogin, onRegisterClick }) {
                     Sign in with Google
                 </button>
 
-                <Form
-                    onSubmit={handleLoginSubmit}
-                    className="flex flex-col gap-4 w-full">
-
-                    <Container
-                        className="flex-col items-start w-full">
-                        <Label
-                            htmlFor="username-input"
-                            className="text-md dark:text-dark_white">
+                <Form onSubmit={handleLoginSubmit} className="flex flex-col gap-4 w-full">
+                    <Container className="flex-col items-start w-full">
+                        <Label htmlFor="username-input" className="text-md dark:text-dark_white">
                             Enter your username or email address
                         </Label>
                         <Input
@@ -111,34 +100,46 @@ export default function Login({ onLogin, onRegisterClick }) {
                             name="username"
                             placeholder="Username or email address"
                             className="border rounded-lg p-2 w-full text-md font-light text-light_grey"
+                            value={username}
+                            onChange={event => setUsername(event.target.value)}
                         />
                     </Container>
 
                     <Container className="flex-col items-start w-full">
-                        <Label htmlFor="password-input" className="dark:text-dark_white">Enter your password</Label>
+
+                        <Label htmlFor="password-input" className="dark:text-dark_white">
+                            Enter your password
+                        </Label>
+
                         <Input
                             type="password"
                             id="password-input"
                             name="password"
                             placeholder="Password"
                             className="border rounded-lg p-2 w-full text-md font-light text-light_grey"
+                            value={password}
+                            onChange={event => setPassword(event.target.value)}
                         />
                     </Container>
 
-                    <Link
-                        className="font-light text-sea self-start text-sm mb-10">
+                    <Link className="font-light text-sea self-start text-sm mb-10">
                         Forgot Password?
                     </Link>
 
                     <Button
                         type="submit"
-                        className="bg-sea text-white w-full py-2 rounded-lg shadow-md ">
+                        className={`w-full py-2 rounded-lg shadow-md \
+                            ${isButtonDisabled ?
+                                'bg-dark_white cursor-not-allowed text-light_grey'
+                                :
+                                'bg-sea text-white'}`}
+                        disabled={isButtonDisabled}>
                         Sign in
                     </Button>
+
                 </Form>
 
-                <p
-                    className="text-[13px] text-light_grey dark:text-dark_white">
+                <p className="text-[13px] text-light_grey dark:text-dark_white">
                     No Account?{' '}
                     <Link
                         onClick={handleRegisterClick}

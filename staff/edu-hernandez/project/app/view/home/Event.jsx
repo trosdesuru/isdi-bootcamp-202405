@@ -17,7 +17,14 @@ import Confirm from '../common/Confirm'
 
 import Avatar from './Avatar'
 
-export default function Event({ event, onEventDeleted, onEventEdited, onEventFavToggled, onEventLikeToggled, onUserFollowToggled }) {
+export default function Event({
+    event,
+    onEventDeleted,
+    onEventEdited,
+    onEventFavToggled,
+    onEventGoingToggled,
+    onUserFollowToggled
+}) {
     console.debug('Event -> call')
 
     const [editEventVisible, setEditEventVisible] = useState(false)
@@ -86,12 +93,12 @@ export default function Event({ event, onEventDeleted, onEventEdited, onEventFav
         }
     }
 
-    const handleLikeEventClick = () => {
-        console.debug('Event -> handleLikeEventClick')
+    const handleGoingEventClick = () => {
+        console.debug('Event -> handleGoingEventClick')
 
         try {
-            logic.toggleLikeEvent(event.id)
-                .then(() => onEventLikeToggled())
+            logic.toggleGoingEvent(event.id)
+                .then(() => onEventGoingToggled())
                 .catch(error => {
                     console.error(error)
 
@@ -143,7 +150,7 @@ export default function Event({ event, onEventDeleted, onEventEdited, onEventFav
     return (
         <article className="shadow-[1px_lightgray] bg-[DimGray] dark:bg-dimgray">
             <Container className="items-center">
-                <Avatar url={'../../public/avatar/'} />
+                <Avatar url={'/avatar/'} />
 
                 <Heading level="1" className="dark:text-white">{event.author.username}</Heading>
 
@@ -157,7 +164,7 @@ export default function Event({ event, onEventDeleted, onEventEdited, onEventFav
             <Paragraph className="dark:text-white">{event.caption}</Paragraph>
 
             <Container>
-                <Button onClick={handleLikeEventClick}>{(event.going ? 'going' : 'not going')}</Button>
+                <Button onClick={handleGoingEventClick}>{(event.going ? 'going' : 'not going')}</Button>
                 <Button onClick={handleFavEventClick}>{event.fav ? 'fav' : 'include fav'}</Button>
 
                 {event.author.id === logic.getUserId() && (

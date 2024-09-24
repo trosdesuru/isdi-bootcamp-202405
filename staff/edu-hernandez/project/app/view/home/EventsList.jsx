@@ -27,8 +27,8 @@ export default function EventsList() {
         loadEvents()
     }
 
-    const handleEventLikeToggled = () => {
-        console.debug('EventsList -> handleEventLikeToggled')
+    const handleEventGoingToggled = () => {
+        console.debug('EventsList -> handleEventGoingToggled')
 
         loadEvents()
     }
@@ -68,7 +68,7 @@ export default function EventsList() {
                 event={event}
                 onEventDeleted={handleEventDeleted}
                 onEventEdited={handleEventEdited}
-                onEventLikeToggled={handleEventLikeToggled}
+                onEventGoingToggled={handleEventGoingToggled}
                 onEventFavToggled={handleEventFavToggled}
                 onUserFollowToggled={handleUserFollowToggled}
             />)}

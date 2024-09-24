@@ -127,7 +127,14 @@ export default function Home({ onLogout }) {
             onLogout={onLogout}
         />
 
-        <main className="flex flex-col items-center gap-4 pt-4 mb-4 min-h-wscreen overflow-y-auto bg-white dark:bg-background_grey">
+        <main className="
+        flex flex-col 
+        items-center 
+        gap-4 pt-4 mt-16
+        min-h-wscreen overflow-y-auto 
+        bg-white 
+        dark:bg-background_grey">
+
             {loading ? (
                 <>
                     <SkeletonLoader />
