@@ -76,7 +76,13 @@ export default function CreateEvent({
             }
 
             logic.createEvent(eventTitle, eventImage, eventCaption, eventDate, location, eventTime)
-                .then(() => onEventCreated())
+                .then(() => {
+                    if (typeof onEventcreated === 'function') {
+                        onEventCreated()
+                    } else {
+                        console.warn('onEventcreated is not a function')
+                    }
+                })
                 .catch(error => {
                     console.error(error)
 

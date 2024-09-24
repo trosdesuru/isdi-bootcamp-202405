@@ -1,4 +1,4 @@
-import React, { useState } from 'react' // Importar useState
+import React, { useState, useEffect } from 'react'
 import logic from '../../logic'
 import Heading from '../library/Heading'
 import Paragraph from '../library/Paragraph'
@@ -20,6 +20,11 @@ export default function Login({ onLogin, onRegisterClick }) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+
+    useEffect(() => {
+        setUsername('')
+        setPassword('')
+    }, [])
 
     const handleLoginSubmit = event => {
         console.debug('Login -> handleLoginSubmit')
@@ -59,7 +64,7 @@ export default function Login({ onLogin, onRegisterClick }) {
     return (
         <main className="flex flex-col 
         items-center justify-start 
-        mt-12 h-vh p-4 font-poppins text-lg 
+        mt-2 h-vh p-4 font-poppins text-lg 
         text-title 
         bg-white 
         dark:bg-inherit">
@@ -81,7 +86,13 @@ export default function Login({ onLogin, onRegisterClick }) {
                     </Paragraph>
                 </div>
 
-                <button className="flex items-center gap-2 bg-blue-50 font-light text-sea px-5 py-2 rounded-lg">
+                <button className="flex items-center gap-2 
+                py-1 pr-4
+                rounded-lg
+                font-light
+                text-[14px]
+                bg-blue-50
+                text-sea">
                     <img
                         src="/logo/logoGoogle.png"
                         alt="Google Icon"

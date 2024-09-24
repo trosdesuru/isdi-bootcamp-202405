@@ -135,28 +135,22 @@ export default function Home({ onLogout }) {
         bg-white 
         dark:bg-background_grey">
 
-            {loading ? (
-                <>
-                    <SkeletonLoader />
-                </>
-            ) : (
-                <>
-                    <Carousel items={carouselItems} />
+            {loading ? (<> <SkeletonLoader /> </>) : (<> <Carousel items={carouselItems} />
 
-                    <Routes>
-                        <Route path="/" element={<EventsList refreshStamp={refreshStamp} />} />
-                        <Route path="users/events" element={<UserEventsList />} />
-                        <Route path="/favs" element={<FavsEventsList />} />
-                        <Route path="/hello/:to" element={<Hello />} />
-                        <Route path="/search" element={<ResultsEventsList />} />
-                        {/* <Route path="/map" element={<MapView />} /> */}
-                    </Routes>
+                <Routes>
+                    <Route path="/" element={<EventsList refreshStamp={refreshStamp} />} />
+                    <Route path="users/events" element={<UserEventsList />} />
+                    <Route path="/favs" element={<FavsEventsList />} />
+                    <Route path="/hello/:to" element={<Hello />} />
+                    <Route path="/search" element={<ResultsEventsList />} />
+                    {/* <Route path="/map" element={<MapView />} /> */}
+                </Routes>
 
-                    <RecommendedEventsList recommendedEvents={recommendedEvents} />
-                    <PopularEventsList popularEvents={popularEvents} />
-                    <BannerEvent event={bannerEvent} />
-                    <RandomEventsList events={randomEvents} />
-                </>
+                <RecommendedEventsList recommendedEvents={recommendedEvents} />
+                <PopularEventsList popularEvents={popularEvents} />
+                <BannerEvent event={bannerEvent} />
+                <RandomEventsList events={randomEvents} />
+            </>
             )}
         </main>
 

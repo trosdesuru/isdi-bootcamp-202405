@@ -147,53 +147,111 @@ export default function Event({
         }
     }
 
-    return (
-        <article className="
-        shadow-[1px_lightgray]
-        dark:bg-dimgray">
-            <Container className="items-center">
-                <Avatar url={'./avatar/avatarIcon.png'} />
+    return <article className="flex flex-col lg:flex-row gap-4 p-4 w-full h-auto bg-white dark:bg-background_grey rounded-lg shadow-custom">
+        {/* Contenedor del Autor */}
+        <Container className="flex flex-col items-center lg:w-1/4 bg-light_grey dark:bg-background_light_grey p-4 rounded-lg">
+            <Avatar url={'./avatar/avatarIcon.png'} className="w-24 h-24 rounded-full shadow-lg" />
+            <Heading level="1" className="mt-4 text-title dark:text-dark_white font-bevan text-2xl">
+                Hola {event.author.username}
+            </Heading>
+            <Button
+                onClick={handleFollowUserClick}
+                className={`mt-4 w-full text-white bg-sea py-2 px-4 rounded-md hover:bg-opacity-90 transition-all ${event.author.following ? 'bg-grass' : 'bg-laranja'
+                    }`}
+            >
+                {event.author.following ? 'Unfollow' : 'Follow'}
+            </Button>
+        </Container>
 
-                <Heading level="1" className="dark:text-white">Hola {event.author.username}</Heading>
+        {/* Contenedor del Evento */}
+        <div className="flex flex-col lg:w-3/4 gap-4">
+            <Heading level="2" className="text-title dark:text-dark_white font-montserrat text-3xl">
+                {event.title}
+            </Heading>
 
-                <Button onClick={handleFollowUserClick}>{event.author.following ? 'follow' : 'unfollow'}</Button>
-            </Container>
+            <Image src={event.image} title={event.title} alt={event.caption} className="w-full rounded-lg shadow-lg object-cover" />
 
-            <Heading level='2' className="dark:title-white">{event.title}</Heading>
+            <Paragraph className="text-title dark:text-dark_white font-poppins text-lg mt-2">
+                {event.caption}
+            </Paragraph>
 
-            <Image src={event.image} title={event.title} alt={event.caption} caption={event.caption} className="w-full" />
+            <div className="flex gap-4 mt-4">
+                <Button
+                    onClick={handleGoingEventClick}
+                    className={`py-2 px-4 rounded-md text-white ${event.going ? 'bg-grass' : 'bg-laranja'} hover:bg-opacity-90 transition-all`}
+                >
+                    {event.going ? 'Going' : 'Not Going'}
+                </Button>
 
-            <Paragraph className="dark:text-white">{event.caption}</Paragraph>
-
-            <Container>
-                <Button onClick={handleGoingEventClick}>{(event.going ? 'going' : 'not going')}</Button>
-                <Button onClick={handleFavEventClick}>{event.fav ? 'fav' : 'include fav'}</Button>
+                <Button
+                    onClick={handleFavEventClick}
+                    className={`py-2 px-4 rounded-md text-white ${event.fav ? 'bg-sea' : 'bg-light_grey'} hover:bg-opacity-90 transition-all`}
+                >
+                    {event.fav ? 'Fav' : 'Add to Favs'}
+                </Button>
 
                 {event.author.id === logic.getUserId() && (
                     <>
-                        <Button onClick={handleDeleteEventClick}>delete</Button>
-                        <Button onClick={handleEditEventClick}>edit comment</Button>
+                        <Button onClick={handleDeleteEventClick} className="py-2 px-4 rounded-md bg-laranja text-white hover:bg-opacity-90">
+                            Delete
+                        </Button>
+                        <Button onClick={handleEditEventClick} className="py-2 px-4 rounded-md bg-ore text-white hover:bg-opacity-90">
+                            Edit
+                        </Button>
                     </>
                 )}
-            </Container>
+            </div>
 
-            <Time>{formatTime(new Date(event.date))}</Time>
+            {/* Fecha del evento */}
+            <Time className="text-light_grey dark:text-dark_white mt-2">
+                {formatTime(new Date(event.date))}
+            </Time>
+        </div>
 
-            {editEventVisible && (
-                <Form onSubmit={handleEditEventSubmit} className="flex-col">
-                    <Container className="flex-col">
-                        <Label htmlFor="edit-caption-input">Caption</Label>
-                        <Input id="edit-caption-input" defaultValue={event.caption} />
-                    </Container>
+        {editEventVisible && (
+            <Form
+                onSubmit={handleEditEventSubmit}
+                className="flex-col mt-4 
+                p-4 rounded-lg shadow-lg
+                bg-light_grey 
+                dark:bg-background_light_grey">
 
-                    <Container className="justify-center">
-                        <Button type="submit">Save</Button>
-                        <Button type="button" onClick={handleCancelEditEventClick}>Cancel</Button>
-                    </Container>
-                </Form>
-            )}
+                <Container className="flex-col gap-4">
 
-            {confirmMessage && <Confirm message={confirmMessage} onAccept={handleDeleteEventAccept} onCancel={handleDeleteEventCancel} />}
-        </article>
-    )
+                    <Label
+                        htmlFor="edit-caption-input"
+                        className="text-title 
+                        dark:text-dark_white">
+                        Edit Caption
+                    </Label>
+
+                    <Input
+                        id="edit-caption-input"
+                        defaultValue={event.caption}
+                        className="w-full p-2 rounded-md border border-light_grey dark:border-dark_white"
+                    />
+                </Container>
+
+                <Container className="flex justify-between mt-4">
+                    <Button
+                        type="submit"
+                        className="bg-grass text-white py-2 px-4 rounded-md hover:bg-opacity-90">
+                        Save
+                    </Button>
+
+                    <Button type="button" onClick={handleCancelEditEventClick} className="bg-laranja text-white py-2 px-4 rounded-md hover:bg-opacity-90">
+                        Cancel
+                    </Button>
+                </Container>
+
+            </Form>
+        )}
+
+        {confirmMessage && (
+            <Confirm
+                message={confirmMessage}
+                onAccept={handleDeleteEventAccept}
+                onCancel={handleDeleteEventCancel} />
+        )}
+    </article>
 }
