@@ -86,9 +86,9 @@ export default function Header({ onEventCreated, onLogout }) {
     return (
         <header className="
         flex items-center p-3
-        shadow-custom w-full
         fixed top-0 left-0 z-10
-        bg-white 
+        bg-white
+        dark:shadow-custom w-full
         dark:bg-background_grey">
 
             <Link
@@ -145,6 +145,13 @@ export default function Header({ onEventCreated, onLogout }) {
                     border-gray-300 
                     dark:bg-background_grey border 
                     dark:border-light_grey">
+
+                    <Paragraph className="
+                    font-bevan
+                    font-regular
+                    text-lg
+                    text-grey
+                    dark:text-dark_white">{name}</Paragraph>
 
                     <Button
                         className="flex flex-row gap-4 

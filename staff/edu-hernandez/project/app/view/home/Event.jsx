@@ -148,11 +148,13 @@ export default function Event({
     }
 
     return (
-        <article className="shadow-[1px_lightgray] bg-[DimGray] dark:bg-dimgray">
+        <article className="
+        shadow-[1px_lightgray]
+        dark:bg-dimgray">
             <Container className="items-center">
-                <Avatar url={'/avatar/'} />
+                <Avatar url={'./avatar/avatarIcon.png'} />
 
-                <Heading level="1" className="dark:text-white">{event.author.username}</Heading>
+                <Heading level="1" className="dark:text-white">Hola {event.author.username}</Heading>
 
                 <Button onClick={handleFollowUserClick}>{event.author.following ? 'follow' : 'unfollow'}</Button>
             </Container>

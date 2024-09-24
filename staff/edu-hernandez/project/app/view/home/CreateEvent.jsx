@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+
 import logic from '../../logic'
 import Heading from '../library/Heading'
 import Form from '../library/Form'
@@ -13,11 +14,20 @@ export default function CreateEvent({
     onCancelCreateEvent
 }) {
     const [formattedDate, setformattedDate] = useState('')
+    const [currentTime, setCurrentTime] = useState('')
+    const [eventTime, setEventTime] = useState('')
+
     console.debug('CreateEvent -> call')
 
     useEffect(() => {
         const currentDate = formatDate()
         setformattedDate(currentDate)
+
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0')
+        const minutes = String(now.getMinutes()).padStart(2, '0')
+        setCurrentTime(`${hours}:${minutes}`)
+        setEventTime(`${hours}:${minutes}`)
     }, [])
 
     const parseCoordinates = (coordinatesString) => {
@@ -126,6 +136,15 @@ export default function CreateEvent({
                         id="event-location-input"
                         placeholder="Enter coordinates (lat, long)"
                         defaultValue="41.38879, 2.15899"
+                    />
+                </Container>
+
+                <Container className="flex-col items-start text-light_grey">
+                    <Label htmlFor="event-time-input">Time</Label>
+                    <Input
+                        className="text-light_grey"
+                        id="event-time-input"
+                        value={currentTime}
                     />
                 </Container>
 
