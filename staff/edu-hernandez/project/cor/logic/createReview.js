@@ -4,10 +4,10 @@ import { validate, errors } from 'com'
 const { NotFoundError, SystemError, ValidationError } = errors
 
 export default (userId, eventId, rating, comment) => {
-    validate.string(userId)
-    validate.string(eventId)
-    validate.rating(rating)
-    validate.string(comment)
+    validate.string(userId, 'user')
+    validate.string(eventId, 'user')
+    validate.rating(rating, 'user')
+    validate.string(comment, 'user')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })

@@ -35,6 +35,9 @@ describe('registerUser', () => {
                 return bcrypt.compare('123123123', user.password)
             })
             .then(match => expect(match).to.be.true)
+            .catch(error => {
+                throw new Error(`Test failed with error: ${error.message}`)
+            })
     )
 
     it('fails on existing user with same email', () => {
@@ -91,6 +94,60 @@ describe('registerUser', () => {
             })
     })
 
+    it('fails on existing organizer with same email', () => {
+        let _error
+
+        return User.create({
+            name: 'Lucy',
+            surname: 'Van Pelt',
+            role: 'organizer',
+            email: 'lucy@vanpelt.com',
+            username: 'lucyvp',
+            password: '123123123'
+        })
+            .then(() => registerUser(
+                'Lucy',
+                'Van Pelt',
+                'organizer',
+                'lucy@vanpelt.com',
+                'lucyvp2',
+                '123123123',
+                '123123123'
+            ))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(DuplicityError)
+                expect(_error.message).to.equal('user already exists')
+            })
+    })
+
+    it('fails on existing organizer with same username', () => {
+        let _error
+    
+        return User.create({
+            name: 'Snoopy',
+            surname: 'Dog',
+            role: 'organizer',
+            email: 'snoopy@peanuts.com',
+            username: 'snoopydog',
+            password: '123123123'
+        })
+            .then(() => registerUser(
+                'Snoopy',
+                'Dog',
+                'organizer',
+                'snoopy@otheremail.com',
+                'snoopydog',
+                '123123123',
+                '123123123'
+            ))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(DuplicityError)
+                expect(_error.message).to.equal('user already exists')
+            })
+    })
+    
     it('fails on non-string name', () => {
         let error
 
@@ -364,7 +421,7 @@ describe('registerUser', () => {
         }
     })
 
-    it('fails on non-matching passwords', () => {
+    it('fails on non-string passwordRepeat', () => {
         let error
 
         try {
@@ -375,17 +432,57 @@ describe('registerUser', () => {
                 'charlie@brown.com',
                 'charliebrown',
                 '123123123',
-                '_123123123'
+                123123123
             )
         } catch (_error) {
             error = _error
         } finally {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('passwords do not match')
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('password is not a string')
         }
     })
 
-    // afterEach(() => User.deleteMany())
+    it('fails on confirmation password with spaces', () => {
+        let error
+
+        try {
+            registerUser(
+                'Charlie',
+                'Brown',
+                'user',
+                'charlie@brown.com',
+                'charliebrown',
+                '123123123',
+                '123123 123'
+            )
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('password has empty spaces')
+        }
+    })
+
+    it('fails on password and confirmation password do not match', () => {
+        let error
+
+        try {
+            registerUser(
+                'Charlie',
+                'Brown',
+                'user',
+                'charlie@brown.com',
+                'charliebrown',
+                '123123123',
+                '123123123123'
+            )
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('passwords do not match')
+        }
+    })
 
     after(() => mongoose.disconnect())
 })

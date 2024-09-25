@@ -1,14 +1,12 @@
 import 'dotenv/config'
-import toggleGoingEvent from './toggleGoingEvent.js'
-import mongoose, { Types } from 'mongoose'
-
-const { ObjectId } = Types
-
-import { expect } from 'chai'
 import { User, Event } from '../data/models.js'
-
+import mongoose, { Types } from 'mongoose'
+import { expect } from 'chai'
 import { errors } from 'com'
 
+import toggleGoingEvent from './toggleGoingEvent.js'
+
+const { ObjectId } = Types
 const { NotFoundError } = errors
 
 describe('toggleGoingEvent', () => {
@@ -20,7 +18,7 @@ describe('toggleGoingEvent', () => {
         Promise.all([User.deleteMany(), Event.deleteMany()])
     )
 
-    it('succeeds on existing user and event has no likes', () =>
+    it('succeeds on existing user and event has no going events', () =>
         User.create({
             name: 'Charlie',
             surname: 'Brown',
@@ -32,10 +30,9 @@ describe('toggleGoingEvent', () => {
             .then(user =>
                 Event.create({
                     author: user.id,
-                    title: 'test from cor',
+                    title: 'test event',
                     image: 'https://randomImage.png',
-                    caption: 'test from cor',
-                    date: new Date(),
+                    caption: 'test caption',
                     location: {
                         type: 'Point',
                         coordinates: [41.38879, 2.15899]
@@ -45,13 +42,21 @@ describe('toggleGoingEvent', () => {
                 })
                     .then(event =>
                         toggleGoingEvent(user.id, event.id)
-                            .then(() => Event.findById(event.id).lean())
-                            .then(event => expect(event.going.map(userObjectId => userObjectId.toString())).to.include(user.id))
+                            .then(() => Promise.all([
+                                User.findById(user.id).lean(),
+                                Event.findById(event.id).lean()
+                            ]))
+                            .then(([updatedUser, updatedEvent]) => {
+                                expect(updatedUser.going.map(eventObjectId =>
+                                    eventObjectId.toString())).to.include(event.id)
+                                expect(updatedEvent.going.map(userObjectId =>
+                                    userObjectId.toString())).to.include(user.id)
+                            })
                     )
             )
     )
 
-    it('succeeds on existing user and event has likes', () =>
+    it('succeeds on existing user and event has going events', () =>
         User.create({
             name: 'Charlie',
             surname: 'Brown',
@@ -63,20 +68,29 @@ describe('toggleGoingEvent', () => {
             .then(user =>
                 Event.create({
                     author: user.id,
-                    title: 'test from cor',
+                    title: 'test event',
                     image: 'https://randomImage.png',
-                    caption: 'test from cor',
+                    caption: 'test caption',
                     location: {
                         type: 'Point',
                         coordinates: [41.38879, 2.15899]
                     },
                     time: '08:00',
-                    likes: [user.id]
+                    likes: [],
+                    going: [user.id]
                 })
                     .then(event =>
                         toggleGoingEvent(user.id, event.id)
-                            .then(() => Event.findById(event.id).lean())
-                            .then(event => expect(event.likes).to.not.include(user.username))
+                            .then(() => Promise.all([
+                                User.findById(user.id).lean(),
+                                Event.findById(event.id).lean()
+                            ]))
+                            .then(([updatedUser, updatedEvent]) => {
+                                expect(updatedUser.going.map(eventObjectId =>
+                                    eventObjectId.toString())).to.not.include(event.id)
+                                expect(updatedEvent.going.map(userObjectId =>
+                                    userObjectId.toString())).to.not.include(user.id)
+                            })
                     )
             )
     )

@@ -1,5 +1,4 @@
 import { User, Event } from '../data/models.js'
-
 import { validate, errors } from 'com'
 
 const { NotFoundError, SystemError } = errors
@@ -18,18 +17,26 @@ export default (userId, eventId) => {
                 .then(event => {
                     if (!event) throw new NotFoundError('event not found')
 
-                    const { going } = user
+                    const userGoingIndex = user.going.findIndex(eventObjectId =>
+                        eventObjectId.toString() === eventId)
+                    const eventGoingIndex = event.going.findIndex(userObjectId =>
+                        userObjectId.toString() === userId)
 
-                    const index = going.findIndex(userObjectId => userObjectId.toString() === eventId)
+                    if (userGoingIndex < 0 && eventGoingIndex < 0) {
+                        user.going.push(eventId)
+                        event.going.push(userId)
 
-                    if (index < 0)
-                        going.push(eventId)
-                    else
-                        going.splice(index, 1)
+                    } else {
+                        user.going.splice(userGoingIndex, 1)
+                        event.going.splice(eventGoingIndex, 1)
+                    }
 
-                    return User.updateOne({ _id: userId }, { $set: { going } })
+                    return Promise.all([
+                        User.updateOne({ _id: userId }, { $set: { going: user.going } }),
+                        Event.updateOne({ _id: eventId }, { $set: { going: event.going } })
+                    ])
                         .catch(error => { throw new SystemError(error.message) })
                 })
-            })
-            .then(() => { })
+        })
+        .then(() => { })
 }

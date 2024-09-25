@@ -81,11 +81,38 @@ describe('createReview', () => {
             })
     })
 
+    it('fails on non-string user', () => {
+        debugger
+        return createReview(123, event._id.toString(), 1, 'test review')
+            .catch(error => {
+                expect(error).to.be.instanceOf(ValidationError)
+                expect(error.message).to.equal(`${explain} is not a string`)
+            })
+    })
+
+    it('fails on non-string event', () => {
+        debugger
+        return createReview(user._id.toString(), 123, 1, 'test review')
+            .catch(error => {
+                expect(error).to.be.instanceOf(ValidationError)
+                expect(error.message).to.equal('event is not a string')
+            })
+    })
+
     it('fails on invalid rating', () => {
         return createReview(user._id.toString(), event._id.toString(), '1', 'test review')
             .catch(error => {
                 expect(error).to.be.instanceOf(ValidationError)
                 expect(error.message).to.equal('rating is not a number')
+            })
+    })
+
+    it('fails on non-string comment', () => {
+        debugger
+        return createReview(123, event._id.toString(), 1, 123)
+            .catch(error => {
+                expect(error).to.be.instanceOf(ValidationError)
+                expect(error.message).to.equal('comment is not a string')
             })
     })
 
