@@ -6,7 +6,7 @@ import { expect } from 'chai'
 import createReview from './createReview.js'
 
 const { ObjectId } = Types
-const { NotFoundError, SystemError, TypeError, ValidationError } = errors
+const { NotFoundError, ValidationError } = errors
 
 describe('createReview', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
@@ -109,7 +109,7 @@ describe('createReview', () => {
 
     it('fails on non-string comment', () => {
         debugger
-        return createReview(123, event._id.toString(), 1, 123)
+        return createReview(user._id.toString(), event._id.toString(), 1, 123)
             .catch(error => {
                 expect(error).to.be.instanceOf(ValidationError)
                 expect(error.message).to.equal('comment is not a string')
@@ -137,7 +137,7 @@ describe('createReview', () => {
     it('fails on empty comment', () => {
         return createReview(user._id.toString(), event._id.toString(), 5, '')
             .catch(error => {
-                expect(error).to.be.instanceOf(TypeError)
+                expect(error).to.be.instanceOf(ValidationError)
                 expect(error.message).to.equal('comment is empty')
             })
     })
