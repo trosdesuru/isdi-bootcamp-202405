@@ -148,7 +148,7 @@ export default function Event({
     }
 
     return <article className="flex flex-col lg:flex-row gap-4 p-4 w-full h-auto bg-white dark:bg-background_grey rounded-lg shadow-custom">
-        {/* Contenedor del Autor */}
+
         <Container className="flex flex-col items-center lg:w-1/4 bg-light_grey dark:bg-background_light_grey p-4 rounded-lg">
             <Avatar url={'./avatar/avatarIcon.png'} className="w-24 h-24 rounded-full shadow-lg" />
             <Heading level="1" className="mt-4 text-title dark:text-dark_white font-bevan text-2xl">
@@ -163,7 +163,6 @@ export default function Event({
             </Button>
         </Container>
 
-        {/* Contenedor del Evento */}
         <div className="flex flex-col lg:w-3/4 gap-4">
             <Heading level="2" className="text-title dark:text-dark_white font-montserrat text-3xl">
                 {event.title}
@@ -178,14 +177,14 @@ export default function Event({
             <div className="flex gap-4 mt-4">
                 <Button
                     onClick={handleGoingEventClick}
-                    className={`py-2 px-4 rounded-md text-white ${event.going ? 'bg-grass' : 'bg-laranja'} hover:bg-opacity-90 transition-all`}
+                    className={`py-2 px-4 rounded-md text-black ${event.going ? 'bg-red-100' : 'bg-green-100'}`}
                 >
                     {event.going ? 'Going' : 'Not Going'}
                 </Button>
 
                 <Button
                     onClick={handleFavEventClick}
-                    className={`py-2 px-4 rounded-md text-white ${event.fav ? 'bg-sea' : 'bg-light_grey'} hover:bg-opacity-90 transition-all`}
+                    className={`py-2 px-4 rounded-md text-white ${event.fav ? 'bg-sea' : 'bg-light_grey'}`}
                 >
                     {event.fav ? 'Fav' : 'Add to Favs'}
                 </Button>
@@ -202,7 +201,7 @@ export default function Event({
                 )}
             </div>
 
-            {/* Fecha del evento */}
+
             <Time className="text-light_grey dark:text-dark_white mt-2">
                 {formatTime(new Date(event.date))}
             </Time>
