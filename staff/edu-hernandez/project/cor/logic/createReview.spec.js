@@ -86,7 +86,7 @@ describe('createReview', () => {
         return createReview(123, event._id.toString(), 1, 'test review')
             .catch(error => {
                 expect(error).to.be.instanceOf(ValidationError)
-                expect(error.message).to.equal(`${explain} is not a string`)
+                expect(error.message).to.equal('user is not a string')
             })
     })
 

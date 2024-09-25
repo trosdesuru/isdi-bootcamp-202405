@@ -5,9 +5,11 @@ const { NotFoundError, SystemError, ValidationError } = errors
 
 export default (userId, eventId, rating, comment) => {
     validate.string(userId, 'user')
-    validate.string(eventId, 'user')
-    validate.rating(rating, 'user')
-    validate.string(comment, 'user')
+    validate.string(eventId, 'event')
+    validate.rating(rating, 'rating')
+    validate.string(comment, 'comment')
+
+    if (!comment.trim()) throw new ValidationError('comment is empty')
 
     return User.findById(userId).lean()
         .catch(error => { throw new SystemError(error.message) })
@@ -31,7 +33,9 @@ export default (userId, eventId, rating, comment) => {
                             if (error instanceof ValidationError) {
                                 throw new ValidationError(error.message)
                             }
-                            else { throw new SystemError(error.message) }
+                            else {
+                                throw new SystemError(error.message)
+                            }
                         })
                 })
         })

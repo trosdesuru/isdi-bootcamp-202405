@@ -112,9 +112,9 @@ function validateTime(time, explain = 'time') {
 }
 
 function validateRating(rating, explain = 'rating') {
-    if (validateNumber(rating, explain))
+    if (validateNumber(rating, explain)) 
         throw new ValidationError(`${explain} is not a number`)
-    if (rating < 1 || rating > 5)
+    if (rating < 1 || rating > 5) 
         throw new ValidationError(`${explain} must be between 1 and 5`)
 }
 
