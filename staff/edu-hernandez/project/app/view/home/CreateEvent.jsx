@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css'
 
 import logic from '../../logic'
 import Heading from '../library/Heading'
@@ -13,17 +15,17 @@ export default function CreateEvent({
     onEventCreated,
     onCancelCreateEvent
 }) {
-    const [formattedDate, setformattedDate] = useState('')
+    const [formattedDate, setFormattedDate] = useState(new Date())
     const [currentTime, setCurrentTime] = useState('')
+    const [CalendarOpen, setCalendarOpen] = useState(false)
     const [eventTime, setEventTime] = useState('')
 
     console.debug('CreateEvent -> call')
 
     useEffect(() => {
-        const currentDate = formatDate()
-        setformattedDate(currentDate)
+        console.debug('CreateEvent -> useEffect')
 
-        const now = new Date();
+        const now = new Date()
         const hours = String(now.getHours()).padStart(2, '0')
         const minutes = String(now.getMinutes()).padStart(2, '0')
         setCurrentTime(`${hours}:${minutes}`)
@@ -55,19 +57,11 @@ export default function CreateEvent({
 
         const form = event.target
 
-        const eventTitleInput = form['event-title-input']
-        const eventImageInput = form['event-image-input']
-        const eventCaptionInput = form['event-caption-input']
-        const eventDateInput = form['event-date-input']
-        const eventLocationInput = form['event-location-input']
-        const eventTimeInput = form['event-time-input']
-
-        const eventTitle = eventTitleInput.value
-        const eventImage = eventImageInput.value
-        const eventCaption = eventCaptionInput.value
-        const eventDate = new Date(eventDateInput.value)
-        const eventLocation = eventLocationInput.value
-        const eventTime = eventTimeInput.value
+        const eventTitle = form['event-title-input'].value
+        const eventImage = form['event-image-input'].value
+        const eventCaption = form['event-caption-input'].value
+        const eventLocation = form['event-location-input'].value
+        const eventTime = form['event-time-input'].value
 
         try {
             const location = {
@@ -75,22 +69,11 @@ export default function CreateEvent({
                 type: 'Point'
             }
 
-            logic.createEvent(eventTitle, eventImage, eventCaption, eventDate, location, eventTime)
-                .then(() => {
-                    if (typeof onEventcreated === 'function') {
-                        onEventCreated()
-                    } else {
-                        console.warn('onEventcreated is not a function')
-                    }
-                })
-                .catch(error => {
-                    console.error(error)
+            logic.createEvent(eventTitle, eventImage, eventCaption, formattedDate, location, eventTime)
+                .then(() => onEventCreated?.())
+                .catch(error => alert(error.message))
 
-                    alert(error.message)
-                })
         } catch (error) {
-            console.error(error)
-
             alert(error.message)
         }
     }
@@ -100,6 +83,25 @@ export default function CreateEvent({
 
         onCancelCreateEvent()
     }
+
+    const handleToggleCalendar = () => {
+        console.debug('CreateEvent -> handleToggleCalendar')
+
+        setCalendarOpen(!CalendarOpen)
+    }
+
+    const handleDateChange = (date) => {
+        console.debug('CreateEvent -> handleDateChange')
+
+        setFormattedDate(date)
+        setCalendarOpen(false)
+    }
+
+    const timeOptions = Array.from({ length: 24 }, (_, i) => (
+        <option key={i} value={`${String(i).padStart(2, '0')}:00`}>
+            {`${String(i).padStart(2, '0')}:00`}
+        </option>
+    ))
 
     return <section className="fixed bottom-0 left-0 w-full
     bg-white shadow-2xl rounded-xl border-t-dark_white
@@ -129,10 +131,12 @@ export default function CreateEvent({
                 <Container className="flex-col items-start text-light_grey">
                     <Label htmlFor="event-date-input">Date</Label>
                     <Input
-                        className="text-light_grey"
                         id="event-date-input"
-                        defaultValue={formattedDate}
+                        readOnly
+                        value={formattedDate.toLocaleDateString()}
+                        onClick={handleToggleCalendar}
                     />
+                    {CalendarOpen && <Calendar onChange={handleDateChange} value={formattedDate} />}
                 </Container>
 
                 <Container className="flex-col items-start text-light_grey">
@@ -147,18 +151,17 @@ export default function CreateEvent({
 
                 <Container className="flex-col items-start text-light_grey">
                     <Label htmlFor="event-time-input">Time</Label>
-                    <Input
-                        className="text-light_grey"
-                        id="event-time-input"
-                        value={currentTime}
-                    />
+                    <select id="event-time-input" value={eventTime} onChange={event => setEventTime(event.target.value)}>
+                        {timeOptions}
+                    </select>
                 </Container>
 
                 <Container className="justify-center">
                     <Button className="text-white bg-grass p-2 rounded" type="submit">Submit</Button>
                     <Button className="font-modersutic dark:text-dark_white" type="reset" onClick={handleCancelCreateEventClick}>Cancel</Button>
                 </Container>
+
             </Container>
         </Form>
-    </section>
+    </section >
 }
