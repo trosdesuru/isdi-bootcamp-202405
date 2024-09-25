@@ -82,38 +82,59 @@ describe('createReview', () => {
     })
 
     it('fails on non-string user', () => {
-        debugger
-        return createReview(123, event._id.toString(), 1, 'test review')
-            .catch(error => {
-                expect(error).to.be.instanceOf(ValidationError)
-                expect(error.message).to.equal('user is not a string')
-            })
+        let error
+
+        try {
+            createReview(123, event._id.toString(), 1, 'test review')
+
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('userId is not a string')
+        }
     })
 
     it('fails on non-string event', () => {
-        debugger
-        return createReview(user._id.toString(), 123, 1, 'test review')
-            .catch(error => {
-                expect(error).to.be.instanceOf(ValidationError)
-                expect(error.message).to.equal('event is not a string')
-            })
+        let error
+
+        try {
+            createReview(user._id.toString(), 123, 1, 'test review')
+
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('eventId is not a string')
+        }
     })
 
     it('fails on invalid rating', () => {
-        return createReview(user._id.toString(), event._id.toString(), '1', 'test review')
-            .catch(error => {
-                expect(error).to.be.instanceOf(ValidationError)
-                expect(error.message).to.equal('rating is not a number')
-            })
+        let error
+
+        try {
+            createReview(user._id.toString(), event._id.toString(), 'e', 'test review')
+
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('rating is not a number')
+        }
     })
 
     it('fails on non-string comment', () => {
-        debugger
-        return createReview(user._id.toString(), event._id.toString(), 1, 123)
-            .catch(error => {
-                expect(error).to.be.instanceOf(ValidationError)
-                expect(error.message).to.equal('comment is not a string')
-            })
+        let error
+
+        try {
+            createReview(user._id.toString(), event._id.toString(), 1, 123)
+
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('comment is not a string')
+        }
     })
 
     it('fails on system error during user retrieval', () => {
@@ -135,11 +156,17 @@ describe('createReview', () => {
     })
 
     it('fails on empty comment', () => {
-        return createReview(user._id.toString(), event._id.toString(), 5, '')
-            .catch(error => {
-                expect(error).to.be.instanceOf(ValidationError)
-                expect(error.message).to.equal('comment is empty')
-            })
+        let error
+
+        try {
+            createReview(user._id.toString(), event._id.toString(), 1, '')
+
+        } catch (_error) {
+            error = _error
+        } finally {
+            expect(error).to.be.instanceOf(ValidationError)
+            expect(error.message).to.equal('comment is empty')
+        }
     })
 
     afterEach(() => Promise.all([User.deleteMany(), Event.deleteMany()]))
