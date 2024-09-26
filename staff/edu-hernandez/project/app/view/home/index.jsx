@@ -14,46 +14,47 @@ import FavsEventsList from './FavsEventsList'
 import ResultsEventsList from './ResultsEventsList'
 import RandomEventsList from './RandomEventsList'
 import SkeletonLoader from './SkeletonLoader'
+import MapView from './MapView'
 
 export default function Home({ onLogout }) {
     console.debug('Home -> call')
 
     const navigate = useNavigate()
-
     const [refreshStamp, setRefreshStamp] = useState(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             setLoading(false)
-        }, 5000)
+        }, 3000)
 
         return () => clearTimeout(timeoutId)
     }, [])
 
     const handleEventCreated = () => {
         console.debug('Home -> handleEventCreated')
-
         setRefreshStamp(Date.now())
         navigate('/')
     }
 
     const handleUsersClick = () => {
         console.debug('Home -> handleUsersClick')
-
         navigate('/users/events')
     }
 
     const handleHomeClick = () => {
         console.debug('Home -> handleHomeClick')
-
         navigate('/')
     }
 
     const handleFavsClick = () => {
         console.debug('Home -> handleFavsClick')
-
         navigate('/favs')
+    }
+
+    const handleMapClick = () => {
+        console.debug('Home -> handleMapClick')
+        navigate('/events/map')
     }
 
     const carouselItems = [
@@ -123,27 +124,18 @@ export default function Home({ onLogout }) {
         <Header
             onHomeClick={handleHomeClick}
             onUsersClick={handleUsersClick}
-            onFavsClick={handleFavsClick}
             onLogout={onLogout}
         />
 
-        <main className="
-        flex flex-col 
-        items-center 
-        gap-4 pt-4 mt-16
-        min-h-wscreen overflow-y-auto 
-        bg-white 
-        dark:bg-background_grey">
-
+        <main className="flex flex-col items-center gap-4 pt-4 mt-16 min-h-wscreen overflow-y-auto bg-white dark:bg-background_grey">
             {loading ? (<> <SkeletonLoader /> </>) : (<> <Carousel items={carouselItems} />
-
                 <Routes>
                     <Route path="/" element={<EventsList refreshStamp={refreshStamp} />} />
                     <Route path="users/events" element={<UserEventsList />} />
                     <Route path="/favs" element={<FavsEventsList />} />
                     <Route path="/hello/:to" element={<Hello />} />
                     <Route path="/search" element={<ResultsEventsList />} />
-                    {/* <Route path="/map" element={<MapView />} /> */}
+                    <Route path="/map" element={<MapView />} />
                 </Routes>
 
                 <RecommendedEventsList recommendedEvents={recommendedEvents} />
@@ -153,7 +145,6 @@ export default function Home({ onLogout }) {
             </>
             )}
         </main>
-
         <Footer onEventCreated={handleEventCreated} />
     </>
 }

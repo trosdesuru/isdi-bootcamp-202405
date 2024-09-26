@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import { getGeoEvents } from './api/eventsApi'
+import logic from '../../logic'
 import 'leaflet/dist/leaflet.css'
 
-export default function MapView() {
+import Heading from '../library/Heading'
+import Paragraph from '../library/Paragraph'
+
+export default function getAllMapEvents() {
     const [events, setEvents] = useState([])
 
     useEffect(() => {
@@ -23,14 +27,17 @@ export default function MapView() {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {events.map((event) => (
-                    <Marker key={event._id} position={[event.latitude, event.longitude]}>
-                        <Popup>
-                            <h3>{event.title}</h3>
-                            <p>{event.description}</p>
-                        </Popup>
-                    </Marker>
+                    event.latitude && event.longitude && (
+                        <Marker key={event._id} position={[event.latitude, event.longitude]}>
+                            <Popup>
+                                <Heading level={3}>{event.title}</Heading>
+                                <Paragraph>{event.description}</Paragraph>
+                                <Link to={`/events/${event._id}`}>See event details</Link>
+                            </Popup>
+                        </Marker>
+                    )
                 ))}
             </MapContainer>
-        </div>
+        </div >
     )
 }

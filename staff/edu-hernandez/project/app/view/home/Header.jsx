@@ -45,7 +45,7 @@ export default function Header({ onEventCreated, onLogout }) {
         }
         document.addEventListener('mousedown', handleClickOutside)
         return () => document.removeEventListener('mousedown', handleClickOutside)
-    }, [])
+    }, [menuRef])
 
     const handleCreateEventClick = () => {
         setCreateEventVisible(true)
@@ -84,18 +84,8 @@ export default function Header({ onEventCreated, onLogout }) {
     const handleSwitchTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
     return (
-        <header className="
-        flex items-center p-3
-        fixed top-0 left-0 z-10
-        bg-white
-        dark:shadow-custom w-full
-        dark:bg-background_grey">
-
-            <Link
-                to="/profile"
-                className="mr-4"
-                onClick={toggleMenu}>
-
+        <header className="flex items-center p-3 fixed top-0 left-0 z-10 bg-white dark:shadow-custom w-full dark:bg-background_grey">
+            <Link to="/profile" className="mr-4" onClick={toggleMenu}>
                 <div className="avatar-icon">
                     <div className="w-full h-full flex items-center justify-center">
                         <Image

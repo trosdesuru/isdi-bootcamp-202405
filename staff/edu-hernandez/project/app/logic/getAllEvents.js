@@ -5,7 +5,8 @@ const { SystemError } = errors
 export default () => {
     return fetch(`${import.meta.env.VITE_API_URL}/events`, {
         headers: {
-            Authorization: `Bearer ${sessionStorage.token}`
+            Authorization: `Bearer ${sessionStorage.token}`,
+            'Content-Type': 'application/json'
         }
     })
         .catch(error => { throw new SystemError(error.message) })

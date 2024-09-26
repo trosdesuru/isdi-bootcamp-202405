@@ -14,6 +14,8 @@ import toggleFavEvent from './toggleFavEvent'
 import toggleFollowUser from './toggleFollowUser'
 import toggleGoingEvent from './toggleGoingEvent'
 import updateEventCaption from './updateEventCaption'
+import getAllRecommendedEvents from './getAllRecommendedEvents'
+import getAllMapEvents from './getAllMapEvents'
 
 const logic = {
     createEvent,
@@ -21,6 +23,8 @@ const logic = {
     getAllEvents,
     getAllFavEvents,
     getAllUserEvents,
+    getAllMapEvents,
+    getAllRecommendedEvents,
     getUserId,
     getUserName,
     isUserLoggedIn,

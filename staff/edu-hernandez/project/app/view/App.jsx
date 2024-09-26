@@ -14,7 +14,6 @@ const App = () => {
 
     const [theme, setTheme] = useState(localStorage.theme)
     const [alertMessage, setAlertMessage] = useState(null)
-    const [showHeader, setShowHeader] = useState(false)
 
     const isUserLoggedIn = logic.isUserLoggedIn()
 
@@ -24,15 +23,6 @@ const App = () => {
         document.documentElement.className = theme
         localStorage.theme = theme
     }, [theme])
-
-    useEffect(() => {
-        if (logic.isUserLoggedIn()) {
-            const timer = setTimeout(() => {
-                setShowHeader(true)
-            }, 5000)
-            return () => clearTimeout(timer)
-        }
-    }, [])
 
     const handleLogin = () => {
         console.debug('App -> handleLogin')
@@ -64,26 +54,8 @@ const App = () => {
     return (
         <Context.Provider value={{ theme, setTheme, alert: setAlertMessage }}>
             <Routes>
-                <Route
-                    path="/login"
-                    element={
-                        logic.isUserLoggedIn() ? (
-                            <Navigate to="/" />
-                        ) : (
-                            <Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />
-                        )
-                    }
-                />
-                <Route
-                    path="/register"
-                    element={
-                        logic.isUserLoggedIn() ? (
-                            <Navigate to="/" />
-                        ) : (
-                            <Register onRegister={handleRegister} onLoginClick={handleLoginClick} />
-                        )
-                    }
-                />
+                <Route path="/login" element={logic.isUserLoggedIn() ? (<Navigate to="/" />) : (<Login onLogin={handleLogin} onRegisterClick={handleRegisterClick} />)} />
+                <Route path="/register" element={logic.isUserLoggedIn() ? (<Navigate to="/" />) : (<Register onRegister={handleRegister} onLoginClick={handleLoginClick} />)} />
                 <Route path="/*" element={logic.isUserLoggedIn() ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />} />
             </Routes>
 
