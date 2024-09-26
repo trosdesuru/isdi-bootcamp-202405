@@ -21,7 +21,7 @@ const logic = {
     createEvent,
     deleteEvent,
     getAllFavEvents,
-    getAllPoniesPosts,
+    getAllMapEvents,
     getAllEvents,
     getUserName,
     registerUser,
@@ -33,7 +33,6 @@ const logic = {
     searchEvent,
     createReview,
     getAllRecommendedEvents,
-    getAllMapEvents
 }
 
 export default logic
