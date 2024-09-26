@@ -11,6 +11,7 @@ import {
     getAllEventsHandler,
     getAllUserEventsHandler,
     getAllFavEventsHandler,
+    getAllMapEventsHandler,
     getAllRecommendedEventsHandler,
     createEventHandler,
     deleteEventHandler,
@@ -43,7 +44,11 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/events/fav', jwtVerifier, getAllFavEventsHandler)
 
+        api.get('events/map', jwtVerifier, getAllMapEventsHandler)
+
         api.get('events/recommended', jwtVerifier, getAllRecommendedEventsHandler)
+
+        api.get('/events/search', jwtVerifier, searchEventHandler)
 
         api.post('/events', jwtVerifier, jsonBodyParser, createEventHandler)
 
@@ -58,8 +63,6 @@ mongoose.connect(process.env.MONGODB_URI)
         api.patch('/users/:targetUserId/follows', jwtVerifier, toggleFollowUserHandler)
 
         api.patch('/events/:eventId/caption', jwtVerifier, jsonBodyParser, updateEventCaptionHandler)
-
-        api.get('/events/search', jwtVerifier, searchEventHandler)
 
         api.use(errorHandler)
 

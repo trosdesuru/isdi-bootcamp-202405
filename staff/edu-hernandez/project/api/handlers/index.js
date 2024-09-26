@@ -4,6 +4,7 @@ import deleteEventHandler from './deleteEventHandler.js'
 import createReviewHandler from './createReviewHandler.js'
 import getAllEventsHandler from './getAllEventsHandler.js'
 import getAllFavEventsHandler from './getAllFavEventsHandler.js'
+import getAllMapEventsHandler from './getAllMapEventsHandler.js'
 import getAllRecommendedEventsHandler from './getAllRecommendedEventsHandler.js'
 import getAllUserEventsHandler from './getAllUserEventsHandler.js'
 import getUserNameHandler from './getUserNameHandler.js'
@@ -21,6 +22,7 @@ export {
     deleteEventHandler,
     getAllEventsHandler,
     getAllFavEventsHandler,
+    getAllMapEventsHandler,
     getAllRecommendedEventsHandler,
     getAllUserEventsHandler,
     getUserNameHandler,
