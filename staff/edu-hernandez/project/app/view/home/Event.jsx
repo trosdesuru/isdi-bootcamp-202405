@@ -156,8 +156,7 @@ export default function Event({
             </Heading>
             <Button
                 onClick={handleFollowUserClick}
-                className={`mt-4 w-full text-white bg-sea py-2 px-4 rounded-md hover:bg-opacity-90 transition-all ${event.author.following ? 'bg-grass' : 'bg-laranja'
-                    }`}
+                className={`mt-4 w-full text-white bg-sea py-2 px-4 rounded-md hover:bg-opacity-90 transition-all ${event.author.following ? 'bg-grass' : 'bg-laranja'}`}
             >
                 {event.author.following ? 'Unfollow' : 'Follow'}
             </Button>
@@ -177,7 +176,7 @@ export default function Event({
             <div className="flex gap-4 mt-4">
                 <Button
                     onClick={handleGoingEventClick}
-                    className={`py-2 px-4 rounded-md text-black ${event.going ? 'bg-red-100' : 'bg-green-100'}`}
+                    className={`py-2 px-4 rounded-md text-black ${event.going ? 'bg-green-100' : 'bg-red-100'}`}
                 >
                     {event.going ? 'Going' : 'Not Going'}
                 </Button>

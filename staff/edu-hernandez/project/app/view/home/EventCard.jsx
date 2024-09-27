@@ -7,8 +7,9 @@ import Button from '../library/Button'
 
 export default function EventCard({ event }) {
     return (
-        <Container className="p-4 shadow-lg bg-white rounded-lg w-full max-w-full overflow-hidden">
+        <Container className="flex p-4 shadow-lg bg-transparent rounded-lg w-full max-w-full overflow-hidden">
             <Image src={event.image} alt={event.title} className="rounded-md w-full h-auto" />
+            <Heading level={2}>alt={event.author.username} Hola, test</Heading>
             <Heading level={3} className="font-bold mt-2 truncate">{event.title}</Heading>
             <Paragraph className="line-clamp-3">{event.description}</Paragraph>
             <Container className="flex justify-between items-center mt-4">

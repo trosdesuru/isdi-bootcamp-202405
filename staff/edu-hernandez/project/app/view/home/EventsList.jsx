@@ -1,7 +1,5 @@
-import logic from '../../logic'
-
 import { useState, useEffect } from 'react'
-
+import logic from '../../logic'
 import Event from './Event'
 
 export default function EventsList() {
@@ -61,7 +59,7 @@ export default function EventsList() {
         }
     }
 
-    return <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-screen-xl">
+    return <section className="flex flex-cols-1 md:flex-cols-2 lg:flex-cols-3 gap-6 w-full max-w-screen-xl">
         {events.map(event =>
             <Event
                 key={event.id}

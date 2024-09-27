@@ -14,7 +14,7 @@ import FavsEventsList from './FavsEventsList'
 import ResultsEventsList from './ResultsEventsList'
 import RandomEventsList from './RandomEventsList'
 import SkeletonLoader from './SkeletonLoader'
-import MapView from './MapView'
+import Map from './Map'
 
 export default function Home({ onLogout }) {
     console.debug('Home -> call')
@@ -31,6 +31,11 @@ export default function Home({ onLogout }) {
         return () => clearTimeout(timeoutId)
     }, [])
 
+    const handleHomeClick = () => {
+        console.debug('Home -> handleHomeClick')
+        navigate('/')
+    }
+
     const handleEventCreated = () => {
         console.debug('Home -> handleEventCreated')
         setRefreshStamp(Date.now())
@@ -42,11 +47,6 @@ export default function Home({ onLogout }) {
         navigate('/users/events')
     }
 
-    const handleHomeClick = () => {
-        console.debug('Home -> handleHomeClick')
-        navigate('/')
-    }
-
     const handleFavsClick = () => {
         console.debug('Home -> handleFavsClick')
         navigate('/favs')
@@ -54,7 +54,7 @@ export default function Home({ onLogout }) {
 
     const handleMapClick = () => {
         console.debug('Home -> handleMapClick')
-        navigate('/events/map')
+        navigate('/map')
     }
 
     const carouselItems = [
@@ -135,16 +135,19 @@ export default function Home({ onLogout }) {
                     <Route path="/favs" element={<FavsEventsList />} />
                     <Route path="/hello/:to" element={<Hello />} />
                     <Route path="/search" element={<ResultsEventsList />} />
-                    <Route path="/map" element={<MapView />} />
+                    <Route path="/map" element={<Map />} />
+                    <Route path="events/recommended" element={<RecommendedEventsList events={recommendedEvents} />} />
+                    <Route path="events/popular" element={<PopularEventsList popularEvents={popularEvents} />} />
+                    <Route path="events/random" element={<RandomEventsList events={randomEvents} />} />
                 </Routes>
 
                 <RecommendedEventsList recommendedEvents={recommendedEvents} />
-                <PopularEventsList popularEvents={popularEvents} />
                 <BannerEvent event={bannerEvent} />
+                <PopularEventsList popularEvents={popularEvents} />
                 <RandomEventsList events={randomEvents} />
             </>
             )}
         </main>
-        <Footer onEventCreated={handleEventCreated} />
+        <Footer onEventCreated={handleEventCreated} onMapClicked={handleMapClick} />
     </>
 }

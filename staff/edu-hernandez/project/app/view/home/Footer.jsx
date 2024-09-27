@@ -4,8 +4,10 @@ import { HomeIcon, CalendarIcon, HeartIcon, MapIcon } from '@heroicons/react/out
 
 import Button from '../library/Button'
 
-export default function Footer(onMapClicked) {
-    const handleMapClick = () => onMapClicked()
+export default function Footer({ onEventCreated, onMapClicked }) {
+    const handleMapClick = () => {
+        if (onMapClicked) { onMapClicked() }
+    }
 
     return (
         <footer className="flex flex-row py-2 fixed bottom-0 left-0 w-full justify-around items-center

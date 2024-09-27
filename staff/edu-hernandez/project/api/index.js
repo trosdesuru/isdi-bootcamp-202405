@@ -44,7 +44,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/events/fav', jwtVerifier, getAllFavEventsHandler)
 
-        api.get('events/map', jwtVerifier, getAllMapEventsHandler)
+        api.get('/map', jwtVerifier, getAllMapEventsHandler)
 
         api.get('events/recommended', jwtVerifier, getAllRecommendedEventsHandler)
 
