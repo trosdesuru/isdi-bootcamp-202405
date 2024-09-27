@@ -10,7 +10,7 @@ export default function Footer({ onEventCreated, onMapClicked }) {
     }
 
     return (
-        <footer className="flex flex-row py-2 fixed bottom-0 left-0 w-full justify-around items-center
+        <footer className="flex flex-row py-2 fixed bottom-0 left-0 w-full justify-around items-center z-10
         bg-background_grey 
         text-white p-2 shadow-custom">
 

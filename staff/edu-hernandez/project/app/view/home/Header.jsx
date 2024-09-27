@@ -63,12 +63,16 @@ export default function Header({ onEventCreated, onLogout }) {
     const handleLogout = () => {
         console.debug('Header -> handleLogout')
 
-        try {
-            logic.logoutUser()
-            onLogout()
-        } catch (error) {
-            console.error(error)
-            alert(error.message)
+        if (window.confirm('Log out?')) {
+            console.debug('Header -> LogoutMessage')
+
+            try {
+                logic.logoutUser()
+                onLogout()
+            } catch (error) {
+                console.error(error)
+                alert(error.message)
+            }
         }
     }
 
@@ -88,103 +92,43 @@ export default function Header({ onEventCreated, onLogout }) {
             <Link to="/profile" className="mr-4" onClick={toggleMenu}>
                 <div className="avatar-icon">
                     <div className="w-full h-full flex items-center justify-center">
-                        <Image
-                            src="/avatar/avatarIcon.png"
-                            alt="Avatar"
-                            className="h-10 w-10 rounded-full cursor-pointer">
-                        </Image>
-
+                        <Image src="/avatar/avatarIcon.png" alt="Avatar" className="h-10 w-10 rounded-full cursor-pointer"></Image>
                     </div>
                 </div>
             </Link>
 
-            <form
-                onSubmit={handleSearchSubmit}
-                className="relative flex items-center flex-grow 
-                text-light_grey">
-                <FaSearch className="w-5 h-5 
-                text-dark_white absolute left-3" />
+            <form onSubmit={handleSearchSubmit} className="relative flex items-center flex-grow text-light_grey">
+                <FaSearch className="w-5 h-5 text-dark_white absolute left-3" />
 
-                <input
-                    type="text"
-                    placeholder="Search events ..."
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    className="w-full pl-10 pr-20 py-2
-                    border-dark_white rounded-xl
-                    bg-gray-100
-                    outline-none
-                    dark:bg-grey
-                    dark:text-dark_white"
-                />
-                <div className="absolute right-3 
-                font-bevan
-                text-2xl 
-                text-dark_white">
+                <input onChange={handleSearchChange} type="text" placeholder="Search events ..." value={searchQuery} className="w-full pl-10 pr-20 py-2 border-dark_white rounded-xl bg-gray-100 outline-none dark:bg-grey dark:text-dark_white" />
+                <div className="absolute right-3 font-bevan text-2xl text-dark_white">
                     cities
                 </div>
             </form>
 
             {menuVisible && (
                 <Container ref={menuRef}
-                    className="flex flex-col absolute  rounded-lg 
-                    shadow-lg
-                    space-y-2 z-50 
-                    top-20 left-6 px-4 py-4
-                    bg-white 
-                    border-gray-300 
-                    dark:bg-background_grey border 
-                    dark:border-light_grey">
+                    className="flex flex-col absolute  rounded-lg shadow-lg space-y-2 z-50 top-20 left-6 px-4 py-4 bg-white border-gray-300 dark:bg-background_grey border dark:border-light_grey">
 
-                    <Paragraph className="
-                    font-bevan
-                    font-regular
-                    text-lg
-                    text-grey
-                    dark:text-dark_white">{name}</Paragraph>
+                    <Paragraph className="font-bevan font-regular text-lg text-grey dark:text-dark_white">{name}</Paragraph>
 
                     <Button
-                        className="flex flex-row gap-4 
-                        text-grey 
-                        dark:text-dark_white"
-                        onClick={handleCreateEventClick}>
-
-                        <FaPlus className="h-5 w-5 
-                        text-light_grey 
-                        dark:text-dark_white" />
-                        Create Event
+                        className="flex flex-row gap-4 text-grey dark:text-dark_white" onClick={handleCreateEventClick}>
+                        <FaPlus className="h-5 w-5 text-light_grey dark:text-dark_white" />Create Event
                     </Button>
 
                     {createEventVisible && (
-                        <CreateEvent
-                            onEventCreated={handleEventCreated}
-                            onCancelCreateEvent={handleCancelCreateEventClick}
-                        />
+                        <CreateEvent onEventCreated={handleEventCreated} onCancelCreateEvent={handleCancelCreateEventClick} />
                     )}
 
-                    <Button
-                        onClick={handleSwitchTheme}
-                        className="flex flex-row gap-4 
-                        text-grey 
-                        dark:text-dark_white">
+                    <Button onClick={handleSwitchTheme} className="flex flex-row gap-4 text-grey dark:text-dark_white">
                         {theme === 'dark' ?
-                            (<FaSun className="h-5 w-5 
-                                text-dark_white 
-                                dark:text-dark_white" />)
-                            :
-                            (<FaMoon className="h-5 w-5 
-                                text-light_grey 
-                            dark:text-dark_white" />)}
+                            (<FaSun className="h-5 w-5 text-dark_white dark:text-dark_white" />) : (<FaMoon className="h-5 w-5 text-light_grey dark:text-dark_white" />)}
                         Switch Theme
                     </Button>
 
-                    <Button className="flex flex-row gap-4 
-                    text-grey 
-                    dark:text-dark_white"
-                        onClick={handleLogout}>
-                        <FaSignOutAlt className="h-5 w-5 
-                        text-light_grey 
-                        dark:text-dark_white" />
+                    <Button onClick={handleLogout} className="flex flex-row gap-4 text-grey dark:text-dark_white">
+                        <FaSignOutAlt className="h-5 w-5text-light_grey dark:text-dark_white" />
                         Logout
                     </Button>
                 </Container>

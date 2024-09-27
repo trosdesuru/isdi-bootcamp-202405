@@ -1,7 +1,5 @@
-import logic from '../../logic'
-
 import { useState, useEffect } from 'react'
-
+import logic from '../../logic'
 import Event from './Event'
 
 export default function FavsEventsList() {
