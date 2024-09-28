@@ -89,13 +89,13 @@ export default function Header({ onEventCreated, onLogout }) {
 
     return (
         <header className="flex items-center p-3 fixed top-0 left-0 z-10 bg-white dark:shadow-custom w-full dark:bg-background_grey">
-            <Link to="/profile" className="mr-4" onClick={toggleMenu}>
+            <Button className="mr-4" onClick={toggleMenu}>
                 <div className="avatar-icon">
                     <div className="w-full h-full flex items-center justify-center">
                         <Image src="/avatar/avatarIcon.png" alt="Avatar" className="h-10 w-10 rounded-full cursor-pointer"></Image>
                     </div>
                 </div>
-            </Link>
+            </Button>
 
             <form onSubmit={handleSearchSubmit} className="relative flex items-center flex-grow text-light_grey">
                 <FaSearch className="w-5 h-5 text-dark_white absolute left-3" />
@@ -108,7 +108,7 @@ export default function Header({ onEventCreated, onLogout }) {
 
             {menuVisible && (
                 <Container ref={menuRef}
-                    className="flex flex-col absolute  rounded-lg shadow-lg space-y-2 z-50 top-20 left-6 px-4 py-4 bg-white border-gray-300 dark:bg-background_grey border dark:border-light_grey">
+                    className="flex flex-col absolute  rounded-lg shadow-lg space-y-2 z-10 top-20 left-0 px-4 py-4 bg-white border-gray-300 dark:bg-background_grey border dark:border-light_grey">
 
                     <Paragraph className="font-bevan font-regular text-lg text-grey dark:text-dark_white">{name}</Paragraph>
 

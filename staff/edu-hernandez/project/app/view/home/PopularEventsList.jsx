@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline'
 import Section from '../library/Section'
 import Heading from '../library/Heading'
-import Paragraph from '../library/Paragraph'
 import Container from '../library/Container'
 import Button from '../library/Button'
 import getAverageColor from '../../util/getAverageColor'
@@ -46,7 +45,6 @@ const PopularEventsList = ({ popularEvents }) => {
             </Heading>
 
             <div className="relative w-full">
-                {/* Slides Container */}
                 <div
                     className="flex transition-transform duration-500 ease-in-out space-x-4"
                     style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -67,7 +65,6 @@ const PopularEventsList = ({ popularEvents }) => {
                     ))}
                 </div>
 
-                {/* Carousel Buttons */}
                 <Button
                     className={`absolute top-1/2 left-4 transform -translate-y-1/2 ${arrowColor} p-2 rounded shadow-md bg-white opacity-70`}
                     onClick={prevSlide}

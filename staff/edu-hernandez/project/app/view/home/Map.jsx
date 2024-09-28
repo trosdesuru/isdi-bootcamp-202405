@@ -43,17 +43,17 @@ export default function Map() {
   }
 
   return (
-    <MapContainer className="pb-[120px]" center={[41.3874, 2.1686]} zoom={13}>
+    <MapContainer className="" center={[41.3874, 2.1686]} zoom={13} style={{ height: 'calc(100vh - 128px)' }}>
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
         attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
         style="positron"
       />
       {events.map(event => (
-        <Marker key={event._id} position={event.location.coordinates}>
+        <Marker key={event.id} position={event.location.coordinates}>
           <Popup>
             <strong>{event.title}</strong><br />
-            {event.author}
+            <small>{event.author.username}</small>
           </Popup>
         </Marker>
       ))}
@@ -61,5 +61,3 @@ export default function Map() {
 
   )
 }
-
-// style={{ height: 'calc(100vh - 128px)' }}

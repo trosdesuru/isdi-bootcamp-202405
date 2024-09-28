@@ -4,7 +4,6 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
 import Hello from './Hello'
-import Container from '../library/Container'
 import Carousel from './Carousel'
 import RecommendedEventsList from './RecommendedEventsList'
 import PopularEventsList from './PopularEventsList'
@@ -121,32 +120,41 @@ export default function Home({ onLogout }) {
         }
     ]
 
-    return <>
-        <Container>
-            <Header onHomeClick={handleHomeClick} onUsersClick={handleUsersClick} onLogout={onLogout} />
+    return (
+        <>
+            <div>
+                <Header onHomeClick={handleHomeClick} onUsersClick={handleUsersClick} onLogout={onLogout} />
 
-            <main className="flex flex-col gap-4 pt-4 mt-16 min-h-wscreen overflow-y-auto bg-white dark:bg-background_grey">
-                {loading ? (<> <SkeletonLoader /> </>) : (<> <Carousel items={carouselItems} />
-                    <Routes>
-                        <Route path="/" element={<EventsList refreshStamp={refreshStamp} />} />
-                        <Route path="users/events" element={<UserEventsList />} />
-                        <Route path="/favs" element={<FavsEventsList />} />
-                        <Route path="/hello/:to" element={<Hello />} />
-                        <Route path="/search" element={<ResultsEventsList />} />
-                        <Route path="/map" element={<Map />} />
-                        <Route path="events/recommended" element={<RecommendedEventsList events={recommendedEvents} />} />
-                        <Route path="events/popular" element={<PopularEventsList popularEvents={popularEvents} />} />
-                        <Route path="events/random" element={<RandomEventsList events={randomEvents} />} />
-                    </Routes>
+                <main className="flex flex-col gap-4 pt-4 mt-16 mr-0 min-h-wscreen max-w-screen overflow-auto 
+                bg-white 
+                dark:bg-background_grey">
+                    {loading ? (
+                        <SkeletonLoader />) : (<Routes>
+                            <Route path="/" element={
+                                <>
+                                    <Carousel items={carouselItems} />
+                                    <EventsList refreshStamp={refreshStamp} />
+                                    <RecommendedEventsList recommendedEvents={recommendedEvents} />
+                                    <BannerEvent event={bannerEvent} />
+                                    <PopularEventsList popularEvents={popularEvents} />
+                                    <RandomEventsList events={randomEvents} />
+                                </>
+                            }
+                            />
+                            <Route path="users/events" element={<UserEventsList />} />
+                            <Route path="/favs" element={<FavsEventsList />} />
+                            <Route path="/hello/:to" element={<Hello />} />
+                            <Route path="/search" element={<ResultsEventsList />} />
+                            <Route path="/map" element={<Map />} />
+                            <Route path="events/recommended" element={<RecommendedEventsList events={recommendedEvents} />} />
+                            <Route path="events/popular" element={<PopularEventsList popularEvents={popularEvents} />} />
+                            <Route path="events/random" element={<RandomEventsList events={randomEvents} />} />
+                        </Routes>
+                    )}
+                </main>
 
-                    <RecommendedEventsList recommendedEvents={recommendedEvents} />
-                    <BannerEvent event={bannerEvent} />
-                    <PopularEventsList popularEvents={popularEvents} />
-                    <RandomEventsList events={randomEvents} />
-                </>
-                )}
-            </main>
-            <Footer onEventCreated={handleEventCreated} onMapClicked={handleMapClick} />
-        </Container>
-    </>
+                <Footer onEventCreated={handleEventCreated} onMapClicked={handleMapClick} />
+            </div>
+        </>
+    )
 }
