@@ -11,16 +11,13 @@ import Button from '../library/Button'
 import Container from '../library/Container'
 import formatDate from '../../util/formatDate.js'
 
-export default function CreateEvent({
-    onEventCreated,
-    onCancelCreateEvent
-}) {
+export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
+    console.debug('CreateEvent -> call')
+
     const [formattedDate, setFormattedDate] = useState(new Date())
     const [currentTime, setCurrentTime] = useState('')
     const [CalendarOpen, setCalendarOpen] = useState(false)
     const [eventTime, setEventTime] = useState('')
-
-    console.debug('CreateEvent -> call')
 
     useEffect(() => {
         console.debug('CreateEvent -> useEffect')
@@ -70,7 +67,7 @@ export default function CreateEvent({
             }
 
             logic.createEvent(eventTitle, eventImage, eventCaption, formattedDate, location, eventTime)
-                .then(() => onEventCreated?.())
+                .then(() => onEventCreated())
                 .catch(error => alert(error.message))
 
         } catch (error) {

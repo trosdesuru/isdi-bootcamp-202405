@@ -16,6 +16,7 @@ import toggleGoingEvent from './toggleGoingEvent'
 import updateEventCaption from './updateEventCaption'
 import getAllRecommendedEvents from './getAllRecommendedEvents'
 import getAllMapEvents from './getAllMapEvents'
+import getAllGoingEvents from '../../cor/logic/getAllGoingEvents'
 
 const logic = {
     createEvent,
@@ -25,6 +26,7 @@ const logic = {
     getAllUserEvents,
     getAllMapEvents,
     getAllRecommendedEvents,
+    getAllGoingEvents,
     getUserId,
     getUserName,
     isUserLoggedIn,

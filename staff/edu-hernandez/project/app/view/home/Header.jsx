@@ -57,6 +57,7 @@ export default function Header({ onEventCreated, onLogout }) {
 
     const handleEventCreated = () => {
         setCreateEventVisible(false)
+        
         onEventCreated()
     }
 

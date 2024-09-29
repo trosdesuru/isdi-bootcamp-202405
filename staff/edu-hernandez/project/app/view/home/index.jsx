@@ -13,6 +13,7 @@ import UserEventsList from './UserEventsList'
 import FavsEventsList from './FavsEventsList'
 import ResultsEventsList from './ResultsEventsList'
 import RandomEventsList from './RandomEventsList'
+import GoingEventsList from './GoingEventsList'
 import SkeletonLoader from './SkeletonLoader'
 import Map from './Map'
 import Calendar from './Calendar'
@@ -61,6 +62,11 @@ export default function Home({ onLogout }) {
     const handleCalendarClick = () => {
         console.debug('Home -> handleCalendarClick')
         navigate('/calendar')
+    }
+
+    const handleGoingClick = () => {
+        console.debug('Home -> handleGoingClick')
+        navigate('/events/going')
     }
 
     const events = [
@@ -146,6 +152,17 @@ export default function Home({ onLogout }) {
         }
     ]
 
+    const goingEvents = [
+        { id: 10, title: 'September La Mercé', image: '/eventImage/merce01.jpg' },
+        { id: 20, title: 'Octubre Festa Les Rambles', image: '/eventImage/ramblas01.jpg' },
+        { id: 30, title: '🌹 Abril Sant Jordi', image: '/eventImage/santJordi01.jpg' },
+        { id: 40, title: 'August Sant Roc', image: '/eventImage/santRoc01.jpg' },
+        { id: 50, title: '⚔️ July Festes del Raval', image: '/eventImage/raval01.jpg' },
+        { id: 60, title: '🍻 July Festes Poblesec', image: '/eventImage/poblesec01.jpg' },
+        { id: 70, title: '🍬 March Sant Medir', image: '/eventImage/santMedir01.jpg' },
+        { id: 80, title: 'December New Year Eve', image: '/eventImage/newYear01.webp' }
+    ]
+
     return (
         <>
             <div>
@@ -176,11 +193,12 @@ export default function Home({ onLogout }) {
                             <Route path="events/recommended" element={<RecommendedEventsList events={recommendedEvents} />} />
                             <Route path="events/popular" element={<PopularEventsList popularEvents={popularEvents} />} />
                             <Route path="events/random" element={<RandomEventsList events={randomEvents} />} />
+                            <Route path="events/going" element={<GoingEventsList events={goingEvents} />} />
                         </Routes>
                     )}
                 </main>
 
-                <Footer onEventCreated={handleEventCreated} onMapClicked={handleMapClick} onCalendarClicked={handleCalendarClick} />
+                <Footer onEventCreated={handleEventCreated} onMapClicked={handleMapClick} onCalendarClicked={handleCalendarClick} onGoingEventsClicked={handleGoingClick}/>
             </div>
         </>
     )
