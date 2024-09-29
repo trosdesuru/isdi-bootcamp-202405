@@ -2,7 +2,7 @@ export default function getAverageColor(imageSrc) {
 
     return new Promise((resolve, reject) => {
         if (!imageSrc) {
-            return reject(new Error('There is no image onload.'))
+            return reject(new Error('There is no image onload'))
         }
 
         const img = new Image()

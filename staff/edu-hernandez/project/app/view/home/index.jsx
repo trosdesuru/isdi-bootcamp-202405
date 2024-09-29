@@ -15,6 +15,7 @@ import ResultsEventsList from './ResultsEventsList'
 import RandomEventsList from './RandomEventsList'
 import SkeletonLoader from './SkeletonLoader'
 import Map from './Map'
+import Calendar from './Calendar'
 
 export default function Home({ onLogout }) {
     console.debug('Home -> call')
@@ -56,6 +57,31 @@ export default function Home({ onLogout }) {
         console.debug('Home -> handleMapClick')
         navigate('/map')
     }
+
+    const handleCalendarClick = () => {
+        console.debug('Home -> handleCalendarClick')
+        navigate('/calendar')
+    }
+
+    const events = [
+        {
+            date: '2024-08-08',
+            title: 'Concert in the Park',
+            description: 'Join us for a night of music under the stars.',
+            likes: 150,
+            attendees: 45,
+            images: ['/path/to/image1.jpg', '/path/to/image2.jpg']
+        },
+        {
+            date: '2024-08-20',
+            title: 'Art Gallery Opening',
+            description: 'Explore the latest works from local artists.',
+            likes: 120,
+            attendees: 30,
+            images: ['/path/to/image3.jpg', '/path/to/image4.jpg']
+        }
+        // Añadir más eventos según sea necesario
+    ]
 
     const carouselItems = [
         {
@@ -141,6 +167,7 @@ export default function Home({ onLogout }) {
                                 </>
                             }
                             />
+                            <Route path="/calendar" element={<Calendar events={events} />} />
                             <Route path="users/events" element={<UserEventsList />} />
                             <Route path="/favs" element={<FavsEventsList />} />
                             <Route path="/hello/:to" element={<Hello />} />
@@ -153,7 +180,7 @@ export default function Home({ onLogout }) {
                     )}
                 </main>
 
-                <Footer onEventCreated={handleEventCreated} onMapClicked={handleMapClick} />
+                <Footer onEventCreated={handleEventCreated} onMapClicked={handleMapClick} onCalendarClicked={handleCalendarClick} />
             </div>
         </>
     )

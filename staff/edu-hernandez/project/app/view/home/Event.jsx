@@ -147,7 +147,7 @@ export default function Event({
         }
     }
 
-    return <article className="flex flex-col lg:flex-row gap-4 p-4 w-full h-auto bg-white dark:bg-background_grey rounded-lg shadow-custom">
+    return <article className="flex flex-col lg:flex-row gap-4 p-4 w-full h-auto bg-white dark:bg-background_grey rounded-lg">
 
         <Container className="flex flex-col items-center lg:w-1/4 bg-light_grey dark:bg-background_light_grey p-4 rounded-lg">
             <Avatar url={'./avatar/avatarIcon.png'} className="w-24 h-24 rounded-full shadow-lg" />
@@ -156,8 +156,7 @@ export default function Event({
             </Heading>
             <Button
                 onClick={handleFollowUserClick}
-                className={`mt-4 w-full text-white bg-sea py-2 px-4 rounded-md hover:bg-opacity-90 transition-all ${event.author.following ? 'bg-grass' : 'bg-laranja'}`}
-            >
+                className={`mt-4 w-full text-white bg-sea py-2 px-4 rounded-md hover:bg-opacity-90 transition-all ${event.author.following ? 'bg-grass' : 'bg-laranja'}`}>
                 {event.author.following ? 'Unfollow' : 'Follow'}
             </Button>
         </Container>
@@ -167,7 +166,10 @@ export default function Event({
                 {event.title}
             </Heading>
 
-            <Image src={event.image} title={event.title} alt={event.caption} className="w-full rounded-lg shadow-lg object-cover" />
+            <Image src={event.image}
+                title={event.title}
+                alt={event.caption}
+                className="w-full rounded-lg shadow-lg object-cover" />
 
             <Paragraph className="text-title dark:text-dark_white font-poppins text-lg mt-2">
                 {event.caption}
@@ -176,15 +178,13 @@ export default function Event({
             <div className="flex gap-4 mt-4">
                 <Button
                     onClick={handleGoingEventClick}
-                    className={`py-2 px-4 rounded-md text-black ${event.going ? 'bg-green-100' : 'bg-red-100'}`}
-                >
+                    className={`py-2 px-4 rounded-md text-black ${event.going ? 'bg-green-100' : 'bg-red-100'}`}>
                     {event.going ? 'Going' : 'Not Going'}
                 </Button>
 
                 <Button
                     onClick={handleFavEventClick}
-                    className={`py-2 px-4 rounded-md text-white ${event.fav ? 'bg-sea' : 'bg-light_grey'}`}
-                >
+                    className={`py-2 px-4 rounded-md text-white ${event.fav ? 'bg-sea' : 'bg-light_grey'}`}>
                     {event.fav ? 'Fav' : 'Add to Favs'}
                 </Button>
 
@@ -200,56 +200,33 @@ export default function Event({
                 )}
             </div>
 
-
             <Time className="text-light_grey dark:text-dark_white mt-2">
                 {formatTime(new Date(event.date))}
             </Time>
         </div>
 
         {editEventVisible && (
-            <Form
-                onSubmit={handleEditEventSubmit}
-                className="flex-col mt-4 
-                p-4 rounded-lg shadow-lg
-                bg-light_grey 
-                dark:bg-background_light_grey">
-
+            <Form onSubmit={handleEditEventSubmit} className="flex-col mt-4 p-4 rounded-lg shadow-lg bg-light_grey dark:bg-background_light_grey">
                 <Container className="flex-col gap-4">
-
-                    <Label
-                        htmlFor="edit-caption-input"
-                        className="text-title 
-                        dark:text-dark_white">
+                    <Label htmlFor="edit-caption-input" className="text-title dark:text-dark_white">
                         Edit Caption
                     </Label>
-
-                    <Input
-                        id="edit-caption-input"
-                        defaultValue={event.caption}
-                        className="w-full p-2 rounded-md border border-light_grey dark:border-dark_white"
-                    />
+                    <Input id="edit-caption-input" defaultValue={event.caption} className="w-full p-2 rounded-md border border-light_grey dark:border-dark_white" />
                 </Container>
 
                 <Container className="flex justify-between mt-4">
-                    <Button
-                        type="submit"
-                        className="bg-grass text-white py-2 px-4 rounded-md hover:bg-opacity-90">
+                    <Button type="submit" className="bg-grass text-white py-2 px-4 rounded-md hover:bg-opacity-90">
                         Save
                     </Button>
-
                     <Button type="button" onClick={handleCancelEditEventClick} className="bg-laranja text-white py-2 px-4 rounded-md hover:bg-opacity-90">
                         Cancel
                     </Button>
                 </Container>
-
             </Form>
         )}
-
-        {confirmMessage && (
-            <Confirm
-                message={confirmMessage}
-                onAccept={handleDeleteEventAccept}
-                onCancel={handleDeleteEventCancel} />
-        )}
+        {confirmMessage && (<Confirm
+            message={confirmMessage}
+            onAccept={handleDeleteEventAccept}
+            onCancel={handleDeleteEventCancel} />)}
     </article>
 }

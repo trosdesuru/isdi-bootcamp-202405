@@ -1,0 +1,86 @@
+.react-calendar {
+  width: 100%;
+  max-width: 100%;
+  background: white;
+  border: transparent;
+  border-radius: 0.5rem;
+  padding: 0.5rem; /* Add some padding */
+  font-family: 'Poppins', sans-serif;
+}
+
+.react-calendar__tile {
+  padding: 1rem;
+  border-radius: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.react-calendar__tile:hover {
+  background: rgba(193, 228, 66, 0.2);
+}
+
+.react-calendar__tile--active {
+  background: linear-gradient(135deg, rgba(255, 78, 193, 0.9), rgba(255, 121, 63, 0.9));
+  color: white;
+  font-weight: bold;
+}
+
+.react-calendar__tile--now {
+  background: #ffeb3b;
+}
+
+/* .react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #e6e6e6;
+} */
+
+.react-calendar__month-view__days__day--weekend {
+  background: transparent; /* Fondo transparente */
+  color: transparent; /* El color del texto será gestionado por el gradiente */
+  
+  /* Gradiente en el texto */
+  background-image: linear-gradient(135deg, rgba(255, 78, 193, 0.9), rgba(255, 121, 63, 0.9)); /* Gradiente para el texto */
+  -webkit-background-clip: text; /* Aplica el gradiente solo al texto */
+  -webkit-text-fill-color: transparent; /* Asegura que el color del texto sea transparente */
+  font-weight: bold;
+  
+  /* Borde con gradiente */
+  border: 1px solid; /* Tamaño del borde */
+  border-image: linear-gradient(135deg, rgba(255, 78, 193, 0.9), rgba(255, 121, 63, 0.9)) 1; /* Gradiente del borde */
+  border-radius: 1rem; /* Para suavizar los bordes */
+}
+
+.react-calendar__tile--hasActive {
+  background: #ffc107;
+}
+
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: #ffeb3b;
+}
+
+.react-calendar__tile--active:enabled:focus {
+  background: transparent; /* Fondo transparente */
+  color: transparent; /* El color del texto será gestionado por el gradiente */
+  
+  /* Gradiente en el texto */
+  background-image: linear-gradient(135deg, rgba(255, 78, 193, 0.9), rgba(255, 121, 63, 0.9)); /* Gradiente para el texto */
+  -webkit-background-clip: text; /* Aplica el gradiente solo al texto */
+  -webkit-text-fill-color: transparent; /* Asegura que el color del texto sea transparente */
+  font-weight: bold;
+  
+  /* Borde con gradiente */
+  border: 1px solid; /* Tamaño del borde */
+  border-image: linear-gradient(135deg, rgba(255, 78, 193, 0.9), rgba(255, 121, 63, 0.9)) 1; /* Gradiente del borde */
+  border-radius: 1rem; /* Para suavizar los bordes */
+}
+
+.highlighted-day {
+  background: linear-gradient(135deg, rgba(255, 78, 193, 0.9), rgba(255, 121, 63, 0.9));
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.highlighted-day:hover {
+  background: rgba(255, 78, 193, 1);
+}
