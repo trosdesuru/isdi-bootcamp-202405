@@ -15,6 +15,7 @@ import updateEventCaption from './updateEventCaption.js'
 import createReview from './createReview.js'
 import getAllRecommendedEvents from './getAllRecommendedEvents.js'
 import getAllMapEvents from './getAllMapEvents.js'
+import getAllgoingEvents from './getAllGoingEvents.js'
 
 const logic = {
     authenticateUser,
@@ -33,6 +34,7 @@ const logic = {
     searchEvent,
     createReview,
     getAllRecommendedEvents,
+    getAllgoingEvents
 }
 
 export default logic

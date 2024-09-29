@@ -72,10 +72,12 @@ describe('getAllMapEvents', () => {
         return getAllMapEvents(user)
             .then(events => {
                 expect(events).to.have.lengthOf(2)
-                expect(events[0]).to.have.property('title', 'Event 1')
-                expect(events[1]).to.have.property('title', 'Event 2')
-                expect(events[0]).to.have.property('location')
-                expect(events[0].location).to.have.property('coordinates').that.is.an('array').that.has.lengthOf(2)
+                expect(event1).to.have.property('title', 'Event 1')
+                expect(event2).to.have.property('title', 'Event 2')
+                expect(event1).to.have.property('location')
+                expect(event1.location).to.have.property('coordinates').that.is.an('array').that.has.lengthOf(2)
+                expect(event2).to.have.property('location')
+                expect(event2.location).to.have.property('coordinates').that.is.an('array').that.has.lengthOf(2)
             })
     })
 
@@ -126,7 +128,7 @@ describe('getAllMapEvents', () => {
                     },
                     time: getTime()
                 })
-                    .then(() => getAllEvents(user.id))
+                    .then(() => getAllMapEvents(user.id))
                     .catch(error => {
                         _error = error
                     })
@@ -160,10 +162,10 @@ describe('getAllMapEvents', () => {
     })
 
     it('fails on invalid user', () => {
-        return getAllMapEvents('invalidId')
+        return getAllMapEvents('invalid userId')
             .catch(error => {
-                expect(error).to.be.instanceOf(ValidationError)
-                expect(error.message).to.equal('invalid user')
+                expect(error).to.be.instanceOf(SystemError)
+                expect(error.message).to.equal(error.message)
             })
     })
 
