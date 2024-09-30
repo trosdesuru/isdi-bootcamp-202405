@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline'
+import getAverageColor from '../../util/getAverageColor.js'
+
 import Heading from '../library/Heading'
 import Section from '../library/Section'
 import Paragraph from '../library/Paragraph'
 import Container from '../library/Container'
 import Button from '../library/Button'
 import getAverageColor from '../../util/getAverageColor'
+import { Util } from 'leaflet'
 
 const RecommendedEventsList = ({ recommendedEvents }) => {
     const [currentIndex, setCurrentIndex] = useState(0)
@@ -27,11 +30,11 @@ const RecommendedEventsList = ({ recommendedEvents }) => {
         const updateArrowColor = async () => {
             const image = recommendedEvents[currentIndex]?.image
             if (image) {
-                const averageColor = await getAverageColor(image)
-                if (averageColor) {
-                    const brightness = (averageColor.r * 0.299 + averageColor.g * 0.587 + averageColor.b * 0.114) / 255
-                    const newArrowColor = brightness > 0.5 ? 'text-grey' : 'text-dark_white'
-                    setArrowColor(newArrowColor)
+                const color = await getAverageColor(image)
+                if (backgroundColor) {
+                    const brightness = (backgroundColor.r * 0.299 + backgroundColor.g * 0.587 + backgroundColor.b * 0.114) / 255
+                    const ArrowColor = brightness > 0.5 ? 'text-grey' : 'text-dark_white'
+                    setArrowColor(ArrowColor)
                 }
             }
         }
