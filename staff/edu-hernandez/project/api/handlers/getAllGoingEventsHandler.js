@@ -4,7 +4,7 @@ export default (req, res, next) => {
     const { userId } = req
 
     try {
-        logic.getAllgoingEvents(userId)
+        logic.getAllGoingEvents(userId)
             .then(events => res.json(events))
             .catch(error => next(error))
     } catch (error) {
