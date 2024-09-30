@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => createEvent(
-        '66f1dbfad82759f737de0a08',
+        '66fa92c16018e425775d4c35',
         'Test from Cor, createEvent.js',
         'https://randomImage.png',
         'caption test from logic/cor',

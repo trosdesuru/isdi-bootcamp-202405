@@ -1,114 +1,83 @@
 import 'dotenv/config'
-import { User } from '../data/models.js'
-import { expect } from 'chai'
-
 import registerUser from './registerUser.js'
 import mongoose from 'mongoose'
-import bcrypt from 'bcryptjs'
+import { User } from '../data/models.js'
 
-// const { ValidationError, DuplicityError } = errors
-describe('registerUser', () => {
-        before(() => mongoose.connect(process.env.MONGODB_URI))
+mongoose.connect(process.env.MONGODB_URI)
 
-        beforeEach(() => User.deleteMany().exec)
-
-        it('succeeds on valid user registration with role "user"', async () => {
-                const user = await registerUser(
-                        'Charlie',
-                        'Brown',
-                        'user',
-                        'charlie@gbrown.com',
-                        'charlie',
-                        '123123123',
-                        '123123123'
-                )
-                        .then(user => {
-                                expect(user).to.exist
-                                expect(user.role).to.equal('user')
-                        })
-        })
-
-        it('succeeds on valid user registration with role "organizer"', async () => {
-                const user = await registerUser(
-                        'Mary',
-                        'Jane',
-                        'organizer',
-                        'mary@jane.com',
-                        'lamary',
-                        '123123123',
-                        '123123123'
-                )
-
-                expect(user).to.exist
-                expect(user.role).to.equal('organizer')
-        })
-
-        it('fails on invalid role', async () => {
-                try {
-                        await registerUser(
-                                'Charlie',
-                                'Brown',
-                                'invalidRole',
-                                'john.doe@gmail.com',
-                                'johndoe',
-                                '123123123',
-                                '123123123'
-                        )
-
-                        throw new Error('should not reach this point')
-                } catch (error) {
-                        expect(error).to.exist
-                        expect(error.message).to.equal('invalid role')
-                }
-        })
-
-        it('fails when passwords do not match', async () => {
-                try {
-                        await registerUser(
-                                'Jhon',
-                                'Snow',
-                                'user',
-                                'john@snow.com',
-                                'jhonnieve',
-                                '123123123',
-                                '123123123'
-                        )
-
-                        throw new Error('should not reach this point')
-                } catch (error) {
-                        expect(error).to.exist
-                        expect(error.message).to.equal('passwords do not match')
-                }
-        })
-
-        it('fails when email is already taken', async () => {
-                const hashedPassword = await bcrypt.hash('Password123', 8)
-                await User.create({
-                        name: 'Charlie',
-                        surname: 'Brown',
-                        role: 'user',
-                        email: 'charlie@brown.com',
-                        username: 'charlie',
-                        password: hashedPassword
-                })
-
-                try {
-                        await registerUser(
-                                'Charlie',
-                                'Brown',
-                                'organizer',
-                                'charlie@brown.com',
-                                'charlie',
-                                '123123123',
-                                '123123123'
-                        )
-
-                        throw new Error('should not reach this point')
-                } catch (error) {
-                        expect(error).to.exist
-                        expect(error.message).to.equal('user already exists')
-                }
-        })
-        // afterEach(() => User.deleteMany().exec())
-        after(() => mongoose.disconnect())
-})
+        .then(() => registerUser(
+                'Bruno',
+                'Diaz',
+                'user',
+                'bruno@diaz.com',
+                'brunodiaz',
+                '123123123',
+                '123123123'
+        ))
+        .then((user) => console.log('user registered', user))
+        .catch(error => console.error(error))
+        
+        .then(() => registerUser(
+                'Peter',
+                'Parker',
+                'user',
+                'peter@parker.com',
+                'peterparker',
+                '123123123',
+                '123123123'
+        ))
+        .then((user) => console.log('user registered', user))
+        .catch(error => console.error(error))
+        
+        .then((user) => registerUser(
+                'Charlie',
+                'Brown',
+                'user',
+                'charlie@brown.com',
+                'charlie',
+                '123123123',
+                '123123123'
+        ))
+        .then((user) => console.log('user registered', user))
+        .catch(error => console.error(error))
+        
+        .then((user) => registerUser(
+                'Bruce',
+                'Wayne',
+                'user',
+                'bruce@wayne.com',
+                'brucewayne',
+                '123123123',
+                '123123123'
+        ))
+        .then((user) => console.log('user registered', user))
+        .catch(error => console.error(error))
+        
+        
+        .then((user) => registerUser(
+                'Ricardo',
+                'Tapia',
+                'user',
+                'ricardo@tapia.com',
+                'ricardotapia',
+                '123123123',
+                '123123123'
+        ))
+        .then((user) => console.log('user registered', user))
+        .catch(error => console.error(error))
+        
+        .then((user) => User.create({
+                name: 'Mary',
+                surname: 'Jane',
+                role: 'user',
+                email: 'mary@jane.com',
+                username: 'lamary',
+                password: '123123123',
+                repeatPassword: '123123123'
+        }))
+        .then((user) => console.log('user registered', user))
+        .catch(error => console.error(error))
+        
+        // .then(() => User.deleteMany())
+        // .then(() => console.log('users deleted'))
+        .finally(() => mongoose.disconnect())

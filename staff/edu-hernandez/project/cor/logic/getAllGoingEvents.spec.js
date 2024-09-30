@@ -4,7 +4,7 @@ import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
 import { errors } from 'com'
 
-import getAllgoingEvents from './getAllgoingEvents.js'
+import getAllGoingEvents from './getAllGoingEvents'
 
 const { ObjectId } = Types
 const { NotFoundError, ValidationError, SystemError } = errors
@@ -68,7 +68,7 @@ describe('getAllGoingEvents', () => {
     })
 
     it('succeeds on valid user with multiple going events', () => {
-        return getAllgoingEvents(user._id.toString())
+        return getAllGoingEvents(user._id.toString())
             .then(events => {
                 // expect(events).to.have.lengthOf(2)
                 expect(event1.title).to.equal('Event 1')
@@ -87,14 +87,14 @@ describe('getAllGoingEvents', () => {
             password: '123123123',
             going: []
         })
-            .then(user => getAllgoingEvents(user._id.toString()))
+            .then(user => getAllGoingEvents(user._id.toString()))
             .then(events => {
                 expect(events).to.be.an('array').that.is.empty
             })
     })
 
     it('fails when user not found', () => {
-        return getAllgoingEvents(new ObjectId().toString())
+        return getAllGoingEvents(new ObjectId().toString())
             .catch(error => {
                 expect(error).to.exist
                 expect(error).to.be.instanceOf(NotFoundError)
@@ -103,7 +103,7 @@ describe('getAllGoingEvents', () => {
     })
 
     it('fails when userId is invalid', () => {
-        return getAllgoingEvents(new ObjectId().toString())
+        return getAllGoingEvents(new ObjectId().toString())
             .catch(error => {
                 expect(error).to.exist
                 expect(error).to.be.instanceOf(NotFoundError)
@@ -123,7 +123,7 @@ describe('getAllGoingEvents', () => {
             following: [],
         })
             .then(user => {
-                return getAllgoingEvents(user._id.toString())
+                return getAllGoingEvents(user._id.toString())
                     .catch(error => {
                         expect(error).to.exist
                         expect(error).to.be.instanceOf(ValidationError)
@@ -143,7 +143,7 @@ describe('getAllGoingEvents', () => {
             going: [new ObjectId().toString()]
         })
             .then(user => {
-                return getAllgoingEvents(user._id.toString())
+                return getAllGoingEvents(user._id.toString())
                     .catch(error => {
                         expect(error).to.exist
                         expect(error).to.be.instanceOf(ValidationError)
@@ -163,7 +163,7 @@ describe('getAllGoingEvents', () => {
             going: [new ObjectId().toString()]
         })
             .then(user => {
-                return getAllgoingEvents(user._id.toString())
+                return getAllGoingEvents(user._id.toString())
                     .catch(error => {
                         expect(error).to.exist
                         expect(error).to.be.instanceOf(ValidationError)
@@ -175,7 +175,7 @@ describe('getAllGoingEvents', () => {
     it('fails when event associated with going is not found', () => {
         return User.findByIdAndUpdate(user._id, { going: [new ObjectId()] })
             .then(() => {
-                return getAllgoingEvents(user._id.toString())
+                return getAllGoingEvents(user._id.toString())
                     .catch(error => {
                         expect(error).to.exist
                         expect(error).to.be.instanceOf(NotFoundError)
@@ -189,7 +189,7 @@ describe('getAllGoingEvents', () => {
 
         return mongoose.disconnect()
             .then(() => {
-                return getAllgoingEvents(userId)
+                return getAllGoingEvents(userId)
                     .catch(error => {
                         expect(error).to.be.instanceOf(SystemError)
                         expect(error.message).to.equal('Client must be connected before running operations')

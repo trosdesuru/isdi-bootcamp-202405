@@ -7,7 +7,6 @@ import deleteEvent from './deleteEvent.js'
 import toggleFavEvent from './toggleUserEvent.js'
 import toggleFollowUser from './toggleFollowUser.js'
 import toggleGoingEvent from './toggleGoingEvent.js'
-import getAllPoniesPosts from './getAllUserEvents.js'
 import authenticateUser from './authenticateUser.js'
 import searchEvent from './searchEvent.js'
 import getAllFavEvents from './getAllFavEvents.js'
@@ -15,7 +14,7 @@ import updateEventCaption from './updateEventCaption.js'
 import createReview from './createReview.js'
 import getAllRecommendedEvents from './getAllRecommendedEvents.js'
 import getAllMapEvents from './getAllMapEvents.js'
-import getAllgoingEvents from './getAllGoingEvents.js'
+import getAllGoingEvents from './getAllGoingEvents.js'
 
 const logic = {
     authenticateUser,
@@ -24,6 +23,7 @@ const logic = {
     getAllFavEvents,
     getAllMapEvents,
     getAllEvents,
+    getAllGoingEvents,
     getUserName,
     registerUser,
     toggleFavEvent,
@@ -34,7 +34,6 @@ const logic = {
     searchEvent,
     createReview,
     getAllRecommendedEvents,
-    getAllgoingEvents
 }
 
 export default logic

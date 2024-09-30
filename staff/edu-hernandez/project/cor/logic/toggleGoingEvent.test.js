@@ -4,8 +4,8 @@ import mongoose from 'mongoose'
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => toggleGoingEvent(
-        '66f1dbfad82759f737de0a08', // userId
-        '66f28eb15afb1e361b0cad2e'  // eventId
+        '66fa92c16018e425775d4c2b', // userId
+        '66fa92e422f8c8b1846f084e'  // eventId
     ))
     .then(eventId => console.log('event going toggled', eventId))
     .catch(error => console.error(error))

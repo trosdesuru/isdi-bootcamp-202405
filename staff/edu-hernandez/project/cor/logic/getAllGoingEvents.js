@@ -11,17 +11,16 @@ export default userId => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return Event.find({ _id: { $in: user.favs } }, { __v: 0 }).sort({ date: -1 }).lean()
+            return Event.find({ _id: { $in: user.going } }, { __v: 0 }).sort({ date: -1 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(events => {
                     const promises = events.map(event => {
-                        // event.fav = user.fav.some(eventObjectId => eventObjectId.toString() === event._id.toString())
-                        event.going = post.going.some(userObjectId => userObjectId.toString() === userId)
+                        event.going = event.going.some(userGoing => userGoing.toString() === userId)
 
                         return User.findById(event.author).lean()
                             .catch(error => { throw new SystemError(error.message) })
-                            .then((author) => {
-                                if (!author) throw new NotFoundError('user not found')
+                            .then(author => {
+                                if (!author) throw new NotFoundError('author not found')
 
                                 event.author = {
                                     id: author._id.toString(),
@@ -29,7 +28,7 @@ export default userId => {
                                     title: author.title,
                                     time: author.time,
                                     date: author.date,
-                                    going: author.going
+                                    going: event.going
                                 }
 
                                 event.id = event._id.toString()
@@ -40,7 +39,7 @@ export default userId => {
                     })
 
                     return Promise.all(promises)
-                        .then(results => results)
+                        .then(events => events)
                 })
         })
 }

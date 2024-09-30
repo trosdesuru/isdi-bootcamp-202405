@@ -36,6 +36,7 @@ const user = new Schema({
     },
     going: {
         type: [ObjectId],
+        default: [],
         ref: 'Event'
     },
     fav: {
@@ -103,7 +104,8 @@ const event = new Schema({
     },
     going: {
         type: [ObjectId],
-        ref: 'User'
+        default: [],
+        ref: 'User',
     },
     likes: {
         type: [ObjectId],
