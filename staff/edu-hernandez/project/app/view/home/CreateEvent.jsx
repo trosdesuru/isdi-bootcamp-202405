@@ -100,75 +100,12 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
         </option>
     ))
 
-    //     return <section className="fixed bottom-14 left-0 w-full
-    //     bg-white shadow-2xl rounded-xl border-t-dark_white
-    //     dark:bg-background_grey 
-    //     dark:text-white p-2 box-border border-t 
-    //     dark:border-t-light_grey">
-
-    //         <Heading className="font-bevan text-2xl text-bold pt-4 pl-5 text-cities" level={2}>Create Event</Heading>
-
-    //         <Form className="flex-col font-moderustic text-[14px]" onSubmit={handleCreateEventSubmit}>
-    //             <Container className="flex-col">
-    //                 <Container className="flex-col items-start text-light_grey">
-    //                     <Label htmlFor="event-title-input">Event Title</Label>
-    //                     <Input className="text-light_grey" id="event-title-input" />
-    //                 </Container>
-
-    //                 <Container className="flex-col items-start text-light_grey">
-    //                     <Label htmlFor="event-image-input">Image</Label>
-    //                     <Input className="text-light_grey" id="event-image-input" />
-    //                 </Container>
-
-    //                 <Container className="flex-col items-start text-light_grey">
-    //                     <Label htmlFor="event-caption-input">Description</Label>
-    //                     <Input className="text-light_grey" id="event-caption-input" />
-    //                 </Container>
-
-    //                 <Container className="flex-col items-start text-light_grey">
-    //                     <Label htmlFor="event-date-input">Date</Label>
-    //                     <Input
-    //                         id="event-date-input"
-    //                         readOnly
-    //                         value={formattedDate.toLocaleDateString()}
-    //                         onClick={handleToggleCalendar}
-    //                     />
-    //                     {CalendarOpen && <Calendar onChange={handleDateChange} value={formattedDate} />}
-    //                 </Container>
-
-    //                 <Container className="flex-col items-start text-light_grey">
-    //                     <Label htmlFor="event-location-input">Location</Label>
-    //                     <Input
-    //                         className="text-light_grey"
-    //                         id="event-location-input"
-    //                         placeholder="Enter coordinates (lat, long)"
-    //                         defaultValue="41.38879, 2.15899"
-    //                     />
-    //                 </Container>
-
-    //                 <Container className="flex-col items-start text-light_grey">
-    //                     <Label htmlFor="event-time-input">Time</Label>
-    //                     <select id="event-time-input" value={eventTime} onChange={event => setEventTime(event.target.value)}>
-    //                         {timeOptions}
-    //                     </select>
-    //                 </Container>
-
-    //                 <Container className="flex justify-between mt-4">
-    //                     <Button className="text-white bg-grass p-2 rounded" type="submit">Submit</Button>
-    //                     <Button className="font-modersutic dark:text-dark_white" type="reset" onClick={handleCancelCreateEventClick}>Cancel</Button>
-    //                 </Container>
-
-    //             </Container>
-    //         </Form>
-    //     </section >
-    // }
-
     return (
         <>
-            {/* Capa de fondo con efecto blur */}
+            {/* Blur Background */}
             <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-10"></div>
 
-            {/* Contenido del modal de CreateEvent */}
+            {/* CreateEvent Card */}
             <section className="fixed bottom-14 left-0 w-full 
         bg-white shadow-2xl rounded-xl 
         border-t-dark_white 

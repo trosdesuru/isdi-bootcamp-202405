@@ -16,7 +16,7 @@ import toggleGoingEvent from './toggleGoingEvent'
 import updateEventCaption from './updateEventCaption'
 import getAllRecommendedEvents from './getAllRecommendedEvents'
 import getAllMapEvents from './getAllMapEvents'
-import getAllGoingEvents from '../../cor/logic/getAllGoingEvents'
+import getAllGoingEvents from './getAllGoingEvents'
 
 const logic = {
     createEvent,

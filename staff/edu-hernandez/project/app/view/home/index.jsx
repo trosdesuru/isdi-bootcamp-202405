@@ -86,7 +86,6 @@ export default function Home({ onLogout }) {
             attendees: 30,
             images: ['/path/to/image3.jpg', '/path/to/image4.jpg']
         }
-        // Añadir más eventos según sea necesario
     ]
 
     const carouselItems = [
@@ -198,7 +197,7 @@ export default function Home({ onLogout }) {
                     )}
                 </main>
 
-                <Footer onEventCreated={handleEventCreated} onMapClicked={handleMapClick} onCalendarClicked={handleCalendarClick} onGoingEventsClicked={handleGoingClick}/>
+                <Footer onEventCreated={handleEventCreated} onMapClicked={handleMapClick} onCalendarClicked={handleCalendarClick} onGoingEventsClicked={handleGoingClick} />
             </div>
         </>
     )
