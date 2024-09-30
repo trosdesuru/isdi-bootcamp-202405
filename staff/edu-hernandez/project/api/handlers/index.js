@@ -7,6 +7,7 @@ import getAllFavEventsHandler from './getAllFavEventsHandler.js'
 import getAllMapEventsHandler from './getAllMapEventsHandler.js'
 import getAllRecommendedEventsHandler from './getAllRecommendedEventsHandler.js'
 import getAllUserEventsHandler from './getAllUserEventsHandler.js'
+import getAllGoingEventsHandler from 'cor/logic/getAllGoingEventsHandler.js'
 import getUserNameHandler from './getUserNameHandler.js'
 import registerUserHandler from './registerUserHandler.js'
 import searchEventHandler from './searchEventHandler.js'
@@ -24,6 +25,7 @@ export {
     getAllFavEventsHandler,
     getAllMapEventsHandler,
     getAllRecommendedEventsHandler,
+    getAllGoingEventsHandler,
     getAllUserEventsHandler,
     getUserNameHandler,
     registerUserHandler,
