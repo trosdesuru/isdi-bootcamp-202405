@@ -1,10 +1,7 @@
 import { User, Event } from '../data/models.js'
 import { validate, errors } from 'com'
-import { Types } from 'mongoose'
 
-const { NotFoundError, SystemError, ValidationError } = errors
-const { ObjectId } = Types
-
+const { NotFoundError, SystemError } = errors
 
 export default userId => {
     validate.string(userId, 'userId')
@@ -14,35 +11,36 @@ export default userId => {
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            if (!user.going.every(event => ObjectId.isValid(event._id)))
-                throw new ValidationError('invalid event._id in going property')
+            return Event.find({ _id: { $in: user.favs } }, { __v: 0 }).sort({ date: -1 }).lean()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(events => {
+                    const promises = events.map(event => {
+                        // event.fav = user.fav.some(eventObjectId => eventObjectId.toString() === event._id.toString())
+                        event.going = post.going.some(userObjectId => userObjectId.toString() === userId)
 
-            if (!Array.isArray(user.going)) user.going = []
+                        return User.findById(event.author).lean()
+                            .catch(error => { throw new SystemError(error.message) })
+                            .then((author) => {
+                                if (!author) throw new NotFoundError('user not found')
 
-            const events = user.going
+                                event.author = {
+                                    id: author._id.toString(),
+                                    username: author.username,
+                                    title: author.title,
+                                    time: author.time,
+                                    date: author.date,
+                                    going: author.going
+                                }
 
-            const promises = events.map(event => {
-                event.going = true
+                                event.id = event._id.toString()
+                                delete event._id
 
-                return User.findById(event.author).lean()
-                    .then(author => {
-                        if (!author) throw new NotFoundError('author not found')
-
-                        event.author = {
-                            id: author._id.toString(),
-                            username: author.username,
-                            avatar: author.avatar,
-                            going: user.going.some(userObjectId => userObjectId.toString() === author._id.toString())
-                        }
-
-                        event.id = event._id.toString()
-                        delete event._id
-
-                        return event
+                                return event
+                            })
                     })
-            })
 
-            return Promise.all(promises)
-                .then(events => events)
+                    return Promise.all(promises)
+                        .then(results => results)
+                })
         })
 }

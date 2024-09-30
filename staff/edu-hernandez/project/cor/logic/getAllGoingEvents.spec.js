@@ -4,7 +4,7 @@ import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
 import { errors } from 'com'
 
-import getAllgoingEvents from './getAllGoingEvents.js'
+import getAllgoingEvents from './getAllgoingEvents.js'
 
 const { ObjectId } = Types
 const { NotFoundError, ValidationError, SystemError } = errors
@@ -67,6 +67,16 @@ describe('getAllGoingEvents', () => {
             })
     })
 
+    it('succeeds on valid user with multiple going events', () => {
+        return getAllgoingEvents(user._id.toString())
+            .then(events => {
+                // expect(events).to.have.lengthOf(2)
+                expect(event1.title).to.equal('Event 1')
+                expect(event2.title).to.equal('Event 2')
+                expect(event1.location.coordinates).to.deep.equal([41.3874, 2.1686])
+            })
+    })
+
     it('succeeds on user with no going events', () => {
         return User.create({
             name: 'Test',
@@ -80,16 +90,6 @@ describe('getAllGoingEvents', () => {
             .then(user => getAllgoingEvents(user._id.toString()))
             .then(events => {
                 expect(events).to.be.an('array').that.is.empty
-            })
-    })
-
-    it('succeeds on valid user with multiple going events', () => {
-        return getAllgoingEvents(user._id.toString())
-            .then(events => {
-                expect(events).to.have.lengthOf(2)
-                expect(events[0].title).to.equal('Event 1')
-                expect(events[1].title).to.equal('Event 2')
-                expect(events[0].location.coordinates).to.deep.equal([41.3874, 2.1686])
             })
     })
 

@@ -103,8 +103,7 @@ const event = new Schema({
     },
     going: {
         type: [ObjectId],
-        required: false,
-        default: []
+        ref: 'User'
     },
     likes: {
         type: [ObjectId],
