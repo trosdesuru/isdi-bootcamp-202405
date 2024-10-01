@@ -8,7 +8,7 @@ import getAllMapEventsHandler from './getAllMapEventsHandler.js'
 import getAllRecommendedEventsHandler from './getAllRecommendedEventsHandler.js'
 import getAllUserEventsHandler from './getAllUserEventsHandler.js'
 import getAllGoingEventsHandler from './getAllGoingEventsHandler.js'
-import getUserNameHandler from './getUserNameHandler.js'
+import getUsernameUserHandler from './getUsernameUserHandler.js'
 import registerUserHandler from './registerUserHandler.js'
 import searchEventHandler from './searchEventHandler.js'
 import toggleFavEventHandler from './toggleFavEventHandler.js'
@@ -27,7 +27,7 @@ export {
     getAllMapEventsHandler,
     getAllRecommendedEventsHandler,
     getAllUserEventsHandler,
-    getUserNameHandler,
+    getUsernameUserHandler,
     registerUserHandler,
     searchEventHandler,
     toggleFavEventHandler,

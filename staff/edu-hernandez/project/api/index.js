@@ -7,11 +7,12 @@ import { cors, jsonBodyParser, jwtVerifier, errorHandler } from './middlewares/i
 import {
     registerUserHandler,
     authenticateUserHandler,
-    getUserNameHandler,
+    getUsernameUserHandler,
     getAllEventsHandler,
     getAllUserEventsHandler,
     getAllFavEventsHandler,
     getAllMapEventsHandler,
+    getAllGoingEventsHandler,
     getAllRecommendedEventsHandler,
     createEventHandler,
     deleteEventHandler,
@@ -36,13 +37,17 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
-        api.get('/users/:targetUserId/name', jwtVerifier, getUserNameHandler)
+        api.get('/users/:targetUserId/name', jwtVerifier, getUsernameUserHandler)
+
+        api.get('/users/:targetUserId/username', jwtVerifier, getUsernameUserHandler)
 
         api.get('/events', jwtVerifier, getAllEventsHandler)
 
         api.get('/events/users', jwtVerifier, getAllUserEventsHandler)
 
         api.get('/events/fav', jwtVerifier, getAllFavEventsHandler)
+
+        api.get('events/:userId/going', jwtVerifier, getAllGoingEventsHandler)
 
         api.get('/map', jwtVerifier, getAllMapEventsHandler)
 
