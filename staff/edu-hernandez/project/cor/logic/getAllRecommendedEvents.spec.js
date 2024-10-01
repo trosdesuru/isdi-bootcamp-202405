@@ -6,7 +6,8 @@ import mongoose, { Types } from 'mongoose'
 import getAllRecommendedEvents from './getAllRecommendedEvents.js'
 
 const { ObjectId } = Types
-const { SystemError, ValidationError } = errors
+
+const { SystemError, ValidationError, NotFoundError } = errors
 
 describe('getAllRecommendedEvents', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
@@ -49,7 +50,7 @@ describe('getAllRecommendedEvents', () => {
             })
     })
 
-    it('succeeds on user has not attended any events', () => {
+    it('succeeds on user has not attended events', () => {
         let userId
 
         return User.create({
@@ -80,7 +81,7 @@ describe('getAllRecommendedEvents', () => {
             })
     })
 
-    it('succeeds on returns an empty array when user has an empty going list', () => {
+    it('succeeds on when user has an empty going list', () => {
         let userId
 
         return User.create({
@@ -172,7 +173,7 @@ describe('getAllRecommendedEvents', () => {
     })
 
     it('fails when userId is an empty string', () => {
-        return getAllRecommendedEvents('')
+        return getAllRecommendedEvents(new ObjectId().toString())
             .then(() => { throw new Error('should not reach this point') })
             .catch(error => {
                 expect(error).to.be.instanceOf(SystemError)

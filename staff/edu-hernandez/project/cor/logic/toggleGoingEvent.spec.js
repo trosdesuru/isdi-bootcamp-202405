@@ -12,11 +12,7 @@ const { NotFoundError } = errors
 describe('toggleGoingEvent', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
 
-    beforeEach(() =>
-        // User.deleteMany()
-        //     .then(() => Event.deleteMany())
-        Promise.all([User.deleteMany(), Event.deleteMany()])
-    )
+    beforeEach(() => User.deleteMany().then(() => Event.deleteMany()))
 
     it('succeeds on existing user and event has no going events', () =>
         User.create({
@@ -95,6 +91,107 @@ describe('toggleGoingEvent', () => {
             )
     )
 
+    it('succeeds on event with multiple going users', () =>
+        User.create({
+            name: 'Charlie',
+            surname: 'Brown',
+            role: 'user',
+            email: 'charlie@brown.com',
+            username: 'charlie',
+            password: '123123123'
+        })
+            .then(user1 =>
+                User.create({
+                    name: 'Snoopy',
+                    surname: 'Dog',
+                    role: 'user',
+                    email: 'snoopy@dog.com',
+                    username: 'snoopy',
+                    password: '123123123'
+                })
+                    .then(user2 =>
+                        Event.create({
+                            author: user1.id,
+                            title: 'test event',
+                            image: 'https://randomImage.png',
+                            caption: 'test caption',
+                            location: {
+                                type: 'Point',
+                                coordinates: [41.38879, 2.15899]
+                            },
+                            time: '08:00',
+                            going: [user1.id, user2.id]
+                        })
+                            .then(event =>
+                                toggleGoingEvent(user1.id, event.id)
+                                    .then(() => Promise.all([
+                                        User.findById(user1.id).lean(),
+                                        Event.findById(event.id).lean()
+                                    ]))
+                                    .then(([updatedUser, updatedEvent]) => {
+                                        expect(updatedUser.going.map(eventObjectId =>
+                                            eventObjectId.toString())).to.not.include(event.id)
+                                        expect(updatedEvent.going.map(userObjectId =>
+                                            userObjectId.toString())).to.not.include(user1.id)
+                                        expect(updatedEvent.going.map(userObjectId =>
+                                            userObjectId.toString())).to.include(user2.id)
+                                    })
+                            )
+                    )
+            )
+    )
+
+    it('fails on invalid userId format', () => {
+        let _error
+    
+        return User.create({
+            name: 'Charlie',
+            surname: 'Brown',
+            role: 'user',
+            email: 'charlie@brown.com',
+            username: 'charlie',
+            password: '123123123'
+        })
+            .then(user => 
+                Event.create({
+                    author: user.id,
+                    title: 'test event',
+                    image: 'https://randomImage.png',
+                    caption: 'test caption',
+                    location: {
+                        type: 'Point',
+                        coordinates: [41.38879, 2.15899]
+                    },
+                    time: '08:00',
+                })
+            )
+            .then(event => toggleGoingEvent(new ObjectId().toString(), event.id))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.exist
+                expect(_error.message).to.equal('user not found')
+            })
+    })
+
+    it('fails on invalid eventId format', () => {
+        let _error
+    
+        return User.create({
+            name: 'Charlie',
+            surname: 'Brown',
+            role: 'user',
+            email: 'charlie@brown.com',
+            username: 'charlie',
+            password: '123123123'
+        })
+            .then(user => toggleGoingEvent(user.id, new ObjectId().toString()))
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.exist
+                expect(_error.message).to.equal('event not found')
+            })
+    })
+
     it('fails on non-existing user', () => {
         let _error
 
@@ -111,7 +208,7 @@ describe('toggleGoingEvent', () => {
             },
             time: '08:00',
         })
-            .then(event => toggleGoingEvent(userObjectId.toString(), event.id))
+            .then(event => toggleGoingEvent(new ObjectId().toString(), event.id))
             .catch(error => _error = error)
             .finally(() => {
                 expect(_error).to.be.instanceOf(NotFoundError)

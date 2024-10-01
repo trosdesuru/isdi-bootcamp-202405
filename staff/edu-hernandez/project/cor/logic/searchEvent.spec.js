@@ -1,15 +1,13 @@
 import 'dotenv/config'
-import searchEvent from './searchEvent.js'
+import { User, Event } from '../data/models.js'
 import mongoose, { Types } from 'mongoose'
+import { expect } from 'chai'
+import { errors } from 'com'
+import searchEvent from './searchEvent.js'
+
+const { NotFoundError, SystemError } = errors
 
 const { ObjectId } = Types
-
-import { expect } from 'chai'
-import { User, Event } from '../data/models.js'
-
-import { errors } from 'com'
-
-const { NotFoundError } = errors
 
 describe('searchEvent', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
@@ -84,6 +82,28 @@ describe('searchEvent', () => {
             })
     })
 
+    it('succeeds if there`s is not events match the query', () => {
+        let userId
+
+        return User.create({
+            name: 'Charlie',
+            surname: 'Brown',
+            role: 'user',
+            email: 'charlie@brown.com',
+            username: 'charlie',
+            password: '123123123',
+            favs: [],
+            following: []
+        })
+            .then(user => {
+                userId = user.id
+                return searchEvent(userId, 'nonexistent')
+            })
+            .then(events => {
+                expect(events).to.be.an('array').that.is.empty
+            })
+    })
+
     it('fails on non-existing user', () => {
         let _error
 
@@ -139,25 +159,15 @@ describe('searchEvent', () => {
             })
     })
 
-    it('returns empty array if no events match the query', () => {
-        let userId
+    it('fails on invalid userId format', () => {
+        let _error
+        const invalidUserId = new ObjectId().toString()
 
-        return User.create({
-            name: 'Charlie',
-            surname: 'Brown',
-            role: 'user',
-            email: 'charlie@brown.com',
-            username: 'charlie',
-            password: '123123123',
-            favs: [],
-            following: []
-        })
-            .then(user => {
-                userId = user.id
-                return searchEvent(userId, 'nonexistent')
-            })
-            .then(events => {
-                expect(events).to.be.an('array').that.is.empty
+        return searchEvent(invalidUserId, 'event')
+            .catch(error => _error = error)
+            .finally(() => {
+                expect(_error).to.be.instanceOf(NotFoundError)
+                expect(_error.message).to.equal('user not found')
             })
     })
 

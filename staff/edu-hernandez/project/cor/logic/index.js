@@ -15,6 +15,7 @@ import createReview from './createReview.js'
 import getAllRecommendedEvents from './getAllRecommendedEvents.js'
 import getAllMapEvents from './getAllMapEvents.js'
 import getAllGoingEvents from './getAllGoingEvents.js'
+import getUsernameUser from './getUsernameUser.js'
 
 const logic = {
     authenticateUser,
@@ -25,6 +26,7 @@ const logic = {
     getAllEvents,
     getAllGoingEvents,
     getUserName,
+    getUsernameUser,
     registerUser,
     toggleFavEvent,
     toggleGoingEvent,

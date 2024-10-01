@@ -22,7 +22,7 @@ export default (userId, query) => {
                 .catch(error => { throw new SystemError(error.message) })
                 .then(events => {
                     const promises = events.map(event => {
-                        event.fav = user.fav.some(postObjectId => postObjectId.toString() === event._id.toString())
+                        event.fav = user.fav.some(eventObjectId => eventObjectId.toString() === event._id.toString())
                         event.going = event.going.some(userObjectId => userObjectId.toString() === userId)
 
                         return User.findById(event.author).lean()

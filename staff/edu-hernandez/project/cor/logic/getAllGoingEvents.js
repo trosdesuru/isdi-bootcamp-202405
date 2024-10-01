@@ -25,10 +25,10 @@ export default userId => {
                                 event.author = {
                                     id: author._id.toString(),
                                     username: author.username,
-                                    title: author.title,
-                                    time: author.time,
-                                    date: author.date,
-                                    going: event.going
+                                    title: event.title,
+                                    time: event.time,
+                                    date: event.date,
+                                    going: user.going.some(userObjectId => userObjectId.toString() === author._id.toString())
                                 }
 
                                 event.id = event._id.toString()

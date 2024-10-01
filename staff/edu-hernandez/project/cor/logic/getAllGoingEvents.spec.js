@@ -4,7 +4,7 @@ import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
 import { errors } from 'com'
 
-import getAllGoingEvents from './getAllGoingEvents'
+import getAllGoingEvents from './getAllGoingEvents.js'
 
 const { ObjectId } = Types
 const { NotFoundError, ValidationError, SystemError } = errors
