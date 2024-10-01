@@ -1,12 +1,12 @@
-import { validate, errors } from 'com'
+import { errors } from 'com'
+import extractPayloadFromToken from '../util/extractPayloadFromToken'
 
 const { SystemError } = errors
 
-export default eventId => {
-    validate.string(eventId, 'postId')
+export default () => {
+    const { sub: name } = extractPayloadFromToken(sessionStorage.token)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/events/${eventId}/favs`, {
-        method: 'PATCH',
+    return fetch(`${import.meta.env.VITE_API_URL}/users/${name}/username`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }
@@ -15,7 +15,9 @@ export default eventId => {
         .then(response => {
             const { status } = response
 
-            if (status === 204) return
+            if (status === 200)
+                return response.json()
+                    .then(username => username)
 
             return response.json()
                 .then(body => {

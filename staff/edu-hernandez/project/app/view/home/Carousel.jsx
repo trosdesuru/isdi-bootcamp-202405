@@ -41,8 +41,8 @@ export default function Carousel({ items }) {
 
       if (averageColor) {
         const brightness = (averageColor.r * 0.299 + averageColor.g * 0.587 + averageColor.b * 0.114) / 255
-        const newArrowColor = brightness > 0.5 ? 'text-grey' : 'text-white'
-        const newIconColor = brightness > 0.5 ? 'text-dark_black' : 'text-dark_white'
+        const newArrowColor = brightness > 0.5 ? 'text-black' : 'text-white'
+        const newIconColor = brightness > 0.5 ? 'text-black' : 'text-white'
         const newBgColor = brightness > 0.5 ? 'bg-light_grey' : 'bg-dark_grey'
 
         setArrowColor(newArrowColor)

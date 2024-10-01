@@ -32,6 +32,20 @@ export default function Event({
 
     const handleDeleteEventClick = () => setConfirmMessage('Delete Event?')
 
+    const handleDeleteEventCancel = () => setConfirmMessage(null)
+    
+    const handleEditEventClick = () => {
+        console.debug('Event -> handleEditEvent')
+        
+        setEditEventVisible(true)
+    }
+
+    const handleCancelEditEventClick = () => {
+        console.debug('Event -> handleCancelEditEventClick')
+        
+        setEditEventVisible(false)
+    
+    }
     const handleDeleteEventAccept = () => {
         try {
             logic.deleteEvent(event.id)
@@ -47,22 +61,7 @@ export default function Event({
             alert(error.message)
         }
     }
-
-    const handleDeleteEventCancel = () => setConfirmMessage(null)
-
-
-    const handleEditEventClick = () => {
-        console.debug('Event -> handleEditEvent')
-
-        setEditEventVisible(true)
-    }
-
-    const handleCancelEditEventClick = () => {
-        console.debug('Event -> handleCancelEditEventClick')
-
-        setEditEventVisible(false)
-    }
-
+    
     const handleEditEventSubmit = event => {
         console.debug('Event -> handleEditEventSubmit')
 

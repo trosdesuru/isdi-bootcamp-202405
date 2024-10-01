@@ -1,8 +1,7 @@
 import { errors } from 'com'
+import extractPayloadFromToken from '../util/extractPayloadFromToken'
 
 const { SystemError } = errors
-
-import extractPayloadFromToken from '../util/extractPayloadFromToken'
 
 export default () => {
     const { sub: username } = extractPayloadFromToken(sessionStorage.token)

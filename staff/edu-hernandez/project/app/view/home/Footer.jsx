@@ -6,6 +6,10 @@ import Button from '../library/Button'
 
 export default function Footer({ onEventCreated, onMapClicked, onCalendarClicked, onGoingEventsClicked }) {
 
+    const handleCreateClick = () => {
+        if (onEventCreated) { onEventCreated }
+    }
+
     const handleMapClick = () => {
         if (onMapClicked) { onMapClicked() }
     }
@@ -23,7 +27,7 @@ export default function Footer({ onEventCreated, onMapClicked, onCalendarClicked
         bg-background_grey 
         text-white p-2 shadow-custom">
 
-            <Link to="/" className="flex flex-col items-center space-y-1">
+            <Link to="/" className="flex flex-col items-center space-y-1" onClick={handleCreateClick}>
                 <HomeIcon className="stroke-dark_white h-8 w-8 sm:h-10 sm:w-10" />
             </Link>
 

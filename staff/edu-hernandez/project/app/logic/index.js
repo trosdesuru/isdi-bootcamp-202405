@@ -5,6 +5,7 @@ import getAllFavEvents from './getAllFavEvents'
 import getAllUserEvents from './getAllUserEvents'
 import getUserId from './getUserId'
 import getUserName from './getUserName'
+import getUsernameUser from './getUsernameUser'
 import isUserLoggedIn from './isUserLoggedIn'
 import loginUser from './loginUser'
 import logoutUser from './logoutUser'
@@ -29,6 +30,7 @@ const logic = {
     getAllGoingEvents,
     getUserId,
     getUserName,
+    getUsernameUser,
     isUserLoggedIn,
     loginUser,
     logoutUser,

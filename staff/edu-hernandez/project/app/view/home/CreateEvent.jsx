@@ -103,7 +103,7 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
     return (
         <>
             {/* Blur Background */}
-            <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-10"></div>
+            <div className="fixed !m-0 inset-0 bg-black bg-opacity-50 backdrop-blur-sm  z-10"></div>
 
             {/* CreateEvent Card */}
             <section className="fixed bottom-14 left-0 w-full 

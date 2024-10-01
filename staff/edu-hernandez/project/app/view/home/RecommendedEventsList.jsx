@@ -7,8 +7,6 @@ import Section from '../library/Section'
 import Paragraph from '../library/Paragraph'
 import Container from '../library/Container'
 import Button from '../library/Button'
-import getAverageColor from '../../util/getAverageColor'
-import { Util } from 'leaflet'
 
 const RecommendedEventsList = ({ recommendedEvents }) => {
     const [currentIndex, setCurrentIndex] = useState(0)
@@ -30,7 +28,7 @@ const RecommendedEventsList = ({ recommendedEvents }) => {
         const updateArrowColor = async () => {
             const image = recommendedEvents[currentIndex]?.image
             if (image) {
-                const color = await getAverageColor(image)
+                const backgroundColor = await getAverageColor(image)
                 if (backgroundColor) {
                     const brightness = (backgroundColor.r * 0.299 + backgroundColor.g * 0.587 + backgroundColor.b * 0.114) / 255
                     const ArrowColor = brightness > 0.5 ? 'text-grey' : 'text-dark_white'
@@ -38,8 +36,8 @@ const RecommendedEventsList = ({ recommendedEvents }) => {
                 }
             }
         }
-
         updateArrowColor()
+
     }, [currentIndex])
 
     return (

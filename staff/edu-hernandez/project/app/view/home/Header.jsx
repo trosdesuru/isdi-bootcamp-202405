@@ -11,7 +11,7 @@ import CreateEvent from './CreateEvent'
 import useContext from '../context'
 
 export default function Header({ onEventCreated, onLogout }) {
-    const [name, setName] = useState(null)
+    const [username, setName] = useState(null)
     const [createEventVisible, setCreateEventVisible] = useState(false)
     const [menuVisible, setMenuVisible] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
@@ -22,9 +22,9 @@ export default function Header({ onEventCreated, onLogout }) {
         console.debug('Header -> useEffect')
 
         try {
-            logic.getUserName()
+            logic.getUsernameUser()
 
-                .then(name => setName(name))
+                .then(username => setName(username))
                 .catch(error => {
                     console.error(error)
                     alert(error.message)
@@ -81,8 +81,8 @@ export default function Header({ onEventCreated, onLogout }) {
         setSearchQuery(event.target.value)
     }
 
-    const handleSearchSubmit = (e) => {
-        e.preventDefault()
+    const handleSearchSubmit = (event) => {
+        event.preventDefault()
         console.debug('Search query:', searchQuery)
     }
 
@@ -111,7 +111,7 @@ export default function Header({ onEventCreated, onLogout }) {
                 <Container ref={menuRef}
                     className="flex flex-col absolute  rounded-lg shadow-lg space-y-2 z-10 top-20 left-0 px-4 py-4 bg-white border-gray-300 dark:bg-background_grey border dark:border-light_grey">
 
-                    <Paragraph className="font-bevan font-regular text-lg text-grey dark:text-dark_white">{name}</Paragraph>
+                    <Paragraph className="font-bevan font-regular text-lg text-grey dark:text-dark_white">{username}</Paragraph>
 
                     <Button
                         className="flex flex-row gap-4 text-grey dark:text-dark_white" onClick={handleCreateEventClick}>
