@@ -1,4 +1,5 @@
 import createEvent from './createEvent'
+import createReview from './createReview'
 import deleteEvent from './deleteEvent'
 import getAllEvents from './getAllEvents'
 import getAllFavEvents from './getAllFavEvents'
@@ -21,6 +22,7 @@ import getAllGoingEvents from './getAllGoingEvents'
 
 const logic = {
     createEvent,
+    createReview,
     deleteEvent,
     getAllEvents,
     getAllFavEvents,

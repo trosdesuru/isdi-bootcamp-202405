@@ -47,10 +47,10 @@ export default function Map() {
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
         attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
-        style="positron"
+        style="positron dark:"
       />
       {events.map(event => (
-        <Marker key={event.id} position={event.location.coordinates}>
+        <Marker className="" key={event.id} position={event.location.coordinates}>
           <Popup>
             <strong>{event.title}</strong><br />
             <small>{event.author.username}</small>

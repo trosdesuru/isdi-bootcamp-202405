@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { Context } from '../context'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 import Header from './Header'
@@ -164,41 +165,39 @@ export default function Home({ onLogout }) {
 
     return (
         <>
-            <div>
-                <Header onHomeClick={handleHomeClick} onUsersClick={handleUsersClick} onLogout={onLogout} />
+            <Header onHomeClick={handleHomeClick} onEventCreated={handleEventCreated} onUsersClick={handleUsersClick} onLogout={onLogout} />
 
-                <main className="flex flex-col gap-4 pt-4 mt-16 mr-0 min-h-wscreen max-w-screen overflow-auto 
+            <main className="flex flex-col gap-4 pt-4 mt-16 mr-0 min-h-screen max-w-screen overflow-auto 
                 bg-white 
                 dark:bg-background_grey">
-                    {loading ? (
-                        <SkeletonLoader />) : (<Routes>
-                            <Route path="/" element={
-                                <>
-                                    <Carousel items={carouselItems} />
-                                    <EventsList refreshStamp={refreshStamp} />
-                                    <RecommendedEventsList recommendedEvents={recommendedEvents} />
-                                    <BannerEvent event={bannerEvent} />
-                                    <PopularEventsList popularEvents={popularEvents} />
-                                    <RandomEventsList events={randomEvents} />
-                                </>
-                            }
-                            />
-                            <Route path="/calendar" element={<Calendar events={events} />} />
-                            <Route path="users/events" element={<UserEventsList />} />
-                            <Route path="/favs" element={<FavsEventsList />} />
-                            <Route path="/hello/:to" element={<Hello />} />
-                            <Route path="/search" element={<ResultsEventsList />} />
-                            <Route path="/map" element={<Map />} />
-                            <Route path="events/recommended" element={<RecommendedEventsList events={recommendedEvents} />} />
-                            <Route path="events/popular" element={<PopularEventsList popularEvents={popularEvents} />} />
-                            <Route path="events/random" element={<RandomEventsList events={randomEvents} />} />
-                            <Route path="events/going" element={<GoingEventsList events={goingEvents} />} />
-                        </Routes>
-                    )}
-                </main>
+                {loading ? (
+                    <SkeletonLoader />) : (<Routes>
+                        <Route path="/" element={
+                            <>
+                                <Carousel items={carouselItems} />
+                                <EventsList refreshStamp={refreshStamp} />
+                                <RecommendedEventsList recommendedEvents={recommendedEvents} />
+                                <BannerEvent event={bannerEvent} />
+                                <PopularEventsList popularEvents={popularEvents} />
+                                <RandomEventsList events={randomEvents} />
+                            </>
+                        }
+                        />
+                        <Route path="/calendar" element={<Calendar events={events} />} />
+                        <Route path="users/events" element={<UserEventsList />} />
+                        <Route path="/favs" element={<FavsEventsList />} />
+                        <Route path="/hello/:to" element={<Hello />} />
+                        <Route path="/search" element={<ResultsEventsList />} />
+                        <Route path="/map" element={<Map />} />
+                        <Route path="events/recommended" element={<RecommendedEventsList events={recommendedEvents} />} />
+                        <Route path="events/popular" element={<PopularEventsList popularEvents={popularEvents} />} />
+                        <Route path="events/random" element={<RandomEventsList events={randomEvents} />} />
+                        <Route path="events/going" element={<GoingEventsList events={goingEvents} />} />
+                    </Routes>
+                )}
+            </main>
 
-                <Footer onEventCreated={handleEventCreated} onMapClicked={handleMapClick} onCalendarClicked={handleCalendarClick} onGoingEventsClicked={handleGoingClick} />
-            </div>
+            <Footer onEventCreated={handleEventCreated} onMapClicked={handleMapClick} onCalendarClicked={handleCalendarClick} onGoingEventsClicked={handleGoingClick} />
         </>
     )
 }

@@ -1,10 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import getAllEvents from '../../logic/getAllEvents'
 import Calendar from 'react-calendar'
-import './calendarStyles.css'
-import { FaHeart, FaCheck, FaStar } from 'react-icons/fa'
+import './calendar.css'
 
 const CalendarPage = () => {
+  console.debug('CalendarPage -> call')
+
+  const [events, setEvents] = useState([])
   const [date, setDate] = useState(new Date())
+
+  useEffect(() => {
+    console.debug('useEffect -> call')
+
+    const fetchEvents = async () => {
+      try {
+        const eventsData = await getAllEvents()
+        console.debug(eventsData)
+
+        setEvents(eventsData)
+      } catch (error) {
+        console.error('error getting events date', error)
+      }
+    }
+
+    fetchEvents()
+  }, [])
+
+  const eventDates = Array.isArray(events) ? events.map(event => new Date(event.date).getDate()) : []
 
   return (
     <div className="flex flex-col items-center bg-transparent h-full w-screen">
@@ -14,28 +36,12 @@ const CalendarPage = () => {
             onChange={setDate}
             value={date}
             tileClassName={({ date }) => {
-              return date.getDate() === 8 || date.getDate() === 20 || date.getDate() === 26 || date.getDate() === 29
-                ? 'highlighted-day'
-                : ''
+              return eventDates.includes(date.toLocaleDateString()) ? 'highlighted-day' : ''
             }}
-            className="calendarStyles.css"
+            className="calendar.css"
           />
         </div>
 
-        {/* Buttons like, fav, and going */}
-        <div className="flex space-x-4 mb-6">
-          <button className="flex items-center justify-center bg-pink-500 text-white rounded-full p-3 shadow-custom">
-            <FaHeart className="text-xl" />
-          </button>
-          <button className="flex items-center justify-center bg-ore text-white rounded-full p-3 shadow-custom">
-            <FaStar className="text-xl" />
-          </button>
-          <button className="flex items-center justify-center bg-grass text-white rounded-full p-3 shadow-custom">
-            <FaCheck className="text-xl" />
-          </button>
-        </div>
-
-        {/* Event Title */}
         <div className="w-full text-left my-6">
           <h3 className="text-2xl font-bold text-title">Event Title</h3>
           <p className="text-sm text-gray-600">
@@ -43,7 +49,6 @@ const CalendarPage = () => {
           </p>
         </div>
 
-        {/* Images from users */}
         <div className="w-full">
           <h4 className="text-pink-500 font-bold text-lg mb-2">Events Images from Users</h4>
           <div className="grid grid-cols-3 gap-4">

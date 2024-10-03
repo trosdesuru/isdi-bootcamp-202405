@@ -3,12 +3,13 @@ import { validate, errors } from 'com'
 const { SystemError } = errors
 
 export default userId => {
-    validate.string(userId, 'userId')
+    // validate.string(userId, 'userId')
 
-    console.debug('API call ->', `${import.meta.env.VITE_API_URL}events/${userId}/going`)
+    console.debug('API call ->', `${import.meta.env.VITE_API_URL}/events/going`)
     console.debug('sessionStorage.token ->', sessionStorage.token)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/going`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/events/going`, {
+        method: 'GET',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'

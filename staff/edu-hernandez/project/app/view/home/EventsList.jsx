@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import logic from '../../logic'
 import Event from './Event'
-import EventCard from './EventCard'
 
 export default function EventsList() {
     console.debug('EventsList -> call')
@@ -60,7 +59,7 @@ export default function EventsList() {
         }
     }
 
-    return <section className="flex flex-wrap flex-cols-1 md:flex-cols-2 lg:flex-cols-3 gap-6 w-full max-w-screen-xl overflow-hidden">
+    return <section className="flex flex-wrap flex-cols-1 md:flex-cols-2 lg:flex-cols-3 gap-4 w-full max-w-screen-xl overflow-hidden">
         {events.map(event =>
             <Event
                 key={event.id}

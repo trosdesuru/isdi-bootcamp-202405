@@ -2,23 +2,24 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (eventId, caption) => {
+export default (eventId, rating, comment) => {
     validate.string(eventId, 'eventId')
-    validate.string(caption, 'caption')
+    validate.rating(rating, 'rating')
+    validate.string(comment, 'comment')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/events/${eventId}/caption`, {
-        method: 'PATCH',
+    return fetch(`${import.meta.env.VITE_API_URL}/events/reviews`, {
+        method: 'POST',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ caption })
+        body: JSON.stringify({ userId, eventId, rating, comment })
     })
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response
 
-            if (status === 204) return
+            if (status === 201) return
 
             return response.json()
                 .then(body => {
@@ -28,5 +29,8 @@ export default (eventId, caption) => {
 
                     throw new constructor(message)
                 })
+        })
+        .catch(error => {
+            throw new SystemError(error.message)
         })
 }

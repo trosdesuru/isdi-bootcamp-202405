@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
-import { FaSearch, FaPlus, FaMoon, FaSun, FaCog, FaSignOutAlt } from 'react-icons/fa'
+import { useState, useEffect, useRef, useContext } from 'react'
+import { Context } from '../context'
+import { FaPlus, FaMoon, FaSun, FaSignOutAlt } from 'react-icons/fa'
 
 import logic from '../../logic'
 import Button from '../library/Button'
@@ -8,14 +8,13 @@ import Paragraph from '../library/Paragraph'
 import Container from '../library/Container'
 import Image from '../library/Image'
 import CreateEvent from './CreateEvent'
-import useContext from '../context'
+import Search from './Search'
 
 export default function Header({ onEventCreated, onLogout }) {
     const [username, setName] = useState(null)
     const [createEventVisible, setCreateEventVisible] = useState(false)
     const [menuVisible, setMenuVisible] = useState(false)
-    const [searchQuery, setSearchQuery] = useState('')
-    const { theme, setTheme } = useContext()
+    const { theme, setTheme } = useContext(Context)
     const menuRef = useRef(null)
 
     useEffect(() => {
@@ -35,8 +34,6 @@ export default function Header({ onEventCreated, onLogout }) {
         }
     }, [])
 
-    const toggleMenu = () => setMenuVisible(prev => !prev)
-
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -47,17 +44,22 @@ export default function Header({ onEventCreated, onLogout }) {
         return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [menuRef])
 
+    const toggleMenu = () => setMenuVisible(prev => !prev)
+
     const handleCreateEventClick = () => {
+        console.debug('Header -> handleCreateEventClick')
         setCreateEventVisible(true)
     }
 
     const handleCancelCreateEventClick = () => {
+        console.debug('Header -> handleCancelEventClick')
         setCreateEventVisible(false)
     }
 
     const handleEventCreated = () => {
+        console.debug('Header -> handleEventCreated')
         setCreateEventVisible(false)
-        
+
         onEventCreated()
     }
 
@@ -77,35 +79,20 @@ export default function Header({ onEventCreated, onLogout }) {
         }
     }
 
-    const handleSearchChange = event => {
-        setSearchQuery(event.target.value)
-    }
-
-    const handleSearchSubmit = (event) => {
-        event.preventDefault()
-        console.debug('Search query:', searchQuery)
-    }
-
     const handleSwitchTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
     return (
-        <header className="flex items-center p-3 fixed top-0 left-0 z-10 bg-white dark:shadow-custom w-full dark:bg-background_grey">
+        <header className="flex items-center justify-between p-3 fixed top-0 left-0 z-10 bg-white dark:shadow-custom w-full dark:bg-background_grey">
             <Button className="mr-4" onClick={toggleMenu}>
-                <div className="avatar-icon">
-                    <div className="w-full h-full flex items-center justify-center">
-                        <Image src="/avatar/avatarIcon.png" alt="Avatar" className="h-10 w-10 rounded-full cursor-pointer"></Image>
-                    </div>
-                </div>
+                <Image src="/avatar/avatarIcon.png" alt="Avatar" className="h-11 w-11 rounded-full cursor-pointer"></Image>
             </Button>
 
-            <form onSubmit={handleSearchSubmit} className="relative flex items-center flex-grow text-light_grey">
-                <FaSearch className="w-5 h-5 text-dark_white absolute left-3" />
-
-                <input onChange={handleSearchChange} type="text" placeholder="Search events ..." value={searchQuery} className="w-full pl-10 pr-20 py-2 border-dark_white rounded-xl bg-gray-100 outline-none dark:bg-grey dark:text-dark_white" />
-                <div className="absolute right-3 font-bevan text-2xl text-dark_white">
-                    cities
-                </div>
-            </form>
+            <div className='flex-grow'>
+                <Search />
+            </div>
+            <div className="absolute right-6 font-bevan text-2xl text-dark_white">
+                cities
+            </div>
 
             {menuVisible && (
                 <Container ref={menuRef}

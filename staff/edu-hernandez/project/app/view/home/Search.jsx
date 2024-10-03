@@ -1,9 +1,7 @@
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-import Form from '../library/Form'
 import Input from '../library/Input'
-import Button from '../library/Button'
 import { FaSearch } from 'react-icons/fa'
 
 export default function Search() {
@@ -19,7 +17,7 @@ export default function Search() {
     }, [q])
 
     const handleSubmit = event => {
-        
+
         event.preventDefault()
 
         const form = event.target
@@ -43,15 +41,15 @@ export default function Search() {
     }
 
 
-    return <Form onSubmit={handleSubmit} className="flex justify-center items-center text-light_grey">
-        <Input
-            name="q"
-            placeholder="search"
-            value={query}
-            onChange={handleInputChange}
-            className="border rounded-md px-3 py-1 " />
-        <Button type="submit">
-            <FaSearch />
-        </Button>
-    </Form>
+    return <form onSubmit={handleSubmit} className="relative flex items-center w-full">
+        <div className="relative w-full">
+            <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-dark_white" />
+            <Input
+                name="q"
+                placeholder="search events.."
+                value={query}
+                onChange={handleInputChange}
+                className="w-full pl-12 pr-24 py-2 border-2 border-gray-300 rounded-lg bg-transparent outline-none text-light_grey" />
+        </div>
+    </form>
 }

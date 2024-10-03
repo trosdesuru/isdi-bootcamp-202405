@@ -52,7 +52,7 @@ export default function ResultsEventsList({ refreshStamp }) {
 
     const loadEvents = () => {
         try {
-            logic.searchEvents(q)
+            logic.searchEvent(q)
                 .then(events => setEvents(events))
                 .catch(error => {
                     console.error(error)
