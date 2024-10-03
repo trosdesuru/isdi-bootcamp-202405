@@ -13,16 +13,12 @@ console.debug(`Connected to ${process.env.MONGODB_URI}`)
             date: '2024-08-08',
             title: 'Concert in the Park',
             description: 'Join us for a night of music under the stars.',
-            likes: 150,
-            attendees: 45,
             images: ['/path/to/image1.jpg', '/path/to/image2.jpg']
         },
         {
             date: '2024-08-20',
             title: 'Art Gallery Opening',
             description: 'Explore the latest works from local artists.',
-            likes: 120,
-            attendees: 30,
             images: ['/path/to/image3.jpg', '/path/to/image4.jpg']
         },
         {
