@@ -6,7 +6,7 @@ export default (req, res, next) => {
     const { eventId, rating, comment } = req.body
 
     try {
-        logic.createEvent(userId, eventId, rating, comment)
+        logic.createReview(userId, eventId, rating, comment)
             .then(() => res.status(201).send())
             .catch(error => next(error))
     } catch (error) {

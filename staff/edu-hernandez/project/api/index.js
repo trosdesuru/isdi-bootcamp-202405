@@ -15,14 +15,14 @@ import {
     getAllGoingEventsHandler,
     getAllRecommendedEventsHandler,
     createEventHandler,
+    createReviewHandler,
     deleteEventHandler,
     toggleGoingEventHandler,
     toggleFavEventHandler,
     toggleFollowUserHandler,
     updateEventCaptionHandler,
-    searchEventHandler,
-    createReviewHandler
-    
+    searchEventHandler
+
 } from './handlers/index.js'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -47,7 +47,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.get('/events/fav', jwtVerifier, getAllFavEventsHandler)
 
-        api.get('events/:userId/going', jwtVerifier, getAllGoingEventsHandler)
+        api.get('/events/going', jwtVerifier, getAllGoingEventsHandler)
 
         api.get('/map', jwtVerifier, getAllMapEventsHandler)
 
@@ -57,7 +57,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/events', jwtVerifier, jsonBodyParser, createEventHandler)
 
-        api.post('events/reviews', jwtVerifier, jsonBodyParser, createReviewHandler)
+        api.post('/events/reviews', jwtVerifier, jsonBodyParser, createReviewHandler)
 
         api.delete('/events/:eventId', jwtVerifier, deleteEventHandler)
 
