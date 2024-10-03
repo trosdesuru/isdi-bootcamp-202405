@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react'
 import { HeartIcon } from '@heroicons/react/outline'
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/solid'
 import logic from '../../logic'
-import extractPayloadFromToken from '../../util/extractPayloadFromToken'
-import isUserLoggedIn from '../../logic/isUserLoggedIn'
+import getUserId from '../../logic/getUserId'
 import eventTime from '../../util/eventTime'
 import formatDate from '../../util/formatDate'
 
@@ -19,7 +18,7 @@ import Container from '../library/Container'
 import Confirm from '../common/Confirm'
 import Avatar from './Avatar'
 
-export default function Event({ user, event, onEventDeleted, onEventEdited, onEventFavToggled, onEventGoingToggled, onUserFollowToggled }) {
+export default function Event({ user, event, onEventDeleted, onEventEdited, onEventFavToggled, onEventGoingToggled }) {
     console.debug('Event -> call')
 
     const [editEventVisible, setEditEventVisible] = useState(false)
@@ -60,12 +59,12 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
         }
     }
 
-    const handleEditEventSubmit = event => {
+    const handleEditEventSubmit = state => {
         console.debug('Event -> handleEditEventSubmit')
 
-        event.preventDefault()
+        state.preventDefault()
 
-        const form = event.target
+        const form = state.target
 
         const editCaptionInput = form['edit-caption-input']
 
@@ -132,23 +131,26 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
         state.preventDefault()
 
         const { rating, comment } = newReview
+        const userId = getUserId()
 
         if (!rating || !comment) {
             setError('rating and comment cannot be empty')
             return
         }
-        try {
-            logic.createReview(userId, event.id, rating, comment)
-                .then(() => {
-                    setNewReview({ rating: '', comment: '' })
-                    setError(null)
-                    onEventEdited(event)
-                })
-                .catch(error => {
-                    alert(error.message)
-                })
-        } catch (error) {
-            alert(error.message)
+        if (userId !== event.author.id) {
+            try {
+                logic.createReview(userId, event.id, rating, comment)
+                    .then(() => {
+                        setNewReview({ rating: '', comment: '' })
+                        setError(null)
+                        onEventEdited(event)
+                    })
+                    .catch(error => {
+                        alert(error.message)
+                    })
+            } catch (error) {
+                alert(error.message)
+            }
         }
     }
 
@@ -238,19 +240,19 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
         )}
 
         {editEventVisible && (
-            <Form onSubmit={handleEditEventSubmit} className="flex-col mt-4 p-4 rounded-lg shadow-lg bg-light_grey dark:bg-background_light_grey">
+            <Form onSubmit={handleEditEventSubmit} className="flex-col mt-4 p-4 rounded-lg shadow-lg bg-inherit dark:bg-background_light_grey">
                 <Container className="flex-col gap-4">
-                    <Label htmlFor="edit-caption-input" className="text-title dark:text-dark_white">
+                    <Label htmlFor="edit-caption-input" className="text-lg font-semibold text-light_grey dark:text-dark_white">
                         Edit Caption
                     </Label>
-                    <Input id="edit-caption-input" defaultValue={event.caption} className="w-full p-2 rounded-md border border-light_grey dark:border-dark_white" />
+                    <Input id="edit-caption-input" defaultValue={event.caption} className="w-full h-full p-2 rounded-md border border-light_grey dark:border-dark_white" />
                 </Container>
 
-                <Container className="flex justify-between mt-4">
-                    <Button type="submit" className="bg-grass text-white py-2 px-4 rounded-md hover:bg-opacity-90">
+                <Container className="flex justify-end gap-5 mt-4">
+                    <Button type="submit" className="font-bevan text-cities py-2 px-4 rounded-md hover:bg-opacity-90">
                         Save
                     </Button>
-                    <Button type="button" onClick={handleCancelEditEventClick} className="bg-laranja text-white py-2 px-4 rounded-md hover:bg-opacity-90">
+                    <Button type="button" onClick={handleCancelEditEventClick} className="font-bevan text-md text-light_grey py-2 px-4 rounded-md hover:bg-opacity-90">
                         Cancel
                     </Button>
                 </Container>

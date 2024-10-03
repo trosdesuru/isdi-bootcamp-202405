@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react'
-import { Context } from '../context'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 import Header from './Header'
@@ -10,7 +9,6 @@ import RecommendedEventsList from './RecommendedEventsList'
 import PopularEventsList from './PopularEventsList'
 import BannerEvent from './BannerEvent'
 import EventsList from './EventsList'
-import UserEventsList from './UserEventsList'
 import FavsEventsList from './FavsEventsList'
 import ResultsEventsList from './ResultsEventsList'
 import RandomEventsList from './RandomEventsList'
@@ -183,21 +181,20 @@ export default function Home({ onLogout }) {
                             </>
                         }
                         />
-                        <Route path="/calendar" element={<Calendar events={events} />} />
-                        <Route path="users/events" element={<UserEventsList />} />
-                        <Route path="/favs" element={<FavsEventsList />} />
-                        <Route path="/hello/:to" element={<Hello />} />
                         <Route path="/search" element={<ResultsEventsList />} />
+                        <Route path="/hello/:to" element={<Hello />} />
                         <Route path="/map" element={<Map />} />
+                        <Route path="/calendar" element={<Calendar events={events} />} />
                         <Route path="events/recommended" element={<RecommendedEventsList events={recommendedEvents} />} />
                         <Route path="events/popular" element={<PopularEventsList popularEvents={popularEvents} />} />
                         <Route path="events/random" element={<RandomEventsList events={randomEvents} />} />
                         <Route path="events/going" element={<GoingEventsList events={goingEvents} />} />
+                        <Route path="events/fav" element={<FavsEventsList />} />
                     </Routes>
                 )}
             </main>
 
-            <Footer onEventCreated={handleEventCreated} onMapClicked={handleMapClick} onCalendarClicked={handleCalendarClick} onGoingEventsClicked={handleGoingClick} />
+            <Footer onEventCreated={handleEventCreated} onMapClicked={handleMapClick} onCalendarClicked={handleCalendarClick} onGoingEventsClicked={handleGoingClick} onFavsEventsClicked={handleFavsClick} />
         </>
     )
 }

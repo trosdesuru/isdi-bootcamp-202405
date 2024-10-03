@@ -1,30 +1,27 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { Context } from '../context'
 import logic from '../../logic'
-
 import 'leaflet/dist/leaflet.css'
-import L from 'leaflet'
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
-import markerIcon from 'leaflet/dist/images/marker-icon.png'
-import markerShadow from 'leaflet/dist/images/marker-shadow.png'
-
-delete L.Icon.Default.prototype._getIconUrl
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: markerIcon2x,
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow
-})
+import EventCard from './EventCard'
+import MarkerIcon from '../library/MarkerIcon'
 
 export default function Map() {
   console.debug('Map -> call')
 
+  const { theme } = useContext(Context)
   const [events, setEvents] = useState([])
+  const [selectEvent, setSelectEvent] = useState(null)
 
   useEffect(() => {
     console.debug('MapEvents -> useEffect')
 
     loadEvents()
   }, [])
+
+  const handleMarkerClick = (event) => {
+    setSelectEvent(event)
+  }
 
   const loadEvents = () => {
     try {
@@ -42,22 +39,22 @@ export default function Map() {
     }
   }
 
-  return (
-    <MapContainer className="" center={[41.3874, 2.1686]} zoom={13} style={{ height: 'calc(100vh - 128px)' }}>
-      <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-        attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
-        style="positron dark:"
-      />
-      {events.map(event => (
-        <Marker className="" key={event.id} position={event.location.coordinates}>
-          <Popup>
-            <strong>{event.title}</strong><br />
-            <small>{event.author.username}</small>
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
+  const TileLayerUrl = theme === 'dark'
+    ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+    : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
 
+    const attribution = '&copy; <a href="https://carto.com/attributions">CARTO</a>'
+  return (
+    <div className="">
+      <MapContainer className="overflow-hidden" center={[41.3874, 2.1686]} zoom={13} style={{ height: 'calc(100vh - 128px)', zIndex: 1 }}>
+        <TileLayer url={TileLayerUrl} attribution={attribution} />
+
+        {events.map(event => (
+          <Marker key={event.id} position={event.location.coordinates} icon={MarkerIcon} eventHandlers={{ click: () => handleMarkerClick(event) }} />
+        ))}
+      </MapContainer>
+      {selectEvent && (
+        <EventCard className="" event={selectEvent} onClose={() => setSelectEvent(null)} />)}
+    </div>
   )
 }

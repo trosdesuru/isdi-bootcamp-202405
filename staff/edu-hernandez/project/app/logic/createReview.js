@@ -2,7 +2,8 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (eventId, rating, comment) => {
+export default (userId, eventId, rating, comment) => {
+    validate.string(userId, 'userId')
     validate.string(eventId, 'eventId')
     validate.rating(rating, 'rating')
     validate.string(comment, 'comment')

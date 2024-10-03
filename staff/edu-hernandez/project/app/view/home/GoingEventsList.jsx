@@ -3,42 +3,48 @@ import logic from '../../logic'
 import Event from './Event'
 
 export default function GoingEventsList() {
-    console.debug('FavsEventsList -> call')
+    console.debug('GoingEventsList -> call')
 
     const [events, setEvents] = useState([])
 
     useEffect(() => {
-        console.debug('FavsEventsList -> useEffect')
+        console.debug('GoingEventsList -> useEffect')
 
         loadEvents()
     }, [])
 
     const handleEventDeleted = () => {
-        console.debug('FavsEventsList -> handleEventDeleted')
+        console.debug('GoingEventsList -> handleEventDeleted')
 
         loadEvents()
     }
 
     const handleEventEdited = () => {
-        console.debug('FavsEventsList -> handleEventEdited')
+        console.debug('GoingEventsList -> handleEventEdited')
 
         loadEvents()
     }
 
     const handleEventLikeToggled = () => {
-        console.debug('FavsEventsList -> handleEventLikeToggled')
+        console.debug('GoingEventsList -> handleEventLikeToggled')
 
         loadEvents()
     }
 
     const handleEventFavToggled = () => {
-        console.debug('FavsEventsList -> handleEventFavToggled')
+        console.debug('GoingEventsList -> handleEventFavToggled')
 
         loadEvents()
     }
 
     const handleUserFollowToggled = () => {
-        console.debug('FavsEventsList -> handleUserFollowToggled')
+        console.debug('GoingEventsList -> handleUserFollowToggled')
+
+        loadEvents()
+    }
+
+    const handleEventGoingToggled = () => {
+        console.debug('GoingEventsList -> handleEventGoingList')
 
         loadEvents()
     }
@@ -65,9 +71,8 @@ export default function GoingEventsList() {
             event={event}
             onEventDeleted={handleEventDeleted}
             onEventEdited={handleEventEdited}
-            onEventLikeToggled={handleEventLikeToggled}
+            onEventGoingToggled={handleEventGoingToggled}
             onEventFavToggled={handleEventFavToggled}
-            onUserFollowToggled={handleUserFollowToggled}
         />)}
     </section>
 }

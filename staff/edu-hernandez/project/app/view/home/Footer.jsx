@@ -4,10 +4,11 @@ import { HomeIcon, CalendarIcon, HeartIcon, MapIcon } from '@heroicons/react/out
 
 import Button from '../library/Button'
 
-export default function Footer({ onEventCreated, onMapClicked, onCalendarClicked, onGoingEventsClicked }) {
+export default function Footer({ onEventCreated, onMapClicked, onCalendarClicked, onGoingEventsClicked, onFavsEventsListClicked }) {
+    console.debug('Footer -> call')
 
     const handleCreateClick = () => {
-        if (onEventCreated) { onEventCreated }
+        if (onEventCreated) { onEventCreated() }
     }
 
     const handleMapClick = () => {
@@ -20,6 +21,10 @@ export default function Footer({ onEventCreated, onMapClicked, onCalendarClicked
 
     const handleGoingClick = () => {
         if (onGoingEventsClicked) { onGoingEventsClicked() }
+    }
+
+    const handleFavsClick = () => {
+        if (onFavsEventsListClicked) { onFavsEventsListClicked }
     }
 
     return (
@@ -43,9 +48,9 @@ export default function Footer({ onEventCreated, onMapClicked, onCalendarClicked
                 go!
             </Button>
 
-            <Link to="/events/favs" className="flex flex-col items-center space-y-1">
+            <Button onClick={handleFavsClick}>
                 <HeartIcon className="h-8 w-8 sm:h-10 sm:w-10 stroke-dark_white" />
-            </Link>
+            </Button>
         </footer>
     )
 }
