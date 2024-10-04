@@ -1,6 +1,6 @@
 export default function formatDate(date = new Date()) {
     if (!(date instanceof Date) || isNaN(date)) {
-        throw new Error('Invalid date provided')
+        throw new Error('invalid date provided')
     }
 
     const months = [

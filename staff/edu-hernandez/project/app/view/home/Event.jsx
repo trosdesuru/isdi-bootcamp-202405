@@ -217,7 +217,8 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
                 {event.reviews && event.reviews.length ? (event.reviews.map((review, index) => (
                     <Container key={index} className="mt-2 p-4 dark:bg-background_light_grey rounded-lg">
                         <Paragraph className="font-normal text-cities dark:text-cities">
-                            {review.author.username} - Rating: {review.rating}/5
+                            {review.author.username} Rating: {review.rating}/5
+                            {/* // TODO */}
                         </Paragraph>
                         <Paragraph className="text-title dark:text-dark_white">
                             {review.comment}

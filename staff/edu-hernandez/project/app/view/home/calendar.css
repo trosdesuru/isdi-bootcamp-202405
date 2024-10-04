@@ -11,6 +11,10 @@
   width: fit-content;
 }
 
+.highlighted-day {
+  background-color: #d10000;
+}
+
 .react-calendar--doubleView .react-calendar__viewContainer {
   display: flex;
   margin: -0.5em;

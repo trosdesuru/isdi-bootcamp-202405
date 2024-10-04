@@ -26,8 +26,16 @@ const CalendarPage = () => {
     fetchEvents()
   }, [])
 
-  const eventDates = Array.isArray(events) ? events.map(event => new Date(event.date).getDate()) : []
-
+  const eventDates = events.map(event => (new Date(event.date)))
+  const locateDates = eventDates.map(date => date.toLocaleDateString())
+  const hasEvent = (date) => {
+    if (locateDates.length > 0) {
+      const locateDate = date.toLocaleDateString()
+      console.debug(locateDate)
+      console.debug(locateDates.includes(locateDate))
+      return locateDates.includes(locateDate)
+    }
+  }
   return (
     <div className="flex flex-col items-center bg-transparent h-full w-screen">
       <main className="flex flex-col items-center my-0 w-full max-w-4xl mx-auto p-4">
@@ -36,7 +44,10 @@ const CalendarPage = () => {
             onChange={setDate}
             value={date}
             tileClassName={({ date }) => {
-              return eventDates.includes(date.toLocaleDateString()) ? 'highlighted-day' : ''
+              if (hasEvent(date)) {
+                return 'font-bevan text-lg text-white bg-laranja highlighted-day'
+              }
+
             }}
             className="calendar.css"
           />
