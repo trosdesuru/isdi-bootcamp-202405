@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import { User, Event } from '../data/models.js'
 import mongoose, { Types } from 'mongoose'
+import { getTime } from 'date-fns'
 import { expect } from 'chai'
 import { errors } from 'com'
 
@@ -42,7 +43,7 @@ describe('getAllGoingEvents', () => {
                             type: 'Point',
                             coordinates: [41.3874, 2.1686]
                         },
-                        time: '10:00 AM'
+                        time: getTime().toString()
                     }),
                     Event.create({
                         author: user._id,
@@ -53,7 +54,7 @@ describe('getAllGoingEvents', () => {
                             type: 'Point',
                             coordinates: [41.3874, 2.1686]
                         },
-                        time: '12:00 PM'
+                        time: getTime().toString()
                     })
                 ])
             })
@@ -70,10 +71,10 @@ describe('getAllGoingEvents', () => {
     it('succeeds on valid user with multiple going events', () => {
         return getAllGoingEvents(user._id.toString())
             .then(events => {
-                // expect(events).to.have.lengthOf(2)
-                expect(event1.title).to.equal('Event 1')
-                expect(event2.title).to.equal('Event 2')
-                expect(event1.location.coordinates).to.deep.equal([41.3874, 2.1686])
+                expect(events).to.have.lengthOf(2)
+                expect(events[0].title).to.equal('Event 1')
+                expect(events[1].title).to.equal('Event 2')
+                expect(events[0].location.coordinates).to.deep.equal([41.3874, 2.1686])
             })
     })
 
@@ -103,36 +104,35 @@ describe('getAllGoingEvents', () => {
     })
 
     it('fails when userId is invalid', () => {
-        return getAllGoingEvents(new ObjectId().toString())
+        return getAllGoingEvents('invalid-id')
             .catch(error => {
                 expect(error).to.exist
-                expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('user not found')
+                expect(error).to.be.instanceOf(ValidationError)
+                expect(error.message).to.equal('userId is not a valid ObjectId')
             })
     })
 
     it('fails when user has no going field', () => {
         return User.create({
-            name: new ObjectId().toString(),
+            name: 'Jane',
             surname: 'Doe',
             role: 'user',
-            email: 'invalid@doe.com',
-            username: 'invaliddoe',
+            email: 'jane@doe.com',
+            username: 'janedoe',
             password: '123123123',
             fav: [],
-            following: [],
         })
             .then(user => {
                 return getAllGoingEvents(user._id.toString())
                     .catch(error => {
                         expect(error).to.exist
                         expect(error).to.be.instanceOf(ValidationError)
-                        expect(error.message).to.equal('CastError')
+                        expect(error.message).to.equal('user has no going field')
                     })
             })
     })
 
-    it('fails when user has an empty going array but an invalid eventId', () => {
+    it('fails when user has an invalid eventId in going array', () => {
         return User.create({
             name: 'Mike',
             surname: 'Roe',
@@ -146,28 +146,8 @@ describe('getAllGoingEvents', () => {
                 return getAllGoingEvents(user._id.toString())
                     .catch(error => {
                         expect(error).to.exist
-                        expect(error).to.be.instanceOf(ValidationError)
-                        expect(error.message).to.equal('invalid event._id in going property')
-                    })
-            })
-    })
-
-    it('fails when user has an invalid eventId going', () => {
-        return User.create({
-            name: 'Mike',
-            surname: 'Roe',
-            role: 'user',
-            email: 'mike@roe.com',
-            username: 'miker',
-            password: '123123123',
-            going: [new ObjectId().toString()]
-        })
-            .then(user => {
-                return getAllGoingEvents(user._id.toString())
-                    .catch(error => {
-                        expect(error).to.exist
-                        expect(error).to.be.instanceOf(ValidationError)
-                        expect(error.message).to.equal('invalid event.id in going property')
+                        expect(error).to.be.instanceOf(NotFoundError)
+                        expect(error.message).to.equal('event not found')
                     })
             })
     })
@@ -199,8 +179,6 @@ describe('getAllGoingEvents', () => {
                 return mongoose.connect(process.env.MONGODB_URI)
             })
     })
-
-
 
     afterEach(() => Promise.all([User.deleteMany(), Event.deleteMany()]))
 

@@ -6,7 +6,6 @@ import createEvent from './createEvent.js'
 import createReview from './createReview.js'
 import deleteEvent from './deleteEvent.js'
 import toggleFavEvent from './toggleUserEvent.js'
-import toggleFollowUser from './toggleFollowUser.js'
 import toggleGoingEvent from './toggleGoingEvent.js'
 import authenticateUser from './authenticateUser.js'
 import searchEvent from './searchEvent.js'
@@ -31,7 +30,6 @@ const logic = {
     registerUser,
     toggleFavEvent,
     toggleGoingEvent,
-    toggleFollowUser,
     toggleLikeEvent,
     updateEventCaption,
     searchEvent,

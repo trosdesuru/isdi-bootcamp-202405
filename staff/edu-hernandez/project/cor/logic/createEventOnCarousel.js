@@ -22,10 +22,7 @@ export default (userId, title, image, caption, date, location, time) => {
                 author: userId,
                 title,
                 image,
-                caption,
-                date,
-                location,
-                time
+                caption
             })
                 .catch(error => { throw new SystemError(error.message) })
         })

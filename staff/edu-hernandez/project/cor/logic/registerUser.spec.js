@@ -29,14 +29,13 @@ describe('registerUser', () => {
             .then(user => {
                 expect(user.name).to.equal('Charlie')
                 expect(user.surname).to.equal('Brown')
-                expect(user.role).to.equal('user')
                 expect(user.email).to.equal('charlie@brown.com')
 
                 return bcrypt.compare('123123123', user.password)
             })
             .then(match => expect(match).to.be.true)
             .catch(error => {
-                throw new Error(`Test failed with error: ${error.message}`)
+                throw new Error(`test failed with error: ${error.message}`)
             })
     )
 

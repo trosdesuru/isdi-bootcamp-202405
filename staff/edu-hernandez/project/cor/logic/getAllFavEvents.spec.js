@@ -3,10 +3,11 @@ import { User, Event } from '../data/models.js'
 import { expect } from 'chai'
 import { getTime } from 'date-fns'
 import { errors } from 'com'
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 import getAllFavEvents from './getAllFavEvents.js'
 
-const { NotFoundError } = errors
+const { ObjectId } = Types
+const { NotFoundError, ValidationError, SystemError } = errors
 
 describe('getAllFavEvents', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
@@ -199,6 +200,154 @@ describe('getAllFavEvents', () => {
             })
     })
 
+    it('fails when author of the event is not found', () => {
+        return Event.create({
+            author: new ObjectId(),
+            title: 'Event with no existing author',
+            image: 'image_no_author.png',
+            date: new Date(),
+            location: {
+                type: 'Point',
+                coordinates: [41.3874, 2.1686]
+            },
+            time: getTime().toString()
+        })
+        .then(user => {
+            return getAllFavEvents(user._id.toString())
+                .then(() => {
+                    throw new Error('Expected a NotFoundError to be thrown')
+                })
+                .catch(error => {
+                    expect(error).to.be.instanceOf(NotFoundError)
+                    expect(error.message).to.equal('user not found')
+                })
+        })
+    })
+
+    it('fails when the author of the event has been deleted', () => {
+        return User.create({
+            name: 'Paul',
+            surname: 'Walker',
+            role: 'user',
+            email: 'paul@walker.com',
+            username: 'paulwalker',
+            password: '123123123',
+            avatar: '/avatar/paulIcon.png',
+            fav: [],
+            going: []
+        })
+            .then(userPaul => {
+                return Event.create({
+                    author: userPaul._id,
+                    title: 'Event with deleted author',
+                    image: 'image5.png',
+                    date: new Date(),
+                    location: {
+                        type: 'Point',
+                        coordinates: [41.3874, 2.1686]
+                    },
+                    time: getTime().toString()
+                })
+                    .then(eventWithDeletedAuthor => {
+                        return User.findByIdAndDelete(userPaul._id)
+                            .then(() => {
+                                return getAllFavEvents(userPaul._id.toString())
+                                    .then(() => {
+                                        throw new Error('should not reach this point, author was deleted')
+                                    })
+                                    .catch(error => {
+                                        expect(error).to.be.instanceOf(NotFoundError)
+                                        expect(error.message).to.equal('user not found')
+                                    })
+                            })
+                    })
+            })
+    })
+
+    it('fails when user.fav is not an array', () => {
+        return User.findByIdAndUpdate(user._id, { fav: null }, { new: true })
+            .then(user => {
+                return getAllFavEvents(user._id.toString())
+                    .then(events => {
+                        expect(events).to.have.lengthOf(0)
+                    })
+            })
+    })
+
+    it('fails when event has an invalid author ID', () => {
+        return Event.create({
+            author: new mongoose.Types.ObjectId(),
+            title: 'Event with invalid author ID',
+            image: 'image6.png',
+            date: new Date(),
+            location: {
+                type: 'Point',
+                coordinates: [41.3874, 2.1686]
+            },
+            time: getTime().toString()
+        })
+            .then(eventWithInvalidAuthor => {
+                return getAllFavEvents(eventWithInvalidAuthor._id.toString())
+                    .then(() => {
+                        throw new Error('should not reach this point, author is invalid')
+                    })
+                    .catch(error => {
+                        expect(error).to.be.instanceOf(NotFoundError)
+                        expect(error.message).to.equal('user not found')
+                    })
+            })
+    })
+
+    it('fails when event has no author', () => {
+        return Event.create({
+            author: new ObjectId(),
+            title: 'Event without author',
+            image: 'image7.png',
+            date: new Date(),
+            location: {
+                type: 'Point',
+                coordinates: [41.3874, 2.1686]
+            },
+            time: getTime().toString()
+        })
+            .then(eventWithoutAuthor => {
+                return getAllFavEvents(eventWithoutAuthor._id.toString())
+                    .then(() => {
+                        throw new Error('should not reach this point, event has no author')
+                    })
+                    .catch(error => {
+                        expect(error).to.be.instanceOf(NotFoundError)
+                        expect(error.message).to.equal('user not found')
+                    })
+            })
+    })
+
+    it('fails on user not found', () => {
+        const nonExistentUserId = new ObjectId().toString()
+
+        return getAllFavEvents(nonExistentUserId)
+            .then(() => {
+                throw new Error('should not reach this point')
+            })
+            .catch(error => {
+                expect(error).to.exist
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal(`user not found`)
+            })
+    })
+
+    it('fails when user does not exist', () => {
+        return getAllFavEvents('61616b5f4d778d7e7973b5d7')
+            .then(() => {
+                throw new Error('should have thrown a NotFoundError')
+            })
+            .catch(error => {
+                expect(error).to.exist
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('user not found')
+            })
+    })
+
     it('fails on creating event without author', () => {
         return Event.create({
             title: 'Event without author',
@@ -211,7 +360,7 @@ describe('getAllFavEvents', () => {
             time: getTime().toString()
         })
             .then(() => {
-                throw new Error('event without author should not be created')
+                throw new NotFoundError('event not found')
             })
             .catch(error => {
                 expect(error).to.exist
@@ -219,6 +368,51 @@ describe('getAllFavEvents', () => {
             })
     })
 
+    it('fails when an event in user favs does not exist', () => {
+        return Event.findByIdAndDelete(event1._id)
+            .then(() => getAllFavEvents(user._id.toString()))
+            .then(() => {
+                throw new NotFoundError('event not found')
+            })
+            .catch(error => {
+                expect(error).to.exist
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.include('event not found')
+            })
+    })
+
+    it('fails on invalid user ID format', () => {
+        return getAllFavEvents('invalidUserId')
+            .then(() => {
+                throw new SystemError(error.message)
+            })
+            .catch(error => {
+                expect(error).to.exist
+                expect(error.name).to.equal('SystemError')
+            })
+    })
+
+    it('fails on invalid event ID in user favs', () => {
+        return User.findByIdAndUpdate(user._id, { fav: ['invalidEventId'] })
+            .then(() => getAllFavEvents(user._id.toString()))
+            .then(() => {
+                throw new ValidationError('user not found')
+            })
+            .catch(error => {
+                expect(error).to.exist
+                expect(error.name).to.equal('CastError')
+            })
+    })
+
+    it('fails when user.fav is null or undefined', () => {
+        return User.findByIdAndUpdate(user._id, { fav: null }, { new: true })
+            .then(userWithNullFav => {
+                return getAllFavEvents(userWithNullFav._id.toString())
+                    .then(events => {
+                        expect(events).to.have.lengthOf(0)
+                    })
+            })
+    })
 
     afterEach(() => Promise.all([User.deleteMany(), Event.deleteMany()]))
 

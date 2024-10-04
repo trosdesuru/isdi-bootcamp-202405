@@ -21,11 +21,7 @@ export default (userId, title, image, caption, date, location, time) => {
             return Event.create({
                 author: userId,
                 title,
-                image,
-                caption,
-                date,
-                location,
-                time
+                image
             })
                 .catch(error => { throw new SystemError(error.message) })
         })
