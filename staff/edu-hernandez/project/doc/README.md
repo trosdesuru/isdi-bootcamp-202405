@@ -26,7 +26,7 @@ User
 - Follow cities to receive notifications of events
 - Explore cities and view events
 
-### UIUX Design
+### UX | UI Design
 [Figma](https://www.figma.com/proto/2Jqh5rduEoNJAEK8olefch/ISDI-Project-%7C-cities?page-id=47%3A270&node-id=83-33&node-type=canvas&viewport=-303%2C877%2C0.39&t=5vC2tVC4q8nyme1o-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=83%3A33)
 
 ## Technical
@@ -45,17 +45,6 @@ User
 - app (client)
 - doc (project documentation)
 
-### Technologies
-
-- HTML / CSS / JS
-- Node
-- Express
-- React
-- MongoDB
-- Mongoose
-- Bcrypt
-- JWT
-
 ### Data Model
 
 User 
@@ -64,7 +53,6 @@ User
 - email (string)
 - password (string)
 - avatar (string, optional)
-- followingCities ([City.id])
 
 Event
 - id (auto)
@@ -90,6 +78,17 @@ Comment
 - author (User.id)
 - event (Event.id)
 - date (Date)
+
+### Technologies
+
+- HTML / CSS / JS
+- Node
+- Express
+- React
+- MongoDB
+- Mongoose
+- Bcrypt
+- JWT
 
 ### Test Coverage
 
