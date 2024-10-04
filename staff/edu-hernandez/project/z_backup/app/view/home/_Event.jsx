@@ -20,7 +20,7 @@ import Confirm from '../common/Confirm'
 import Avatar from './Avatar'
 
 export default function Event({ user, event, onEventDeleted, onEventEdited, onEventFavToggled, onEventGoingToggled, onUserFollowToggled }) {
-    console.debug('Event -> call')
+    // console.debug('Event -> call')
 
     const [editEventVisible, setEditEventVisible] = useState(false)
     const [confirmMessage, setConfirmMessage] = useState(null)
@@ -32,13 +32,13 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
     const handleDeleteEventCancel = () => setConfirmMessage(null)
 
     const handleEditEventClick = () => {
-        console.debug('Event -> handleEditEvent')
+        // console.debug('Event -> handleEditEvent')
 
         setEditEventVisible(true)
     }
 
     const handleCancelEditEventClick = () => {
-        console.debug('Event -> handleCancelEditEventClick')
+        // console.debug('Event -> handleCancelEditEventClick')
 
         setEditEventVisible(false)
 
@@ -61,7 +61,7 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
     }
 
     const handleEditEventSubmit = event => {
-        console.debug('Event -> handleEditEventSubmit')
+        // console.debug('Event -> handleEditEventSubmit')
 
         event.preventDefault()
 
@@ -91,7 +91,7 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
     }
 
     const handleGoingEventClick = () => {
-        console.debug('Event -> handleGoingEventClick')
+        // console.debug('Event -> handleGoingEventClick')
 
         try {
             logic.toggleGoingEvent(event.id)
@@ -109,7 +109,7 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
     }
 
     const handleFavEventClick = () => {
-        console.debug('Event -> handleFavEventClick')
+        // console.debug('Event -> handleFavEventClick')
 
         try {
             logic.toggleFavEvent(event.id)
@@ -127,7 +127,7 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
     }
 
     const handleFollowUserClick = () => {
-        console.debug('Event -> handleFollowUserClick')
+        // console.debug('Event -> handleFollowUserClick')
 
         try {
             logic.toggleFollowUser(event.author.id)
@@ -145,7 +145,7 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
     }
 
     const handleReviewClick = (state) => {
-        console.debug('Event -> handleReviewClick')
+        // console.debug('Event -> handleReviewClick')
 
         state.preventDefault()
 
