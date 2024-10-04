@@ -8,7 +8,7 @@
 }
 
 .react-calendar--doubleView {
-  width: fit-content;
+  width: fit-content;;
 }
 
 .highlighted-day {
@@ -146,13 +146,18 @@
 }
 
 .react-calendar__tile--active {
-  background: #006edc;
-  color: white;
+  background: transparent;
+  border: 2px solid;
+  border-image: linear-gradient(to bottom right, #FF9B21, #CE23DD) 1;
+  color: #FF9B21;
 }
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #1087ff;
+  background: transparent;
+  border: 2px solid;
+  border-image: linear-gradient(to bottom right, #FF9B21, #CE23DD) 1;
+  color: #FF9B21;
 }
 
 .react-calendar--selectRange .react-calendar__tile--hover {

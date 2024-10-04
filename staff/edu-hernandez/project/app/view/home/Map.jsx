@@ -43,7 +43,8 @@ export default function Map() {
     ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
     : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
 
-    const attribution = '&copy; <a href="https://carto.com/attributions">CARTO</a>'
+  const attribution = '&copy; <a href="https://carto.com/attributions">CARTO</a>'
+
   return (
     <div className="">
       <MapContainer className="overflow-hidden" center={[41.3874, 2.1686]} zoom={13} style={{ height: 'calc(100vh - 128px)', zIndex: 1 }}>
