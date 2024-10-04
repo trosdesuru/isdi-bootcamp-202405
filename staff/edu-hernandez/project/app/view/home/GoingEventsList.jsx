@@ -3,48 +3,48 @@ import logic from '../../logic'
 import Event from './Event'
 
 export default function GoingEventsList() {
-    console.debug('GoingEventsList -> call')
+    // console.debug('GoingEventsList -> call')
 
     const [events, setEvents] = useState([])
 
     useEffect(() => {
-        console.debug('GoingEventsList -> useEffect')
+        // console.debug('GoingEventsList -> useEffect')
 
         loadEvents()
     }, [])
 
     const handleEventDeleted = () => {
-        console.debug('GoingEventsList -> handleEventDeleted')
+        // console.debug('GoingEventsList -> handleEventDeleted')
 
         loadEvents()
     }
 
     const handleEventEdited = () => {
-        console.debug('GoingEventsList -> handleEventEdited')
+        // console.debug('GoingEventsList -> handleEventEdited')
 
         loadEvents()
     }
 
     const handleEventLikeToggled = () => {
-        console.debug('GoingEventsList -> handleEventLikeToggled')
+        // console.debug('GoingEventsList -> handleEventLikeToggled')
 
         loadEvents()
     }
 
     const handleEventFavToggled = () => {
-        console.debug('GoingEventsList -> handleEventFavToggled')
+        // console.debug('GoingEventsList -> handleEventFavToggled')
 
         loadEvents()
     }
 
     const handleUserFollowToggled = () => {
-        console.debug('GoingEventsList -> handleUserFollowToggled')
+        // console.debug('GoingEventsList -> handleUserFollowToggled')
 
         loadEvents()
     }
 
     const handleEventGoingToggled = () => {
-        console.debug('GoingEventsList -> handleEventGoingList')
+        // console.debug('GoingEventsList -> handleEventGoingList')
 
         loadEvents()
     }

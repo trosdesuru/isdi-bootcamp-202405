@@ -2,43 +2,43 @@ import { useState, useEffect } from 'react'
 import logic from '../../logic'
 import Event from './Event'
 
-export default function EventsList() {
-    console.debug('EventsList -> call')
+export default function EventsList({ refreshStamp }) {
+    // console.debug('EventsList -> call')
 
     const [events, setEvents] = useState([])
 
     useEffect(() => {
-        console.debug('EventsList -> useEffect')
+        // console.debug('EventsList -> useEffect')
 
         loadEvents()
-    }, [])
+    }, [refreshStamp])
 
     const handleEventDeleted = () => {
-        console.debug('EventsList -> handleEventDeleted')
+        // console.debug('EventsList -> handleEventDeleted')
 
         loadEvents()
     }
 
     const handleEventEdited = () => {
-        console.debug('EventsList -> handleEventEdited')
+        // console.debug('EventsList -> handleEventEdited')
 
         loadEvents()
     }
 
     const handleEventGoingToggled = () => {
-        console.debug('EventsList -> handleEventGoingToggled')
+        // console.debug('EventsList -> handleEventGoingToggled')
 
         loadEvents()
     }
 
     const handleEventFavToggled = () => {
-        console.debug('EventsList -> handleEventFavToggled')
+        // console.debug('EventsList -> handleEventFavToggled')
 
         loadEvents()
     }
 
     const handleUserFollowToggled = () => {
-        console.debug('EventsList -> handleUserFollowToggled')
+        // console.debug('EventsList -> handleUserFollowToggled')
 
         loadEvents()
     }

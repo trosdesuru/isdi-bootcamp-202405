@@ -1,5 +1,5 @@
 export default function Heading({ level = 1, children, ...nextProps }) {
-    console.debug('Heading -> call')
+    // console.debug('Heading -> call')
 
     const Tag = `h${level}`
 

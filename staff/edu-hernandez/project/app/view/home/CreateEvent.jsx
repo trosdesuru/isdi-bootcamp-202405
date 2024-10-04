@@ -12,7 +12,7 @@ import Container from '../library/Container'
 import formatDate from '../../util/formatDate.js'
 
 export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
-    console.debug('CreateEvent -> call')
+    // console.debug('CreateEvent -> call')
 
     const [formattedDate, setFormattedDate] = useState(new Date())
     const [currentTime, setCurrentTime] = useState('')
@@ -20,7 +20,7 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
     const [eventTime, setEventTime] = useState('')
 
     useEffect(() => {
-        console.debug('CreateEvent -> useEffect')
+        // console.debug('CreateEvent -> useEffect')
 
         const now = new Date()
         const hours = String(now.getHours()).padStart(2, '0')
@@ -48,7 +48,7 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
     }
 
     const handleCreateEventSubmit = event => {
-        console.debug('CreateEvent -> handleCreateEventSubmit')
+        // console.debug('CreateEvent -> handleCreateEventSubmit')
 
         event.preventDefault()
 
@@ -76,19 +76,19 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
     }
 
     const handleCancelCreateEventClick = () => {
-        console.debug('CreateEvent -> handleCancelCreateEventClick')
+        // console.debug('CreateEvent -> handleCancelCreateEventClick')
 
         onCancelCreateEvent()
     }
 
     const handleToggleCalendar = () => {
-        console.debug('CreateEvent -> handleToggleCalendar')
+        // console.debug('CreateEvent -> handleToggleCalendar')
 
         setCalendarOpen(!CalendarOpen)
     }
 
     const handleDateChange = (date) => {
-        console.debug('CreateEvent -> handleDateChange')
+        // console.debug('CreateEvent -> handleDateChange')
 
         setFormattedDate(date)
         setCalendarOpen(false)

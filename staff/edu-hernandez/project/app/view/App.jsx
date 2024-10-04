@@ -10,7 +10,7 @@ import Alert from './common/Alert'
 import { Context } from './context'
 
 const App = () => {
-    console.debug('App -> call')
+    // console.debug('App -> call')
 
     const [theme, setTheme] = useState(localStorage.theme)
     const [alertMessage, setAlertMessage] = useState(null)
@@ -25,27 +25,27 @@ const App = () => {
     }, [theme])
 
     const handleLogin = () => {
-        console.debug('App -> handleLogin')
+        // console.debug('App -> handleLogin')
         navigate('/')
     }
 
     const handleRegisterClick = () => {
-        console.debug('App -> handleRegisterClick')
+        // console.debug('App -> handleRegisterClick')
         navigate('/register')
     }
 
     const handleRegister = () => {
-        console.debug('App -> handleRegister')
+        // console.debug('App -> handleRegister')
         navigate('/login')
     }
 
     const handleLoginClick = () => {
-        console.debug('App -> handleLoginClick')
+        // console.debug('App -> handleLoginClick')
         navigate('/login')
     }
 
     const handleLogout = () => {
-        console.debug('App -> handleLogout')
+        // console.debug('App -> handleLogout')
         navigate('/login')
     }
 

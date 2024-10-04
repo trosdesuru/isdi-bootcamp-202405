@@ -19,7 +19,7 @@ import Confirm from '../common/Confirm'
 import Avatar from './Avatar'
 
 export default function Event({ user, event, onEventDeleted, onEventEdited, onEventFavToggled, onEventGoingToggled }) {
-    console.debug('Event -> call')
+    // console.debug('Event -> call')
 
     const [editEventVisible, setEditEventVisible] = useState(false)
     const [confirmMessage, setConfirmMessage] = useState(null)
@@ -31,13 +31,13 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
     const handleDeleteEventCancel = () => setConfirmMessage(null)
 
     const handleEditEventClick = () => {
-        console.debug('Event -> handleEditEvent')
+        // console.debug('Event -> handleEditEvent')
 
         setEditEventVisible(true)
     }
 
     const handleCancelEditEventClick = () => {
-        console.debug('Event -> handleCancelEditEventClick')
+        // console.debug('Event -> handleCancelEditEventClick')
 
         setEditEventVisible(false)
 
@@ -60,7 +60,7 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
     }
 
     const handleEditEventSubmit = state => {
-        console.debug('Event -> handleEditEventSubmit')
+        // console.debug('Event -> handleEditEventSubmit')
 
         state.preventDefault()
 
@@ -90,7 +90,7 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
     }
 
     const handleGoingEventClick = () => {
-        console.debug('Event -> handleGoingEventClick')
+        // console.debug('Event -> handleGoingEventClick')
 
         try {
             logic.toggleGoingEvent(event.id)
@@ -108,7 +108,7 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
     }
 
     const handleFavEventClick = () => {
-        console.debug('Event -> handleFavEventClick')
+        // console.debug('Event -> handleFavEventClick')
 
         try {
             logic.toggleFavEvent(event.id)
@@ -126,7 +126,7 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
     }
 
     const handleReviewClick = (state) => {
-        console.debug('Event -> handleReviewClick')
+        // console.debug('Event -> handleReviewClick')
 
         state.preventDefault()
 
@@ -157,7 +157,7 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
     return <article className="flex flex-col lg:flex-row gap-4 p-4 w-full h-auto bg-white dark:bg-background_grey rounded-lg">
 
         <Container className="flex flex-row justify-start lg:w-1/4 py-3 rounded-lg">
-            <Avatar url={'./avatar/avatarIcon.png'} className="w-24 h-24 rounded-full shadow-lg" />
+            <Avatar url={'/avatar/avatarIcon.png'} className="w-24 h-24 rounded-full shadow-lg" />
             <Heading level="1" className="ml-2 text-2xl text-grey dark:text-dark_white font-bevan">
                 {event.author.username}
             </Heading>

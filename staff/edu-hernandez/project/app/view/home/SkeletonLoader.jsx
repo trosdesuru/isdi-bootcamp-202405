@@ -1,7 +1,7 @@
 import Container from '../library/Container'
 
 export default function SkeletonLoader() {
-    console.debug('SkeletonLoader -> call')
+    // console.debug('SkeletonLoader -> call')
     
     return (
         <main className="flex flex-col p-5 items-center gap-4 bg-white dark:bg-background_grey">

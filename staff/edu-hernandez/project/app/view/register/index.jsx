@@ -13,12 +13,12 @@ import useContext from '../context'
 import Paragraph from '../library/Paragraph'
 
 export default function Register({ onRegister, onLoginClick }) {
-    console.debug('Register -> call')
+    // console.debug('Register -> call')
 
     const { alert } = useContext()
 
     const handleRegisterSubmit = event => {
-        console.debug('Register -> handleRegisterSubmit')
+        // console.debug('Register -> handleRegisterSubmit')
 
         event.preventDefault()
 
@@ -58,7 +58,7 @@ export default function Register({ onRegister, onLoginClick }) {
     }
 
     const handleLoginClick = event => {
-        console.debug('Register -> handleLoginClick')
+        // console.debug('Register -> handleLoginClick')
 
         event.preventDefault()
 

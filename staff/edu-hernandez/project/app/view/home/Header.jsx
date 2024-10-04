@@ -18,7 +18,7 @@ export default function Header({ onEventCreated, onLogout }) {
     const menuRef = useRef(null)
 
     useEffect(() => {
-        console.debug('Header -> useEffect')
+        // console.debug('Header -> useEffect')
 
         try {
             logic.getUsernameUser()
@@ -47,27 +47,27 @@ export default function Header({ onEventCreated, onLogout }) {
     const toggleMenu = () => setMenuVisible(prev => !prev)
 
     const handleCreateEventClick = () => {
-        console.debug('Header -> handleCreateEventClick')
+        // console.debug('Header -> handleCreateEventClick')
         setCreateEventVisible(true)
     }
 
     const handleCancelCreateEventClick = () => {
-        console.debug('Header -> handleCancelEventClick')
+        // console.debug('Header -> handleCancelEventClick')
         setCreateEventVisible(false)
     }
 
     const handleEventCreated = () => {
-        console.debug('Header -> handleEventCreated')
+        // console.debug('Header -> handleEventCreated')
         setCreateEventVisible(false)
 
         onEventCreated()
     }
 
     const handleLogout = () => {
-        console.debug('Header -> handleLogout')
+        // console.debug('Header -> handleLogout')
 
         if (window.confirm('Log out?')) {
-            console.debug('Header -> LogoutMessage')
+            // console.debug('Header -> LogoutMessage')
 
             try {
                 logic.logoutUser()

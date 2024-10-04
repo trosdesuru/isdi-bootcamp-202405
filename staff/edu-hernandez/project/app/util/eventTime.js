@@ -1,5 +1,5 @@
 function eventTime(time) {
-    console.debug('formatTime -> call')
+    // console.debug('formatTime -> call')
 
     if (typeof time === 'string') {
         const [hours, minutes] = time.split(':')

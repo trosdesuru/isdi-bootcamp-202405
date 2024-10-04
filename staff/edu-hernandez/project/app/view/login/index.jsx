@@ -14,7 +14,7 @@ import { errors } from 'com'
 const { NotFoundError, CredentialsError } = errors
 
 export default function Login({ onLogin, onRegisterClick }) {
-    console.debug('Login -> call')
+    // console.debug('Login -> call')
 
     const { alert } = useContext()
 
@@ -27,7 +27,7 @@ export default function Login({ onLogin, onRegisterClick }) {
     }, [])
 
     const handleLoginSubmit = event => {
-        console.debug('Login -> handleLoginSubmit')
+        // console.debug('Login -> handleLoginSubmit')
 
         event.preventDefault()
 
@@ -52,7 +52,7 @@ export default function Login({ onLogin, onRegisterClick }) {
     }
 
     const handleRegisterClick = event => {
-        console.debug('Login -> handleRegisterClick')
+        // console.debug('Login -> handleRegisterClick')
 
         event.preventDefault()
 

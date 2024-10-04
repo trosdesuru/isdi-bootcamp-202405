@@ -7,14 +7,14 @@ import EventCard from './EventCard'
 import MarkerIcon from '../library/MarkerIcon'
 
 export default function Map() {
-  console.debug('Map -> call')
+  // console.debug('Map -> call')
 
   const { theme } = useContext(Context)
   const [events, setEvents] = useState([])
   const [selectEvent, setSelectEvent] = useState(null)
 
   useEffect(() => {
-    console.debug('MapEvents -> useEffect')
+    // console.debug('MapEvents -> useEffect')
 
     loadEvents()
   }, [])

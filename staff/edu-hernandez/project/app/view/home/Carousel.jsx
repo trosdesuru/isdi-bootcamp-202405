@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon, HeartIcon, ShareIcon, BookmarkIcon, CalendarIcon, MapIcon } from '@heroicons/react/outline'
 import logic from '../../logic'
+import toggleGoingEvent from '../../logic/toggleGoingEvent'
 
 import Container from '../library/Container'
 import Heading from '../library/Heading'
@@ -11,7 +12,7 @@ import Button from '../library/Button'
 import getAverageColor from '../../util/getAverageColor'
 
 export default function Carousel({ event, items, onEventGoingToggled }) {
-  console.debug('Carousel -> call')
+  // console.debug('Carousel -> call')
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [expandedIndex, setExpandedIndex] = useState(null)
@@ -56,7 +57,7 @@ export default function Carousel({ event, items, onEventGoingToggled }) {
   }, [currentIndex, items])
 
   const handleGoingEventClick = () => {
-    console.debug('Event -> handleGoingEventClick')
+    // console.debug('Event -> handleGoingEventClick')
 
     try {
       logic.toggleGoingEvent(event.id)

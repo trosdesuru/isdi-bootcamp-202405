@@ -6,7 +6,7 @@ import logic from '../../logic'
 import Event from './Event'
 
 export default function ResultsEventsList({ refreshStamp }) {
-    console.debug('ResultsEventList -> call')
+    // console.debug('ResultsEventList -> call')
 
     const [searchParams] = useSearchParams()
 
@@ -15,37 +15,37 @@ export default function ResultsEventsList({ refreshStamp }) {
     const [events, setEvents] = useState([])
 
     useEffect(() => {
-        console.debug('ResultsEventList -> useEffect [refreshStamp, q]')
+        // console.debug('ResultsEventList -> useEffect [refreshStamp, q]')
 
         loadEvents()
     }, [refreshStamp, q])
 
     const handleEventDeleted = () => {
-        console.debug('ResultsEventList -> handleEventDeleted')
+        // console.debug('ResultsEventList -> handleEventDeleted')
 
         loadEvents()
     }
 
     const handleEventEdited = () => {
-        console.debug('ResultsEventList -> handleEventEdited')
+        // console.debug('ResultsEventList -> handleEventEdited')
 
         loadEvents()
     }
 
     const handleEventLikeToggled = () => {
-        console.debug('ResultsEventList -> handleEventLikeToggled')
+        // console.debug('ResultsEventList -> handleEventLikeToggled')
 
         loadEvents()
     }
 
     const handleEventFavToggled = () => {
-        console.debug('ResultsEventList -> handleEventFavToggled')
+        // console.debug('ResultsEventList -> handleEventFavToggled')
 
         loadEvents()
     }
 
     const handleUserFollowToggled = () => {
-        console.debug('ResultsEventList -> handleUserFollowToggled')
+        // console.debug('ResultsEventList -> handleUserFollowToggled')
 
         loadEvents()
     }

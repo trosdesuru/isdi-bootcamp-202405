@@ -5,8 +5,8 @@ const { SystemError } = errors
 export default userId => {
     // validate.string(userId, 'userId')
 
-    console.debug('API call ->', `${import.meta.env.VITE_API_URL}/events/going`)
-    console.debug('sessionStorage.token ->', sessionStorage.token)
+    // console.debug('API call ->', `${import.meta.env.VITE_API_URL}/events/going`)
+    // console.debug('sessionStorage.token ->', sessionStorage.token)
 
     return fetch(`${import.meta.env.VITE_API_URL}/events/going`, {
         method: 'GET',
@@ -18,12 +18,12 @@ export default userId => {
         .catch(error => { throw new SystemError(error.message) })
         .then(response => {
             const { status } = response
-            console.debug('response status ->', status)
+            // console.debug('response status ->', status)
 
             if (status === 200)
                 return response.json()
                     .then(events => {
-                        console.debug('result events ->', events)
+                        // console.debug('result events ->', events)
 
                         return events
                     })
@@ -31,7 +31,7 @@ export default userId => {
             return response.json()
                 .then(body => {
                     const { error, message } = body
-                    console.debug('API error body->', body)
+                    // console.debug('API error body->', body)
 
                     const constructor = errors[error]
 

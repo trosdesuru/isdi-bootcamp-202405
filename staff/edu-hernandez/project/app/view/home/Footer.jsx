@@ -1,30 +1,42 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { HomeIcon, CalendarIcon, HeartIcon, MapIcon } from '@heroicons/react/outline'
 
 import Button from '../library/Button'
 
-export default function Footer({ onEventCreated, onMapClicked, onCalendarClicked, onGoingEventsClicked, onFavsEventsListClicked }) {
-    console.debug('Footer -> call')
+export default function Footer({ onHomeClick, onMapClicked, onCalendarClicked, onGoingEventsClicked, onFavsEventsClicked }) {
+    // console.debug('Footer -> call')
 
-    const handleCreateClick = () => {
-        if (onEventCreated) { onEventCreated() }
+    const navigate = useNavigate()
+    const [activeButton, setActiveButton] = useState('')
+
+    const handleButtonClick = (buttonName) => {
+        setActiveButton(buttonName)
+    }
+
+    const handleHomeClick = () => {
+        handleButtonClick('home')
+        navigate('/')
     }
 
     const handleMapClick = () => {
         if (onMapClicked) { onMapClicked() }
+        handleButtonClick('map')
     }
 
     const handleCalendarClick = () => {
         if (onCalendarClicked) { onCalendarClicked() }
+        handleButtonClick('calendar')
     }
 
     const handleGoingClick = () => {
         if (onGoingEventsClicked) { onGoingEventsClicked() }
+        handleButtonClick('go!')
     }
 
     const handleFavsClick = () => {
-        if (onFavsEventsListClicked) { onFavsEventsListClicked }
+        if (onFavsEventsClicked) { onFavsEventsClicked() }
+        handleButtonClick('favs')
     }
 
     return (
@@ -32,24 +44,24 @@ export default function Footer({ onEventCreated, onMapClicked, onCalendarClicked
         bg-background_grey 
         text-white p-2 shadow-custom">
 
-            <Link to="/" className="flex flex-col items-center space-y-1" onClick={handleCreateClick}>
-                <HomeIcon className="stroke-dark_white h-8 w-8 sm:h-10 sm:w-10" />
-            </Link>
+            <Button onClick={handleHomeClick} className="flex flex-col items-center space-y-1" >
+                <HomeIcon className={`stroke-dark_white h-8 w-8 sm:h-10 sm:w-10 ${activeButton === 'home' ? 'stroke-ore' : ''}`} />
+            </Button>
 
             <Button onClick={handleMapClick}>
-                <MapIcon className="stroke-dark_white h-8 w-8 sm:h-10 sm:w-10" />
+                <MapIcon className={`stroke-dark_white h-8 w-8 sm:h-10 sm:w-10 ${activeButton === 'map' ? 'stroke-ore' : ''}`} />
             </Button>
 
             <Button onClick={handleCalendarClick}>
-                <CalendarIcon className="stroke-dark_white h-8 w-8 sm:h-10 sm:w-10" />
+                <CalendarIcon className={`stroke-dark_white h-8 w-8 sm:h-10 sm:w-10 ${activeButton === 'calendar' ? 'stroke-ore' : ''}`} />
             </Button>
 
-            <Button onClick={handleGoingClick} className="text-cities rounded-full p-3 font-normal font-bevan text-[20px] sm:text-[24px]">
+            <Button onClick={handleGoingClick} className={`text-dark_white rounded-full p-3 font-normal font-bevan text-[20px] sm:text-[24px] ${activeButton === 'go!' ? 'text-cities' : ''}`} >
                 go!
             </Button>
 
             <Button onClick={handleFavsClick}>
-                <HeartIcon className="h-8 w-8 sm:h-10 sm:w-10 stroke-dark_white" />
+                <HeartIcon className={`h-8 w-8 sm:h-10 sm:w-10 stroke-dark_white ${activeButton === 'favs' ? 'stroke-ore' : ''}`} />
             </Button>
         </footer>
     )

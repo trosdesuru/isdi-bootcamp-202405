@@ -3,42 +3,42 @@ import logic from '../../logic'
 import Event from './Event'
 
 export default function FavsEventsList() {
-    console.debug('FavsEventsList -> call')
+    // console.debug('FavsEventsList -> call')
 
     const [events, setEvents] = useState([])
 
     useEffect(() => {
-        console.debug('FavsEventsList -> useEffect')
+        // console.debug('FavsEventsList -> useEffect')
 
         loadEvents()
     }, [])
 
     const handleEventDeleted = () => {
-        console.debug('FavsEventsList -> handleEventDeleted')
+        // console.debug('FavsEventsList -> handleEventDeleted')
 
         loadEvents()
     }
 
     const handleEventEdited = () => {
-        console.debug('FavsEventsList -> handleEventEdited')
+        // console.debug('FavsEventsList -> handleEventEdited')
 
         loadEvents()
     }
 
     const handleEventLikeToggled = () => {
-        console.debug('FavsEventsList -> handleEventLikeToggled')
+        // console.debug('FavsEventsList -> handleEventLikeToggled')
 
         loadEvents()
     }
 
     const handleEventFavToggled = () => {
-        console.debug('FavsEventsList -> handleEventFavToggled')
+        // console.debug('FavsEventsList -> handleEventFavToggled')
 
         loadEvents()
     }
 
     const handleUserFollowToggled = () => {
-        console.debug('FavsEventsList -> handleUserFollowToggled')
+        // console.debug('FavsEventsList -> handleUserFollowToggled')
 
         loadEvents()
     }

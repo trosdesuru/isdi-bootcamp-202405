@@ -3,42 +3,42 @@ import { useState, useEffect } from 'react'
 import Event from './Event'
 
 export default function UserEventsLists() {
-    console.debug('UserEventsList -> call')
+    // console.debug('UserEventsList -> call')
 
     const [events, setEvents] = useState([])
 
     useEffect(() => {
-        console.debug('UserEventsList -> useEffect')
+        // console.debug('UserEventsList -> useEffect')
 
         loadEvents()
     }, [])
 
     const handleEventDeleted = () => {
-        console.debug('UserEventsList -> handleEventDeleted')
+        // console.debug('UserEventsList -> handleEventDeleted')
 
         loadEvents()
     }
 
     const handleEventEdited = () => {
-        console.debug('UserEventsList -> handleEventEdited')
+        // console.debug('UserEventsList -> handleEventEdited')
 
         loadEvents()
     }
 
     const handleEventLikeToggled = () => {
-        console.debug('UserEventsList -> handleEventLikeToggled')
+        // console.debug('UserEventsList -> handleEventLikeToggled')
 
         loadEvents()
     }
 
     const handleEventFavToggled = () => {
-        console.debug('UserEventsList -> handleEventFavToggled')
+        // console.debug('UserEventsList -> handleEventFavToggled')
 
         loadEvents()
     }
 
     const handleUserFollowToggled = () => {
-        console.debug('UserEventsList -> handleUserFollowToggled')
+        // console.debug('UserEventsList -> handleUserFollowToggled')
 
         loadEvents()
     }
