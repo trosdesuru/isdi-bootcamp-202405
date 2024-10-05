@@ -90,6 +90,14 @@ describe('getAllMapEvents', () => {
             })
     })
 
+    it('fails on user not found', () => {
+        return getAllMapEvents(new ObjectId().toString())
+            .catch(error => {
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('user not found')
+            })
+    })
+
     it('fails on no events found', () => {
         let error
         debugger

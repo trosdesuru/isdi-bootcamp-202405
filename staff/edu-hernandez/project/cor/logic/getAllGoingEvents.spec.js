@@ -68,12 +68,37 @@ describe('getAllGoingEvents', () => {
             })
     })
 
+    it('fails when event author not found', () => {
+        return Event.create({
+            author: new ObjectId(),
+            title: 'Orphan Event',
+            image: 'image.png',
+            date: new Date(),
+            location: {
+                type: 'Point',
+                coordinates: [41.3874, 2.1686]
+            },
+            time: getTime().toString()
+        })
+        .then(event => {
+            return User.findByIdAndUpdate(user._id, { going: [event._id] })
+        })
+        .then(() => {
+            return getAllGoingEvents(user._id.toString())
+        })
+        .catch(error => {
+            expect(error).to.exist
+            expect(error).to.be.instanceOf(NotFoundError)
+            expect(error.message).to.equal('author not found')
+        })
+    })
+
     it('succeeds on valid user with multiple going events', () => {
         return getAllGoingEvents(user._id.toString())
             .then(events => {
                 expect(events).to.have.lengthOf(2)
-                expect(events[0].title).to.equal('Event 1')
-                expect(events[1].title).to.equal('Event 2')
+                expect(event1.title).to.equal('Event 1')
+                expect(event2.title).to.equal('Event 2')
                 expect(events[0].location.coordinates).to.deep.equal([41.3874, 2.1686])
             })
     })
@@ -104,11 +129,27 @@ describe('getAllGoingEvents', () => {
     })
 
     it('fails when userId is invalid', () => {
-        return getAllGoingEvents('invalid-id')
+        return getAllGoingEvents(new ObjectId().toString())
             .catch(error => {
                 expect(error).to.exist
-                expect(error).to.be.instanceOf(ValidationError)
-                expect(error.message).to.equal('userId is not a valid ObjectId')
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('user not found')
+            })
+    })
+
+    it('fails when event author not found', () => {
+        return getAllGoingEvents(user._id.toString())
+            .catch(error => {
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('author not found')
+            })
+    })
+
+    it('fails when multiple event authors are not found', () => {
+        return getAllGoingEvents(user._id.toString())
+            .catch(error => {
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('author not found')
             })
     })
 
