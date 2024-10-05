@@ -4,14 +4,14 @@ Cities is an application designed to explore, create, and manage events within d
 The primary objective is to connect users to events and provide tools for users to search for, 
 create, and modify events by location and other key details.
 
-![Cities Image](https://media.giphy.com/media/39DV0pT9v42Fq/giphy.gif?cid=ecf05e47m4kzmaq2wr3vcwdlfcfo7fgconr1yjonyfor0zy7&ep=v1_gifs_search&rid=giphy.gif&ct=g)
+![Cities Image](../app/public/logo/cities.png)
 
 ## Functional
 
 The application offers a platform for users to interact, explore cities, and stay informed about city-based events through:
 
 - A main section where users can create, modify, and delete their own events.
-- An interactive map or list to display events by location, and allow users to explore events near them.
+- An interactive map or list to display events by location.
 - A search tool to find events by location, title, or description.
 - An event management section to allow users to modify or delete their own events.
 
@@ -19,11 +19,11 @@ The application offers a platform for users to interact, explore cities, and sta
 
 User
 - Create event
-- List events by city
-- Search events by location, title, or description
+- Create a review
+- List events by location
+- Search events by location, title, or caption
 - Modify own event
 - Delete own event
-- Follow cities to receive notifications of events
 - Explore cities and view events
 
 ### UX | UI Design
@@ -55,36 +55,26 @@ User
 - avatar (string, optional)
 
 Event
-- id (auto)
+- _id (mongoose generate)
 - author (User.id)
-- image (string, optional)
 - title (string)
-- description (string)
+- image (string, optional)
+- caption (string)
 - location ([Number, Number])
-- startDate (Date)
-- endDate (Date, optional)
-- tickets (string, optional)
-- createdAt (Date)
-
-City
-- id (auto)
-- name (string)
-- country (string)
-- coordinates ([Number, Number])
-
-Comment
-- id (auto)
-- text (string)
-- author (User.id)
-- event (Event.id)
-- date (Date)
+- Date (Date)
+- Time (hh:mm)
+- Reviews (ObjectId)
 
 ### Technologies
 
 - HTML / CSS / JS
-- Node
-- Express
 - React
+- Node
+- Vite
+- Express
+- Chai
+- Mocha
+- bcryptjs
 - MongoDB
 - Mongoose
 - Bcrypt
@@ -92,4 +82,4 @@ Comment
 
 ### Test Coverage
 
-![Test Coverage](./test-coverage.png)
+![Test Coverage](../app/public/test/test-coverage.png)
