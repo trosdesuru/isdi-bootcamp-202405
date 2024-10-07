@@ -17,7 +17,7 @@ export default userId => {
                 .then(events => {
                     const promises = events.map(event => {
                         event.fav = user.fav.some(eventObjectId => eventObjectId.toString() === event._id.toString())
-                        event.going = event.likes.some(userObjectId => userObjectId.toString() === userId)
+                        // event.going = event.likes.some(userObjectId => userObjectId.toString() === userId)
 
                         return User.findById(event.author).lean()
                             .catch(error => { throw new SystemError(error.message) })
