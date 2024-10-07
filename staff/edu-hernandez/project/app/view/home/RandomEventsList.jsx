@@ -1,5 +1,8 @@
 import React from 'react'
 import Container from '../library/Container'
+import logic from '../../logic'
+
+
 
 const RandomEventsList = ({ events }) => {
     return (

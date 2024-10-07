@@ -1,7 +1,7 @@
+import logic from '../../logic'
 import { useState, useEffect } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon, HeartIcon, ShareIcon, BookmarkIcon, CalendarIcon, MapIcon } from '@heroicons/react/outline'
-import logic from '../../logic'
-import toggleGoingEvent from '../../logic/toggleGoingEvent'
+import getAverageColor from '../../util/getAverageColor'
 
 import Container from '../library/Container'
 import Heading from '../library/Heading'
@@ -9,10 +9,11 @@ import Paragraph from '../library/Paragraph'
 import Image from '../library/Image'
 import Button from '../library/Button'
 
-import getAverageColor from '../../util/getAverageColor'
-
-export default function Carousel({ event, items, onEventGoingToggled }) {
+export default function Carousel({ userId, onEventGoingToggled, onEventFavToggled, onEventMapToggled }) {
   // console.debug('Carousel -> call')
+
+  const [items, setItems] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [expandedIndex, setExpandedIndex] = useState(null)
@@ -37,6 +38,19 @@ export default function Carousel({ event, items, onEventGoingToggled }) {
   }
 
   useEffect(() => {
+    logic.getAllRecommendedEvents(userId)
+      .then(recommendedEvents => {
+        setItems(recommendedEvents)
+        setLoading(false)
+      })
+      .catch(error => {
+        console.error('error fetching recommended events:', error)
+
+        setLoading(false)
+      })
+  }, [userId])
+
+  useEffect(() => {
     const updateColors = () => {
       const image = items[currentIndex].image
       const averageColor = getAverageColor(image)
@@ -53,15 +67,17 @@ export default function Carousel({ event, items, onEventGoingToggled }) {
       }
     }
 
-    updateColors()
+    if (items.length > 1)
+      updateColors()
+
   }, [currentIndex, items])
 
-  const handleGoingEventClick = () => {
+  const handleGoingEventClick = (event) => {
     // console.debug('Event -> handleGoingEventClick')
 
     try {
-      logic.toggleGoingEvent(event.id)
-        .then(() => onEventGoingToggled())
+      logic.toggleGoingEvent(event)
+        .then(() => onEventGoingToggled(new Date()))
         .catch(error => {
           console.error(error)
 
@@ -74,13 +90,52 @@ export default function Carousel({ event, items, onEventGoingToggled }) {
     }
   }
 
+  const handleFavEventClick = (event) => {
+
+    try {
+      logic.toggleFavEvent(event)
+        .then(() => onEventFavToggled(new Date()))
+        .catch(error => {
+          console.error(error)
+
+          alert(error.message)
+        })
+    } catch (error) {
+      console.error(error)
+
+      alert(error.message)
+    }
+  }
+
+  //   const handleMapEventClick = (event) => {
+
+  //     try {
+  //       logic.getAllMapEvents(event)
+  //         .then(() => onEventMapToggled(new Date()))
+  //         .catch(error => {
+  //           console.error(error)
+
+  //           alert(error.message)
+  //         })
+  //     } catch (error) {
+  //       console.error(error)
+
+  //       alert(error.message)
+  //     }
+  //   }
+  // }
+
+  if (loading) return <Paragraph>Loading...</Paragraph>
+
+  if (items.length === 0) return <Container className="bg-grey p-10"><Paragraph className="font-bevan text-lg text-cities">Carousel will appear here...<br /><span className="font-poppins font-normal text-md">Wait for other users mark favourites events...</span></Paragraph></Container>
+
   return (
     <div className="relative w-full h-auto overflow-hidden">
       <Container className="relative w-full">
         <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
           {items.map((item, index) => (
             <Container key={index} className="w-full flex-shrink-0 h-[30rem] relative">
-              <Image src={item.image} alt={item.title} className="w-full h-full object-cover" />
+              <Image src={items[currentIndex].image} alt={item.title} className="w-full h-full object-cover" />
 
               <div className="absolute bottom-0 left-0 right-0 bg-white/70 ml-2 mr-2 mb-2 p-4 flex flex-col justify-end">
                 <Heading level={2} className="text-xl font-bold text-grey font-moderustic">
@@ -89,9 +144,9 @@ export default function Carousel({ event, items, onEventGoingToggled }) {
 
                 <div className="relative flex-1">
                   <Paragraph className="text-grey font-moderustic text-md leading-relaxed mb-4 ml-0 pl-0">
-                    {expandedIndex === index ? item.description : `${item.description.slice(0, 100)}...`} {item.description.length > 100 && (
+                    {expandedIndex === index ? item.caption : `${item.caption.slice(0, 100)}...`} {item.caption.length > 100 && (
                       <Button className="text-blue-500 inline ml-0" onClick={() => handleReadMore(index)}>
-                          {expandedIndex === index ? 'read less' : 'read more'}
+                        {expandedIndex === index ? 'read less' : 'read more'}
                       </Button>
                     )}
                   </Paragraph>
@@ -99,7 +154,7 @@ export default function Carousel({ event, items, onEventGoingToggled }) {
               </div>
 
               <div className="absolute top-0 left-0 right-0 p-4 flex justify-end">
-                <Button onClick={handleGoingEventClick} className={`${iconColor} text-dark_white rounded-full p-3 font-normal font-bevan text-[15px] sm:text-[18px]`}>
+                <Button onClick={() => handleGoingEventClick(item.id)} className={`${iconColor} text-dark_white rounded-full p-3 font-normal font-bevan text-[15px] sm:text-[18px]`}>
                   go!
                 </Button>
 
@@ -107,11 +162,11 @@ export default function Carousel({ event, items, onEventGoingToggled }) {
                   <ShareIcon className="w-6 h-6" />
                 </Button>
 
-                <Button className={`${iconColor} px-4 py-2`}>
+                <Button onClick={() => handleMapEventClick(item.location)} className={`${iconColor} px-4 py-2`}>
                   <MapIcon className="w-6 h-6" />
                 </Button>
 
-                <Button className={`${iconColor} px-4 py-2`}>
+                <Button onClick={() => handleFavEventClick(item.id)} className={`${iconColor} px-4 py-2`}>
                   <HeartIcon className="w-6 h-6" />
                 </Button>
               </div>

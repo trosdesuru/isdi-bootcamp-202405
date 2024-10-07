@@ -2,12 +2,7 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default userId => {
-    // validate.string(userId, 'userId')
-
-    // console.debug('API call ->', `${import.meta.env.VITE_API_URL}/events/going`)
-    // console.debug('sessionStorage.token ->', sessionStorage.token)
-
+export default () => {
     return fetch(`${import.meta.env.VITE_API_URL}/events/going`, {
         method: 'GET',
         headers: {

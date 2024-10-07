@@ -21,6 +21,10 @@ import Avatar from './Avatar'
 export default function Event({ user, event, onEventDeleted, onEventEdited, onEventFavToggled, onEventGoingToggled }) {
     // console.debug('Event -> call')
 
+    const [showFullCaption, setShowFullCaption] = useState(false)
+    const captionLimit = 100
+    const truncatedCaption = event.caption.length > captionLimit ? event.caption.substring(0, captionLimit) + '...' : event.caption
+
     const [editEventVisible, setEditEventVisible] = useState(false)
     const [confirmMessage, setConfirmMessage] = useState(null)
     const [newReview, setNewReview] = useState({ rating: '', comment: '' })
@@ -154,7 +158,7 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
         }
     }
 
-    return <article className="flex flex-col lg:flex-row gap-4 p-4 w-full h-auto bg-white dark:bg-background_grey rounded-lg">
+    return <article className="flex flex-col lg:flex-row gap-4 p-4 w-full h-auto bg-white dark:bg-background_grey rounded-xl">
 
         <Container className="flex flex-row justify-start lg:w-1/4 py-3 rounded-lg">
             <Avatar url={'/avatar/avatarIcon.png'} className="w-24 h-24 rounded-full shadow-lg" />
@@ -198,8 +202,14 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
                 )}
             </div>
 
-            <Paragraph className="text-title dark:text-dark_white font-poppins text-lg mt-2">
-                {event.caption}
+            <Paragraph className="text-title dark:text-dark_white font-poppins font-normal text-md mt-2">
+                {showFullCaption ? event.caption : truncatedCaption}
+                {event.caption.length > captionLimit && (
+                    <Button onClick={() => setShowFullCaption(!showFullCaption)}
+                        className="ml-2 text-blue-500 font-moderustic font-thin">
+                        {showFullCaption ? 'Read Less' : 'Read More'}
+                    </Button>
+                )}
             </Paragraph>
 
             <Time className="text-light_grey dark:text-dark_white mt-2">

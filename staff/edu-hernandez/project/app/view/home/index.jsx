@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { mockDB } from 'com'
+import logic from '../../logic'
 
-impop
 import Header from './Header'
 import Footer from './Footer'
 import Hello from './Hello'
@@ -19,7 +19,7 @@ import SkeletonLoader from './SkeletonLoader'
 import Map from './Map'
 import Calendar from './Calendar'
 
-const { events, carouselItems, recommendedEvents, goingEvents, popularEvents, bannerEvent, randomEvents } = mockDB
+const { events, recommendedEvents, goingEvents, popularEvents, bannerEvent, randomEvents } = mockDB
 
 export default function Home({ onLogout }) {
     // console.debug('Home -> call')
@@ -83,11 +83,11 @@ export default function Home({ onLogout }) {
                     <SkeletonLoader />) : (<Routes>
                         <Route path="/" element={
                             <>
-                                <Carousel items={carouselItems} />
-                                <EventsList refreshStamp={refreshStamp} />
-                                <RecommendedEventsList recommendedEvents={recommendedEvents} />
+                                <Carousel onEventGoingToggled={setRefreshStamp} onEventFavToggled={setRefreshStamp} />
                                 <BannerEvent event={bannerEvent} />
-                                <PopularEventsList popularEvents={popularEvents} />
+                                <EventsList refreshStamp={refreshStamp} />
+                                <PopularEventsList />
+                                {/* <RecommendedEventsList recommendedEvents={recommendedEvents} /> */}
                                 <RandomEventsList events={randomEvents} />
                             </>
                         }

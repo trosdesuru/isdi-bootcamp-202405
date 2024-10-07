@@ -9,6 +9,8 @@ import Container from '../library/Container'
 import Button from '../library/Button'
 
 const RecommendedEventsList = ({ recommendedEvents }) => {
+    console.debug('RecommendedEventsList -> call')
+    
     const [currentIndex, setCurrentIndex] = useState(0)
     const [arrowColor, setArrowColor] = useState('text-dark_white')
 
