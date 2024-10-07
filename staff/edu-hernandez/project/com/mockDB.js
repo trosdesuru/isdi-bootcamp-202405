@@ -1,23 +1,4 @@
 const mockDB = {
-    events: [
-        {
-            date: '2024-08-08',
-            title: 'Concert in the Park',
-            description: 'Join us for a night of music under the stars.',
-            likes: 150,
-            attendees: 45,
-            images: ['/path/to/image1.jpg', '/path/to/image2.jpg']
-        },
-        {
-            date: '2024-08-20',
-            title: 'Art Gallery Opening',
-            description: 'Explore the latest works from local artists.',
-            likes: 120,
-            attendees: 30,
-            images: ['/path/to/image3.jpg', '/path/to/image4.jpg']
-        }
-    ],
-
     carouselItems: [
         {
             image: '/eventImage/gracia01.jpg',
@@ -80,17 +61,6 @@ const mockDB = {
             thumbnail: '/eventImage/palauMusica01.jpg'
         }
     ],
-
-    goingEvents: [
-        { id: 10, title: 'September La Mercé', image: '/eventImage/merce01.jpg' },
-        { id: 20, title: 'Octubre Festa Les Rambles', image: '/eventImage/ramblas01.jpg' },
-        { id: 30, title: '🌹 Abril Sant Jordi', image: '/eventImage/santJordi01.jpg' },
-        { id: 40, title: 'August Sant Roc', image: '/eventImage/santRoc01.jpg' },
-        { id: 50, title: '⚔️ July Festes del Raval', image: '/eventImage/raval01.jpg' },
-        { id: 60, title: '🍻 July Festes Poblesec', image: '/eventImage/poblesec01.jpg' },
-        { id: 70, title: '🍬 March Sant Medir', image: '/eventImage/santMedir01.jpg' },
-        { id: 80, title: 'December New Year Eve', image: '/eventImage/newYear01.webp' }
-    ]
 }
 
 export default mockDB
