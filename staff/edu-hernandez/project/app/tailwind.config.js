@@ -19,7 +19,7 @@ export default {
         grass: '#5EB53F',
         ore: '#EBC351',
         laranja: '#D15933',
-        shadowColor: '#D15933',
+        shadowColor: '#D15933'
       },
       boxShadow: {
         'custom': '0 4px 30px rgba(211, 89, 51, 0.5)'
