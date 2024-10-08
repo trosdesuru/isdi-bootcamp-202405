@@ -60,7 +60,7 @@ const PopularEventsList = ({ userId }) => {
 
     return (
         <Section className="popular-events px-4 mt-8 w-full relative overflow-hidden">
-            <Heading level={2} className="text-xl font-bold mb-4 text-cities">
+            <Heading level={2} className="text-2xl font-bevan ont-bold mb-4 text-cities">
                 Popular Events
             </Heading>
 

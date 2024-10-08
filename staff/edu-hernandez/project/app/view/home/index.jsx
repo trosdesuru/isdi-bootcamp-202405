@@ -1,13 +1,11 @@
 import { useState, useEffect, useContext } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { mockDB } from 'com'
-import logic from '../../logic'
 
 import Header from './Header'
 import Footer from './Footer'
 import Hello from './Hello'
 import Carousel from './Carousel'
-import RecommendedEventsList from './RecommendedEventsList'
 import PopularEventsList from './PopularEventsList'
 import BannerEvent from './BannerEvent'
 import EventsList from './EventsList'
@@ -19,7 +17,7 @@ import SkeletonLoader from './SkeletonLoader'
 import Map from './Map'
 import Calendar from './Calendar'
 
-const { events, recommendedEvents, goingEvents, popularEvents, bannerEvent, randomEvents } = mockDB
+const { events, bannerEvent, randomEvents } = mockDB
 
 export default function Home({ onLogout }) {
     // console.debug('Home -> call')
@@ -76,9 +74,7 @@ export default function Home({ onLogout }) {
         <>
             <Header onHomeClick={handleHomeClick} onEventCreated={handleEventCreated} onUsersClick={handleUsersClick} onLogout={onLogout} />
 
-            <main className="flex flex-col gap-4 pt-4 mt-16 mr-0 min-h-screen max-w-screen overflow-auto 
-                bg-white 
-                dark:bg-background_grey">
+            <main className="flex flex-col gap-4 pt-4 mt-16 mr-0 min-h-screen max-w-screen overflow-auto bg-white dark:bg-background_grey">
                 {loading ? (
                     <SkeletonLoader />) : (<Routes>
                         <Route path="/" element={
@@ -87,8 +83,7 @@ export default function Home({ onLogout }) {
                                 <BannerEvent event={bannerEvent} />
                                 <EventsList refreshStamp={refreshStamp} />
                                 <PopularEventsList />
-                                {/* <RecommendedEventsList recommendedEvents={recommendedEvents} /> */}
-                                <RandomEventsList events={randomEvents} />
+                                <RandomEventsList refreshStamp={refreshStamp} />
                             </>
                         }
                         />
@@ -96,16 +91,13 @@ export default function Home({ onLogout }) {
                         <Route path="/hello/:to" element={<Hello />} />
                         <Route path="/map" element={<Map />} />
                         <Route path="/calendar" element={<Calendar events={events} />} />
-                        <Route path="events/recommended" element={<RecommendedEventsList events={recommendedEvents} />} />
-                        <Route path="events/popular" element={<PopularEventsList popularEvents={popularEvents} />} />
-                        <Route path="events/random" element={<RandomEventsList events={randomEvents} />} />
-                        <Route path="events/going" element={<GoingEventsList events={goingEvents} />} />
+                        <Route path="events/going" element={<GoingEventsList />} />
                         <Route path="events/favs" element={<FavsEventsList />} />
                     </Routes>
                 )}
             </main>
 
-            <Footer onEventCreated={handleEventCreated} onMapClicked={handleMapClick} onCalendarClicked={handleCalendarClick} onGoingEventsClicked={handleGoingClick} onFavsEventsClicked={handleFavsClick} />
+            <Footer onMapClicked={handleMapClick} onCalendarClicked={handleCalendarClick} onGoingEventsClicked={handleGoingClick} onFavsEventsClicked={handleFavsClick} />
         </>
     )
 }

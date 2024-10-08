@@ -160,15 +160,15 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
 
     return <article className="flex flex-col lg:flex-row gap-4 p-4 w-full h-auto bg-white dark:bg-background_grey rounded-xl">
 
-        <Container className="flex flex-row justify-start lg:w-1/4 py-3 rounded-lg">
+        <Container className="flex flex-row lg:w-1/4 align-middle rounded-lg">
             <Avatar url={'/avatar/avatarIcon.png'} className="w-24 h-24 rounded-full shadow-lg" />
-            <Heading level="1" className="ml-2 text-2xl text-light_grey dark:text-dark_white font-bevan">
+            <Heading level="1" className="ml-2 text-lg text-cities dark:text-white font-bevan">
                 {event.author.username}
             </Heading>
         </Container>
 
         <div className="flex flex-col lg:w-3/4 gap-4">
-            <Heading level="2" className="text-xl text-grey dark:text-dark_white font-poppins font-normal">
+            <Heading level="2" className="text-xl text-light_grey dark:text-dark_white font-poppins font-bold">
                 {event.title}
             </Heading>
 

@@ -9,7 +9,7 @@ import Paragraph from '../library/Paragraph'
 import Image from '../library/Image'
 import Button from '../library/Button'
 
-export default function Carousel({ userId, onEventGoingToggled, onEventFavToggled, onEventMapToggled }) {
+export default function Carousel({ userId, onEventGoingToggled, onEventFavToggled }) {
   // console.debug('Carousel -> call')
 
   const [items, setItems] = useState([])

@@ -7,7 +7,7 @@ const util = {
     eventTime,
     extractPayloadFromToken,
     formatDate,
-    getAverageColor
+    getAverageColor,
 }
 
 export default util
