@@ -27,7 +27,7 @@ const getFirstNWords = (text, n) => {
     if (!text) return '...'
     const words = text.split(' ')
 
-    const splitted = words.slice(0, n).join(' ');
+    const splitted = words.slice(0, n).join(' ')
 
     return words.length > n ? `${splitted} ...` : splitted
 }
@@ -63,7 +63,7 @@ const RandomEventsList = ({ refreshStamp }) => {
             <Container className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {events.map((event) => (
                     <Container key={event.id} className="p-4 shadow-lg rounded bg-white flex flex-col items-start dark:bg-inherit">
-                        <Image src={event.image} alt={event.title} className="w-full h-40 object-cover rounded mb-4" />
+                        <img src={event.image} alt={event.title} className="w-full h-40 object-cover rounded mb-4" />
                         <Heading level={3} className="text-lg font-bold text-grey mb-2 dark:text-dark_white">{event.title}</Heading>
                         <Paragraph className="text-gray-600 dark:text-dark_white">{getFirstNWords(event.caption, 6)}</Paragraph>
                     </Container>

@@ -17,12 +17,13 @@ import SkeletonLoader from './SkeletonLoader'
 import Map from './Map'
 import Calendar from './Calendar'
 
-const { events, bannerEvent, randomEvents } = mockDB
+const { events, bannerEvent } = mockDB
 
 export default function Home({ onLogout }) {
     // console.debug('Home -> call')
 
     const navigate = useNavigate()
+
     const [refreshStamp, setRefreshStamp] = useState(null)
     const [loading, setLoading] = useState(true)
 
@@ -36,6 +37,7 @@ export default function Home({ onLogout }) {
 
     const handleHomeClick = () => {
         // console.debug('Home -> handleHomeClick')
+        setRefreshStamp(Date.now())
         navigate('/')
     }
 
@@ -72,7 +74,7 @@ export default function Home({ onLogout }) {
 
     return (
         <>
-            <Header onHomeClick={handleHomeClick} onEventCreated={handleEventCreated} onUsersClick={handleUsersClick} onLogout={onLogout} />
+            <Header onEventCreated={handleEventCreated} onUsersClick={handleUsersClick} onLogout={onLogout} />
 
             <main className="flex flex-col gap-4 pt-4 mt-16 mr-0 min-h-screen max-w-screen overflow-auto bg-white dark:bg-background_grey">
                 {loading ? (
@@ -97,7 +99,7 @@ export default function Home({ onLogout }) {
                 )}
             </main>
 
-            <Footer onMapClicked={handleMapClick} onCalendarClicked={handleCalendarClick} onGoingEventsClicked={handleGoingClick} onFavsEventsClicked={handleFavsClick} />
+            <Footer onHomeClick={handleHomeClick} onMapClicked={handleMapClick} onCalendarClicked={handleCalendarClick} onGoingEventsClicked={handleGoingClick} onFavsEventsClicked={handleFavsClick} />
         </>
     )
 }
