@@ -66,7 +66,8 @@ describe('getAllRecommendedEvents', () => {
                 ).then(() => ({ event, userId: bruno._id }))
             })
             .then(({ event, userId }) => {
-                getAllRecommendedEvents(userId.toString())
+                debugger
+                return getAllRecommendedEvents(userId.toString())
                     .then(recommendedEvents => {
                         expect(recommendedEvents).to.be.an('array')
                         expect(recommendedEvents.length).to.equal(1)

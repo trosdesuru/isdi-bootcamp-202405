@@ -119,7 +119,7 @@ const event = new Schema({
     },
     reviews: [{
         author: {
-            type: [ObjectId],
+            type: ObjectId,
             ref: 'User',
             required: true
         },
