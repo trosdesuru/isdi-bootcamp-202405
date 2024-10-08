@@ -162,13 +162,13 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
 
         <Container className="flex flex-row justify-start lg:w-1/4 py-3 rounded-lg">
             <Avatar url={'/avatar/avatarIcon.png'} className="w-24 h-24 rounded-full shadow-lg" />
-            <Heading level="1" className="ml-2 text-2xl text-grey dark:text-dark_white font-bevan">
+            <Heading level="1" className="ml-2 text-2xl text-light_grey dark:text-dark_white font-bevan">
                 {event.author.username}
             </Heading>
         </Container>
 
         <div className="flex flex-col lg:w-3/4 gap-4">
-            <Heading level="2" className="text-xl dark:text-dark_white font-montserrat">
+            <Heading level="2" className="text-xl text-grey dark:text-dark_white font-poppins font-normal">
                 {event.title}
             </Heading>
 
@@ -206,8 +206,8 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
                 {showFullCaption ? event.caption : truncatedCaption}
                 {event.caption.length > captionLimit && (
                     <Button onClick={() => setShowFullCaption(!showFullCaption)}
-                        className="ml-2 text-blue-500 font-moderustic font-thin">
-                        {showFullCaption ? 'Read Less' : 'Read More'}
+                        className="text-blue-500 inline ml-1">
+                        {showFullCaption ? 'read Less' : 'read More'}
                     </Button>
                 )}
             </Paragraph>
@@ -238,7 +238,7 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
 
                 <Form onSubmit={handleReviewClick} className="flex flex-col mt-4">
                     <Label htmlFor="rating" className="text-title dark:text-dark_white">Rating</Label>
-                    <Input id="rating" type="number" value={newReview.rating} onChange={e => setNewReview({ ...newReview, rating: e.target.value })} min="1" max="5" required />
+                    <Input id="rating" type="number" value={newReview.rating} onChange={event => setNewReview({ ...newReview, rating: event.target.value })} min="1" max="5" required />
 
                     <Label htmlFor="comment" className="text-title dark:text-dark_white mt-2">Comment</Label>
                     <Input id="comment" type="text" value={newReview.comment} onChange={e => setNewReview({ ...newReview, comment: e.target.value })} required />

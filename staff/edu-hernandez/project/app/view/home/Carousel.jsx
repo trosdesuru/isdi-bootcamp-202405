@@ -14,6 +14,7 @@ export default function Carousel({ userId, onEventGoingToggled, onEventFavToggle
 
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
+  const [activeButton, setActiveButton] = useState('')
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [expandedIndex, setExpandedIndex] = useState(null)
@@ -107,27 +108,9 @@ export default function Carousel({ userId, onEventGoingToggled, onEventFavToggle
     }
   }
 
-  //   const handleMapEventClick = (event) => {
-
-  //     try {
-  //       logic.getAllMapEvents(event)
-  //         .then(() => onEventMapToggled(new Date()))
-  //         .catch(error => {
-  //           console.error(error)
-
-  //           alert(error.message)
-  //         })
-  //     } catch (error) {
-  //       console.error(error)
-
-  //       alert(error.message)
-  //     }
-  //   }
-  // }
-
   if (loading) return <Paragraph>Loading...</Paragraph>
 
-  if (items.length === 0) return <Container className="bg-grey p-10"><Paragraph className="font-bevan text-lg text-cities">Carousel will appear here...<br /><span className="font-poppins font-normal text-md">Wait for other users mark favourites events...</span></Paragraph></Container>
+  if (items.length === 0) return <Container className="bg-grey p-10"><Paragraph className="font-bevan text-lg text-cities">Carousel will appear here...<br /><span className="font-poppins font-light text-sm">Wait for other users mark favourites events...</span></Paragraph></Container>
 
   return (
     <div className="relative w-full h-auto overflow-hidden">
@@ -135,15 +118,15 @@ export default function Carousel({ userId, onEventGoingToggled, onEventFavToggle
         <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
           {items.map((item, index) => (
             <Container key={index} className="w-full flex-shrink-0 h-[30rem] relative">
-              <Image src={items[currentIndex].image} alt={item.title} className="w-full h-full object-cover" />
+              <Image src={items[currentIndex].image} alt={item.title} className="w-full h-full object-cover rounded-xl" />
 
               <div className="absolute bottom-0 left-0 right-0 bg-white/70 ml-2 mr-2 mb-2 p-4 flex flex-col justify-end">
-                <Heading level={2} className="text-xl font-bold text-grey font-moderustic">
+                <Heading level={2} className="text-xl font-bold text-grey font-montserrat">
                   {item.title}
                 </Heading>
 
                 <div className="relative flex-1">
-                  <Paragraph className="text-grey font-moderustic text-md leading-relaxed mb-4 ml-0 pl-0">
+                  <Paragraph className="text-grey font-poppins text-md leading-relaxed mb-4 ml-0 pl-0">
                     {expandedIndex === index ? item.caption : `${item.caption.slice(0, 100)}...`} {item.caption.length > 100 && (
                       <Button className="text-blue-500 inline ml-0" onClick={() => handleReadMore(index)}>
                         {expandedIndex === index ? 'read less' : 'read more'}
@@ -154,16 +137,8 @@ export default function Carousel({ userId, onEventGoingToggled, onEventFavToggle
               </div>
 
               <div className="absolute top-0 left-0 right-0 p-4 flex justify-end">
-                <Button onClick={() => handleGoingEventClick(item.id)} className={`${iconColor} text-dark_white rounded-full p-3 font-normal font-bevan text-[15px] sm:text-[18px]`}>
+                <Button onClick={() => handleGoingEventClick(item.id)} className={`${iconColor} text-dark_white rounded-full p-3 font-normal font-bevan text-[15px] sm:text-[18px] ${activeButton === 'go!' ? 'text-cities' : ''}`}>
                   go!
-                </Button>
-
-                <Button className={`${iconColor} px-4 py-2`}>
-                  <ShareIcon className="w-6 h-6" />
-                </Button>
-
-                <Button onClick={() => handleMapEventClick(item.location)} className={`${iconColor} px-4 py-2`}>
-                  <MapIcon className="w-6 h-6" />
                 </Button>
 
                 <Button onClick={() => handleFavEventClick(item.id)} className={`${iconColor} px-4 py-2`}>

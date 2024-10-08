@@ -115,7 +115,7 @@ export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
 
                 <Heading className="font-bevan text-2xl text-bold pt-4 pl-5 text-cities" level={2}>Create Event</Heading>
 
-                <Form className="flex-col font-moderustic text-[14px]" onSubmit={handleCreateEventSubmit}>
+                <Form className="flex-col font-poppins text-[14px]" onSubmit={handleCreateEventSubmit}>
                     <Container className="flex-col">
                         <Container className="flex-col items-start text-light_grey">
                             <Label htmlFor="event-title-input">Event Title</Label>

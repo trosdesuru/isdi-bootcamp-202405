@@ -9,7 +9,7 @@ import logic from '../../logic'
 import Paragraph from '../library/Paragraph'
 
 const PopularEventsList = ({ userId }) => {
-    console.debug('PopularEventsList -> call')
+    // console.debug('PopularEventsList -> call')
 
     const [items, setItems] = useState([])
     const [loading, setLoading] = useState(true)
