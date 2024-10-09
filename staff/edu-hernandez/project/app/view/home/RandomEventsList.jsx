@@ -1,27 +1,12 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import logic from '../../logic'
+import util from '../../util/index'
 
 import Container from '../library/Container'
-import Image from '../library/Image'
 import Heading from '../library/Heading'
 import Section from '../library/Section'
 import Paragraph from '../library/Paragraph'
-
-function getRandomEvents(events, n) {
-    if (typeof n !== 'number' || n < 1) {
-        throw new Error('n must be an integer greater than 0')
-    }
-
-    const shuffled = [...events]
-
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
-    }
-
-    return shuffled.slice(0, Math.min(n, shuffled.length))
-}
 
 const getFirstNWords = (text, n) => {
     if (!text) return '...'
@@ -40,7 +25,7 @@ const RandomEventsList = ({ refreshStamp }) => {
             logic.getAllEvents()
                 .then(allEvents => {
 
-                    const randomEvents = getRandomEvents(allEvents, 3)
+                    const randomEvents = util.getRandomEvents(allEvents, 3)
                     setEvents(randomEvents)
                 })
                 .catch(error => {

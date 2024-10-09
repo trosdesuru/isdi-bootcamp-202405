@@ -3,14 +3,13 @@ import { useState, useEffect } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline'
 import getAverageColor from '../../util/getAverageColor'
 
-import Section from '../library/Section'
 import Container from '../library/Container'
 import Heading from '../library/Heading'
 import Button from '../library/Button'
 import Paragraph from '../library/Paragraph'
 
 const PopularEventsList = ({ userId }) => {
-    // console.debug('PopularEventsList -> call')
+    console.debug('PopularEventsList -> call')
 
     const [items, setItems] = useState([])
     const [loading, setLoading] = useState(true)
@@ -19,11 +18,11 @@ const PopularEventsList = ({ userId }) => {
     const [arrowColor, setArrowColor] = useState('text-dark_white')
 
     const prevSlide = () => {
-        setCurrentIndex((prevIndex) => prevIndex === 0 ? items.length - 1 : prevIndex - 1)
+        setCurrentIndex((prevIndex) => prevIndex <= 0 ? items.length - 1 : prevIndex - 1)
     }
 
     const nextSlide = () => {
-        setCurrentIndex((prevIndex) => prevIndex === items.length - 1 ? 0 : prevIndex + 1)
+        setCurrentIndex((prevIndex) => prevIndex >= items.length - 1 ? 0 : prevIndex + 1)
     }
 
     useEffect(() => {
@@ -43,7 +42,7 @@ const PopularEventsList = ({ userId }) => {
     }, [currentIndex])
 
     useEffect(() => {
-        logic.getAllGoingEvents(userId)
+        logic.getAllPopularEvents(userId)
             .then(items => {
                 setItems(items)
                 setLoading(false)
@@ -60,27 +59,27 @@ const PopularEventsList = ({ userId }) => {
     if (items.length === 0) return <Container className="bg-grey p-10"><Paragraph className="font-bevan text-lg text-cities">Slide here<br /><span className="font-poppins font-normal text-lg">Wait for other users mark events to go...</span></Paragraph></Container>
 
     return (
-        <Section className="popular-events px-4 mt-8 w-full relative overflow-hidden">
+        <section className="popular-events px-4 mt-8 w-full relative overflow-hidden">
             <Heading level={2} className="text-2xl font-bevan ont-bold mb-4 text-cities">
                 Popular Events
             </Heading>
 
-            <Container className="relative w-full">
-                <Container
+            <Container className="relative w-full overflow-hidden">
+                <div
                     className="flex transition-transform duration-500 ease-in-out space-x-4"
                     style={{ transform: `translateX(-${currentIndex * 100}%)` }}
                 >
                     {items.map((item) => (
                         <Container key={item.id} className="flex-shrink-0 w-60 p-2 shadow-lg rounded">
-                            <Container className="flex items-center space-x-4">
+                            <div className="flex items-center space-x-4">
                                 <img src={item.image} alt={item.title} className="w-24 h-24 object-cover rounded" />
-                                <Container>
+                                <div>
                                     <Heading level={3} className="text-lg font-bold dark:text-dark_white">{item.title}</Heading>
-                                </Container>
-                            </Container>
+                                </div>
+                            </div>
                         </Container>
                     ))}
-                </Container>
+                </div>
 
                 <Button
                     className={`absolute top-1/2 left-4 transform -translate-y-1/2 ${arrowColor} p-2 rounded shadow-md bg-white opacity-70`}
@@ -101,7 +100,7 @@ const PopularEventsList = ({ userId }) => {
                 </Button>
 
             </Container>
-        </Section>
+        </section>
     )
 }
 

@@ -4,6 +4,7 @@ import deleteEvent from './deleteEvent'
 import getAllEvents from './getAllEvents'
 import getAllFavEvents from './getAllFavEvents'
 import getAllUserEvents from './getAllUserEvents'
+import getAllPopularEvents from './getAllPopularEvents'
 import getUserId from './getUserId'
 import getUserName from './getUserName'
 import getUsernameUser from './getUsernameUser'
@@ -29,6 +30,7 @@ const logic = {
     getAllUserEvents,
     getAllMapEvents,
     getAllRecommendedEvents,
+    getAllPopularEvents,
     getAllGoingEvents,
     getUserId,
     getUserName,

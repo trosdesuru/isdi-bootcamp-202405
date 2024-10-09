@@ -3,7 +3,7 @@ import { errors } from 'com'
 const { SystemError } = errors
 
 export default () => {
-    return fetch(`${import.meta.env.VITE_API_URL}/events/recommended`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/events/popular`, {
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`
         }
