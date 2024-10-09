@@ -6,6 +6,7 @@ import getAllEventsHandler from './getAllEventsHandler.js'
 import getAllFavEventsHandler from './getAllFavEventsHandler.js'
 import getAllMapEventsHandler from './getAllMapEventsHandler.js'
 import getAllRecommendedEventsHandler from './getAllRecommendedEventsHandler.js'
+import getAllPopularEventsHandler from './getAllPopularEventsHandler.js'
 import getAllUserEventsHandler from './getAllUserEventsHandler.js'
 import getAllGoingEventsHandler from './getAllGoingEventsHandler.js'
 import getUsernameUserHandler from './getUsernameUserHandler.js'
@@ -26,6 +27,7 @@ export {
     getAllFavEventsHandler,
     getAllMapEventsHandler,
     getAllRecommendedEventsHandler,
+    getAllPopularEventsHandler,
     getAllUserEventsHandler,
     getUsernameUserHandler,
     registerUserHandler,

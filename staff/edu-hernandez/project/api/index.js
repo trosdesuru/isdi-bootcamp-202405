@@ -13,6 +13,7 @@ import {
     getAllFavEventsHandler,
     getAllMapEventsHandler,
     getAllGoingEventsHandler,
+    getAllPopularEventsHandler,
     getAllRecommendedEventsHandler,
     createEventHandler,
     createReviewHandler,
@@ -48,6 +49,8 @@ mongoose.connect(process.env.MONGODB_URI)
         api.get('/events/fav', jwtVerifier, getAllFavEventsHandler)
 
         api.get('/events/going', jwtVerifier, getAllGoingEventsHandler)
+
+        api.get('/events/popular', jwtVerifier, getAllPopularEventsHandler)
 
         api.get('/map', jwtVerifier, getAllMapEventsHandler)
 
