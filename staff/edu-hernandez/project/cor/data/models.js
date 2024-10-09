@@ -11,11 +11,6 @@ const user = new Schema({
         type: String,
         required: true
     },
-    // role: {
-    //     type: String,
-    //     enum: ['user', 'organizer'],
-    //     required: true
-    // },
     email: {
         type: String,
         required: true,
@@ -74,12 +69,6 @@ const event = new Schema({
         ref: 'User',
         required: true
     },
-    // display: {
-    //     type: String,
-    //     options: {
-
-    //     }
-    // },
     title: {
         type: String,
         required: true
@@ -112,10 +101,6 @@ const event = new Schema({
         type: [ObjectId],
         default: [],
         ref: 'User',
-    },
-    likes: {
-        type: [ObjectId],
-        required: false
     },
     reviews: [{
         author: {

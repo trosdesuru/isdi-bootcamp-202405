@@ -12,6 +12,7 @@ import searchEvent from './searchEvent.js'
 import getAllFavEvents from './getAllFavEvents.js'
 import updateEventCaption from './updateEventCaption.js'
 import getAllRecommendedEvents from './getAllRecommendedEvents.js'
+import getAllPopularEvents from './getAllPopularEvents.js'
 import getAllMapEvents from './getAllMapEvents.js'
 import getAllGoingEvents from './getAllGoingEvents.js'
 import getUsernameUser from './getUsernameUser.js'
@@ -25,6 +26,7 @@ const logic = {
     getAllMapEvents,
     getAllEvents,
     getAllGoingEvents,
+    getAllPopularEvents,
     getUserName,
     getUsernameUser,
     registerUser,
