@@ -115,7 +115,7 @@ export default function Carousel({ userId, onEventGoingToggled, onEventFavToggle
   return (
     <div className="relative w-full h-auto overflow-hidden">
       <Container className="relative w-full">
-        <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+        <div className="flex transition-transform duration-1200 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
           {items.map((item, index) => (
             <Container key={index} className="w-full flex-shrink-0 h-[30rem] relative">
               <Image src={items[currentIndex].image} alt={item.title} className="w-full h-full object-cover rounded-xl" />

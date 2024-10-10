@@ -9,21 +9,13 @@ import Button from '../library/Button'
 import Paragraph from '../library/Paragraph'
 
 const PopularEventsList = ({ userId }) => {
-    console.debug('PopularEventsList -> call')
+    // console.debug('PopularEventsList -> call')
 
     const [items, setItems] = useState([])
     const [loading, setLoading] = useState(true)
 
     const [currentIndex, setCurrentIndex] = useState(0)
     const [arrowColor, setArrowColor] = useState('text-dark_white')
-
-    const prevSlide = () => {
-        setCurrentIndex((prevIndex) => prevIndex <= 0 ? items.length - 1 : prevIndex - 1)
-    }
-
-    const nextSlide = () => {
-        setCurrentIndex((prevIndex) => prevIndex >= items.length - 1 ? 0 : prevIndex + 1)
-    }
 
     useEffect(() => {
         const updateArrowColor = async () => {
@@ -56,19 +48,23 @@ const PopularEventsList = ({ userId }) => {
 
     if (loading) return <Paragraph>Loading..</Paragraph>
 
-    if (items.length === 0) return <Container className="bg-grey p-10"><Paragraph className="font-bevan text-lg text-cities">Slide here<br /><span className="font-poppins font-normal text-lg">Wait for other users mark events to go...</span></Paragraph></Container>
+    if (items.length === 0) return
+    <Container className="bg-grey p-10">
+        <Paragraph className="font-bevan text-lg text-cities">
+            Slide here<br /><span className="font-poppins font-normal text-lg">Wait for other users mark events to go...</span>
+        </Paragraph>
+    </Container>
 
     return (
-        <section className="popular-events px-4 mt-8 w-full relative overflow-hidden">
+        <section className="popular-events px-4 mt-8 w-full relative overflow-scroll">
             <Heading level={2} className="text-2xl font-bevan ont-bold mb-4 text-cities">
                 Popular Events
             </Heading>
 
-            <Container className="relative w-full overflow-hidden">
+            <Container className="relative w-full overflow-x-auto overflow-y-hidden scrollbar-hide">
                 <div
-                    className="flex transition-transform duration-500 ease-in-out space-x-4"
-                    style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-                >
+                    className="flex space-x-4"
+                    style={{ transform: `translateX(-${currentIndex * 50}%)` }}>
                     {items.map((item) => (
                         <Container key={item.id} className="flex-shrink-0 w-60 p-2 shadow-lg rounded">
                             <div className="flex items-center space-x-4">
@@ -80,25 +76,6 @@ const PopularEventsList = ({ userId }) => {
                         </Container>
                     ))}
                 </div>
-
-                <Button
-                    className={`absolute top-1/2 left-4 transform -translate-y-1/2 ${arrowColor} p-2 rounded shadow-md bg-white opacity-70`}
-                    onClick={prevSlide}
-                    aria-label="Previous Slide"
-                    title="Previous Slide"
-                >
-                    <ChevronLeftIcon className="w-6 h-6" />
-                </Button>
-
-                <Button
-                    className={`absolute top-1/2 right-4 transform -translate-y-1/2 ${arrowColor} p-2 rounded shadow-md bg-white opacity-70`}
-                    onClick={nextSlide}
-                    aria-label="Next Slide"
-                    title="Next Slide"
-                >
-                    <ChevronRightIcon className="w-6 h-6" />
-                </Button>
-
             </Container>
         </section>
     )
