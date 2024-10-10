@@ -9,10 +9,7 @@ export default (username, password) => {
         validate.username(username)
         validate.password(password)
     } catch (error) {
-
-        if (error instanceof ValidationError) {
-            throw error
-        }
+        if (error instanceof ValidationError) { throw error }
 
         throw new SystemError(error.message)
     }

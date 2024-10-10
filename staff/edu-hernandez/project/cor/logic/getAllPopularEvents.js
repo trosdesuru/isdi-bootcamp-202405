@@ -44,7 +44,7 @@ export default userId => {
                     })
 
                     return Promise.all(promises)
-                        .then(recommendedEvents => recommendedEvents)
+                        .then(popularEvents => popularEvents)
                 })
         })
 }

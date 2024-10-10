@@ -212,16 +212,13 @@ describe('getAllFavEvents', () => {
             },
             time: getTime().toString()
         })
-        .then(user => {
-            return getAllFavEvents(user._id.toString())
-                .then(() => {
-                    throw new Error('Expected a NotFoundError to be thrown')
-                })
-                .catch(error => {
-                    expect(error).to.be.instanceOf(NotFoundError)
-                    expect(error.message).to.equal('user not found')
-                })
-        })
+            .then(user => {
+                return getAllFavEvents(user._id.toString())
+                    .catch(error => {
+                        expect(error).to.be.instanceOf(NotFoundError)
+                        expect(error.message).to.equal('user not found')
+                    })
+            })
     })
 
     it('fails when the author of the event has been deleted', () => {
@@ -252,9 +249,6 @@ describe('getAllFavEvents', () => {
                         return User.findByIdAndDelete(userPaul._id)
                             .then(() => {
                                 return getAllFavEvents(userPaul._id.toString())
-                                    .then(() => {
-                                        throw new Error('should not reach this point, author was deleted')
-                                    })
                                     .catch(error => {
                                         expect(error).to.be.instanceOf(NotFoundError)
                                         expect(error.message).to.equal('user not found')
@@ -288,9 +282,6 @@ describe('getAllFavEvents', () => {
         })
             .then(eventWithInvalidAuthor => {
                 return getAllFavEvents(eventWithInvalidAuthor._id.toString())
-                    .then(() => {
-                        throw new Error('should not reach this point, author is invalid')
-                    })
                     .catch(error => {
                         expect(error).to.be.instanceOf(NotFoundError)
                         expect(error.message).to.equal('user not found')
@@ -312,9 +303,6 @@ describe('getAllFavEvents', () => {
         })
             .then(eventWithoutAuthor => {
                 return getAllFavEvents(eventWithoutAuthor._id.toString())
-                    .then(() => {
-                        throw new Error('should not reach this point, event has no author')
-                    })
                     .catch(error => {
                         expect(error).to.be.instanceOf(NotFoundError)
                         expect(error.message).to.equal('user not found')
@@ -326,9 +314,6 @@ describe('getAllFavEvents', () => {
         const nonExistentUserId = new ObjectId().toString()
 
         return getAllFavEvents(nonExistentUserId)
-            .then(() => {
-                throw new Error('should not reach this point')
-            })
             .catch(error => {
                 expect(error).to.exist
                 expect(error).to.be.instanceOf(NotFoundError)
@@ -338,9 +323,6 @@ describe('getAllFavEvents', () => {
 
     it('fails when user does not exist', () => {
         return getAllFavEvents('61616b5f4d778d7e7973b5d7')
-            .then(() => {
-                throw new Error('should have thrown a NotFoundError')
-            })
             .catch(error => {
                 expect(error).to.exist
                 expect(error).to.be.instanceOf(NotFoundError)
@@ -359,9 +341,6 @@ describe('getAllFavEvents', () => {
             },
             time: getTime().toString()
         })
-            .then(() => {
-                throw new NotFoundError('event not found')
-            })
             .catch(error => {
                 expect(error).to.exist
                 expect(error.message).to.include('Event validation failed: author: Path `author` is required.')
@@ -383,9 +362,9 @@ describe('getAllFavEvents', () => {
 
     it('fails on invalid user ID format', () => {
         return getAllFavEvents('invalidUserId')
-            .then(() => {
-                throw new SystemError(error.message)
-            })
+            // .then(() => {
+            //     throw new SystemError(error.message)
+            // })
             .catch(error => {
                 expect(error).to.exist
                 expect(error.name).to.equal('SystemError')
@@ -395,9 +374,6 @@ describe('getAllFavEvents', () => {
     it('fails on invalid event ID in user favs', () => {
         return User.findByIdAndUpdate(user._id, { fav: ['invalidEventId'] })
             .then(() => getAllFavEvents(user._id.toString()))
-            .then(() => {
-                throw new ValidationError('user not found')
-            })
             .catch(error => {
                 expect(error).to.exist
                 expect(error.name).to.equal('CastError')

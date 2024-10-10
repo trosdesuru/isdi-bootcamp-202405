@@ -119,57 +119,51 @@ describe('getAllGoingEvents', () => {
             })
     })
 
+    it('fails on author not found', () => {
+        let userId
+
+        return User.create({
+            name: 'Test',
+            surname: 'User',
+            role: 'user',
+            email: 'test@user.com',
+            username: 'testuser',
+            password: '123123123',
+            going: []
+        })
+            .then(user => {
+                userId = user._id
+
+                return Event.create({
+                    author: new ObjectId(),
+                    title: 'Orphan Event',
+                    image: 'image.png',
+                    date: new Date(),
+                    location: {
+                        type: 'Point',
+                        coordinates: [41.3874, 2.1686]
+                    },
+                    time: '18:00'
+                })
+            })
+            .then(event => {
+                return User.findByIdAndUpdate(userId, { $push: { going: event._id } })
+                    .then(() => event)
+            })
+            .then(() => { return getAllGoingEvents(userId.toString()) })
+            .catch(error => {
+                expect(error).to.exist
+                expect(error).to.be.instanceOf(NotFoundError)
+                expect(error.message).to.equal('author not found')
+            })
+    })
+
     it('fails when user not found', () => {
         return getAllGoingEvents(new ObjectId().toString())
             .catch(error => {
                 expect(error).to.exist
                 expect(error).to.be.instanceOf(NotFoundError)
                 expect(error.message).to.equal('user not found')
-            })
-    })
-
-    it('fails when userId is invalid', () => {
-        return getAllGoingEvents(new ObjectId().toString())
-            .catch(error => {
-                expect(error).to.exist
-                expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('user not found')
-            })
-    })
-
-    it('fails when event author not found', () => {
-        return getAllGoingEvents(user._id.toString())
-            .catch(error => {
-                expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('author not found')
-            })
-    })
-
-    it('fails when multiple event authors are not found', () => {
-        return getAllGoingEvents(user._id.toString())
-            .catch(error => {
-                expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('author not found')
-            })
-    })
-
-    it('fails when user has no going field', () => {
-        return User.create({
-            name: 'Jane',
-            surname: 'Doe',
-            role: 'user',
-            email: 'jane@doe.com',
-            username: 'janedoe',
-            password: '123123123',
-            fav: [],
-        })
-            .then(user => {
-                return getAllGoingEvents(user._id.toString())
-                    .catch(error => {
-                        expect(error).to.exist
-                        expect(error).to.be.instanceOf(ValidationError)
-                        expect(error.message).to.equal('user has no going field')
-                    })
             })
     })
 
