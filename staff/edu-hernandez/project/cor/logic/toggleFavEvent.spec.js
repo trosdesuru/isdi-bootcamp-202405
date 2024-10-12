@@ -82,6 +82,47 @@ describe('toggleFavEvent', () => {
             )
     )
 
+    it('succeeds on removing an event from user favs', () =>
+        User.create({
+            name: 'Charlie',
+            surname: 'Brown',
+            role: 'user',
+            email: 'charlie@brown.com',
+            username: 'charlie',
+            password: '123123123',
+            fav: []
+        })
+            .then(user =>
+                Event.create({
+                    author: user.id,
+                    title: 'test event',
+                    image: 'https://randomImage.png',
+                    caption: 'test caption',
+                    location: {
+                        type: 'Point',
+                        coordinates: [41.38879, 2.15899]
+                    },
+                    time: '08:00',
+                    likes: []
+                })
+                    .then(event => {
+                        user.fav.push(event.id)
+                        return user.save()
+                            .then(() =>
+                                toggleFavEvent(user.id, event.id)
+                            )
+                            .then(() => Promise.all([
+                                User.findById(user.id).lean(),
+                                Event.findById(event.id).lean()
+                            ]))
+                            .then(([updatedUser, updatedEvent]) => {
+                                expect(updatedUser.fav.map(eventObjectId =>
+                                    eventObjectId.toString())).to.not.include(event.id)
+                            })
+                    })
+            )
+    )
+
     it('fails on invalid userId format', () => {
         let _error
 

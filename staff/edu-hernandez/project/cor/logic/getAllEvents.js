@@ -16,8 +16,8 @@ export default userId => {
                 .catch(error => { throw new SystemError(error.message) })
                 .then(events => {
                     const promises = events.map(event => {
-                        event.fav = user.fav.some(eventObjectId => eventObjectId.toString() === event._id.toString())
-                        event.going = event.going.some(userObjectId => userObjectId.toString() === userId)
+                        // event.fav = user.fav.some(eventObjectId => eventObjectId.toString() === event._id.toString())
+                        // event.going = event.going.some(userObjectId => userObjectId.toString() === userId)
 
                         return User.findById(event.author).lean()
                             .catch(error => { throw new SystemError(error.message) })
@@ -27,8 +27,7 @@ export default userId => {
                                 event.author = {
                                     id: author._id.toString(),
                                     username: author.username,
-                                    avatar: author.avatar,
-                                    following: user.following.some(userObjectId => userObjectId.toString() === author._id.toString())
+                                    avatar: author.avatar
                                 }
 
                                 event.id = event._id.toString()

@@ -6,45 +6,39 @@ const { NotFoundError, SystemError } = errors
 export default userId => {
     validate.string(userId, 'userId')
 
-    return User.findById(userId).lean()
+    return User.findById(userId).populate('fav').lean()
         .catch(error => { throw new SystemError(error.message) })
         .then(user => {
             if (!user) throw new NotFoundError('user not found')
 
-            return User.find({ _id: { $ne: userId } }).lean()
-                .catch(error => { throw new SystemError(error.message) })
-        })
-        .then(users => {
-            const userFav = users.flatMap(user => user.fav)
+            if (!Array.isArray(user.fav)) user.fav = []
 
-            return Event.find({ _id: { $in: userFav } }, { __v: 0 }).lean()
-                .catch(error => { throw new SystemError(error.message) })
-                .then(events => {
-                    const recommendedEvents = events.filter(event => {
-                        const favCount = userFav.filter(favEventId => favEventId.toString() === event._id.toString()).length
-                        return favCount >= 1
+            const events = user.fav
+
+            if (events.length < 2) return []
+
+            const promises = events.map(event => {
+                event.fav = true
+
+                return User.findById(event.author).lean()
+                    .then(author => {
+                        if (!author) throw new NotFoundError('author not found')
+
+                        event.author = {
+                            id: author._id.toString(),
+                            username: author.username,
+                            avatar: author.avatar,
+                            following: user.following.some(userObjectId => userObjectId.toString() === author._id.toString())
+                        }
+
+                        event.id = event._id.toString()
+                        delete event._id
+
+                        return event
                     })
+            })
 
-                    const promises = recommendedEvents.map(event => {
-                        return User.findById(event.author).lean()
-                            .catch(error => { throw new SystemError(error.message) })
-                            .then(author => {
-                                if (!author) throw new NotFoundError('author not found')
-
-                                event.author = {
-                                    username: author.username,
-                                    avatar: author.avatar
-                                }
-
-                                event.id = event._id.toString()
-                                delete event._id
-
-                                return event
-                            })
-                    })
-
-                    return Promise.all(promises)
-                        .then(recommendedEvents => recommendedEvents)
-                })
+            return Promise.all(promises)
+                .then(events => events)
         })
 }

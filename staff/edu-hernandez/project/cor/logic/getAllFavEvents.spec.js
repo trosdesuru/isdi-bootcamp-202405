@@ -155,73 +155,61 @@ describe('getAllFavEvents', () => {
             })
     })
 
-    it('succeeds when user follows authors of their favourite events', () => {
+    it('fails on author not found', () => {
+        debugger
+        let _error
+
         return User.create({
-            name: 'Bob',
-            surname: 'Brown',
+            name: 'Pedro',
+            surname: 'Park',
             role: 'user',
-            email: 'bob@brown.com',
-            username: 'bobbrown',
+            email: 'peter@parker.com',
+            username: 'pedropark',
             password: '123123123',
-            avatar: '/avatar/bobIcon.png',
-            following: [],
-            going: [],
-            fav: []
+            going: []
         })
-            .then(userWithFollow => {
+            .then(user => {
                 return Promise.all([
                     Event.create({
-                        author: user._id,
-                        title: 'Event 5',
-                        image: 'image5.png',
+                        author: new ObjectId().toString(),
+                        title: 'Event 1',
+                        image: 'https://randomImage.png',
+                        caption: 'This is event 1',
                         date: new Date(),
                         location: {
                             type: 'Point',
                             coordinates: [41.3874, 2.1686]
                         },
-                        time: getTime().toString()
+                        time: '18:00'
+                    }),
+                    Event.create({
+                        author: new ObjectId().toString(),
+                        title: 'Event 2',
+                        image: 'https://randomImage.png',
+                        caption: 'This is event 2',
+                        date: new Date(),
+                        location: {
+                            type: 'Point',
+                            coordinates: [41.3874, 2.1686]
+                        },
+                        time: '18:00'
                     })
                 ])
-                    .then(([e5]) => {
-                        return User.findByIdAndUpdate(
-                            userWithFollow._id,
-                            { fav: [e5._id], following: [user._id] })
-                            .then(() => getAllFavEvents(userWithFollow._id.toString()))
-                            .then(events => {
-                                expect(events).to.have.lengthOf(1)
-                                expect(events[0].id).to.equal(e5._id.toString())
-                                expect(events[0].fav).to.be.true
-                                expect(events[0].author.id).to.equal(user._id.toString())
-                                expect(events[0].author.username).to.equal('johndoe')
-                                expect(events[0].author.avatar).to.equal('/avatar/avatarIcon.png')
-                                expect(events[0].author.following).to.be.true
+                    .then(([event1, event2]) => {
+                        return User.updateOne({ username: 'pedropark' }, { $push: { going: { $each: [event1._id, event2._id] } } })
+                    })
+                    .then(() => {
+                        return getAllFavEvents(user._id.toString())
+                            .catch(error => _error = error)
+                            .finally(() => {
+                                expect(_error).to.be.instanceOf(NotFoundError)
+                                expect(_error.message).to.equal('author not found')
                             })
                     })
             })
     })
 
-    it('fails when author of the event is not found', () => {
-        return Event.create({
-            author: new ObjectId(),
-            title: 'Event with no existing author',
-            image: 'image_no_author.png',
-            date: new Date(),
-            location: {
-                type: 'Point',
-                coordinates: [41.3874, 2.1686]
-            },
-            time: getTime().toString()
-        })
-            .then(user => {
-                return getAllFavEvents(user._id.toString())
-                    .catch(error => {
-                        expect(error).to.be.instanceOf(NotFoundError)
-                        expect(error.message).to.equal('user not found')
-                    })
-            })
-    })
-
-    it('fails when the author of the event has been deleted', () => {
+    it('fails user not found', () => {
         return User.create({
             name: 'Paul',
             surname: 'Walker',
@@ -258,7 +246,7 @@ describe('getAllFavEvents', () => {
             })
     })
 
-    it('fails when user.fav is not an array', () => {
+    it('fails when user fav is not an array', () => {
         return User.findByIdAndUpdate(user._id, { fav: null }, { new: true })
             .then(user => {
                 return getAllFavEvents(user._id.toString())
@@ -268,61 +256,10 @@ describe('getAllFavEvents', () => {
             })
     })
 
-    it('fails when event has an invalid author ID', () => {
-        return Event.create({
-            author: new mongoose.Types.ObjectId(),
-            title: 'Event with invalid author ID',
-            image: 'image6.png',
-            date: new Date(),
-            location: {
-                type: 'Point',
-                coordinates: [41.3874, 2.1686]
-            },
-            time: getTime().toString()
-        })
-            .then(eventWithInvalidAuthor => {
-                return getAllFavEvents(eventWithInvalidAuthor._id.toString())
-                    .catch(error => {
-                        expect(error).to.be.instanceOf(NotFoundError)
-                        expect(error.message).to.equal('user not found')
-                    })
-            })
-    })
-
-    it('fails when event has no author', () => {
-        return Event.create({
-            author: new ObjectId(),
-            title: 'Event without author',
-            image: 'image7.png',
-            date: new Date(),
-            location: {
-                type: 'Point',
-                coordinates: [41.3874, 2.1686]
-            },
-            time: getTime().toString()
-        })
-            .then(eventWithoutAuthor => {
-                return getAllFavEvents(eventWithoutAuthor._id.toString())
-                    .catch(error => {
-                        expect(error).to.be.instanceOf(NotFoundError)
-                        expect(error.message).to.equal('user not found')
-                    })
-            })
-    })
-
     it('fails on user not found', () => {
         const nonExistentUserId = new ObjectId().toString()
 
         return getAllFavEvents(nonExistentUserId)
-            .catch(error => {
-                expect(error).to.exist
-                expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal(`user not found`)
-            })
-    })
-
-    it('fails when user does not exist', () => {
-        return getAllFavEvents('61616b5f4d778d7e7973b5d7')
             .catch(error => {
                 expect(error).to.exist
                 expect(error).to.be.instanceOf(NotFoundError)

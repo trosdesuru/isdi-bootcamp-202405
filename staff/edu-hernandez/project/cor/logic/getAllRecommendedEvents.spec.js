@@ -3,50 +3,163 @@ import { User, Event } from '../data/models.js'
 import { expect } from 'chai'
 import { errors } from 'com'
 import mongoose, { Types } from 'mongoose'
+
 import getAllRecommendedEvents from './getAllRecommendedEvents.js'
 
 const { ObjectId } = Types
-
-const { SystemErrors, ValidationError, NotFoundError } = errors
+const { ValidationError, NotFoundError } = errors
 
 describe('getAllRecommendedEvents', () => {
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    before(() => { return mongoose.connect(process.env.MONGODB_URI) })
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => Event.deleteMany())
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    beforeEach(() => { return User.deleteMany().then(() => Event.deleteMany()) })
 
-    it('succeeds on finding recommended events', done => {
-        User.create({
-            name: 'Bruno',
-            surname: 'Diaz',
+    it('succeeds on finding recommended events', () => {
+        return User.create({
+            name: 'Peter',
+            surname: 'Parker',
             role: 'user',
-            email: 'bruno@diaz.com',
-            username: 'brunodiaz',
-            password: '123123123',
+            email: 'peter@parker.com',
+            username: 'peterparker',
+            password: 'spiderman123',
             fav: []
         })
-            .then(bruno => {
-                return User.create({
-                    name: 'Mary',
-                    surname: 'Jane',
-                    role: 'user',
-                    email: 'mary@jane.com',
-                    username: 'lamary',
-                    password: '123123123',
-                    fav: []
-                }).then(mary => ({ bruno, mary }))
+            .then(user => {
+                return Promise.all([
+                    Event.create({
+                        author: user._id.toString(),
+                        title: 'Event 1',
+                        image: 'https://randomImage.png',
+                        caption: 'This event 1 an awesome event!',
+                        date: new Date(),
+                        location: {
+                            type: 'Point',
+                            coordinates: [41.3874, 2.1686]
+                        },
+                        time: '18:00'
+                    }),
+                    Event.create({
+                        author: user._id.toString(),
+                        title: 'Event 2',
+                        image: 'https://randomImage.png',
+                        caption: 'This event 2 an awesome event!',
+                        date: new Date(),
+                        location: {
+                            type: 'Point',
+                            coordinates: [41.3874, 2.1686]
+                        },
+                        time: '18:00'
+                    })
+                ])
+                    .then(([event1, event2]) => {
+                        return User.updateOne({ username: 'peterparker' }, { $push: { fav: { $each: [event1._id, event2._id] } } })
+                    })
+                    .then(() => {
+                        return getAllRecommendedEvents(user._id.toString())
+                            .then(recommendedEvents => {
+                                expect(recommendedEvents).to.be.an('array')
+                                expect(recommendedEvents).to.have.lengthOf(2)
+                                expect(recommendedEvents[0].title).to.equal('Event 1')
+                                expect(recommendedEvents[1].title).to.equal('Event 2')
+                            })
+                    })
             })
-            .then(({ bruno, mary }) => {
-                return Event.create({
-                    author: bruno._id,
+    })
+
+    it('succeeds on no recommended events found', () => {
+        return User.create({
+            name: 'Peter',
+            surname: 'Parker',
+            role: 'user',
+            email: 'peter@parker.com',
+            username: 'peterparker',
+            password: 'spiderman123',
+            fav: []
+        })
+            .then(peter => getAllRecommendedEvents(peter._id.toString()))
+            .then(recommendedEvents => {
+                expect(recommendedEvents).to.be.an('array')
+                expect(recommendedEvents.length).to.equal(0)
+            })
+    })
+
+    it('fails on author not found', () => {
+        let _error
+
+        return User.create({
+            name: 'Peter',
+            surname: 'Parker',
+            role: 'user',
+            email: 'peter@parker.com',
+            username: 'peterparker',
+            password: 'spiderman123',
+            fav: []
+        })
+            .then(user => {
+                return Promise.all([
+                    Event.create({
+                        author: new ObjectId().toString(),
+                        title: 'Event 1',
+                        image: 'https://randomImage.png',
+                        caption: 'This event 1 an awesome event!',
+                        date: new Date(),
+                        location: {
+                            type: 'Point',
+                            coordinates: [41.3874, 2.1686]
+                        },
+                        time: '18:00'
+                    }),
+                    Event.create({
+                        author: new ObjectId().toString(),
+                        title: 'Event 2',
+                        image: 'https://randomImage.png',
+                        caption: 'This event 2 an awesome event!',
+                        date: new Date(),
+                        location: {
+                            type: 'Point',
+                            coordinates: [41.3874, 2.1686]
+                        },
+                        time: '18:00'
+                    })
+                ])
+                    .then(([event1, event2]) => {
+                        return User.updateOne({ username: 'peterparker' }, { $push: { fav: { $each: [event1._id, event2._id] } } })
+                    })
+                    .then(() => {
+                        return getAllRecommendedEvents(user._id.toString())
+                            .catch(error => _error = error)
+                            .finally(() => {
+                                expect(_error).to.be.instanceOf(NotFoundError)
+                                expect(_error.message).to.equal('author not found')
+                            })
+                    })
+            })
+    })
+
+    it('fails on author not found', () => {
+        return Promise.all([
+            User.create({
+                name: 'Peter',
+                surname: 'Parker',
+                role: 'user',
+                email: 'peter@parker.com',
+                username: 'peterparker',
+                password: 'spiderman123',
+                fav: []
+            }),
+            User.create({
+                name: 'Mary',
+                surname: 'Jane',
+                role: 'user',
+                email: 'jane@jane.com',
+                username: 'lamary',
+                password: '123123123',
+                fav: []
+            })
+        ])
+            .then(([user1, user2]) =>
+                Event.create({
+                    author: user2._id,
                     title: 'Awesome Event',
                     image: 'https://randomImage.png',
                     caption: 'This is an awesome event!',
@@ -55,41 +168,29 @@ describe('getAllRecommendedEvents', () => {
                         type: 'Point',
                         coordinates: [41.3874, 2.1686]
                     },
-                    time: '18:00',
-                    fav: [mary._id]
-                }).then(event => ({ event, bruno }))
-            })
-            .then(({ event, bruno }) => {
-                return User.updateOne(
-                    { username: 'lamary' },
-                    { $push: { fav: event._id } }
-                ).then(() => ({ event, userId: bruno._id }))
-            })
-            .then(({ event, userId }) => {
-                debugger
-                return getAllRecommendedEvents(userId.toString())
-                    .then(recommendedEvents => {
-                        expect(recommendedEvents).to.be.an('array')
-                        expect(recommendedEvents.length).to.equal(1)
-                        expect(recommendedEvents[0].id).to.equal(event._id.toString())
-                        expect(recommendedEvents[0].author.username).to.equal('brunodiaz')
+                    time: '18:00'
+                })
+                    .then(event => {
+                        user1.fav.push(event._id)
+                        user2.fav.push(event._id)
 
-                        done()
+                        return Promise.all([user1.save(), user2.save(), event.save()])
                     })
-                    .catch(error => done(error))
+            )
+            .then(([user1]) => {
+                return getAllRecommendedEvents(user1._id.toString())
+                    .catch(error => {
+                        expect(error).to.be.instanceOf(NotFoundError)
+                        expect(error.message).to.equal('author not found')
+                    })
             })
-            .catch(error => done(error))
     })
 
-    it('fails on user not found', done => {
-        const nonExistentUserId = new ObjectId().toString()
-
-        getAllRecommendedEvents(nonExistentUserId)
+    it('fails on user not found', () => {
+        return getAllRecommendedEvents(new ObjectId().toString())
             .catch(error => {
                 expect(error).to.be.instanceOf(NotFoundError)
                 expect(error.message).to.equal('user not found')
-
-                done()
             })
     })
 
@@ -119,16 +220,12 @@ describe('getAllRecommendedEvents', () => {
         }
     })
 
-    afterEach(done => {
-        Event.deleteMany()
+    afterEach(() => {
+        return Event.deleteMany()
             .then(() => User.deleteMany())
-            .then(() => done())
-            .catch(error => done(error))
     })
 
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
+    after(() => {
+        return mongoose.disconnect()
     })
 })

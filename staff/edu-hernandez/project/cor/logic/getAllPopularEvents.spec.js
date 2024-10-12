@@ -6,178 +6,161 @@ import mongoose, { Types } from 'mongoose'
 import getAllPopularEvents from './getAllPopularEvents.js'
 
 const { ObjectId } = Types
-
 const { ValidationError, NotFoundError } = errors
 
 describe('getAllPopularEvents', () => {
-    let user
+    before(() => { return mongoose.connect(process.env.MONGODB_URI) })
 
-    before(done => {
-        mongoose.connect(process.env.MONGODB_URI)
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    beforeEach(() => { return User.deleteMany().then(() => Event.deleteMany()) })
 
-    beforeEach(done => {
-        User.deleteMany()
-            .then(() => Event.deleteMany())
-            .then(() => done())
-            .catch(error => done(error))
-    })
-
-    it('succeeds on finding popular events', done => {
-        User.create({
-            name: 'Bruno',
-            surname: 'Diaz',
+    it('succeeds on finding popular events', () => {
+        return User.create({
+            name: 'Pedro',
+            surname: 'Park',
             role: 'user',
             email: 'bruno@diaz.com',
-            username: 'brunodiaz',
+            username: 'pedropark',
             password: '123123123',
             going: []
         })
-            .then(bruno => {
-                return User.create({
-                    name: 'Mary',
-                    surname: 'Jane',
-                    role: 'user',
-                    email: 'mary@jane.com',
-                    username: 'lamary',
-                    password: '123123123',
-                    going: []
-                }).then(mary => ({ bruno, mary }))
+            .then(user => {
+                return Promise.all([
+                    Event.create({
+                        author: user._id.toString(),
+                        title: 'Event 1',
+                        image: 'https://randomImage.png',
+                        caption: 'Caption event 1',
+                        date: new Date(),
+                        location: {
+                            type: 'Point',
+                            coordinates: [41.3874, 2.1686]
+                        },
+                        time: '18:00',
+                        going: []
+                    }),
+                    Event.create({
+                        author: user._id.toString(),
+                        title: 'Event 2',
+                        image: 'https://randomImage.png',
+                        caption: 'Caption event 2',
+                        date: new Date(),
+                        location: {
+                            type: 'Point',
+                            coordinates: [41.3874, 2.1686]
+                        },
+                        time: '18:00',
+                        going: []
+                    })
+                ])
+                    .then(([event1, event2]) => {
+                        return User.updateOne({ username: 'pedropark' }, { $push: { going: { $each: [event1._id, event2._id] } } })
+                    })
+                    .then(() => {
+                        return getAllPopularEvents(user._id.toString())
+                            .then(popularEvents => {
+                                expect(popularEvents).to.be.an('array')
+                                expect(popularEvents).to.have.lengthOf(2)
+                                expect(popularEvents[0].title).to.equal('Event 1')
+                                expect(popularEvents[1].title).to.equal('Event 2')
+                            })
+                    })
             })
-            .then(({ bruno, mary }) => {
+    })
+    it('succeeds with less than two events', () => {
+        return User.create({
+            name: 'Pedro',
+            surname: 'Park',
+            role: 'user',
+            email: 'bruno@diaz.com',
+            username: 'pedropark',
+            password: '123123123',
+            going: []
+        })
+            .then(user => {
                 return Event.create({
-                    author: bruno._id,
-                    title: 'Awesome Event',
+                    author: user._id.toString(),
+                    title: 'Event 1',
                     image: 'https://randomImage.png',
-                    caption: 'This is an awesome event!',
+                    caption: 'Caption event 1',
                     date: new Date(),
                     location: {
                         type: 'Point',
                         coordinates: [41.3874, 2.1686]
                     },
                     time: '18:00',
-                    going: [mary._id]
-                }).then(event => ({ event, bruno }))
+                    going: []
+                }).then(event => ({ event, user }))
             })
-            .then(({ event, bruno }) => {
-                return User.updateOne(
-                    { username: 'lamary' },
-                    { $push: { going: event._id } }
-                ).then(() => ({ event, userId: bruno._id }))
-            })
-            .then(({ event, userId }) => {
-                debugger
-                return getAllPopularEvents(userId.toString())
-                    .then(popularEvents => {
-                        expect(popularEvents).to.be.an('array')
-                        expect(popularEvents.length).to.equal(1)
-                        expect(popularEvents[0].id).to.equal(event._id.toString())
-                        expect(popularEvents[0].author.username).to.equal('brunodiaz')
-
-                        done()
+            .then(({ event, user }) => {
+                return User.updateOne({ username: 'pedropark' }, { $push: { going: event._id } })
+                    .then(() => {
+                        return getAllPopularEvents(user._id.toString())
+                            .then(popularEvents => {
+                                expect(popularEvents).to.be.an('array')
+                                expect(popularEvents.length).to.equal(0)
+                            })
                     })
-                    .catch(error => done(error))
             })
-            .catch(error => done(error))
     })
 
-    it('succeeds on no popular events found', done => {
-        User.create({
-            name: 'Peter',
-            surname: 'Parker',
+    it('fails on author not found', () => {
+        let _error
+
+        return User.create({
+            name: 'Pedro',
+            surname: 'Park',
             role: 'user',
             email: 'peter@parker.com',
-            username: 'peterparker',
-            password: 'spiderman123',
-            going: []
-        })
-            .then(peter => {
-                return getAllPopularEvents(peter._id.toString())
-            })
-            .then(popularEvents => {
-                expect(popularEvents).to.be.an('array')
-                expect(popularEvents.length).to.equal(0)
-
-                done()
-            })
-            .catch(error => done(error))
-    })
-
-    it('fails on author is not found', async () => {
-        let user1, user2, event
-
-        user1 = await User.create({
-            name: 'Peter',
-            surname: 'Parker',
-            email: 'peter@parker.com',
-            username: 'peterparker',
-            password: 'spiderman123',
-            going: []
-        })
-
-        event = await Event.create({
-            author: user1._id.toString(),
-            title: 'Awesome Event',
-            image: 'https://randomImage.png',
-            caption: 'This is an awesome event!',
-            date: new Date(),
-            location: {
-                type: 'Point',
-                coordinates: [41.3874, 2.1686]
-            },
-            time: '18:00',
-            going: []
-        })
-        
-        user2 = await User.create({
-            name: 'Mary',
-            surname: 'Jane',
-            email: 'jane@jane.com',
-            username: 'lamary',
+            username: 'pedropark',
             password: '123123123',
-            going: [event._id]
+            going: []
         })
-        await getAllPopularEvents(user2._id.toString())
-            .then(async () => {
-                debugger
-                let updateAuthor
-
-                await Event.findOneAndUpdate(event._id, { $push: { going: user2._id } })
-                console.log('After update - event.going:', event.going)
-
-                updateAuthor = event.author.toString()
-                console.log('Before update - author:', event.author)
-
-                await User.findByIdAndUpdate(event._id, { $set: { updateAuthor: new ObjectId().toString() } })
-                console.log('finByIdAndUpdate - author:', updateAuthor)
-
-                updateAuthor = await User.findById(event.author.toString())
-                console.log('After update - author:', updateAuthor, 'user2:', user2, 'event:', event)
-
-                return getAllPopularEvents(user2._id.toString())
-            })
-            .then(() => {
-                throw new Error('Test failed, expected NotFoundError to be thrown')
-            })
-            .catch(error => {
-                console.log('error:', error)
-
-                expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('author not found')
+            .then(user => {
+                return Promise.all([
+                    Event.create({
+                        author: new ObjectId().toString(),
+                        title: 'Event 1',
+                        image: 'https://randomImage.png',
+                        caption: 'This is event 1',
+                        date: new Date(),
+                        location: {
+                            type: 'Point',
+                            coordinates: [41.3874, 2.1686]
+                        },
+                        time: '18:00'
+                    }),
+                    Event.create({
+                        author: new ObjectId().toString(),
+                        title: 'Event 2',
+                        image: 'https://randomImage.png',
+                        caption: 'This is event 2',
+                        date: new Date(),
+                        location: {
+                            type: 'Point',
+                            coordinates: [41.3874, 2.1686]
+                        },
+                        time: '18:00'
+                    })
+                ])
+                    .then(([event1, event2]) => {
+                        return User.updateOne({ username: 'pedropark' }, { $push: { going: { $each: [event1._id, event2._id] } } })
+                    })
+                    .then(() => {
+                        return getAllPopularEvents(user._id.toString())
+                            .catch(error => _error = error)
+                            .finally(() => {
+                                expect(_error).to.be.instanceOf(NotFoundError)
+                                expect(_error.message).to.equal('author not found')
+                            })
+                    })
             })
     })
 
-    it('fails on user not found', done => {
-        const nonExistentUserId = new ObjectId().toString()
-
-        getAllPopularEvents(nonExistentUserId)
+    it('fails on user not found', () => {
+        return getAllPopularEvents(new ObjectId().toString())
             .catch(error => {
                 expect(error).to.be.instanceOf(NotFoundError)
                 expect(error.message).to.equal('user not found')
-
-                done()
             })
     })
 
@@ -207,16 +190,7 @@ describe('getAllPopularEvents', () => {
         }
     })
 
-    afterEach(done => {
-        Event.deleteMany()
-            .then(() => User.deleteMany())
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    afterEach(() => { return Event.deleteMany().then(() => User.deleteMany()) })
 
-    after(done => {
-        mongoose.disconnect()
-            .then(() => done())
-            .catch(error => done(error))
-    })
+    after(() => { return mongoose.disconnect() })
 })

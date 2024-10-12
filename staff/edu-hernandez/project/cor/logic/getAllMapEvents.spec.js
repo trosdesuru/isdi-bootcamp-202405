@@ -100,7 +100,7 @@ describe('getAllMapEvents', () => {
 
     it('fails on no events found', () => {
         let error
-        debugger
+
         return Event.deleteMany()
             .then(() => getAllMapEvents(user))
             .catch(_error => {

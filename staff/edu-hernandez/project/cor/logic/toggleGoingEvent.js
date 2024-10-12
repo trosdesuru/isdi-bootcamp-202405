@@ -23,7 +23,8 @@ export default (userId, targetEventId) => {
                     if (userGoingIndex < 0 && eventGoingIndex < 0) {
                         user.going.push(targetEventId)
                         event.going.push(userId)
-                    } else {
+                    }
+                    else {
                         if (userGoingIndex >= 0) user.going.splice(userGoingIndex, 1)
                         if (eventGoingIndex >= 0) event.going.splice(eventGoingIndex, 1)
                     }
