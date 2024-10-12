@@ -1,16 +1,16 @@
 import logic from '../../logic'
 import { useState, useEffect } from 'react'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline'
 import getAverageColor from '../../util/getAverageColor'
 
 import Container from '../library/Container'
 import Heading from '../library/Heading'
-import Button from '../library/Button'
 import Paragraph from '../library/Paragraph'
+import getUserId from '../../logic/getUserId'
 
 const PopularEventsList = ({ userId }) => {
     // console.debug('PopularEventsList -> call')
 
+    userId = getUserId()
     const [items, setItems] = useState([])
     const [loading, setLoading] = useState(true)
 

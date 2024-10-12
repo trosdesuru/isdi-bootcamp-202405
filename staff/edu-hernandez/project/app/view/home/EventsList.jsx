@@ -37,12 +37,6 @@ export default function EventsList({ refreshStamp }) {
         loadEvents()
     }
 
-    const handleUserFollowToggled = () => {
-        // console.debug('EventsList -> handleUserFollowToggled')
-
-        loadEvents()
-    }
-
     const loadEvents = () => {
         try {
             logic.getAllEvents()
@@ -68,7 +62,6 @@ export default function EventsList({ refreshStamp }) {
                 onEventEdited={handleEventEdited}
                 onEventGoingToggled={handleEventGoingToggled}
                 onEventFavToggled={handleEventFavToggled}
-                onUserFollowToggled={handleUserFollowToggled}
             />)}
     </section>
 }

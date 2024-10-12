@@ -25,6 +25,7 @@ export default function Home({ onLogout }) {
     const navigate = useNavigate()
 
     const [refreshStamp, setRefreshStamp] = useState(null)
+
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -83,7 +84,7 @@ export default function Home({ onLogout }) {
                             <>
                                 <Carousel onEventGoingToggled={setRefreshStamp} onEventFavToggled={setRefreshStamp} />
                                 <BannerEvent event={bannerEvent} />
-                                <EventsList refreshStamp={refreshStamp} />
+                                <EventsList refreshStamp={setRefreshStamp} />
                                 <PopularEventsList />
                                 <RandomEventsList refreshStamp={refreshStamp} />
                             </>

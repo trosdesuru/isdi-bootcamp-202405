@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { HeartIcon } from '@heroicons/react/outline'
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/solid'
+import { HeartIcon } from '@heroicons/react/outline'
 import logic from '../../logic'
 import getUserId from '../../logic/getUserId'
 import eventTime from '../../util/eventTime'
@@ -18,7 +18,7 @@ import Container from '../library/Container'
 import Confirm from '../common/Confirm'
 import Avatar from './Avatar'
 
-export default function Event({ user, event, onEventDeleted, onEventEdited, onEventFavToggled, onEventGoingToggled }) {
+export default function Event({ event, onEventDeleted, onEventEdited, onEventFavToggled, onEventGoingToggled }) {
     // console.debug('Event -> call')
 
     const [showFullCaption, setShowFullCaption] = useState(false)
@@ -29,6 +29,7 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
     const [confirmMessage, setConfirmMessage] = useState(null)
     const [newReview, setNewReview] = useState({ rating: '', comment: '' })
     const [error, setError] = useState(null)
+    const [setIsGoing, isGoing] = useState(event.going)
 
     const handleDeleteEventClick = () => setConfirmMessage('Delete Event?')
 
@@ -95,7 +96,6 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
 
     const handleGoingEventClick = () => {
         // console.debug('Event -> handleGoingEventClick')
-
         try {
             logic.toggleGoingEvent(event.id)
                 .then(() => onEventGoingToggled())
@@ -113,7 +113,6 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
 
     const handleFavEventClick = () => {
         // console.debug('Event -> handleFavEventClick')
-
         try {
             logic.toggleFavEvent(event.id)
                 .then(() => onEventFavToggled())
@@ -172,21 +171,14 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
                 {event.title}
             </Heading>
 
-            <Image src={event.image}
-                title={event.title}
-                alt={event.caption}
-                className="w-full rounded-lg shadow-lg object-cover" />
+            <Image src={event.image} title={event.title} alt={event.caption} className="w-full rounded-lg shadow-lg object-cover" />
 
             <div className="flex gap-4 mt-4">
-                <Button
-                    onClick={handleGoingEventClick}
-                    className={`text-xl py-2 px-4 rounded-md font-bevan text-light_grey dark:text-dark_white ${event.going ? 'text-cities' : 'text-light_grey'} border-2 border-transparent transition duration-200`}>
-                    {event.going ? 'go!' : 'go!'}
-                </Button>
+                <button onClick={handleGoingEventClick} className={`text-xl py-2 px-4 rounded-md font-bevan text-light_grey dark:text-dark_white ${event.going ? 'text-cities' : 'text-light_grey'} border-2 border-transparent transition duration-200`}>
+                    {event.going === event.author ? 'going!' : 'go!'}
+                </button>
 
-                <Button
-                    onClick={handleFavEventClick}
-                    className={`py-2 rounded-md flex items-center justify-center text-white ${event.fav ? 'bg-transparent' : 'bg-transparent'}`}>
+                <Button onClick={handleFavEventClick} className={`py-2 rounded-md flex items-center justify-center text-white ${event.fav ? 'bg-transparent' : 'bg-transparent'}`}>
                     {event.fav ? (<SolidHeartIcon className="h-8 w-8 text-ore" />) : (<HeartIcon className="h-8 w-8 text-dark_white" />)}
                 </Button>
 
@@ -263,6 +255,7 @@ export default function Event({ user, event, onEventDeleted, onEventEdited, onEv
                     <Button type="submit" className="font-bevan text-cities py-2 px-4 rounded-md hover:bg-opacity-90">
                         Save
                     </Button>
+
                     <Button type="button" onClick={handleCancelEditEventClick} className="font-bevan text-md text-light_grey py-2 px-4 rounded-md hover:bg-opacity-90">
                         Cancel
                     </Button>
