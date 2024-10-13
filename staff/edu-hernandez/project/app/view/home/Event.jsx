@@ -178,7 +178,7 @@ export default function Event({ event, onEventDeleted, onEventEdited, onEventFav
                     {event.going === event.author ? 'going!' : 'go!'}
                 </button>
 
-                <Button onClick={handleFavEventClick} className={`py-2 rounded-md flex items-center justify-center text-white ${event.fav ? 'bg-transparent' : 'bg-transparent'}`}>
+                <Button onClick={handleFavEventClick} className={`py-2 rounded-md flex items-center justify-center text-white'}`}>
                     {event.fav ? (<SolidHeartIcon className="h-8 w-8 text-ore" />) : (<HeartIcon className="h-8 w-8 text-dark_white" />)}
                 </Button>
 
