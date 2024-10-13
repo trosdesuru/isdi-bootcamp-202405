@@ -6,39 +6,47 @@ const { NotFoundError, SystemError } = errors
 export default userId => {
     validate.string(userId, 'userId')
 
-    return User.findById(userId).populate('going').lean()
+    return User.find({ _id: { $ne: userId } }).lean()
         .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) throw new NotFoundError('user not found')
+        .then(users => {
+            if (!users) throw new NotFoundError('users not founded')
 
-            if (!Array.isArray(user.going)) user.going = []
+            const events = []
 
-            const events = user.going
-
-            if (events.length < 2) return []
-
-            const promises = events.map(event => {
-                event.going = true
-
-                return User.findById(event.author).lean()
-                    .catch(error => { throw new SystemError(error.message) })
-                    .then(author => {
-                        if (!author) throw new NotFoundError('author not found')
-
-                        event.author = {
-                            id: author._id.toString(),
-                            username: author.username,
-                            avatar: author.avatar
-                        }
-
-                        event.id = event._id.toString()
-                        delete event._id
-
-                        return event
-                    })
+            users.forEach(user => {
+                if (user.going && user.going.length > 0) {
+                    events.push(...user.going)
+                }
             })
 
-            return Promise.all(promises)
-                .then(events => events)
+            return Event.find({ _id: { $in: events } }).lean()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(events => {
+                    if (!events || events.length === 0) return []
+
+                    const promises = events.map(event => {
+                        event.going = true
+
+                        return User.findById(event.author).lean()
+                            .catch(error => { throw new SystemError(error.message) })
+                            .then(author => {
+                                if (!author) throw new NotFoundError('author not found')
+
+                                event.author = {
+                                    id: author._id.toString(),
+                                    username: author.username,
+                                    avatar: author.avatar
+                                }
+
+                                event.id = event._id.toString()
+                                delete event._id
+
+                                return event
+                            })
+                    })
+                    return Promise.all(promises)
+                        .then(events => events)
+                })
+
         })
 }

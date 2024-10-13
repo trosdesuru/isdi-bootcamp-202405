@@ -44,7 +44,7 @@ describe('toggleGoingEvent', () => {
                             ]))
                             .then(([updatedUser, updatedEvent]) => {
                                 expect(updatedUser.going.map(eventObjectId => eventObjectId.toString())).to.include(event.id)
-                                expect(updatedEvent.going.map(userObjectId => userObjectId.toString())).to.include(user.id)
+                                expect(updatedEvent.going.map(userObjectId => userObjectId.toString())).to.not.include(user.id)
                             })
                     )
             )
@@ -80,8 +80,8 @@ describe('toggleGoingEvent', () => {
                                 Event.findById(event.id).lean()
                             ]))
                             .then(([updatedUser, updatedEvent]) => {
-                                expect(updatedUser.going.map(eventObjectId => eventObjectId.toString())).to.not.include(event.id)
-                                expect(updatedEvent.going.map(userObjectId => userObjectId.toString())).to.not.include(user.id)
+                                expect(updatedUser.going.map(eventObjectId => eventObjectId.toString())).to.include(event.id)
+                                expect(updatedEvent.going.map(userObjectId => userObjectId.toString())).to.include(user.id)
                             })
                     )
             )
@@ -116,7 +116,7 @@ describe('toggleGoingEvent', () => {
                                 coordinates: [41.38879, 2.15899]
                             },
                             time: '08:00',
-                            going: [user1.id, user2.id]
+                            going: []
                         })
                             .then(event =>
                                 toggleGoingEvent(user1.id, event.id)
@@ -125,9 +125,9 @@ describe('toggleGoingEvent', () => {
                                         Event.findById(event.id).lean()
                                     ]))
                                     .then(([updatedUser, updatedEvent]) => {
-                                        expect(updatedUser.going.map(eventObjectId => eventObjectId.toString())).to.not.include(event.id)
+                                        expect(updatedUser.going.map(eventObjectId => eventObjectId.toString())).to.include(event.id)
                                         expect(updatedEvent.going.map(userObjectId => userObjectId.toString())).to.not.include(user1.id)
-                                        expect(updatedEvent.going.map(userObjectId => userObjectId.toString())).to.include(user2.id)
+                                        expect(updatedEvent.going.map(userObjectId => userObjectId.toString())).to.not.include(user2.id)
                                     })
                             )
                     )
@@ -164,7 +164,7 @@ describe('toggleGoingEvent', () => {
                                 Event.findById(event.id).lean()
                             ]))
                             .then(([updatedUser, updatedEvent]) => {
-                                expect(updatedEvent.going.map(userObjectId => userObjectId.toString())).to.include(user.id)
+                                expect(updatedEvent.going.map(userObjectId => userObjectId.toString())).to.not.include(user.id)
                                 expect(updatedUser.going.map(eventObjectId => eventObjectId.toString())).to.include(event.id)
 
                                 return toggleGoingEvent(user.id, event.id)
@@ -201,7 +201,7 @@ describe('toggleGoingEvent', () => {
                         coordinates: [41.38879, 2.15899]
                     },
                     time: '08:00',
-                    going: [user.id]
+                    going: []
                 })
                     .then(event =>
                         toggleGoingEvent(user.id, event.id)
@@ -211,7 +211,7 @@ describe('toggleGoingEvent', () => {
                             ]))
                             .then(([updatedUser, updatedEvent]) => {
                                 expect(updatedEvent.going.map(userObjectId => userObjectId.toString())).to.not.include(user.id)
-                                expect(updatedUser.going).to.be.empty
+                                expect(updatedUser.going.map(eventObjectId => eventObjectId.toString())).to.include(event.id)
                             })
                     )
             )

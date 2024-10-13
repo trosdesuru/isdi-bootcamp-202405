@@ -156,7 +156,6 @@ describe('getAllFavEvents', () => {
     })
 
     it('fails on author not found', () => {
-        debugger
         let _error
 
         return User.create({
@@ -166,7 +165,7 @@ describe('getAllFavEvents', () => {
             email: 'peter@parker.com',
             username: 'pedropark',
             password: '123123123',
-            going: []
+            fav: []
         })
             .then(user => {
                 return Promise.all([
@@ -196,7 +195,7 @@ describe('getAllFavEvents', () => {
                     })
                 ])
                     .then(([event1, event2]) => {
-                        return User.updateOne({ username: 'pedropark' }, { $push: { going: { $each: [event1._id, event2._id] } } })
+                        return User.updateOne({ username: 'pedropark' }, { $push: { fav: { $each: [event1._id, event2._id] } } })
                     })
                     .then(() => {
                         return getAllFavEvents(user._id.toString())

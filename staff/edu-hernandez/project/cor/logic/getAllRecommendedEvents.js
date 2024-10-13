@@ -6,39 +6,47 @@ const { NotFoundError, SystemError } = errors
 export default userId => {
     validate.string(userId, 'userId')
 
-    return User.findById(userId).populate('fav').lean()
+    return User.find({ _id: { $ne: userId } }).lean()
         .catch(error => { throw new SystemError(error.message) })
-        .then(user => {
-            if (!user) throw new NotFoundError('user not found')
+        .then(users => {
+            if (!users) throw new NotFoundError('users not found')
 
-            if (!Array.isArray(user.fav)) user.fav = []
+            const events = []
 
-            const events = user.fav
-
-            if (events.length < 2) return []
-
-            const promises = events.map(event => {
-                event.fav = true
-
-                return User.findById(event.author).lean()
-                    .then(author => {
-                        if (!author) throw new NotFoundError('author not found')
-
-                        event.author = {
-                            id: author._id.toString(),
-                            username: author.username,
-                            avatar: author.avatar,
-                            following: user.following.some(userObjectId => userObjectId.toString() === author._id.toString())
-                        }
-
-                        event.id = event._id.toString()
-                        delete event._id
-
-                        return event
-                    })
+            users.forEach(user => {
+                if (user.fav && user.fav.length > 0) {
+                    events.push(...user.fav)
+                }
             })
 
-            return Promise.all(promises)
-                .then(events => events)
+            return Event.find({ _id: { $in: events } }).lean()
+                .catch(error => { throw new SystemError(error.message) })
+                .then(events => {
+                    if (!events || events.length === 0) return []
+
+                    const promises = events.map(event => {
+                        event.fav = true
+
+                        return User.findById(event.author).lean()
+                            .catch(error => { throw new SystemError(error.message) })
+                            .then(author => {
+                                if (!author) throw new NotFoundError('author not found')
+
+                                event.author = {
+                                    id: author._id.toString(),
+                                    username: author.username,
+                                    avatar: author.avatar
+                                }
+
+                                event.id = event._id.toString()
+                                delete event._id
+
+                                return event
+                            })
+                    })
+                    return Promise.all(promises)
+                        .then(events => events)
+                })
+
         })
 }

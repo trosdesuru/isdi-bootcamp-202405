@@ -17,22 +17,16 @@ export default (userId, targetEventId) => {
                 .then(event => {
                     if (!event) throw new NotFoundError('event not found')
 
-                    const userGoingIndex = user.going.findIndex(eventObjectId => eventObjectId.toString() === targetEventId)
-                    const eventGoingIndex = event.going.findIndex(userObjectId => userObjectId.toString() === userId)
+                    const { going } = user
 
-                    if (userGoingIndex < 0 && eventGoingIndex < 0) {
-                        user.going.push(targetEventId)
-                        event.going.push(userId)
-                    }
-                    else {
-                        if (userGoingIndex >= 0) user.going.splice(userGoingIndex, 1)
-                        if (eventGoingIndex >= 0) event.going.splice(eventGoingIndex, 1)
-                    }
+                    const index = going.findIndex(eventObjectId => eventObjectId.toString() === targetEventId.toString())
 
-                    return Promise.all([
-                        User.updateOne({ _id: userId }, { $set: { going: user.going } }),
-                        Event.updateOne({ _id: targetEventId }, { $set: { going: event.going } })
-                    ])
+                    if (index < 0)
+                        going.push(targetEventId)
+                    else
+                        going.splice(index, 1)
+
+                    return User.updateOne({ _id: userId }, { $set: { going } })
                         .catch(error => { throw new SystemError(error.message) })
                 })
         })
