@@ -64,7 +64,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.delete('/events/:eventId', jwtVerifier, deleteEventHandler)
 
-        api.patch('/events/:eventId/going', jwtVerifier, toggleGoingEventHandler)
+        api.patch('/events/:targetEventId/going', jwtVerifier, toggleGoingEventHandler)
 
         api.patch('/events/:eventId/favs', jwtVerifier, toggleFavEventHandler)
 
