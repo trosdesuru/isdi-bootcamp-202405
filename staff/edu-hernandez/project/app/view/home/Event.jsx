@@ -29,7 +29,6 @@ export default function Event({ event, user, onEventDeleted, onEventEdited, onEv
     const [confirmMessage, setConfirmMessage] = useState(null)
     const [newReview, setNewReview] = useState({ rating: '', comment: '' })
     const [error, setError] = useState(null)
-    const [setIsGoing, isGoing] = useState(event.going)
 
     const handleDeleteEventClick = () => setConfirmMessage('Delete Event?')
 
@@ -173,13 +172,13 @@ export default function Event({ event, user, onEventDeleted, onEventEdited, onEv
             <Image src={event.image} title={event.title} alt={event.caption} className="w-full rounded-lg shadow-lg object-cover" />
 
             <div className="flex gap-4 mt-4">
-            
+
                 <button onClick={handleGoingEventClick} className={`text-xl py-2 px-4 rounded-md font-bevan text-light_grey dark:text-dark_white ${event.going ? 'text-cities' : 'text-light_grey'} border-2 border-transparent transition duration-200`}>
-                    {event.going ? 'go' : 'go!'}
+                    {event.going ? 'go!' : 'go'}
                 </button>
 
                 <Button onClick={handleFavEventClick} className={`py-2 rounded-md flex items-center justify-center text-white'}`}>
-                    {event.fav === event.author  ? (<SolidHeartIcon className="h-8 w-8 text-ore" />) : (<HeartIcon className="h-8 w-8 text-dark_white" />)}
+                    {event.fav ? (<SolidHeartIcon className="h-8 w-8 text-ore" />) : (<HeartIcon className="h-8 w-8 text-dark_white" />)}
                 </Button>
 
                 {event.author.id === logic.getUserId() && (

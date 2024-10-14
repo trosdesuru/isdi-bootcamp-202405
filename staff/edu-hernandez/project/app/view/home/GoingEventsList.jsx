@@ -25,20 +25,8 @@ export default function GoingEventsList() {
         loadEvents()
     }
 
-    const handleEventLikeToggled = () => {
-        // console.debug('GoingEventsList -> handleEventLikeToggled')
-
-        loadEvents()
-    }
-
     const handleEventFavToggled = () => {
         // console.debug('GoingEventsList -> handleEventFavToggled')
-
-        loadEvents()
-    }
-
-    const handleUserFollowToggled = () => {
-        // console.debug('GoingEventsList -> handleUserFollowToggled')
 
         loadEvents()
     }

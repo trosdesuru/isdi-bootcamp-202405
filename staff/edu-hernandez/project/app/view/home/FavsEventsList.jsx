@@ -6,9 +6,10 @@ export default function FavsEventsList() {
     // console.debug('FavsEventsList -> call')
 
     const [events, setEvents] = useState([])
+    const [refreshStamp, setRefreshStamp] = useState(null)
 
     useEffect(() => {
-        // console.debug('FavsEventsList -> useEffect')
+        console.debug('FavsEventsList -> useEffect')
 
         loadEvents()
     }, [])
@@ -25,14 +26,14 @@ export default function FavsEventsList() {
         loadEvents()
     }
 
-    const handleEventLikeToggled = () => {
-        // console.debug('FavsEventsList -> handleEventLikeToggled')
+    const handleEventGoingToggled = () => {
+        console.debug('FavsEventsList -> handleEventLikeToggled')
 
         loadEvents()
     }
 
     const handleEventFavToggled = () => {
-        // console.debug('FavsEventsList -> handleEventFavToggled')
+        console.debug('FavsEventsList -> handleEventFavToggled')
 
         loadEvents()
     }
@@ -65,7 +66,7 @@ export default function FavsEventsList() {
             event={event}
             onEventDeleted={handleEventDeleted}
             onEventEdited={handleEventEdited}
-            onEventLikeToggled={handleEventLikeToggled}
+            onEventGoingToggled={handleEventGoingToggled}
             onEventFavToggled={handleEventFavToggled}
             onUserFollowToggled={handleUserFollowToggled}
         />)}
