@@ -2,10 +2,10 @@ import { validate, errors } from 'com'
 
 const { SystemError } = errors
 
-export default (eventId) => {
-    validate.string(eventId, 'eventId')
+export default targetEventId => {
+    validate.string(targetEventId, 'targetEventId')
 
-    return fetch(`${import.meta.env.VITE_API_URL}/events/${eventId}/going`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/events/${targetEventId}/going`, {
         method: 'PATCH',
         headers: {
             Authorization: `Bearer ${sessionStorage.token}`

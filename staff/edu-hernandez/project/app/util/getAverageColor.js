@@ -1,13 +1,19 @@
-export default function getAverageColor(imageSrc) {
+import validate from '../../com/validate'
+import errors from '../../com/errors'
+
+const { ValdiationError } = errors
+
+export default function getAverageColor(image) {
+    validate.string(image, 'image')
 
     return new Promise((resolve, reject) => {
-        if (!imageSrc) {
-            return reject(new Error('there is no image onload'))
+        if (!image) {
+            return reject(new ValdiationError('there is no image onload'))
         }
 
         const img = new Image()
         img.crossOrigin = 'Anonymous'
-        img.src = imageSrc
+        img.src = image
 
         img.onload = () => {
             const canvas = document.createElement('canvas')

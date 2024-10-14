@@ -18,7 +18,7 @@ import Container from '../library/Container'
 import Confirm from '../common/Confirm'
 import Avatar from './Avatar'
 
-export default function Event({ event, onEventDeleted, onEventEdited, onEventFavToggled, onEventGoingToggled }) {
+export default function Event({ event, user, onEventDeleted, onEventEdited, onEventFavToggled, onEventGoingToggled }) {
     // console.debug('Event -> call')
 
     const [showFullCaption, setShowFullCaption] = useState(false)
@@ -45,7 +45,6 @@ export default function Event({ event, onEventDeleted, onEventEdited, onEventFav
         // console.debug('Event -> handleCancelEditEventClick')
 
         setEditEventVisible(false)
-
     }
 
     const handleDeleteEventAccept = () => {
@@ -174,40 +173,28 @@ export default function Event({ event, onEventDeleted, onEventEdited, onEventFav
             <Image src={event.image} title={event.title} alt={event.caption} className="w-full rounded-lg shadow-lg object-cover" />
 
             <div className="flex gap-4 mt-4">
+            
                 <button onClick={handleGoingEventClick} className={`text-xl py-2 px-4 rounded-md font-bevan text-light_grey dark:text-dark_white ${event.going ? 'text-cities' : 'text-light_grey'} border-2 border-transparent transition duration-200`}>
-                    {event.going === event.author ? 'going!' : 'go!'}
+                    {event.going ? 'go' : 'go!'}
                 </button>
 
                 <Button onClick={handleFavEventClick} className={`py-2 rounded-md flex items-center justify-center text-white'}`}>
-                    {event.fav ? (<SolidHeartIcon className="h-8 w-8 text-ore" />) : (<HeartIcon className="h-8 w-8 text-dark_white" />)}
+                    {event.fav === event.author  ? (<SolidHeartIcon className="h-8 w-8 text-ore" />) : (<HeartIcon className="h-8 w-8 text-dark_white" />)}
                 </Button>
 
                 {event.author.id === logic.getUserId() && (
                     <>
-                        <Button onClick={handleDeleteEventClick} className="py-2 px-4 rounded-md bg-transparent text-dark_white hover:bg-opacity-90">
-                            Delete
-                        </Button>
-                        <Button onClick={handleEditEventClick} className="py-2 px-4 rounded-md bg-transparent text-dark_white hover:bg-opacity-90">
-                            Edit
-                        </Button>
+                        <Button onClick={handleDeleteEventClick} className="py-2 px-4 rounded-md bg-transparent text-dark_white hover:bg-opacity-90">Delete</Button>
+                        <Button onClick={handleEditEventClick} className="py-2 px-4 rounded-md bg-transparent text-dark_white hover:bg-opacity-90">Edit</Button>
                     </>
                 )}
             </div>
-
             <Paragraph className="text-title dark:text-dark_white font-poppins font-normal text-md mt-2">
                 {showFullCaption ? event.caption : truncatedCaption}
                 {event.caption.length > captionLimit && (
-                    <Button onClick={() => setShowFullCaption(!showFullCaption)}
-                        className="text-blue-500 inline ml-1">
-                        {showFullCaption ? 'read Less' : 'read More'}
-                    </Button>
-                )}
+                    <Button onClick={() => setShowFullCaption(!showFullCaption)} className="text-blue-500 inline ml-1"> {showFullCaption ? 'read Less' : 'read More'}</Button>)}
             </Paragraph>
-
-            <Time className="text-light_grey dark:text-dark_white mt-2">
-                {formatDate(new Date(event.date))}<br />
-                {eventTime(event.time)}
-            </Time>
+            <Time className="text-light_grey dark:text-dark_white mt-2">{formatDate(new Date(event.date))}<br />{eventTime(event.time)}</Time>
         </div>
 
         {event.author.id !== logic.getUserId() && (

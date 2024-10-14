@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import logic from '../../logic'
 import Event from './Event'
 
-export default function EventsList({ refreshStamp }) {
+export default function EventsList({ refreshStamp, user }) {
     // console.debug('EventsList -> call')
 
     const [events, setEvents] = useState([])
@@ -58,6 +58,7 @@ export default function EventsList({ refreshStamp }) {
             <Event
                 key={event.id}
                 event={event}
+                user={user}
                 onEventDeleted={handleEventDeleted}
                 onEventEdited={handleEventEdited}
                 onEventGoingToggled={handleEventGoingToggled}

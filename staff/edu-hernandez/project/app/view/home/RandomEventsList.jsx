@@ -24,8 +24,7 @@ const RandomEventsList = ({ refreshStamp }) => {
         try {
             logic.getAllEvents()
                 .then(allEvents => {
-
-                    const randomEvents = util.getRandomEvents(allEvents, 3)
+                    const randomEvents = util.getRandomEvents(allEvents)
                     setEvents(randomEvents)
                 })
                 .catch(error => {
@@ -46,11 +45,11 @@ const RandomEventsList = ({ refreshStamp }) => {
         <Section className="random-events px-4 mt-8 mb-20 w-full overflow-auto">
             <Heading level={2} className="text-2xl font-bevan font-bold mb-4 text-cities dark:text-dark_white">Randomly events for you</Heading>
             <Container className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                {events.map((event) => (
-                    <Container key={event.id} className="p-4 shadow-lg rounded bg-white flex flex-col items-start dark:bg-inherit">
-                        <img src={event.image} alt={event.title} className="w-full h-40 object-cover rounded mb-4" />
-                        <Heading level={3} className="text-lg font-bold text-grey mb-2 dark:text-dark_white">{event.title}</Heading>
-                        <Paragraph className="text-gray-600 dark:text-dark_white">{getFirstNWords(event.caption, 6)}</Paragraph>
+                {events && events.map(event => (
+                    <Container key={event?.id} className="p-4 shadow-lg rounded bg-white flex flex-col items-start dark:bg-inherit">
+                        <img src={event?.image} alt={event?.title} className="w-full h-40 object-cover rounded mb-4" />
+                        <Heading level={3} className="text-lg font-bold text-grey mb-2 dark:text-dark_white">{event?.title}</Heading>
+                        <Paragraph className="text-gray-600 dark:text-dark_white">{getFirstNWords(event?.caption, 6)}</Paragraph>
                     </Container>
                 ))}
             </Container>
