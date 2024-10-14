@@ -29,6 +29,8 @@ export default userId => {
                             following: user.following.some(userObjectId => userObjectId.toString() === author._id.toString())
                         }
 
+                        event.going = user.going.some(eventObjectId => eventObjectId.toString() === event._id.toString())
+
                         event.id = event._id.toString()
                         delete event._id
 

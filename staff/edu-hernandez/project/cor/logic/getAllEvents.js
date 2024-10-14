@@ -30,8 +30,14 @@ export default userId => {
                                     avatar: author.avatar
                                 }
 
+                                event.going = user.going.some(eventObjectId => eventObjectId.toString() === event._id.toString())
+                                event.fav = user.fav.some(eventObjectId => eventObjectId.toString() === event._id.toString())
+
                                 event.id = event._id.toString()
                                 delete event._id
+
+                                event.location.id = event.location._id.toString()
+                                delete event.location._id
 
                                 return event
                             })

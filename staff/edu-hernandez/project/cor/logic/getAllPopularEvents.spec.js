@@ -64,11 +64,11 @@ describe('getAllPopularEvents', () => {
                     })
                 ])
                     .then(([event1, event2]) => {
-                        return User.updateOne({ _id: mary._id }, { $push: { going: { $each: [event1._id, event2._id] } } })
+                        return User.updateOne({ _id: pedro._id }, { $push: { going: { $each: [event1._id, event2._id] } } })
                             .then(() => ({ event1, event2 }))
                     })
                     .then(() => {
-                        return getAllPopularEvents(pedro._id.toString())
+                        return getAllPopularEvents(mary._id.toString())
                             .then(popularEvents => {
                                 expect(popularEvents).to.be.an('array')
                                 expect(popularEvents).to.have.lengthOf(2)
@@ -129,10 +129,10 @@ describe('getAllPopularEvents', () => {
                         going: []
                     })
                 ])
-                    .then(([event1, event2]) => {
-                        return User.updateOne({ _id: lamary._id }, { $push: { going: event2._id } })
+                    .then((events) => {
+                        return User.updateOne({ _id: pedro._id }, { $push: { going: events[1]._id } })
                             .then(() => {
-                                return getAllPopularEvents(pedro._id.toString())
+                                return getAllPopularEvents(lamary._id.toString())
                                     .then(popularEvents => {
                                         expect(popularEvents).to.be.an('array')
                                         expect(popularEvents.length).to.equal(1)

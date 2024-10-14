@@ -19,7 +19,7 @@ export default userId => {
                 }
             })
 
-            return Event.find({ _id: { $in: events } }).lean()
+            return Event.find({ _id: { $in: events }, author: { $ne: userId } }, { __v: 0 }).lean()
                 .catch(error => { throw new SystemError(error.message) })
                 .then(events => {
                     if (!events || events.length === 0) return []
@@ -40,6 +40,9 @@ export default userId => {
 
                                 event.id = event._id.toString()
                                 delete event._id
+
+                                event.location.id = event.location._id.toString()
+                                delete event.location._id
 
                                 return event
                             })
