@@ -34,6 +34,9 @@ export default userId => {
                                 event.id = event._id.toString()
                                 delete event._id
 
+                                 event.location.id = event.location._id.toString()
+                                delete event.location._id
+
                                 return event
                             })
                     })
