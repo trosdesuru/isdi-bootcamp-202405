@@ -94,6 +94,7 @@ export default function Event({ event, user, onEventDeleted, onEventEdited, onEv
 
     const handleGoingEventClick = () => {
         // console.debug('Event -> handleGoingEventClick')
+
         try {
             logic.toggleGoingEvent(event.id)
                 .then(() => onEventGoingToggled())
@@ -173,7 +174,11 @@ export default function Event({ event, user, onEventDeleted, onEventEdited, onEv
 
             <div className="flex gap-4 mt-4">
 
-                <button onClick={handleGoingEventClick} className={`text-xl py-2 px-4 rounded-md font-bevan text-light_grey dark:text-dark_white ${event.going ? 'text-cities' : 'text-light_grey'} border-2 border-transparent transition duration-200`}>
+                <button 
+                onClick={handleGoingEventClick}
+                className={`text-xl py-2 px-4 rounded-md font-bevan text-light_grey dark:text-dark_white
+                ${event.going ? 'text-cities' : 'text-light_grey'} 
+                border-2 border-transparent transition duration-200 transform scale-100 active:scale-110`}>
                     {event.going ? 'go!' : 'go'}
                 </button>
 
