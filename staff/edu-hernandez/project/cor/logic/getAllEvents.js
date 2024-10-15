@@ -16,9 +16,6 @@ export default userId => {
                 .catch(error => { throw new SystemError(error.message) })
                 .then(events => {
                     const promises = events.map(event => {
-                        // event.fav = user.fav.some(eventObjectId => eventObjectId.toString() === event._id.toString())
-                        // event.going = event.going.some(userObjectId => userObjectId.toString() === userId)
-
                         return User.findById(event.author).lean()
                             .catch(error => { throw new SystemError(error.message) })
                             .then(author => {
@@ -38,6 +35,13 @@ export default userId => {
 
                                 event.location.id = event.location._id.toString()
                                 delete event.location._id
+
+                                event.reviews = event.reviews.map(review => {
+                                    review.id = review._id.toString()
+                                    delete review._id
+                                    return review
+                                })
+
 
                                 return event
                             })

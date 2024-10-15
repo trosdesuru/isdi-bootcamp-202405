@@ -23,7 +23,7 @@ export default (userId, eventId, rating, comment) => {
 
                     event.reviews.push({
                         author: userId,
-                        eventId,
+                        id: eventId,
                         rating,
                         comment
                     })
