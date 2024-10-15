@@ -38,8 +38,6 @@ mongoose.connect(process.env.MONGODB_URI)
 
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
-        api.get('/users/:targetUserId/name', jwtVerifier, getUsernameUserHandler)
-
         api.get('/users/:targetUserId/username', jwtVerifier, getUsernameUserHandler)
 
         api.get('/events', jwtVerifier, getAllEventsHandler)
