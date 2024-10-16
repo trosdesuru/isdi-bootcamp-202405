@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import logic from '../../logic'
 import Event from './Event'
 
-export default function EventsList({ refreshStamp, user }) {
+export default function EventsList({ user, onEventCreated, refreshStamp }) {
     // console.debug('EventsList -> call')
 
     const [events, setEvents] = useState([])
