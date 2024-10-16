@@ -143,7 +143,7 @@ describe('getAllPopularEvents', () => {
             })
     })
 
-    it('succeeds on popular events found', () => {
+    it('succeeds on popular events not found', () => {
         return User.create({
             name: 'Peter',
             surname: 'Parker',
@@ -157,6 +157,56 @@ describe('getAllPopularEvents', () => {
             .then(recommendedEvents => {
                 expect(recommendedEvents).to.be.an('array')
                 expect(recommendedEvents.length).to.equal(0)
+            })
+    })
+
+    it('succeeds with no going events', () => {
+        return Promise.all([
+            User.create({
+                name: 'Pedro',
+                surname: 'Park',
+                role: 'user',
+                email: 'pedro@diaz.com',
+                username: 'pedropark',
+                password: '123123123',
+                going: []
+            }),
+            User.create({
+                name: 'Mary',
+                surname: 'Jane',
+                role: 'user',
+                email: 'mary@jane.com',
+                username: 'maryjane',
+                password: '123123123',
+                going: []
+            })
+        ])
+            .then(([pedro, mary]) => {
+                return getAllPopularEvents(mary._id.toString())
+                    .then(popularEvents => {
+                        expect(popularEvents).to.be.an('array').that.is.empty
+                    })
+            })
+    })
+
+    it('succeeds when users have going events but no events found', () => {
+        return User.create({
+            name: 'Pedro',
+            surname: 'Park',
+            role: 'user',
+            email: 'pedro@diaz.com',
+            username: 'pedropark',
+            password: '123123123',
+            going: []
+        })
+            .then(pedro => {
+                return User.updateOne({ _id: pedro._id }, { $push: { going: new ObjectId() } })
+                    .then(() => {
+                        return getAllPopularEvents(pedro._id.toString())
+                            .then(popularEvents => {
+                                expect(popularEvents).to.be.an('array').that.is.empty
+                            })
+                    })
             })
     })
 
@@ -224,38 +274,30 @@ describe('getAllPopularEvents', () => {
                     })
             })
     })
-
-    it('fails on users not found', () => {
-        return getAllPopularEvents(new ObjectId().toString())
-            .catch(error => {
-                expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('users not found')
-            })
-    })
-
+    
     it('fails on invalid userId', () => {
-        let error
+        let _error
 
         try {
             getAllPopularEvents(new ObjectId())
-        } catch (_error) {
-            error = _error
+        } catch (error) {
+            _error = error
         } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('userId is not a string')
+            expect(_error).to.be.instanceOf(ValidationError)
+            expect(_error.message).to.equal('userId is not a string')
         }
     })
 
     it('fails on non-string userId', () => {
-        let error
+        let _error
 
         try {
             getAllPopularEvents(123)
-        } catch (_error) {
-            error = _error
+        } catch (error) {
+            _error = error
         } finally {
-            expect(error).to.be.instanceOf(ValidationError)
-            expect(error.message).to.equal('userId is not a string')
+            expect(_error).to.be.instanceOf(ValidationError)
+            expect(_error.message).to.equal('userId is not a string')
         }
     })
 

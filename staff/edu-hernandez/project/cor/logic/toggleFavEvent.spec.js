@@ -3,6 +3,7 @@ import { User, Event } from '../data/models.js'
 import mongoose, { Types } from 'mongoose'
 import { expect } from 'chai'
 import { errors } from 'com'
+
 import toggleFavEvent from './toggleFavEvent.js'
 
 const { ObjectId } = Types

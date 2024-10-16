@@ -7,7 +7,7 @@ import mongoose, { Types } from 'mongoose'
 import getAllFavEvents from './getAllFavEvents.js'
 
 const { ObjectId } = Types
-const { NotFoundError, ValidationError, SystemError } = errors
+const { NotFoundError } = errors
 
 describe('getAllFavEvents', () => {
     before(() => mongoose.connect(process.env.MONGODB_URI))
@@ -256,9 +256,9 @@ describe('getAllFavEvents', () => {
     })
 
     it('fails on user not found', () => {
-        const nonExistentUserId = new ObjectId().toString()
+        const userId = new ObjectId().toString()
 
-        return getAllFavEvents(nonExistentUserId)
+        return getAllFavEvents(userId)
             .catch(error => {
                 expect(error).to.exist
                 expect(error).to.be.instanceOf(NotFoundError)
@@ -296,7 +296,7 @@ describe('getAllFavEvents', () => {
             })
     })
 
-    it('fails on invalid user ID format', () => {
+    it('fails on invalid userId format', () => {
         return getAllFavEvents('invalidUserId')
             // .then(() => {
             //     throw new SystemError(error.message)
@@ -307,7 +307,7 @@ describe('getAllFavEvents', () => {
             })
     })
 
-    it('fails on invalid event ID in user favs', () => {
+    it('fails on invalid eventId in user favs', () => {
         return User.findByIdAndUpdate(user._id, { fav: ['invalidEventId'] })
             .then(() => getAllFavEvents(user._id.toString()))
             .catch(error => {
