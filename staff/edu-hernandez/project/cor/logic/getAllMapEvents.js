@@ -36,6 +36,12 @@ export default userId => {
                                 event.location.id = event.location._id.toString()
                                 delete event.location._id
 
+                                event.reviews = event.reviews.map(review => {
+                                    review.id = review._id.toString()
+                                    delete review._id
+                                    return review
+                                })
+
                                 return event
                             })
                     })
