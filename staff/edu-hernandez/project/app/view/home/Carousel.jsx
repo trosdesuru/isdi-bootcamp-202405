@@ -44,6 +44,7 @@ export default function Carousel({ userId, onEventGoingToggled, onEventFavToggle
   useEffect(() => {
     logic.getAllRecommendedEvents(userId)
       .then(recommendedEvents => {
+
         setItems(recommendedEvents)
         setLoading(false)
       })

@@ -17,9 +17,8 @@ import Heading from '../library/Heading'
 import Container from '../library/Container'
 import Confirm from '../common/Confirm'
 import Avatar from './Avatar'
-import getUsernameUser from '../../logic/getUsernameUser'
 
-export default function Event({ event, user, onEventDeleted, onEventEdited, onEventFavToggled, onEventGoingToggled }) {
+export default function Event({ event, onEventDeleted, onEventEdited, onEventFavToggled, onEventGoingToggled }) {
     // console.debug('Event -> call')
 
     const [showFullCaption, setShowFullCaption] = useState(false)

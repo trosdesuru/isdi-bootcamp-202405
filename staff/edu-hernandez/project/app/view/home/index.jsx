@@ -85,11 +85,12 @@ export default function Home({ onLogout }) {
                                 <Carousel onEventGoingToggled={setRefreshStamp} onEventFavToggled={setRefreshStamp} />
                                 <BannerEvent event={bannerEvent} />
                                 <EventsList refreshStamp={setRefreshStamp} />
-                                <PopularEventsList refreshStamp={setRefreshStamp} />
-                                <RandomEventsList refreshStamp={setRefreshStamp} />
+                                <PopularEventsList refreshStamp={refreshStamp} />
+                                <RandomEventsList refreshStamp={refreshStamp} />
                             </>
                         }
                         />
+                        <Route path='/' element={<EventsList refreshStamp={refreshStamp} />} />
                         <Route path="/search" element={<ResultsEventsList />} />
                         <Route path="/hello/:to" element={<Hello />} />
                         <Route path="/map" element={<Map />} />

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import logic from '../../logic'
 import Event from './Event'
 
-export default function EventsList({ user, onEventCreated, refreshStamp }) {
+export default function EventsList({ user, refreshStamp }) {
     // console.debug('EventsList -> call')
 
     const [events, setEvents] = useState([])
@@ -11,6 +11,7 @@ export default function EventsList({ user, onEventCreated, refreshStamp }) {
         // console.debug('EventsList -> useEffect')
 
         loadEvents()
+
     }, [refreshStamp])
 
     const handleEventDeleted = () => {
@@ -53,16 +54,20 @@ export default function EventsList({ user, onEventCreated, refreshStamp }) {
         }
     }
 
-    return <section className="flex flex-wrap flex-cols-1 md:flex-cols-2 lg:flex-cols-3 gap-4 w-full max-w-screen-xl overflow-hidden">
-        {events.map(event =>
-            <Event
-                key={event.id}
-                event={event}
-                user={user}
-                onEventDeleted={handleEventDeleted}
-                onEventEdited={handleEventEdited}
-                onEventGoingToggled={handleEventGoingToggled}
-                onEventFavToggled={handleEventFavToggled}
-            />)}
-    </section>
+    return (
+        <>
+            <section className="flex flex-wrap flex-cols-1 md:flex-cols-2 lg:flex-cols-3 gap-4 w-full max-w-screen-xl overflow-hidden">
+                {events.map(event =>
+                    <Event
+                        key={event.id}
+                        event={event}
+                        user={user}
+                        onEventDeleted={handleEventDeleted}
+                        onEventEdited={handleEventEdited}
+                        onEventGoingToggled={handleEventGoingToggled}
+                        onEventFavToggled={handleEventFavToggled}
+                    />)}
+            </section>
+        </>
+    )
 }
