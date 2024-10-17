@@ -8,7 +8,7 @@ import Input from '../library/Input'
 import Container from '../library/Container'
 import Link from '../library/Link'
 import Button from '../library/Button'
-import useContext from '../context'
+import useContext from '../context.js'
 import { errors } from 'com'
 
 const { NotFoundError, CredentialsError } = errors

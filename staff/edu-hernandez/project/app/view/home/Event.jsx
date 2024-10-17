@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/solid'
 import { HeartIcon } from '@heroicons/react/outline'
+import useContext from '../context.js'
 import logic from '../../logic'
 import getUserId from '../../logic/getUserId'
 import eventTime from '../../util/eventTime'
@@ -20,6 +21,7 @@ import Avatar from './Avatar'
 
 export default function Event({ event, onEventDeleted, onEventEdited, onEventFavToggled, onEventGoingToggled }) {
     // console.debug('Event -> call')
+    const { alert } = useContext()
 
     const [showFullCaption, setShowFullCaption] = useState(false)
     const captionLimit = 100

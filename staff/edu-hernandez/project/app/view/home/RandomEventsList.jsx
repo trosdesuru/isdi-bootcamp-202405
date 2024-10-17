@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import useContext from '../context.js'
 import logic from '../../logic'
 import util from '../../util/index'
 
@@ -18,6 +19,7 @@ const getFirstNWords = (text, n) => {
 }
 
 const RandomEventsList = ({ refreshStamp }) => {
+    const { alert } = useContext()
     const [events, setEvents] = useState([])
 
     useEffect(() => {

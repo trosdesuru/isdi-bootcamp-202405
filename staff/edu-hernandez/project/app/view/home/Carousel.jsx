@@ -1,5 +1,6 @@
 import logic from '../../logic'
 import { useState, useEffect } from 'react'
+import useContext from '../context'
 import { ChevronLeftIcon, ChevronRightIcon, HeartIcon, ShareIcon, BookmarkIcon, CalendarIcon, MapIcon } from '@heroicons/react/outline'
 import getAverageColor from '../../util/getAverageColor'
 import getUserId from '../../logic/getUserId'
@@ -12,7 +13,8 @@ import Button from '../library/Button'
 
 export default function Carousel({ userId, onEventGoingToggled, onEventFavToggled }) {
   // console.debug('Carousel -> call')
-  
+  const { alert } = useContext()
+
   userId = getUserId()
 
   const [items, setItems] = useState([])

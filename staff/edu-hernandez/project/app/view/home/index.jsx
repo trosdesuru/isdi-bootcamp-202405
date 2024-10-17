@@ -84,7 +84,7 @@ export default function Home({ onLogout }) {
                             <>
                                 <Carousel onEventGoingToggled={setRefreshStamp} onEventFavToggled={setRefreshStamp} />
                                 <BannerEvent event={bannerEvent} />
-                                <EventsList refreshStamp={setRefreshStamp} />
+                                <EventsList refreshStamp={refreshStamp} />
                                 <PopularEventsList refreshStamp={refreshStamp} />
                                 <RandomEventsList refreshStamp={refreshStamp} />
                             </>

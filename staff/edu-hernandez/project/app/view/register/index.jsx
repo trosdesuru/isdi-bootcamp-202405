@@ -9,7 +9,7 @@ import Link from '../library/Link'
 import Button from '../library/Button'
 import Image from '../library/Image'
 
-import useContext from '../context'
+import useContext from '../context.js'
 import Paragraph from '../library/Paragraph'
 
 export default function Register({ onRegister, onLoginClick }) {

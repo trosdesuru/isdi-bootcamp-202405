@@ -1,9 +1,11 @@
 import logic from '../../logic'
 import { useState, useEffect } from 'react'
+import useContext from '../context.js'
 import Event from './Event'
 
 export default function UserEventsLists() {
     // console.debug('UserEventsList -> call')
+    const { alert } = useContext()
 
     const [events, setEvents] = useState([])
 

@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef, useContext } from 'react'
-import { Context } from '../context'
+import { useState, useEffect, useRef } from 'react'
+import useContext from '../context.js'
 import { FaPlus, FaMoon, FaSun, FaSignOutAlt } from 'react-icons/fa'
 
 import logic from '../../logic'
@@ -14,7 +14,7 @@ export default function Header({ onEventCreated, onLogout }) {
     const [username, setName] = useState(null)
     const [createEventVisible, setCreateEventVisible] = useState(false)
     const [menuVisible, setMenuVisible] = useState(false)
-    const { theme, setTheme } = useContext(Context)
+    const { theme, setTheme, alert } = useContext()
     const menuRef = useRef(null)
 
     useEffect(() => {

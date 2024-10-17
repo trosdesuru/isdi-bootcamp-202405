@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import useContext from '../context.js'
 import { useSearchParams } from 'react-router-dom'
 
 import logic from '../../logic'
@@ -7,6 +8,7 @@ import Event from './Event'
 
 export default function ResultsEventsList({ refreshStamp }) {
     // console.debug('ResultsEventList -> call')
+    const { alert } = useContext()
 
     const [searchParams] = useSearchParams()
 

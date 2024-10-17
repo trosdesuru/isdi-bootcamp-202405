@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import useContext from '../context.js'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 
@@ -13,6 +14,7 @@ import formatDate from '../../util/formatDate.js'
 
 export default function CreateEvent({ onEventCreated, onCancelCreateEvent }) {
     // console.debug('CreateEvent -> call')
+    const { alert } = useContext()
 
     const [formattedDate, setFormattedDate] = useState(new Date())
     const [currentTime, setCurrentTime] = useState('')
